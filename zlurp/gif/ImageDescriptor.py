@@ -14,28 +14,8 @@ class ImageDescriptor:
         self.SortFlag=stream.bit(self.Packed,5)
         self.Reserved=stream.bit(self.Packed,3,2)
         self.LocalColorTableSize=stream.bit(self.Packed,5,3)
-        
-        self.blocks=[]
-        self.DataLength=0
-        block_size=1
-        row=0
-        self.LWZ_ByteSize=stream.byte()
-            
-        while block_size!=0:
-            block_size=stream.byte()
-            if block_size==0:
-               # print ("Row: {0:02X},".format(row))
-               # row+=1
-               # if row>=self.Height:
-               break
-               # block_size=1
-               # continue
-            data=stream.byte(block_size)
-            #print ("Offset: {0:02X}, Size: {1:02X}".format(stream.pos,block_size))
-            self.blocks.append({'size':block_size,'data':data,'offsef':self.DataLength})
-            self.DataLength+=block_size
-            
-        
+        self.NumberOfColorTableEntries=1 << (self.LocalColorTableSize + 1)
+
         #Group 1 : Every 8th. row, starting with row 0.              (Pass 1)
         #Group 2 : Every 8th. row, starting with row 4.              (Pass 2)
         #Group 3 : Every 4th. row, starting with row 2.              (Pass 3)
@@ -56,5 +36,3 @@ class ImageDescriptor:
         print("  SortFlag: {0}".format(self.SortFlag))
         print("  Reserved: {0:02X}".format(self.Reserved))
         print("  LocalColorTableSize: {0:02X}".format(self.LocalColorTableSize))
-        print("  DataLength: {0:02X}".format(self.DataLength))
-        print("  LWZ_ByteSize: {0}".format(self.LWZ_ByteSize))

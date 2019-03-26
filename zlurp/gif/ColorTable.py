@@ -2,7 +2,7 @@
 # array..
 # ColorTableSize = 3L * (1L << (SizeOfGlobalColorTable + 1));
 class ColorTable:
-    def __init__(self,entries,stream):
+    def __init__(self,stream,entries):
         self.internal_position=stream.pos
         self.colors=[]
         for i in range(0,entries):
