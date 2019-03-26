@@ -3,6 +3,7 @@
 # ColorTableSize = 3L * (1L << (SizeOfGlobalColorTable + 1));
 class ColorTable:
     def __init__(self,entries,stream):
+        self.internal_position=stream.pos
         self.colors=[]
         for i in range(0,entries):
             red= stream.byte()                           # Red Color Element 
@@ -13,6 +14,7 @@ class ColorTable:
     def debug(self):
         index=0
         print("Color Table Block")
+        print("  Offset: {0:02X}".format(self.internal_position))
 
         for i in self.colors:
             print("  Index:{3:3}, R:0x{0:02X}, G:0x{1:02X}, B:0x{2:02X}".format(i[0],i[1],i[2],index))

@@ -1,5 +1,6 @@
 class PlainTextExtension:
     def __init__(self,stream):
+        self.internal_position=stream.pos
         self.Introducer= stream.byte(value=0x21)         # Extension Introducer (always 21h) 
         self.Label= stream.byte(value=0x01)              # Extension Label (always 01h) 
         self.BlockSize= stream.byte(value=0x0C)          # Size of Extension Block (always 0Ch) 
@@ -16,19 +17,18 @@ class PlainTextExtension:
 
 
     def debug():
-        
         print("Plain Text Extension Block")
-
-        print(" Introducer: {0}".format(self.Introducer))
-        print(" Label: {0}".format(self.Label))
-        print(" BlockSize: {0}".format(self.BlockSize))
-        print(" TextGridLeft: {0}".format(self.TextGridLeft))
-        print(" TextGridTop: {0}".format(self.TextGridTop))
-        print(" TextGridWidth: {0}".format(self.TextGridWidth))
-        print(" TextGridHeight: {0}".format(self.TextGridHeight))
-        print(" CellWidth: {0}".format(self.CellWidth))
-        print(" CellHeight: {0}".format(self.CellHeight))
-        print(" TextFgColorIndex: {0}".format(self.TextFgColorIndex))
-        print(" TextBgColorIndex: {0}".format(self.TextBgColorIndex))
-        print(" plainTextData: {0}".format(self.plainTextData))
-        print(" Terminator: {0}".format(self.Terminator))
+        print("  Offset: {0:02X}".format(self.internal_position))
+        print("  Introducer: {0}".format(self.Introducer))
+        print("  Label: {0}".format(self.Label))
+        print("  BlockSize: {0}".format(self.BlockSize))
+        print("  TextGridLeft: {0}".format(self.TextGridLeft))
+        print("  TextGridTop: {0}".format(self.TextGridTop))
+        print("  TextGridWidth: {0}".format(self.TextGridWidth))
+        print("  TextGridHeight: {0}".format(self.TextGridHeight))
+        print("  CellWidth: {0}".format(self.CellWidth))
+        print("  CellHeight: {0}".format(self.CellHeight))
+        print("  TextFgColorIndex: {0}".format(self.TextFgColorIndex))
+        print("  TextBgColorIndex: {0}".format(self.TextBgColorIndex))
+        print("  plainTextData: {0}".format(self.plainTextData))
+        print("  Terminator: {0}".format(self.Terminator))

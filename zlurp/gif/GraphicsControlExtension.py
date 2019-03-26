@@ -1,5 +1,6 @@
 class GraphicsControlExtension:
     def __init__(self,stream):
+        self.internal_position=stream.pos
         self.Introducer= stream.byte(value=0x21)         # Extension Introducer (always 21h) 
         self.Label= stream.byte(value=0xF9)              # Graphic Control Label (always F9h) 
         self.BlockSize= stream.byte(value=0x04)          # Size of remaining fields (always 04h) 
@@ -16,6 +17,7 @@ class GraphicsControlExtension:
     
     def debug(self):
         print("Graphics Control Extension Block")
+        print("  Offset: {0:02X}".format(self.internal_position))
         print("  Introducer: {0}".format(self.Introducer))
         print("  Label: {0}".format(self.Label))
         print("  BlockSize: {0}".format(self.BlockSize))

@@ -1,5 +1,6 @@
 class Header:
     def __init__(self,stream):
+        self.internal_position=stream.pos
         gif_sig='GIF'
         gif_sig_ver=['87a','89a']
         # Header
@@ -22,6 +23,7 @@ class Header:
 
     def debug(self):
         print("Header")
+        print("  Offset: {0:02X}".format(self.internal_position))
         print("  Signature: {0}".format(self.Signature))
         print("  Version: {0}".format(self.Version))
         print("  ScreenWidth: {0}".format(self.ScreenWidth))

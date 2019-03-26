@@ -120,10 +120,11 @@ class DataStream:
         return chunk
     
     def byte(self,length=1,ptr=None,value=None,eod=None):
-        if eod:
+        if eod==0x00:
             chunk=[]
             byte=self.read(length,byte=True)
             while byte:
+                print("POS {0}".format(self.pos))
                 chunk.append(byte)
                 byte=self.read(length,byte=True)
             self.seek(self.pos-1)

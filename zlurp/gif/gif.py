@@ -68,7 +68,12 @@ class gif:
             application=self.load_application_extension()
             if application:
                 continue
-            print ("EH?")
+
+            trailer=self.load_trailer()
+            if trailer:
+                print ("END POSITION: {0:02X}".format(self.stream.pos))
+                break
+            print ("POSITION: {0:02X}".format(self.stream.pos))
             break
 
         self.stream.close()
@@ -123,6 +128,16 @@ class gif:
             return applicaitonextension
         except Exception as ex:
             #print("Trying:{0}".format(ex))
+            self.stream.rewind()
+
+    def load_trailer(self):
+        try:
+            self.stream.pin()
+            trailer=Trailer(self.stream)
+            trailer.debug()
+            return trailer
+        except Exception as ex:
+            print("Trying:{0}".format(ex))
             self.stream.rewind()
 
 
