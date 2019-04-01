@@ -153,7 +153,7 @@ class gif:
             trailer.debug()
             return trailer
         except Exception as ex:
-            print("Trying:{0}".format(ex))
+            #print("Trying:{0}".format(ex))
             self.stream.rewind()
 
     def load_color_table(self,entries):
@@ -163,21 +163,21 @@ class gif:
             colortable.debug()
             return colortable
         except Exception as ex:
-            print("Trying:{0}".format(ex))
+            #print("Trying:{0}".format(ex))
             self.stream.rewind()
 
     def load_image_data(self):
-        try:
+        #try:
             self.stream.pin()
-            imagedata=ImageData(self.stream)
+            imagedata=ImageData(self.stream,self.header.NumberOfGlobalColorTableEntries)
             imagedata.debug()
             return imagedata
-        except Exception as ex:
-            print("Trying:{0}".format(ex))
-            self.stream.rewind()
+        #except Exception as ex:
+         #   print("Trying:{0}".format(ex))
+         #   self.stream.rewind()
 
 
    
 if __name__=='__main__':
-     gif("kermit.gif")
-    
+     # gif("sample_1.gif")
+    gif("kermit.gif")

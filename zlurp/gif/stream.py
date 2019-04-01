@@ -155,12 +155,13 @@ class DataStream:
         return chunk
     
 
-    def print_bit(self,byte):
+    def print_bit(self,byte,length=8):
 
-        o=""
-        for i in range(0,8):
+        o=" <- 0"
+        for i in range(0,length):
             bit_value=byte >> i &1
-            o+="{0}.".format(bit_value)
+            o="{0}.".format(bit_value)+o
+        o="{0} -> ".format(length)+o
         print(o)
             
             

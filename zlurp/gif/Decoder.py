@@ -126,3 +126,77 @@ class Decoder:
             self.stack_ptr = stack_ptr;
 
 
+
+
+
+
+
+
+
+
+
+def init_lookup_table(self):
+    colors=64
+    table_size=4096
+    eoi=1
+    clear=colors*2
+    lookup=[0]*(table_size+2)
+    for index in range(0,colors):
+        lookup[index]=index
+    lookup[table_size]=clear
+    lookup[table_size+1]=eoi
+
+
+def read_code(self):
+        # data mask based based on the curent bit state
+        code_masks=[0x0000, 0x0001, 0x0003, 0x0007,0x000F, 0x001F, 0x003F, 0x007F,0x00FF, 0x01ff, 0x03FF, 0x07FF,0x0FFF]
+        
+        # if there isnt enough data in the byte buffer
+        # grab another one
+        # shift it by the shiift state
+        # "or" it with the curent byte
+        # now we have a buffer with enough data
+        while (self.shift_state < self.running_bits){
+            next_byte =stream.byte()
+            self.buffer =self.buffer  | next_byte << self.shift_state
+            self.shift_state += 8
+        }
+
+        # woo hoo. extract the code form the buffer
+        code = self.buffer & code_masks[self.running_bits]
+
+        # Shift the buffer by the number of bits extracted.
+        self.buffer  >>= self.running_bits
+        self.shift_state-= self.running_bits
+
+        self.decoded_code_index+=1
+        if self.decoded_code_index > self.max_code_plus_one and self.running_bits < self.LZ_BITS:
+            self.max_code_plus_one=self.max_code_plus_one << 1
+            self.running_bits+=1
+        return code
+
+
+def decode(self):
+    self.shifted=0
+    self.runnin=0
+    self.init_lookup_table()
+
+    code=0
+    old_code=0
+
+    loop
+        if code==clear:
+            self.init_lookup_table()
+        code=read_code()
+
+
+
+
+
+
+
+
+
+
+
+
