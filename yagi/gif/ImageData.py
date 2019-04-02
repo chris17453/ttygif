@@ -8,37 +8,39 @@ class ImageData:
         # where the data is stored as its pulled out of the stream
        
         self.internal_position=stream.pos
-        self.blocks=[]
         self.DataLength=0
         self.stream=stream
         self.LWZ_MIN_BYTE_SIZE=self.stream.byte()
         
         self.buffer=0
         self.bytes_in_buffer=0
-        block_size=self.stream.byte()
-        self.block_size=block_size
+        self.block_size=self.stream.byte()
         self.block_index=0
         self.init_lookup_table()
         self.get_first_code_in_data_sub_block()           # always an init table
         gif_index=[]
-        while block_size>0:
-            gif_index+=self.read_block(block_size)
+        self.DataLength+=self.block_size
+        
+        while self.block_size>0:
+            gif_index+=self.read_block()
             self.init_lookup_table()
-            block_size=self.stream.byte()
-            self.block_size=block_size
+            self.block_size=self.stream.byte()
+            self.DataLength+=self.block_size
             self.block_index=0
-            #self.buffer=0
-            #self.bytes_in_buffer=0
+            self.buffer=0
+            self.bytes_in_buffer=0
             self.DATA_BIT_SIZE=self.LWZ_MIN_BYTE_SIZE
-        self.blocks.append({'size':block_size,'data':gif_index,'offset':self.DataLength})
-        self.DataLength+=block_size
+        self.data=gif_index
+        self.stream=None
+        self.lookup=None
 
     def debug(self):
         print("ImageData")
         print("  Offset: {0:02X}".format(self.internal_position))
         print("  DataLength: {0:02X}".format(self.DataLength))
         print("  DATA_BIT_SIZE: {0:02X}".format(self.DATA_BIT_SIZE))
-        print("Data: {0}".format(self.blocks))
+        print("  Data Len: {0}".format(len(self.data)))
+        #print("  Data: {0}".format(self.data))
 
     def init_lookup_table(self):
         self.DATA_BIT_MIN_SIZE=1<<self.LWZ_MIN_BYTE_SIZE
@@ -70,10 +72,11 @@ class ImageData:
             #print ("Bit size increase: {0}".format(self.DATA_BIT_SIZE))
             self.set_max_code_size()
             #print ("MAXCODE: {0:02X}".format(self.MAX_CODE_SIZE))
-            self.lookup=self.lookup+ [self.NOT_A_CODE]*(self.MAX_CODE_SIZE-len(self.lookup)+2)
+            self.lookup=self.lookup+ [self.NOT_A_CODE]*(self.MAX_CODE_SIZE-len(self.lookup)+300)
 
         this_code_index=self.next_table_index
         #print("Table index",self.next_table_index)
+        #print(self.next_table_index,len(self.lookup))
         self.lookup[self.next_table_index]=code_list
         #print (self.code_index,self.MAX_CODE_SIZE,code)
         self.next_table_index+=1
@@ -111,9 +114,11 @@ class ImageData:
        
         return code
  
-    def read_block(self,block_size):
+    def read_block(self):
+        block_size=self.block_size
         start_pos=self.stream.pos
-        #print("BLOCK SIZE: {0}".format(block_size))
+        if self.debug:
+            print("BLOCK SIZE: {0}".format(block_size))
         #Read first code
         self.last_code=self.read_code()
         gif_index=[self.last_code] 
@@ -122,15 +127,18 @@ class ImageData:
             # pull another code from the compressed srream
             code=self.read_code()
             if code==self.CLEAR:
-                #print ("Processing CLEAR")
+                if self.debug:
+                    print ("Processing CLEAR")
                 self.init_lookup_table()
                 continue
 
             elif code==self.END_OF_INFORMATION:
-                #print ("Processing EOI")
+                if self.debug:
+                    print ("Processing EOI")
                 break
             if None ==code:
-                #print ("LAST BIT")
+                if self.debug:
+                    print ("LAST BIT")
                 continue
             #if self.last_code>=len(self.lookup):
             #    raise Exception ("Last Code out of bounds: lookup length: {0}. Code: {1}".format(len(self.lookup),self.last_code))
@@ -156,6 +164,7 @@ class ImageData:
                 gif_index+=new_code
             self.add_code_list_to_lookup(new_code)
             self.last_code=code
+        
         end_pos=self.stream.pos
         return gif_index
         

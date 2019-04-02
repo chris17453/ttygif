@@ -28,16 +28,15 @@ class Decoder:
     # plain test extension
     # trailer
 
-    # 	PixelAspectRatio = (AspectRatio + 15) / 64;
+    # PixelAspectRatio = (AspectRatio + 15) / 64;
     # NumberOfGlobalColorTableEntries = 	 (1L << (SizeOfTheGlobalColorTable + 1));
 
-    def __init__(self,file=None):
+    def __init__(self,file=None,debug=None):
+        self.debug=debug
         self.file=file
         self.stream=DataStream(file)
-        
         self.stream.open()
         self.header=Header(self.stream)
-        self.header.debug()
         self.comments=[]
         self.frames=[]
         self.applications=[]
@@ -45,8 +44,11 @@ class Decoder:
             self.global_color_table=self.load_color_table(self.header.NumberOfGlobalColorTableEntries)
         else:
             # TODO default global color table
-            x=1
-        
+            self.global_color_table=None
+
+        if self.debug:
+            self.header.debug()
+
         loop=True
         frame=0
         old_pos=-1
@@ -54,6 +56,10 @@ class Decoder:
             # try for an image
             gc=self.load_graphics_control_extension()
             if gc:
+                descriptor=None
+                local_color_table=None
+                imagedata=None
+                info={'frame':frame,'type':'image','gc':gc,'descriptor':descriptor,'color_table':local_color_table,'image':imagedata}
                 continue
 
             descriptor =self.load_image_descriptor()
@@ -63,7 +69,10 @@ class Decoder:
                 else:
                     local_color_table=None
                 imagedata=self.load_image_data()
-                self.frames.append({'frame':frame,'type':'image','gc':gc,'descriptor':descriptor,'color_table':local_color_table,'image':imagedata})
+                info['descriptor']=descriptor
+                info['color_table']=local_color_table
+                info['image']=imagedata
+                self.frames.append(info)
                 frame+=1
                 continue
             
@@ -88,25 +97,39 @@ class Decoder:
             # EOF
             trailer=self.load_trailer()
             if trailer:
-                print ("END POSITION: {0:02X}".format(self.stream.pos))
+                #print ("END POSITION: {0:02X}".format(self.stream.pos))
                 break
-            print ("POSITION: {0:02X}".format(self.stream.pos))
+            if self.debug:
+                print ("POSITION: {0:02X}".format(self.stream.pos))
             if old_pos==self.stream.pos:
                 raise Exception ("Forever loop. Death.")
             old_pos=self.stream.pos
                         #break
-        self.frames=frame
-        print("Stats")
-        print("  Frames: {0}".format(self.frames))
+        
+        self.frame_count=frame
         self.stream.close()
+        self.stream=None
+        if self.debug:
+            self.stats()
+    
+    def get(self):
+        return {'header':self.header,
+                'global_color_table':self.global_color_table,
+                'frame_count':self.frame_count,
+                'frames':self.frames,
+                'comments':self.comments,
+                'applications':self.applications}
 
-
+    def stats(self):
+        print("Stats")
+        print("  Frames: {0}".format(self.frame_count))
 
     def load_image_descriptor(self):
         try:
             self.stream.pin()
             descriptor=ImageDescriptor(self.stream)
-            descriptor.debug()
+            if self.debug:
+                descriptor.debug()
             return descriptor
         except Exception as ex:
             #print("Trying:{0}".format(ex))
@@ -116,7 +139,8 @@ class Decoder:
         try:
             self.stream.pin()
             comment=CommentExtension(self.stream)
-            comment.debug()
+            if self.debug:
+                comment.debug()
             return coment
         except Exception as ex:
             #print("Trying:{0}".format(ex))
@@ -126,7 +150,8 @@ class Decoder:
         try:
             self.stream.pin()
             graphiccontrol=GraphicsControlExtension(self.stream)
-            graphiccontrol.debug()
+            if self.debug:
+                graphiccontrol.debug()
             return graphiccontrol
         except Exception as ex:
             #print("Trying:{0}".format(ex))
@@ -136,7 +161,8 @@ class Decoder:
         try:
             self.stream.pin()
             plaintext=PlainTextExtension(self.stream)
-            plaintext.debug()
+            if self.debug:
+                plaintext.debug()
             return plaintext
         except Exception as ex:
             #print("Trying:{0}".format(ex))
@@ -146,7 +172,8 @@ class Decoder:
         try:
             self.stream.pin()
             applicaitonextension=ApplicationExtension(self.stream)
-            applicaitonextension.debug()
+            if self.debug:
+                applicaitonextension.debug()
             return applicaitonextension
         except Exception as ex:
             #print("Trying:{0}".format(ex))
@@ -156,7 +183,8 @@ class Decoder:
         try:
             self.stream.pin()
             trailer=Trailer(self.stream)
-            trailer.debug()
+            if self.debug:
+                trailer.debug()
             return trailer
         except Exception as ex:
             #print("Trying:{0}".format(ex))
@@ -166,7 +194,8 @@ class Decoder:
         try:
             self.stream.pin()
             colortable=ColorTable(self.stream,entries)
-            colortable.debug()
+            if self.debug:
+                colortable.debug()
             return colortable
         except Exception as ex:
             #print("Trying:{0}".format(ex))
@@ -176,8 +205,9 @@ class Decoder:
         #try:
             self.stream.pin()
             imagedata=ImageData(self.stream,self.header.NumberOfGlobalColorTableEntries)
-            imagedata.debug()
+            if self.debug:
+                imagedata.debug()
             return imagedata
         #except Exception as ex:
-         #   print("Trying:{0}".format(ex))
-         #   self.stream.rewind()
+        #    #print("Trying:{0}".format(ex))
+            self.stream.rewind()
