@@ -7,5 +7,6 @@ class gif:
 
    
 if __name__=='__main__':
-     # gif("sample_1.gif")
-    gif("kermit.gif")
+    #gif("sample_1.gif")
+    #gif("kermit.gif")
+    gif("giphy.gif")

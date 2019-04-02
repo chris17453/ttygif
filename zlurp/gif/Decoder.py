@@ -54,15 +54,17 @@ class Decoder:
             # try for an image
             gc=self.load_graphics_control_extension()
             if gc:
-                descriptor =self.load_image_descriptor()
-                if descriptor:
-                    if descriptor.LocalColorTableFlag==True:
-                        local_color_table=self.load_color_table(descriptor.NumberOfGlobalColorTableEntries)
-                    else:
-                        local_color_table=None
-                    imagedata=self.load_image_data()
-                    self.frames.append({'frame':frame,'type':'image','gc':gc,'descriptor':descriptor,'color_table':local_color_table,'image':imagedata})
-                    frame+=1
+                continue
+
+            descriptor =self.load_image_descriptor()
+            if descriptor:
+                if descriptor.LocalColorTableFlag==True:
+                    local_color_table=self.load_color_table(descriptor.NumberOfGlobalColorTableEntries)
+                else:
+                    local_color_table=None
+                imagedata=self.load_image_data()
+                self.frames.append({'frame':frame,'type':'image','gc':gc,'descriptor':descriptor,'color_table':local_color_table,'image':imagedata})
+                frame+=1
                 continue
             
             # try for extensions
