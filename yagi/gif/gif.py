@@ -27,4 +27,4 @@ if __name__=='__main__':
     
     #g.canvas_it("sample_1.gif","giphy.html")
     
-    g.canvas_it("giphy.gif","giphy.html")
+    g.canvas_it("kermit.gif","giphy.html")

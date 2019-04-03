@@ -68,7 +68,8 @@ class Decoder:
                     local_color_table=self.load_color_table(descriptor.NumberOfColorTableEntries)
                 else:
                     local_color_table=None
-                imagedata=self.load_image_data()
+                pixels=descriptor.Height*descriptor.Width
+                imagedata=self.load_image_data(pixels)
                 info['descriptor']=descriptor
                 info['color_table']=local_color_table
                 info['image']=imagedata
@@ -201,13 +202,13 @@ class Decoder:
             #print("Trying:{0}".format(ex))
             self.stream.rewind()
 
-    def load_image_data(self):
+    def load_image_data(self,pixels):
         #try:
             self.stream.pin()
-            imagedata=ImageData(self.stream,self.header.NumberOfGlobalColorTableEntries)
+            imagedata=ImageData(self.stream,pixels)
             if self.debug:
                 imagedata.debug()
             return imagedata
         #except Exception as ex:
         #    #print("Trying:{0}".format(ex))
-            self.stream.rewind()
+        #    self.stream.rewind()
