@@ -65,7 +65,7 @@ class Decoder:
             descriptor =self.load_image_descriptor()
             if descriptor:
                 if descriptor.LocalColorTableFlag==True:
-                    local_color_table=self.load_color_table(descriptor.NumberOfGlobalColorTableEntries)
+                    local_color_table=self.load_color_table(descriptor.NumberOfColorTableEntries)
                 else:
                     local_color_table=None
                 imagedata=self.load_image_data()

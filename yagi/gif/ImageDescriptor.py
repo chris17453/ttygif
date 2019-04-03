@@ -9,11 +9,11 @@ class ImageDescriptor:
         self.Packed= stream.byte()                        # Image and Color Table Data Information
 
         # computed
-        self.LocalColorTableFlag=stream.bit(self.Packed,5)
-        self.InterlaceFlag=stream.bit(self.Packed,5)
+        self.LocalColorTableFlag=stream.bit(self.Packed,7)
+        self.InterlaceFlag=stream.bit(self.Packed,6)
         self.SortFlag=stream.bit(self.Packed,5)
         self.Reserved=stream.bit(self.Packed,3,2)
-        self.LocalColorTableSize=stream.bit(self.Packed,5,3)
+        self.LocalColorTableSize=stream.bit(self.Packed,0,3)
         self.NumberOfColorTableEntries=1 << (self.LocalColorTableSize + 1)
 
         #Group 1 : Every 8th. row, starting with row 0.              (Pass 1)

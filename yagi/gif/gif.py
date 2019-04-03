@@ -24,4 +24,7 @@ if __name__=='__main__':
     #gif("kermit.gif")
     #gif.decode("giphy.gif")
     g=gif(debug=True)
+    
+    #g.canvas_it("sample_1.gif","giphy.html")
+    
     g.canvas_it("giphy.gif","giphy.html")

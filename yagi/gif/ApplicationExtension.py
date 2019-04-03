@@ -6,11 +6,19 @@ class ApplicationExtension:
         self.BlockSize= stream.byte(value=0x0B)          # Size of Extension Block (always 0Bh) 
         self.Identifier= stream.string(8)                  # Application Identifier 
         self.AuthentCode= stream.string(3)                 # Application Authentication Code 
-        self.SubBlockDataSize= stream.byte()
-        self.ApplicationData= stream.byte(self.SubBlockDataSize)      # Point to Application Data sub-blocks 
+        
+        self.SubBlockDataSize=0
+        self.data_sub_blocks=[]
+        SubBlockDataSize= stream.byte()
+        while SubBlockDataSize!=0:
+            self.SubBlockDataSize+=SubBlockDataSize
+            self.data_sub_blocks+=stream.byte(SubBlockDataSize)      # Point to Application Data sub-blocks 
+            SubBlockDataSize= stream.byte()
+        
+
         #self.SubBlockID= stream.byte()
         #self.LoopCount= stream.word()
-        self.Terminator= stream.byte(value=0x00)         # Block Terminator (always 0) 
+        self.Terminator= SubBlockDataSize #stream.byte(value=0x00)         # Block Terminator (always 0) 
 
         
     

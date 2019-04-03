@@ -29,7 +29,6 @@ class ImageData:
             self.block_index=0
             self.buffer=0
             self.bytes_in_buffer=0
-            self.DATA_BIT_SIZE=self.LWZ_MIN_BYTE_SIZE
         self.data=gif_index
         self.stream=None
         self.lookup=None
@@ -115,20 +114,20 @@ class ImageData:
         return code
  
     def read_block(self):
-        block_size=self.block_size
         start_pos=self.stream.pos
         if self.debug:
-            print("BLOCK SIZE: {0}".format(block_size))
+            print("BLOCK SIZE: {0}".format(self.block_size))
         #Read first code
-        self.last_code=self.read_code()
-        gif_index=[self.last_code] 
-        code=1
+        code=self.read_code()
+        gif_index=[code] 
+        self.last_code=code
         while code!=None:
             # pull another code from the compressed srream
             code=self.read_code()
             if code==self.CLEAR:
                 if self.debug:
                     print ("Processing CLEAR")
+                    last_code=self.NOT_A_CODE
                 self.init_lookup_table()
                 continue
 
@@ -147,6 +146,16 @@ class ImageData:
             #if self.lookup[self.last_code]==self.NOT_A_CODE:
             #    raise Exception ("Last Code has no value: lookup length: {0}. Code: {1} , Next Code Index: {2}".format(len(self.lookup),self.last_code,self.next_table_index))
             # is the index in the lookup table?
+            if self.debug:
+                print("C{0}:LC{1},BI:{2},POS:{3:02X}".format(code,self.last_code,self.block_index,self.stream.pos))
+            if self.last_code==self.NOT_A_CODE:
+                print "EH"
+                print "EH"
+                print "EH"
+                print "EH"
+                print "EH"
+                print "EH"
+                
             if self.is_code_in_the_lookup(code):
                 #if code>=len(self.lookup):
                 #    raise Exception ("Code out of bounds: lookup length: {0}. Code: {1}".format(len(self.lookup),code))
@@ -158,7 +167,8 @@ class ImageData:
                 prefix=self.lookup[code][0]
                 new_code=self.lookup[self.last_code]+[prefix]
             else:
-                #print(self.lookup)
+                print(self.lookup)
+
                 prefix=self.lookup[self.last_code][0]
                 new_code=self.lookup[self.last_code]+[prefix]
                 gif_index+=new_code
@@ -170,3 +180,131 @@ class ImageData:
         
         #print ("Start: {0:02X},End: {1:02X},Span:{2:02X}, Block Index:{3:02X}".format(start_pos,end_pos,end_pos-start_pos,self.block_index))
     
+
+  protected void decodeImageData() {
+    int NullCode = -1;
+    int npix = iw * ih;
+    int available, 
+      clear,
+      code_mask,
+      code_size,
+      end_of_information,
+      in_code,
+      old_code,
+      bits,
+      code,
+      count,
+      i,
+      datum,
+      data_size,
+      first,
+      top,
+      bi,
+      pi;
+
+    if ((pixels == null) || (pixels.length < npix)) {
+      pixels = new byte[npix]; // allocate new pixel array
+    }
+    if (prefix == null) prefix = new short[MaxStackSize];
+    if (suffix == null) suffix = new byte[MaxStackSize];
+    if (pixelStack == null) pixelStack = new byte[MaxStackSize + 1];
+
+    //  Initialize GIF data stream decoder.
+
+    data_size = read();
+    clear = 1 << data_size;
+    end_of_information = clear + 1;
+    available = clear + 2;
+    old_code = NullCode;
+    code_size = data_size + 1;
+    code_mask = (1 << code_size) - 1;
+    for (code = 0; code < clear; code++) {
+      prefix[code] = 0;
+      suffix[code] = (byte) code;
+    }
+
+    //  Decode GIF pixel stream.
+
+    datum = bits = count = first = top = pi = bi = 0;
+
+    for (i = 0; i < npix;) {
+      if (top == 0) {
+        if (bits < code_size) {
+          //  Load bytes until there are enough bits for a code.
+          if (count == 0) {
+            // Read a new data block.
+            count = readBlock();
+            if (count <= 0)
+              break;
+            bi = 0;
+          }
+          datum += (((int) block[bi]) & 0xff) << bits;
+          bits += 8;
+          bi++;
+          count--;
+          continue;
+        }
+
+        //  Get the next code.
+
+        code = datum & code_mask;
+        datum >>= code_size;
+        bits -= code_size;
+
+        //  Interpret the code
+
+        if ((code > available) || (code == end_of_information))
+          break;
+        if (code == clear) {
+          //  Reset decoder.
+          code_size = data_size + 1;
+          code_mask = (1 << code_size) - 1;
+          available = clear + 2;
+          old_code = NullCode;
+          continue;
+        }
+        if (old_code == NullCode) {
+          pixelStack[top++] = suffix[code];
+          old_code = code;
+          first = code;
+          continue;
+        }
+        in_code = code;
+        if (code == available) {
+          pixelStack[top++] = (byte) first;
+          code = old_code;
+        }
+        while (code > clear) {
+          pixelStack[top++] = suffix[code];
+          code = prefix[code];
+        }
+        first = ((int) suffix[code]) & 0xff;
+
+        //  Add a new string to the string table,
+
+        if (available >= MaxStackSize)
+          break;
+        pixelStack[top++] = (byte) first;
+        prefix[available] = (short) old_code;
+        suffix[available] = (byte) first;
+        available++;
+        if (((available & code_mask) == 0)
+          && (available < MaxStackSize)) {
+          code_size++;
+          code_mask += available;
+        }
+        old_code = in_code;
+      }
+
+      //  Pop a pixel off the pixel stack.
+
+      top--;
+      pixels[pi++] = pixelStack[top];
+      i++;
+    }
+
+    for (i = pi; i < npix; i++) {
+      pixels[i] = 0; // clear missing pixels
+    }
+
+  }

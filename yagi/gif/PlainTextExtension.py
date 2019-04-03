@@ -13,7 +13,19 @@ class PlainTextExtension:
         self.TextFgColorIndex= stream.byte()             # Text foreground color index value 
         self.TextBgColorIndex= stream.byte()             # Text background color index value 
         self.plainTextData= stream.byte(eod=0x00)        # The Plain Text data 
-        self.Terminator= stream.byte(value=0x00)         # Block Terminator (always 0) 
+
+        self.SubBlockDataSize=0
+        self.data_sub_blocks=[]
+        SubBlockDataSize= stream.byte()
+        while SubBlockDataSize!=0:
+            self.SubBlockDataSize+=SubBlockDataSize
+            self.data_sub_blocks+=stream.byte(SubBlockDataSize)      # Point to Application Data sub-blocks 
+            SubBlockDataSize= stream.byte()
+        
+
+        self.Terminator= SubBlockDataSize #stream.byte(value=0x00)         # Block Terminator (always 0) 
+
+        #self.Terminator= stream.byte(value=0x00)         # Block Terminator (always 0) 
 
 
     def debug():
@@ -30,5 +42,6 @@ class PlainTextExtension:
         print("  CellHeight: {0}".format(self.CellHeight))
         print("  TextFgColorIndex: {0}".format(self.TextFgColorIndex))
         print("  TextBgColorIndex: {0}".format(self.TextBgColorIndex))
-        print("  plainTextData: {0}".format(self.plainTextData))
+        print("  SubBlockDataSize: {0}".format(self.SubBlockDataSize))
+        #print("  : {0}".format(self.plainTextData))
         print("  Terminator: {0}".format(self.Terminator))
