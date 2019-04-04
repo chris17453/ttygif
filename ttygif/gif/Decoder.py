@@ -52,6 +52,7 @@ class Decoder:
         loop=True
         frame=0
         old_pos=-1
+        info={}
         while loop:
             # try for an image
             gc=self.load_graphics_control_extension()
@@ -69,7 +70,7 @@ class Decoder:
                 else:
                     local_color_table=None
                 pixels=descriptor.Height*descriptor.Width
-                imagedata=self.load_image_data(pixels)
+                imagedata=self.load_image_data(pixels,descriptor.InterlaceFlag,descriptor.Width)
                 info['descriptor']=descriptor
                 info['color_table']=local_color_table
                 info['image']=imagedata
@@ -202,10 +203,10 @@ class Decoder:
             #print("Trying:{0}".format(ex))
             self.stream.rewind()
 
-    def load_image_data(self,pixels):
+    def load_image_data(self,pixels,interlace,width):
         #try:
             self.stream.pin()
-            imagedata=ImageData(self.stream,pixels)
+            imagedata=ImageData(self.stream,pixels,interlace,width)
             if self.debug:
                 imagedata.debug()
             return imagedata

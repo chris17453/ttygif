@@ -5,10 +5,10 @@ class canvas:
     def __init__(self,dest_file,gif_data):
         template="""<html>
     <head>
-        <title>YAGI {0}, Yet another gif implimentation</title>
+        <title>TTYGIF {0}, STDIO/TTY to GIF</title>
     </head>
     <body>
-        <canvas id="yagi" width="{1}" height="{2}" style="border:1px solid #000000;"></canvas>
+        <canvas id="ttygif" width="{1}" height="{2}" style="border:1px solid #000000;"></canvas>
         <script>
             var global_color_table={3}
             var frame_count={4}
@@ -16,17 +16,42 @@ class canvas:
             var header={6}
             var width={1}
             var height={2}
-            var canvas = document.getElementById('yagi');
+            var canvas = document.getElementById('ttygif');
             var ctx = canvas.getContext("2d");
+            var id = ctx.createImageData(1,1);
+            var id2 = ctx.createImageData({1},{2});
+            var d  = id.data;                        
+            var id2d  = id2.data;                        
+            var mode=3;  // this changes the method used to blit the image.
+                         // 1 is a rect per pixel. good for scaling i guess
+                         // 2 is single image writes way slower
+                         // 3 is single blit
 
             function put_pixel(x,y,color_index){{
                 var color=global_color_table[color_index]
-                var r=color[0];
-                var g=color[1];
-                var b=color[2];
-            
-                ctx.fillStyle = "rgb("+r+","+g+","+b+")";
-                ctx.fillRect( x, y, 1, 1 );
+                if(mode==1){{
+                    var r=color[0];
+                    var g=color[1];
+                    var b=color[2];
+                    ctx.fillStyle = "rgb("+r+","+g+","+b+")";
+                    ctx.fillRect( x, y, 1, 1 );
+                }} 
+                if(mode==2) {{
+                    d[0]   = color[0];
+                    d[1]   = color[1];
+                    d[2]   = color[2];
+                    d[3]   = 255;
+                    ctx.putImageData( id, x, y ); 
+                }}
+                if(mode==3){{
+                    var off = (y * id2.width + x) * 4;
+
+                    id2d[off+0]   = color[0];
+                    id2d[off+1]   = color[1];
+                    id2d[off+2]   = color[2];
+                    id2d[off+3]   = 255;
+
+                }}
             }}
 
             function fill(color_index){{
@@ -49,8 +74,8 @@ class canvas:
                 height=frame['descriptor']['Height']
                 image=frame['image']['data']
                 len_of_frame=frame['image']['data'].length
-                if(frame['gc']['TransparentColorFlag']==true){{
-                    transparent=frames[i]['gc']['ColorIndex']
+                if(frame['gc'] && frame['gc']['TransparentColorFlag']==true){{
+                    transparent=frame['gc']['ColorIndex']
                 }} else {{
                     transparent=-1
                 }}
@@ -68,16 +93,63 @@ class canvas:
                         cy++;
                     }}
                 }}
-            }}
-
-            fill(header['BackgroundColor']);
+                if (mode==3){{
+                    ctx.putImageData(id2,0,0);
             
-            for(i  in frames){{
-                draw_frame(frames[i])
+                }}
+            }}
+            function sleep(milliseconds) {{
+                var start = new Date().getTime();
+                for (var i = 0; i < 1e7; i++) {{
+                    
+                    if ((new Date().getTime() - start) > milliseconds){{
+                    break;
+                    }}
+                }}
             }}
 
+            
+            fill(header['BackgroundColor']);
+            var cur_frame=0,last_frame=0;
+            function rotate(){{
+                
+                if(frames[last_frame]['gc']){{
+                    disposal=frames[last_frame]['gc']['DisposalMethod']
+                    
+                                        
+                    if(disposal==1){{ //Do rewind to a disposal=0
+                        for(i=last_frame-1;i>-1;i--){{
+                            if(frames[i]['gc']){{
+                                disposal=frames[i]['gc']['DisposalMethod']
+                                if(disposal==0){{
+                                    draw_frame(frames[i]);
+                                    break;
+                                }}
+                    
+                            }}
+                        }}
+                    }}
+                    if (frames[cur_frame]['gc']){{
+                        DELAY=frames[cur_frame]['gc']['DelayTime']*10;
+                        last_frame=cur_frame;
+                        if (DELAY!=0){{
+                            setTimeout(rotate,DELAY);
+                            cur_frame++;
+                            if(cur_frame>=frames.length){{
+                                cur_frame=0;
+                            }}
+                        }}
+                        draw_frame(frames[cur_frame])
+                    }}
 
+                }}
+                
+            }}
+            rotate();
+                
+        
         </script>
+
     </body>
 </html>"""
         #self.Signature= stream.string(3,value=gif_sig)        # Header Signature (always "GIF") 
