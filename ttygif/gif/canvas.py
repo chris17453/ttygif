@@ -1,8 +1,14 @@
 import json
+# TODO pick transparent color index, none OR first pixel
+# TODO disposal of last frame if end of loop
+# TODO Loop based on # times or infinity
 
 class canvas:
 
-    def __init__(self,dest_file,gif_data):
+    def __init__(self):
+        x=1
+
+    def web(self,dest_file,gif_data):
         template="""<html>
     <head>
         <title>TTYGIF {0}, STDIO/TTY to GIF</title>
@@ -83,10 +89,10 @@ class canvas:
                 
                 for(i=0;i<len_of_frame;i++){{
                     color_index=image[i]
-                    if(color_index==transparent){{
-                        continue;
+                    if(color_index!=transparent){{
+                        put_pixel(cx+x,cy+y,color_index)
                     }}
-                    put_pixel(cx+x,cy+y,color_index)
+
                     cx++;
                     if(cx==width){{
                         cx=0;
@@ -139,10 +145,11 @@ class canvas:
                                 cur_frame=0;
                             }}
                         }}
-                        draw_frame(frames[cur_frame])
+                        
                     }}
 
                 }}
+                draw_frame(frames[cur_frame])
                 
             }}
             rotate();
@@ -152,14 +159,6 @@ class canvas:
 
     </body>
 </html>"""
-        #self.Signature= stream.string(3,value=gif_sig)        # Header Signature (always "GIF") 
-        #self.Version= stream.string(3,value=gif_sig_ver)      # GIF format version("87a" or "89a")
-        ## Logical Screen Descriptor
-        #self.ScreenWidth= stream.word()                       # Width of Display Screen in Pixels
-        #self.ScreenHeight= stream.word()                      # Height of Display Screen in Pixels
-        #self.Packed= stream.byte()                            # Screen and Color Map Information
-        #self.BackgroundColor= stream.byte()                   # Background Color Index
-        #self.AspectRatio= stream.byte()                       # Pixel Aspect Ratio
         bg=gif_data['header'].BackgroundColor
         width=gif_data['header'].ScreenWidth
         height=gif_data['header'].ScreenHeight
@@ -178,6 +177,85 @@ class canvas:
         file = open(dest_file,"w") 
         file.write(doc) 
         file.close() 
+    
+    def extract(self,data,output_file):
+        doc=self.render(data)
+        file = open(output_file,"w") 
+        file.write(doc) 
+        file.close() 
+    
+    def screen_canvas(self,screen,output_file):
+        template="""<html>
+    <head>
+        <title>TTYGIF {0}, STDIO/TTY to GIF</title>
+    </head>
+    <body>
+        <canvas id="ttygif" width="{1}" height="{2}" style="border:1px solid #000000;"></canvas>
+        <script>
+            var frame={3}
+            var canvas = document.getElementById('ttygif');
+            var ctx = canvas.getContext("2d");
+            var id2 = ctx.createImageData({1},{2});
+            var id2d  = id2.data;                        
+          
+            function put_pixel(x,y,color_index){{
+                var color=frame['color_table'][color_index]
+                var off = (y * id2.width + x) * 4;
+
+                id2d[off+0]   = color[0];
+                id2d[off+1]   = color[1];
+                id2d[off+2]   = color[2];
+                id2d[off+3]   = 255;
+            }}
+
+            function fill(color_index){{
+                var color=frame['color_table'][color_index]
+                var r=color[0];
+                var g=color[1];
+                var b=color[2];
+            
+                ctx.fillStyle = "rgb("+r+","+g+","+b+")";
+                ctx.fillRect( 0, 0, frame['width'], frame['height'] );
+            }}
+
+            function draw_frame(){{
+                var cx=0;
+                var cy=0;
+                var color_index=0;
+                width=frame['width']
+                height=frame['height']
+                len_of_frame=frame['data'].length
+                
+                for(i=0;i<len_of_frame;i++){{
+                    color_index=frame['data'][i]
+                    put_pixel(cx,cy,color_index)
+                    cx++;
+                    if(cx==width){{
+                        cx=0;
+                        cy++;
+                    }}
+                }}
+                ctx.putImageData(id2,0,0);
+            }}
+
+            
+            fill(0);
+            draw_frame()
+            
+        </script>
+
+    </body>
+</html>"""
+        frame=self.render(screen)
+        doc=template.format( output_file,     #0
+                             screen['width'],
+                             screen['height'],
+                             frame,         #4
+                             )
+        file = open(output_file,"w") 
+        file.write(doc) 
+        file.close() 
+    
     
     def render(self,obj,depth=0):
         """json like output for python objects, very loose"""

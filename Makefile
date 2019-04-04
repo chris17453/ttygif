@@ -37,7 +37,7 @@ bump:
 	@./$(conf_dir)/bump.sh
 
 unittest:
-	@cd source; python -m test.unittest
+	@python -m test.unittest
 	
 build: bump 
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;

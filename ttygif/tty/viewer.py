@@ -1,18 +1,7 @@
-class viewer:
-    font=[]
-    font_spec={}
-    font_spec['chars_per_line']=64
-    font_spec['lines']=64
-    font_spec['width']=640
-    font_spec['height']=480
-    font_spec['font_width']=12
-    font_spec['font_height']=16
-    font_spec['spacing_x']=0
-    font_spec['spacing_y']=0
-    font_spec['offset_x']=0
-    font_spec['offset_y']=0
+from .fonts import font
 
-    # TODO Fix self... on font_spec
+class viewer:
+    # TODO Fix self... on font
     # create loader from gif...
     # save byt3stream into file manually
     # load bytestream
@@ -24,7 +13,7 @@ class viewer:
         self.stream-stream
         self.buffer_len=self.width*self.height
         self.buffer=[0]*self.buffer_len
-        self.screen=[0]*self.buffer_len*font_spec['font_height']*font_spec['font_width']
+        self.screen=[0]*self.buffer_len*font['font_height']*font['font_width']
         # SET DEFAULTS
         self.fg=0
         self.bg=0
@@ -192,12 +181,12 @@ class viewer:
         x=index%self.width
         y=index/self.width
 
-        for fy in range(0,self.font_spec['font_height']):
-            for fx in range(0,self.font_spec['font_width']):
-                pos=fx+self.font_spec['offset_x']+(fy+self.font_spec['offset_y'])*self.font_spec['width']
+        for fy in range(0,font['font_height']):
+            for fx in range(0,font['font_width']):
+                pos=fx+font['offset_x']+(fy+font['offset_y'])*font['width']
                 pixel=font[pos]
-                sx=fx+(x*(self.font_spec['font_width']+self.font_spec['spacing_x']))
-                sy=fy+(y*(self.font_spec['font_height']+self.font_spec['spacing_y']))
+                sx=fx+(x*(font['font_width']+font['spacing_x']))
+                sy=fy+(y*(font['font_height']+font['spacing_y']))
                 screen_pos=sx+sy*self.width
 
                 if pixel!=0:
@@ -206,11 +195,11 @@ class viewer:
                     buffer[screen_pos]=self.bg
 
     def clear_screen(self,character,color):
-        self.screen=[color]*self.buffer_len*font_spec['font_height']*font_spec['font_width']
+        self.screen=[color]*self.buffer_len*font['font_height']*font['font_width']
 
 
     def render(self):
-        self.clear_screen(self.bg)
+        self.clear_screen(self.bg,255)
         for index  in range(0,self.buffer_len):
             character=self.buffer[index]
             if self.is_escape_code(character):
