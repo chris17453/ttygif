@@ -207,6 +207,40 @@ class viewer:
             else:
                 self.draw_character(character,index)
     
+    def stream_to_buffer(self):
+        window_width=self.width/font['width']
+        window_height=self.height/font['height']
+        px=0
+        color=0xFF
+        buffer=[0]*window_width*2
+        for i in stream:
+            buffer[pos]=color
+            buffer[pos+1]=i
+            if i==0x0D:
+                pos+=width-px
+                px=0
+            else:
+                px+=1
+                pos+=2
+                if px==width:
+                    buffer+=buffer=[0]*window_width*2
+                    px=0
+
+        self.buffer=buffer
+        self.buffer_len=len(buffer)
+        self.buffer_rows=len(buffer)
+
+
+
+
+
+
+
+
+
+
+
+
     def save_screen(self):
         # todo save as gif..
         # pre test with canvas extension
