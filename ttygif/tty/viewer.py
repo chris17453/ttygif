@@ -10,15 +10,35 @@ class viewer:
     def __init__(self,width,height,stream):
         self.width=width
         self.height=height
-        self.stream-stream
-        self.buffer_len=self.width*self.height
-        self.buffer=[0]*self.buffer_len
-        self.screen=[0]*self.buffer_len*font['font_height']*font['font_width']
+        self.stream=stream
+        self.color_table=[
+                        [0,0,0],
+                        [255,255,255],
+                        [255,0,0],
+                        [0,255,0],
+                        [0,0,255],
+                        [255,255,0],
+                        [0,255,255],
+                        [255,0,255],
+                        [192,192,192],
+                        [128,128,128],
+                        [128,0,0],
+                        [128,128,0],
+                        [0,128,0],
+                        [128,0,128],
+                        [0,128,128],
+                        [0,0,128]
+                        ]
+
         # SET DEFAULTS
         self.fg=0
         self.bg=0
         self.reset=0
         self.attribs=0
+        self.colors={}
+        self.fg={}
+        self.bg={}
+        self.reset={}
         self.colors['FG_BLACK']=0
         self.colors['FG_RED']=1
         self.colors['FG_GREEN']=2
@@ -88,7 +108,7 @@ class viewer:
         elif character== 22:
             self.reset=self.colors['DIM']
         elif character== 24:
-            self.reset=self.colors['UNDERLINED;]
+            self.reset=self.colors['UNDERLINED']
         elif character== 25:
             self.reset=self.colors['BLINK']
         elif character== 27:
@@ -133,37 +153,37 @@ class viewer:
         elif character== 49: 
             self.fg=self.colors['FG_DEFAULT']
         #BG
-        elif character=40:
+        elif character==40:
             this.bg=self.colors['BG_BLACK']
-        elif character=41:
+        elif character==41:
             this.bg=self.colors['BG_RED']
-        elif character=42:
+        elif character==42:
             this.bg=self.colors['BG_GREEN']
-        elif character=43:
+        elif character==43:
             this.bg=self.colors['BG_YELLOW']
-        elif character=44:
+        elif character==44:
             this.bg=self.colors['BG_BLUE']
-        elif character=45:
+        elif character==45:
             this.bg=self.colors['BG_MAGENTA']
-        elif character=46:
+        elif character==46:
             this.bg=self.colors['BG_CYAN']
-        elif character=47:
+        elif character==47:
             this.bg=self.colors['BG_LIGHT_GRAY']
-        elif character=100:
+        elif character==100:
             this.bg=self.colors['BG_DARK_GRAY']
-        elif character=101:
+        elif character==101:
             this.bg=self.colors['BG_LIGHT_RED']
-        elif character=102:
+        elif character==102:
             this.bg=self.colors['BG_LIGHT_GREEN']
-        elif character=103:
+        elif character==103:
             this.bg=self.colors['BG_LIGHT_YELLOW']
-        elif character=104:
+        elif character==104:
             this.bg=self.colors['BG_LIGHT_BLUE']
-        elif character=105:
+        elif character==105:
             this.bg=self.colors['BG_LIGHT_MAGENTA']
-        elif character=106:
+        elif character==106:
             this.bg=self.colors['BG_LIGHT_CYAN']
-        elif character=107:
+        elif character==107:
             this.bg=self.colors['BG_WHITE']
         o=""
         return o
@@ -173,64 +193,116 @@ class viewer:
         34,35,36,37,90,91,92,93,94,95,96,97,49,40,41,42,
         43,44,45,46,47,100,101,102,103,104,105,106,107]
 
-        if character in excape_codes:
+        if character in escape_codes:
             return True
         return None
 
-    def draw_character(self,character,index):
-        x=index%self.width
-        y=index/self.width
-
+    def draw_character(self,character,x,y):
+        
+        if isinstance(character,int):
+            return
+        char_index=ord(character)
+        #print "FOUND"
+        
+        cx=char_index%font['chars_per_line']
+        cy=char_index/font['chars_per_line']
         for fy in range(0,font['font_height']):
             for fx in range(0,font['font_width']):
-                pos=fx+font['offset_x']+(fy+font['offset_y'])*font['width']
-                pixel=font[pos]
+                pos=fx+font['offset_x']+cx*font['font_width']
+                pos+=(fy+font['offset_y']+cy*font['font_height'])*font['width']
+                pixel=font['data'][pos]
                 sx=fx+(x*(font['font_width']+font['spacing_x']))
                 sy=fy+(y*(font['font_height']+font['spacing_y']))
                 screen_pos=sx+sy*self.width
-
+               # print sx,sy,pixel
                 if pixel!=0:
-                    buffer[screen_pos]=self.fg
+                    self.video[screen_pos]=pixel
                 else:
-                    buffer[screen_pos]=self.bg
+                    self.video[screen_pos]=pixel
 
     def clear_screen(self,character,color):
         self.screen=[color]*self.buffer_len*font['font_height']*font['font_width']
 
+    def get_buffer_height(self):
+        height=self.buffer_rows*font['height']
 
+    # todo save as gif..
+    # pre test with canvas extension    
     def render(self):
-        self.clear_screen(self.bg,255)
-        for index  in range(0,self.buffer_len):
-            character=self.buffer[index]
+        self.stream_to_buffer()
+        #self.clear_screen(self.bg,255) x
+        self.video=[1]*(self.width*self.height)
+        
+        buffer_height=self.get_buffer_height()
+        if  buffer_height<=self.height:
+            offset=0
+        else:
+            offset=buffer_height-self.height
+ 
+        for index  in range(0,self.buffer_len,2):
+            x=(index/2%self.window_width)
+            y=index/2/self.window_width+offset
+            if x+font['font_width']<0:
+                continue
+            if y+font['font_height']<0:
+                continue
+            if x>=self.width:
+                continue
+            if y>=self.height:
+                continue
+            
+            color=self.buffer[index]
+            character=self.buffer[index+1]
+           # print character
             if self.is_escape_code(character):
+            #    print ("ESCAPE")
                 self.do_escape_code(character)
             else:
-                self.draw_character(character,index)
+             #   print "NOT"
+                self.draw_character(character,x,y)
     
+    # convert the text stream to a text formated grid
     def stream_to_buffer(self):
-        window_width=self.width/font['width']
-        window_height=self.height/font['height']
+        window_width=self.width/font['font_width']
+        window_height=self.height/font['font_height']
+        self.window_height=window_height
+        self.window_width=window_width
         px=0
         color=0xFF
-        buffer=[0]*window_width*2
-        for i in stream:
-            buffer[pos]=color
-            buffer[pos+1]=i
-            if i==0x0D:
-                pos+=width-px
-                px=0
+        pos=0
+        buffer=[0]*(window_width*2)
+        #print buffer
+        ##print len(buffer)
+        overflow=None
+        print window_width,self.width,font['width']
+        for i in self.stream:
+            
+            if i=='\n':
+                if overflow==None:
+                    print ("O")
+                    pos+=window_width*2-px*2
+                    buffer+=[0]*(window_width*2)
+                    px=0
             else:
+                buffer[pos]=color
+                buffer[pos+1]=i
                 px+=1
                 pos+=2
-                if px==width:
-                    buffer+=buffer=[0]*window_width*2
+                overflow=None
+                if px==window_width:
+                    overflow=True    
+                    print ("WHAT")
+                    buffer+=[0]*(window_width*2)
                     px=0
 
+    
         self.buffer=buffer
         self.buffer_len=len(buffer)
         self.buffer_rows=len(buffer)
+        #print buffer
 
-
+    def get(self):
+        return {'width':self.width,'height':self.height,'data':self.video,'color_table':self.color_table}
 
 
 
