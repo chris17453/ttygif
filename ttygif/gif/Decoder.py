@@ -143,9 +143,9 @@ class Decoder:
             comment=CommentExtension(self.stream)
             if self.debug:
                 comment.debug()
-            return coment
+            return comment
         except Exception as ex:
-            #print("Trying:{0}".format(ex))
+            print("Trying:{0}".format(ex))
             self.stream.rewind()
             
     def load_graphics_control_extension(self):

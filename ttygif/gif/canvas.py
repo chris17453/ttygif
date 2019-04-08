@@ -190,7 +190,7 @@ class canvas:
         <title>TTYGIF {0}, STDIO/TTY to GIF</title>
     </head>
     <body>
-        <canvas id="ttygif" width="{1}" height="{2}" style="border:1px solid #000000;"></canvas>
+        <canvas id="ttygif" width="{1}" height="{2}" style="border:0px solid #000000;"></canvas>
         <script>
             var frame={3}
             var canvas = document.getElementById('ttygif');
