@@ -35,6 +35,7 @@ def cli_main():
             v.add_event(event)
             v.render()
             data=v.get()
+            break
         gif().screen(data,args.output)
             
 
