@@ -36,7 +36,10 @@ def cli_main():
             v.render()
             data=v.get()
             break
-        gif().screen(data,args.output)
+        #gif().screen(data,args.output)
+        g=gif()
+        print(data)
+        g.encode(data,args.output)
             
 
 if __name__=='__main__':
