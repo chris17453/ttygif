@@ -32,9 +32,9 @@ clean:
 	@find . -type f -name "*.so" -exec rm -f {} \;
 	
 bump:
+	@./bump.sh
 	@git add -A 
-	@git commit -m 'Bump Version $(shell cat source/conf/version)'
-	@./$(conf_dir)/bump.sh
+	@git commit -m 'Bump Version $(shell cat version)'
 
 unittest:
 	@python -m test.unittest
@@ -42,7 +42,7 @@ unittest:
 build: bump 
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
     # makes ansible single script
-	@python $(conf_dir)/build.py
+	#@python $(conf_dir)/build.py
 	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/  --use-cython
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) unittest
