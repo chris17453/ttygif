@@ -1,4 +1,8 @@
 from .fonts import font
+import re
+# Reference
+# http://man7.org/linux/man-pages/man4/console_codes.4.html
+
 
 class viewer:
     # TODO Fix self... on font
@@ -20,24 +24,55 @@ class viewer:
         self.background_color=0
         self.foreground_color=3
         self.window="BOTTOM"
-        self.color_table=[
-                        [0,0,0],
-                        [170,0,0],
-                        [0,170,0],
-                        [170,85,0],
-                        [0,0,170],
-                        [170,0,170],
-                        [0,170,170],
-                        [170,170,170],
-                        [85,85,85],
-                        [255,85,85],
-                        [85,255,85],
-                        [255,255,85],
-                        [85,85,255],
-                        [255,85,255],
-                        [85,255,255],
-                        [255,255,255]
-                        ]
+        self.color_table=[  # 16 System Colors
+                            [0,0,0],[128,0,0],[0,128,0],[128,128,0],
+                            [0,0,128],[128,0,128],[0,128,128],[192,192,192],
+                            [128,128,128],[255,0,0],[0,255,0],[255,255,0],
+                            [0,0,255],[255,0,255],[0,255,255],[255,255,255],
+                            # xterm palette
+                            [0,0,0],[0,0,95],[0,0,135],[0,0,175],[0,0,215],[0,0,255],
+                            [0,95,0],[0,95,95],[0,95,135],[0,95,175],[0,95,215],[0,95,255],
+                            [0,135,0],[0,135,95],[0,135,135],[0,135,175],[0,135,215],[0,135,255],
+                            [0,175,0],[0,175,95],[0,175,135],[0,175,175],[0,175,215],[0,175,255],
+                            [0,215,0],[0,215,95],[0,215,135],[0,215,175],[0,215,215],[0,215,255],
+                            [0,255,0],[0,255,95],[0,255,135],[0,255,175],[0,255,215],[0,255,255],
+                            [95,0,0],[95,0,95],[95,0,135],[95,0,175],[95,0,215],[95,0,255],
+                            [95,95,0],[95,95,95],[95,95,135],[95,95,175],[95,95,215],[95,95,255],
+                            [95,135,0],[95,135,95],[95,135,135],[95,135,175],[95,135,215],[95,135,255],
+                            [95,175,0],[95,175,95],[95,175,135],[95,175,175],[95,175,215],[95,175,255],
+                            [95,215,0],[95,215,95],[95,215,135],[95,215,175],[95,215,215],[95,215,255],
+                            [95,255,0],[95,255,95],[95,255,135],[95,255,175],[95,255,215],[95,255,255],
+                            [135,0,0],[135,0,95],[135,0,135],[135,0,175],[135,0,215],[135,0,255],
+                            [135,95,0],[135,95,95],[135,95,135],[135,95,175],[135,95,215],[135,95,255],
+                            [135,135,0],[135,135,95],[135,135,135],[135,135,175],[135,135,215],[135,135,255],
+                            [135,175,0],[135,175,95],[135,175,135],[135,175,175],[135,175,215],[135,175,255],
+                            [135,215,0],[135,215,95],[135,215,135],[135,215,175],[135,215,215],[135,215,255],
+                            [135,255,0],[135,255,95],[135,255,135],[135,255,175],[135,255,215],[135,255,255],
+                            [175,0,0],[175,0,95],[175,0,135],[175,0,175],[175,0,215],[175,0,255],
+                            [175,95,0],[175,95,95],[175,95,135],[175,95,175],[175,95,215],[175,95,255],
+                            [175,135,0],[175,135,95],[175,135,135],[175,135,175],[175,135,215],[175,135,255],
+                            [175,175,0],[175,175,95],[175,175,135],[175,175,175],[175,175,215],[175,175,255],
+                            [175,215,0],[175,215,95],[175,215,135],[175,215,175],[175,215,215],[175,215,255],
+                            [175,255,0],[175,255,95],[175,255,135],[175,255,175],[175,255,215],[175,255,255],
+                            [215,0,0],[215,0,95],[215,0,135],[215,0,175],[215,0,215],[215,0,255],
+                            [215,95,0],[215,95,95],[215,95,135],[215,95,175],[215,95,215],[215,95,255],
+                            [215,135,0],[215,135,95],[215,135,135],[215,135,175],[215,135,215],[215,135,255],
+                            [215,175,0],[215,175,95],[215,175,135],[215,175,175],[215,175,215],[215,175,255],
+                            [215,215,0],[215,215,95],[215,215,135],[215,215,175],[215,215,215],[215,215,255],
+                            [215,255,0],[215,255,95],[215,255,135],[215,255,175],[215,255,215],[215,255,255],
+                            [255,0,0],[255,0,95],[255,0,135],[255,0,175],[255,0,215],[255,0,255],
+                            [255,95,0],[255,95,95],[255,95,135],[255,95,175],[255,95,215],[255,95,255],
+                            [255,135,0],[255,135,95],[255,135,135],[255,135,175],[255,135,215],[255,135,255],
+                            [255,175,0],[255,175,95],[255,175,135],[255,175,175],[255,175,215],[255,175,255],
+                            [255,215,0],[255,215,95],[255,215,135],[255,215,175],[255,215,215],[255,215,255],
+                            [255,255,0],[255,255,95],[255,255,135],[255,255,175],[255,255,215],[255,255,255],
+                            [8,8,8],[18,18,18],[28,28,28],[38,38,38],[48,48,48],[58,58,58],[68,68,68],
+                            [78,78,78],[88,88,88],[98,98,98],[108,108,108],[118,118,118],[128,128,128],
+                            [138,138,138],[148,148,148],[158,158,158],[168,168,168],[178,178,178],[188,188,188],
+                            [198,198,198],[208,208,208],[218,218,218],[228,228,228],[238,238,238]
+        ]
+
+
         self.video=[]
         self.video_length=len(self.video)
         # SET DEFAULTS
@@ -71,12 +106,30 @@ class viewer:
     def draw_character(self,character,x,y,offset,color):
         
         #print character
-        if isinstance(character,int):
-            return
-        char_index=ord(character)
-        if char_index>255:
-           # print ("Missing character")
-            return
+        if character>255:
+            if character==8216:
+                character=39
+            elif character==8217:
+                character=39
+            elif character==9600:
+                character=223
+            elif character==9604:
+                character=220
+            elif character==9608:
+                character=219
+            elif character==9612:
+                character=221
+            elif character==9616:
+                character=222
+            elif character==9617:
+                character=176
+            elif character==9618:
+                character=177
+            elif character==10140:
+                character=26
+            else:
+                print ("Missing character: {0}".format(character))
+                return
 
         #print "FOUND"
         fs=font['width']
@@ -87,8 +140,8 @@ class viewer:
         fsx=font['spacing_x']
         fsy=font['spacing_y']
         transparent=font['transparent']
-        cx=int(char_index%font['chars_per_line'])
-        cy=int(char_index/font['chars_per_line'])
+        cx=int(character%font['chars_per_line'])
+        cy=int(character/font['chars_per_line'])
 
         pre_x=fox+cx*fw
         pre_y=(foy+cy*fh)*fs
@@ -108,12 +161,11 @@ class viewer:
                 pos2=pos+fx
                 pixel=font['data'][pos2]
                 if pixel!=transparent:
-                    self.video[screen_pos2]=color/0xF
+                    self.video[screen_pos2]=color[0]
                 else:
-                    self.video[screen_pos2]=pixel
+                    self.video[screen_pos2]=color[1]
             pre_y2+=fs
             
-
     def clear_screen(self,character,color):
         self.screen=[color]*self.buffer_len*font['font_height']*font['font_width']
 
@@ -132,243 +184,355 @@ class viewer:
 
         
         buffer_height=self.get_buffer_height()
-        if self.window=="BOTTOM":
-            if  buffer_height<=self.height:
-                offset=0
-            else:
-                offset=buffer_height-self.height
+        #if self.window=="BOTTOM":
+         #   if  buffer_height<=self.height:
+         #       offset=0
+         #   else:
+         #       offset=buffer_height-self.height
 
-        if self.window=="TOP":
-            offset=0
+        #if self.window=="TOP":
+        offset=0
 
         #print offset,buffer_height
-        for index  in range(0,self.buffer_len,2):
-            x=(index/2%self.window_width)
-            y=index/2/self.window_width
-            if (y+1)*font['font_height']<offset:
-                continue
-            color=self.buffer[index]
-            character=self.buffer[index+1]
-           # print character
-            if self.is_escape_code(character):
-            #    print ("ESCAPE")
-                self.do_escape_code(character)
-            else:
-             #   print "NOT"
+        buffer_len=len(self.buffer)
+        buffer_size_needed=self.window_width*self.window_height*2
+        #print("Buffer - Have:{0}, Need: {1}".format(buffer_len,buffer_size_needed))
+        if buffer_len<self.window_width*self.window_height*2:
+            err_msg="Buffer underflow: buffersize to small Have:{0}, Need: {1}".format(buffer_len,buffer_size_needed)
+            raise Exception(err_msg)
+        
+        index=0
+        for y in range(0,self.window_height):
+            for x in range(0,self.window_width):
+                if y<offset:
+                    continue
+                color=self.buffer[index]
+                character=self.buffer[index+1]
                 self.draw_character(character,x,y,offset,color)
-    
+                index+=2
+  
     # convert the text stream to a text formated grid
+    def debug(self): 
+        print("VIEWPORT:")
+        print("  px height:      {0}".format(self.height))
+        print("  px width:       {0}".format(self.width))
+        print("  char height:    {0}".format(self.window_height))
+        print("  char width:     {0}".format(self.window_width))
+        print("  buffer size:    {0}".format(self.window_width*self.window_height*2))
+
+        print("Buffer:")
+        print("buffer char height:     {0}".format(self.buffer_rows))
+        print("buffer_len:     {0}".format(self.buffer_len))
+
+    def write_buffer(self,x,y,c,buffer,fg,bg):
+        pos=x*2+y*self.window_width*2
+        buffer_len=len(buffer)
+        if pos>=buffer_len:
+            buffer+=[[0,0],0]*((pos+1-buffer_len))
+        buffer[pos]=[fg,bg]
+        buffer[pos+1]=c
+        #print c
+
+
+        
+
+
+        
+# NON CSI Sequences
+#       ESC c     RIS      Reset.
+#       ESC D     IND      Linefeed.
+#       ESC E     NEL      Newline.
+#       ESC H     HTS      Set tab stop at current column.
+#       ESC M     RI       Reverse linefeed.
+#       ESC Z     DECID    DEC private identification. The kernel returns the
+#                          string  ESC [ ? 6 c, claiming that it is a VT102.
+#       ESC 7     DECSC    Save current state (cursor coordinates,
+#                          attributes, character sets pointed at by G0, G1).
+#       ESC 8     DECRC    Restore state most recently saved by ESC 7.
+#       ESC [     CSI      Control sequence introducer
+#       ESC %              Start sequence selecting character set
+#       ESC % @               Select default (ISO 646 / ISO 8859-1)
+#       ESC % G               Select UTF-8
+#       ESC % 8               Select UTF-8 (obsolete)
+#       ESC # 8   DECALN   DEC screen alignment test - fill screen with E's.
+#       ESC (              Start sequence defining G0 character set
+#       ESC ( B               Select default (ISO 8859-1 mapping)
+#       ESC ( 0               Select VT100 graphics mapping
+#       ESC ( U               Select null mapping - straight to character ROM
+#       ESC ( K               Select user mapping - the map that is loaded by
+#                             the utility mapscrn(8).
+#       ESC )              Start sequence defining G1
+#                          (followed by one of B, 0, U, K, as above).
+#       ESC >     DECPNM   Set numeric keypad mode
+#       ESC =     DECPAM   Set application keypad mode
+#       ESC ]     OSC      (Should be: Operating system command) ESC ] P
+#                          nrrggbb: set palette, with parameter given in 7
+    def info(self,text):
+        print text
+
     def stream_to_buffer(self):
         window_width=self.width/font['font_width']
         window_height=self.height/font['font_height']
         self.window_height=window_height
         self.window_width=window_width
-        px=0
-        color=0xFF
         pos=0
-        buffer=[0]*(window_width*2)
-        #print buffer
-        ##print len(buffer)
+        # pre buffer
+        buffer=[[0,0],0]*self.window_width*self.window_height
         overflow=None
-        #print window_width,self.width,font['width']
-        row=0
-        mode=None
-        mode_index=0
-        CSI={}
-                        
-        fg=0
-        bg=0
 
-        for i in self.stream:
-            oi=ord(i)
-            if mode=='ESCAPE':
-                #print i
-                mode_index+=1
-                if mode_index==1 and oi!=ord('['):
-                    mode=None
-                    mode_index=0
-                    continue
-                if mode_index==1 and oi==ord('['):
-                    #print "CSI"
-                    CSI={}
-                    CSI['primary']=''
-                    CSI['intermediate']=''
-                    CSI['final']=''
-                    continue
 
-                if oi >=0x30 and oi<=0x3F:
-                    #print "P"
-                    CSI['primary']+=i
-                elif oi >=0x20 and oi<=0x2F:
-                    #print "I"
-                    CSI['intermediate']+=i
-                elif oi >=0x40 and oi<=0x7F:
-                    #print "F"
-                    CSI['final']+=i
-                    mode=None
+        cursor = 0
+        
+        ANSI_OSC_RE = re.compile('\001?\033\\]((?:.|;)*?)(\x07)\002?')        # Operating System Command
+        text=""
+        for match in ANSI_OSC_RE.finditer(self.stream):
+            start, end = match.span()
+            text+=self.stream[cursor:start]
+            cursor=end
+            #text = text[:start] + text[end:]
+            #print "--"
+            #text=self.stream[start:end]
+            #text=text.replace(u"\001b]",'BAR').replace("\x07",'BELL')
+            #print("=="+text+"==")
+            #paramstring, command = match.groups()
+            #if command in '\x07':       # \x07 = BEL
+            #    params = paramstring.split(";")
+                # 0 - change title and icon (we will only change title)
+                # 1 - change icon (we don't support this)
+                # 2 - change title
+                #if params[0] in '02':
+                #    winterm.set_title(params[1])
+        text+=self.stream[cursor:]
+        self.stream=text
+
+        ANSI_SINGLE='[\001b|\033]([cDEHMZ78>=])'
+        ANSI_CHAR_SET = '[\001b|\033]\\%([@G*])'
+        ANSI_G0 = '[\001b|\033]\\(([B0UK])'
+        ANSI_G1 = '[\001b|\033]\\)([B0UK])'
+        ANSI_CSI_RE = '[\001b|\033]\\[((?:\\d|;|<|>|=|\?)*)([a-zA-Z])\002?'
+        
+        ANSI_REGEX=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE]
+
+        buffer_len=0
+        x=0
+        y=0
+        def_fg=15
+        def_bg=0
+        fg=def_fg
+        bg=def_bg
+        ANSI_REGEX="("+")|(".join(ANSI_REGEX)+")"
+        #print ANSI_REGEX.replace("\001b","^").replace("\033","^")
+        
+        
+        ANSI=re.compile(ANSI_REGEX)
+        #print("-----")
+        cursor=0
+        for match in ANSI.finditer(self.stream):
+            start, end = match.span()
+
+            self.info(u"{0},{1}:{2}".format(fg,bg,self.stream[cursor:start]))
+            for i in range(cursor,start):
+                # new line or wrap
+                character=self.stream[i]
+                char_ord=ord(character)
+                # handle non printable codes here
+                #print char_ord
+                if char_ord<32:
+                    if char_ord==0x08:
+                        x-=1
+                    if char_ord==0x0A:
+                        x=0
+                        y+=1
+                        continue
+                    if x>=self.window_width:
+                        x=0
+                        y+=1
+                    continue
+                if x>=self.window_width:
+                    x=0
+                    y+=1
+                    #print x,y,character,fg,bg
+                # print the space...
+                self.write_buffer(x,y,char_ord,buffer,fg,bg)
+                x+=1            
+
+
+            #print cursor,start, end
+            cursor = end
+            command=None
+            params=None
+            esc_type=None
+            groups=match.groups()
+            if groups[0]:
+                esc_type='SINGLE'
+                command=groups[1]
+            if groups[2]:
+                esc_type='CHAR_SET'
+                command=groups[3]
+            if groups[4]:
+                esc_type='G0'
+                command=groups[5]
+            if groups[6]:
+                esc_type='G1'
+                command=groups[7]
+            if groups[8]:
+                esc_type='CSI'
+                paramstring=groups[9]
+                command=groups[10]
+                if command in 'Hf':
+                    params = tuple(int(p) if len(p) != 0 else 1 for p in paramstring.split(';'))
+                    while len(params) < 2:
+                        params = params + (1,)
+                #        DEC Private Mode (DECSET/DECRST) sequences
+                elif paramstring and len(paramstring)>0 and paramstring[0]=='?':
+                    params=['?',paramstring[1:-1],paramstring[-1]]
                 else:
-                    #print "DONE"
-                    mode=None
-                continue
-            if 27==ord(i):
-                mode='ESCAPE'
-                mode_index=0
-                continue
-            if i=='\r':
-                continue
-            
-            if i=='\n':
-                if overflow==None:
-                    row+=1
-                    #print ("O")
-                    pos+=window_width*2-px*2
-                    buffer+=[0]*(window_width*2)
-                    px=0
-            else:
-                if 'primary' in CSI:
-                    parts=CSI['primary'].split(';')
-                    pm=None
-                    #print CSI['primary']
-                    if len(parts)>0:
-                        for part in parts:
-                            #print part
-                            if pm=='bg':
-                                bg=self.color_lookup(part)
-                                pm=None
-                            elif pm=='fg':
-                                fg=self.color_lookup(part)
-                                pm=None
-
-                            if part=='38':
-                                pm='fg'
-                            elif part=='48':
-                                pm='bg'
-                            else:
-                                pm=None
-                                color=part
-                                if   color=='30':
-                                    fg=0
-                                elif color=='31':
-                                    fg=1
-                                elif color=='32':
-                                    fg=2
-                                elif color=='33':
-                                    fg=3
-                                elif color=='34':
-                                    fg=4
-                                elif color=='35':
-                                    fg=5
-                                elif color=='36':
-                                    fg=6
-                                elif color=='37':
-                                    fg=7
-                                elif color=='90':
-                                    fg=8
-                                elif color=='91':
-                                    fg=9
-                                elif color=='92':
-                                    fg=10
-                                elif color=='93':
-                                    fg=11
-                                elif color=='94':
-                                    fg=12
-                                elif color=='95':
-                                    fg=13
-                                elif color=='96':
-                                    fg=14
-                                elif color=='97':
-                                    fg=15
-                                elif color=='40' :
-                                    bg=0
-                                elif color=='41' :
-                                    bg=1
-                                elif color=='42' :
-                                    bg=2
-                                elif color=='43' :
-                                    bg=3
-                                elif color=='44' :
-                                    bg=4
-                                elif color=='45' :
-                                    bg=5
-                                elif color=='46' :
-                                    bg=6
-                                elif color=='47' :
-                                    bg=7
-                                elif color=='100':
-                                    bg=8
-                                elif color=='101':
-                                    bg=9
-                                elif color=='102':
-                                    bg=10
-                                elif color=='103':
-                                    bg=11
-                                elif color=='104':
-                                    bg=12
-                                elif color=='105':
-                                    bg=13
-                                elif color=='106':
-                                    bg=14
-                                elif color=='107':
-                                    bg=15
-                                                        
-
+                    
+                    params = tuple(int(p) for p in paramstring.split(';') if len(p) != 0)
+                    if len(params) == 0:
+                        if command in 'JKm':
+                            params = (0,)
+                        elif command in 'ABCD':
+                            params = (1,)
+                command=ord(command)
                 
-                fg=2
-                bg=4
-                color=fg*0xF+bg
-                #print("{0:02X},{1:02X},{2:02X}".format(color,fg,bg))
-                buffer[pos]=color
-                buffer[pos+1]=i
-                px+=1
-                pos+=2
-                overflow=None
-                if px==window_width:
-                    row+=1
-                    overflow=True    
-                    #print ("WHAT")
-                    buffer+=[0]*(window_width*2)
-                    px=0
-    
-        self.buffer=buffer
+                if command==109:
+                    if 38 in params:
+                        if params[1]==2:
+                            fg=params[2] # rgb
+                        if params[1]==5:
+                            fg=params[2]
+                        self.info("Set FG:{0}".format(params))
+                    elif 48 in params:
+                            if params[1]==2:
+                                bg=params[2] #rgb
+                            if params[1]==5:
+                                bg=params[2]
+                            self.info("Set BG:{0}".format(params))
+                    else:
+                        for cmd in params:
+                            if cmd==0:
+                                fg=def_fg
+                                bg=def_bg
+                                bold=None
+                                self.info("RESET All:{0}".format(params))
+                            elif cmd==1:
+                                bold=True
+                                self.info("Set BOLD:{0}".format(params))
+                            elif cmd>=30 and cmd<=37:
+                                fg=cmd-30
+                                if bold:
+                                    fg+=8
+                                self.info("Set FG:{0}".format(params))
+                            elif cmd==39:
+                                fg=def_fg
+                                self.info("Set Default FG:{0}".format(params))
+                            elif cmd>=40 and cmd<=47:
+                                bg=cmd-40
+                                if bold:
+                                    fg+=8
+                                self.info("Set BG:{0}".format(params))
+                            elif cmd==49:
+                                bg=def_bg
+                                self.info("Set Default BG:{0}".format(params))
+                            elif cmd>=90 and cmd<=97:
+                                fg=cmd-90+8
+                                self.info("Set High INTENSITY FG:{0}".format(params))
+                            elif cmd>=100 and cmd<=107:
+                                bg=cmd-100+8
+                                self.info("Set High INTENSITY BG:{0}".format(params))
+                else:
+                    if command==ord('A'): # move cursor up
+                        self.info("Cursor Up:{0}".format(params[0]))
+                        y=-params[0]
+                        if y<0:
+                            y=0
+                    elif command==ord('B'): # move cursor down
+                        self.info("Cursor Down:{0}".format(params[0]))
+                        y=+params[0]
+                        #if y<0:
+                        #    y=0
+                    elif command==ord('C'): # move cursor back
+                        self.info("Cursor Left:{0}".format(params[0]))
+                        x=-params[0]
+                        if x<0:
+                            x+=self.window_width
+                    elif command==ord('D'): # move cursor right
+                        self.info("Cursor Right:{0}".format(params[0]))
+                        x=+params[0]
+                        if x>=self.window_width:
+                            x-=self.window_width
+                    elif command==ord('E'): # move cursor next line
+                        self.info("Cursor Next Line:{0}".format(params[0]))
+                        x=0
+                        y+=params[0]
+                    elif command==ord('F'): # move cursor previous  line
+                        self.info("Cursor Previous Line:{0}".format(params[0]))
+                        x=0
+                        y-=params[0]
+                        if y<0:
+                            y+=self.window_height
+                    elif command==ord('G'): # move cursor to HORIZONTAL pos X
+                        self.info("Cursor X:{0}".format(params[0]))
+                        x=params[0]
+                    elif command==ord('H') or command==ord('f'): # move cursor to x,y pos
+                        self.info("Cursor Pos:{0},{1}".format(params[0],params[1]))
+                        x=params[0]
+                        y=params[1]
+
+                    elif command==ord('J'): # erase display
+                        self.info("Erase Display")
+                        x=0
+                        y=0
+                        pos=0
+                        buffer=[[0,0],0]*self.window_width*self.window_height
+                        buffer_len=len(buffer)
+                    elif command==ord('K'): # erase line
+                        self.info("Erase Line: {0}".format(params[0]))
+                        if params[0]==0:
+                            for x2 in range(x,self.window_width):
+                                self.write_buffer(x2,y,32,buffer,fg,bg)
+                        elif params[0]==1:
+                            for x2 in range(0,x):
+                                self.write_buffer(x2,y,32,buffer,fg,bg)
+                        elif params[0]==2:
+                            for x2 in range(0,self.window_width):
+                                self.write_buffer(x2,y,32,buffer,fg,bg)
+                    else:
+                        self.info("Impliment: Start: {5} pos x:{3},Y:{4} - {0}-{1}-{2}".format(command,params,paramstring,x,y,start))
+            print esc_type,command,params
+            
+        for i in range(cursor,len(self.stream)):
+            character=self.stream[i]
+            char_ord=ord(character)
+            # handle non printable codes here
+            #print char_ord
+            if char_ord<32:
+                if char_ord==0x08:
+                    x-=1
+                if char_ord==0x0A:
+                    x=0
+                    y+=1
+                if x>=self.window_width:
+                    x=0
+                    y+=1
+                continue
+            if x>=self.window_width:
+                x=0
+                y+=1
+            self.write_buffer(x,y,char_ord,buffer,fg,bg)
+            x+=1        
+        
+        
+        if x<self.window_width:
+            for i in range(x,self.window_width):
+                pos=i*2+y*self.window_width*2
+                if pos+1>=buffer_len:
+                    buffer+=[[0,0],0]*((pos-buffer_len))
         self.buffer_len=len(buffer)
-        self.buffer_rows=row
-        #print buffer
-    
-    def color_lookup(self,color):
-        #print color
-        if   color=='30'	or color=='40':	   #Black	        30	40	0,0,0	12,12,12	0,0,0	1,1,1
-            return 0
-        elif color=='31'	or color=='41':	   #Red	        31	41	170,0,0	128,0,0	197,15,31	194,54,33	187,0,0	127,0,0	205,0,0	255,0,0	222,56,43
-            return 1
-        elif color=='32'	or color=='42':	   #Green	        32	42	0,170,0	0,128,0	19,161,14	37,188,36	0,187,0	0,147,0	0,205,0	0,255,0	57,181,74
-            return 2
-        elif color=='33'	or color=='43':	   #Yellow	        33	43	170,85,0[nb 8]	128,128,0	238,237,240	193,156,0	173,173,39	187,187,0	252,127,0	205,205,0	255,255,0	255,199,6
-            return 3
-        elif color=='34'	or color=='44':	   #Blue	        34	44	0,0,170	0,0,128	0,55,218	73,46,225	0,0,187	0,0,127	0,0,238[23]	0,0,255	0,111,184            return 1
-            return 4
-        elif color=='35'	or color=='45':	   #Magenta	    35	45	170,0,170	128,0,128	1,36,86	136,23,152	211,56,211	187,0,187	156,0,156	205,0,205	255,0,255	118,38,113
-            return 5
-        elif color=='36'	or color=='46':	   #Cyan	        36	46	0,170,170	0,128,128	58,150,221	51,187,200	0,187,187	0,147,147	0,205,205	0,255,255	44,181,233
-            return 6
-        elif color=='37'	or color=='47':	   #White	        37	47	170,170,170	192,192,192	204,204,204	203,204,205	187,187,187	210,210,210	229,229,229	255,255,255	204,204,204
-            return 7
-        elif color=='90'	or color=='100':   #Bright Black	90	100	85,85,85	128,128,128	118,118,118	129,131,131	85,85,85	127,127,127	127,127,127		128,128,128
-            return 8
-        elif color=='101'	or color=='25':    #Bright Red	91	101	255,85,85	255,0,0	231,72,86	252,57,31	255,85,85	255,0,0	255,0,0		255,0,0
-            return 9
-        elif color=='92'	or color=='102':   #Bright Green	92	102	85,255,85	0,255,0	22,198,12	49,231,34	85,255,85	0,252,0	0,255,0	144,238,144	0,255,0
-            return 10
-        elif color=='93'	or color=='103':   #Bright Yellow	93	103	255,255,85	255,255,0	249,241,165	234,236,35	255,255,85	255,255,0	255,255,0	255,255,224	255,255,0
-            return 11
-        elif color=='94'	or color=='104':   #Bright Blue	94	104	85,85,255	0,0,255	59,120,255	88,51,255	85,85,255	0,0,252	92,92,255[24]	173,216,230	0,0,255
-            return 12
-        elif color=='95'	or color=='105':   #Bright Magenta	95	105	255,85,255	255,0,255	180,0,158	249,53,248	255,85,255	255,0,255	255,0,255		255,0,255
-            return 13
-        elif color=='96'	or color=='106':   #Bright Cyan	96	106	85,255,255	0,255,255	97,214,214	20,240,240	85,255,255	0,255,255	0,255,255	224,255,255	0,255,255
-            return 14
-        elif color=='97'	or color=='107':   #Bright White	97	107
-            return 15
-        return 0
+        self.buffer_rows=y+1
+        self.buffer=buffer
+   
 
     def get(self):
         return {'width':self.width,'height':self.height,'data':self.video,'color_table':self.color_table}
@@ -377,30 +541,17 @@ class viewer:
         timestamp=event[0]
         event_type=event[1]
         event_io=event[2]
-        self.stream+=event_io
+        if event_type=='o':
+            self.stream+=event_io
+
+        #udata=event_io.decode("utf-8")
+        #asciidata=udata.encode("ascii","ignore")
+        #self.stream+=asciidata
 
     def save_screen(self):
         # todo save as gif..
         # pre test with canvas extension
         x=1
-
-
-
-
-#  query: "name"
-#  arguments: optional, 1 or 0 for unlimited (comma seperated)
-#  switch: signatures to match against 
-#     data: optional
-#          vars: variabls to manually set
-#          sig: signature to match, {viariable} places any data in that position into that variable, [ ] makes it an array plain strings are dropped
-#     name: initial string to match against to enter this query, this is the index of the object
-#   optional: can we skip this
-#   depends_on: do not match unless the other variable is present 
-#   jump: goto an ealier command for matching, to repeat a loop set for multiple matches
-#   parent: override the name, and place data on this index
-#   store_array: allow multiple keys in an array at this index
-#   specs :{'variable_name': {'type': 'int', 'default': 0} },
-
 
 
 

@@ -14,7 +14,7 @@ git_username="Charles Watkins"
 git_email="chris17453@gmail.com"
  
 .DEFAULT: help
-
+.PHONY: test
 help:
 	@echo "make build          | build bython files and make pypi package(runs unittest and standalone)"
 	@echo "make bump           | bump the package version"
@@ -60,3 +60,11 @@ uninstall:
 	pip uninstall ttygif
 
  
+test:
+#Pikachu
+#	@python -m ttygif.cli -t -i data/236096.cast -o examples/encode/test_cast.html
+#Nyan
+#	@python -m ttygif.cli -t -i data/3.cast -o examples/encode/test_cast.html
+#Compile
+	@python -m ttygif.cli -t -i data/234628.cast -o examples/encode/test_cast.html
+	

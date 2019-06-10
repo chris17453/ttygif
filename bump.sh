@@ -6,6 +6,7 @@ v=$(cat $raw_version_file)
 
 #put it in the main coinfig file
 echo "${v%.*}.$((${v##*.}+1))">$raw_version_file
+
 echo "VERION=${v%.*}.$((${v##*.}+1))"
 
 #update the version in the py file
