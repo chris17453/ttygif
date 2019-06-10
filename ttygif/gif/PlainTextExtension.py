@@ -28,7 +28,7 @@ class PlainTextExtension:
         #self.Terminator= stream.byte(value=0x00)         # Block Terminator (always 0) 
 
 
-    def debug():
+    def debug(self):
         print("Plain Text Extension Block")
         print("  Offset: {0:02X}".format(self.internal_position))
         print("  Introducer: {0}".format(self.Introducer))

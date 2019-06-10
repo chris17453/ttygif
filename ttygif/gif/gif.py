@@ -2,9 +2,10 @@
 from .Decoder import Decoder
 from .canvas import canvas
 from .encode import Encode
+from .header import header
 
 class gif:
-
+    self.
     def __init__(self,debug=None):
         self.debug=debug
 
@@ -36,4 +37,3 @@ class gif:
         #content.
         print data_buffer
 
-    

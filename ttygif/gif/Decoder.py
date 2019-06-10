@@ -29,19 +29,20 @@ class Decoder:
     # trailer
 
     # PixelAspectRatio = (AspectRatio + 15) / 64;
-    # NumberOfGlobalColorTableEntries = 	 (1L << (SizeOfTheGlobalColorTable + 1));
+    # GlobalColorTableLength = 	 (2L << (SizeOfTheGlobalColorTable + 1));
 
     def __init__(self,file=None,debug=None):
-        self.debug=debug
-        self.file=file
-        self.stream=DataStream(file)
+        self.stream   =DataStream(file)
         self.stream.open()
-        self.header=Header(self.stream)
-        self.comments=[]
-        self.frames=[]
-        self.applications=[]
+        self.debug        =debug
+        self.file         =file
+        self.header       =Header(self.stream)
+        self.header.read()
+        self.comments     =[]
+        self.frames       =[]
+        self.applications =[]
         if self.header.GlobalColorTableFlag==True:
-            self.global_color_table=self.load_color_table(self.header.NumberOfGlobalColorTableEntries)
+            self.global_color_table=self.load_color_table(self.header.GlobalColorTableLength)
         else:
             # TODO default global color table
             self.global_color_table=None
@@ -130,6 +131,7 @@ class Decoder:
         try:
             self.stream.pin()
             descriptor=ImageDescriptor(self.stream)
+            descriptor.read()
             if self.debug:
                 descriptor.debug()
             return descriptor
@@ -152,6 +154,7 @@ class Decoder:
         try:
             self.stream.pin()
             graphiccontrol=GraphicsControlExtension(self.stream)
+            graphiccontrol.read()
             if self.debug:
                 graphiccontrol.debug()
             return graphiccontrol
@@ -185,6 +188,7 @@ class Decoder:
         try:
             self.stream.pin()
             trailer=Trailer(self.stream)
+            trailer.read()
             if self.debug:
                 trailer.debug()
             return trailer
@@ -195,7 +199,8 @@ class Decoder:
     def load_color_table(self,entries):
         try:
             self.stream.pin()
-            colortable=ColorTable(self.stream,entries)
+            colortable=ColorTable(self.stream)
+            colortable.read(entries)
             if self.debug:
                 colortable.debug()
             return colortable
