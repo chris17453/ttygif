@@ -1,5 +1,5 @@
 from .stream import DataStream
-from .Header import Header
+from .header import gif_header
 from .ImageDescriptor import ImageDescriptor
 from .ImageData import ImageData
 from .GraphicsControlExtension import GraphicsControlExtension
@@ -12,11 +12,38 @@ from .ColorTable import ColorTable
 
 
 class encode_gif:
-  def __init__(self):
-      self.stream=stream
-      self.header =None
-      self.global_color_table=None
-    
+    def __init__(self):
+        self.stream=stream
+        self.header =None
+        self.global_color_table=None
+  
+    def write(self):
+        # auto computes packed values on write
+        self.header.write()
+
+        # write GTC if available
+        if self.global_color_table:
+          self.global_color_table.write()
+
+        #process frames
+        for frame in self.frames:
+            if frame['gce']: 
+              frame['gce'].write()
+            if frame['descriptor']:
+              frame['descriptor'].write()
+            if frame['color_table']:
+              frame['color_table'].write()
+            if frame['image']:
+              frame['image'].write()
+
+        # write terminator
+        self.trailer=Trailer(self.stream)
+        self.trailer.new()
+        self.trailer.write()
+        self.stream.close()
+
+
+  
     def create(self,filename,
             width,
             height,
@@ -31,114 +58,80 @@ class encode_gif:
     # Step 1, create a header
     # auto adds a default palette or given palette
     def add_header(self,width=320,height=240,palette=None,default_palette=True):
-        self.header=header(self.stream)
+        self.header=gif_header(self.stream)
         self.header.new()
         self.header.ScreenWidth  = width
         self.header.ScreenHeight = height
         self.global_color_table=None
-        if default_palette or palette:
-          self.add_gtc(palette=palette,default_palette=default_palette)
 
+        if default_palette or palette:
+          res=self.add_ct(palette=palette,default_palette=default_palette)
+          self.global_color_table             =res['table']
+          self.header.GlobalColorTableSize    =res['size']
+          self.header.GlobalColorTableFlag    =res['flag']
+          self.header.pack()
 
     # STEP 2 adding a global palette to the gif 
-    def add_gtc(self,palette,default_palette=True):
+    def add_ct(self,palette,default_palette=True):
         if palette or default_palette:
-            self.global_color_table =ColorTable(self.stream)
-            self.global_color_table.new(palette=palette)
-            header.GlobalColorTableSize=0
-            if len(self.global_color_table)>0: header.GlobalColorTableSize+=1
-            if len(self.global_color_table)>2: header.GlobalColorTableSize+=1
-            if len(self.global_color_table)>4: header.GlobalColorTableSize+=1
-            if len(self.global_color_table)>8: header.GlobalColorTableSize+=1
-            if len(self.global_color_table)>16: header.GlobalColorTableSize+=1
-            if len(self.global_color_table)>32: header.GlobalColorTableSize+=1
-            if len(self.global_color_table)>64: header.GlobalColorTableSize+=1
-            if len(self.global_color_table)>128: header.GlobalColorTableSize+=1
-            if header.GlobalColorTableSize==0:
-              header.GlobalColorTableFlag=0
-              
+            color_table =ColorTable(self.stream)
+            color_table.new(palette=palette)
+            color_table_size=0
+            if len(color_table)>0  : color_table_size+=1
+            if len(color_table)>2  : color_table_size+=1
+            if len(color_table)>4  : color_table_size+=1
+            if len(color_table)>8  : color_table_size+=1
+            if len(color_table)>16 : color_table_size+=1
+            if len(color_table)>32 : color_table_size+=1
+            if len(color_table)>64 : color_table_size+=1
+            if len(color_table)>128: color_table_size+=1
+            if color_table_size==0:
+              color_table_flag=0
+            else:
+              color_table_flag=1
 
-    def write(self):
-        # auto computes packed values on write
-        self.header.write()
+        return {'table':color_table,
+                'flag':color_table_flag,
+                'size':color_table_size }
+        
+    
+    
+    def add_frame(self,disposal_method=0,delay=1, transparent=None,top=0,left=0,width=None,Height=None,palette=None,image_data=None):
+        if None==width:
+            width=self.header.ScreenWidth
+        if None==Height:
+            height=self.header.ScreenHeight
 
-        # write GTC if available
-        if self.global_color_table:
-          self.global_color_table.write()
-
-        #process frames
-        for frame in self.frames:
-          if frame['type']=='GCE':
-                if frame['gc']: 
-                  frame['gc'].write()
-                if frame['descriptor']:
-                  frame['descriptor'].write()
-                if frame['color_table']:
-                  frame['color_table'].write()
-                if frame['image']
-                  frame['image'].write()
-
-        # write terminator
-        self.trailer=Trailer(self.stream)
-        self.trailer.new()
-        self.trailer.write()
-        self.stream.close()
-
-
-
-    def add_frame(self,disposal_method=0,delay=1, transparent=None,,top=0,left=0,width=None,Height=None):
 
         gce=GraphicsControlExtension(self.stream)
-        gce.DelayTime            =delay
-        if transparent:
-          gce.ColorIndex           =transparent
-          gce.TransparentColorFlag =0x01
-        gce.DisposalMethod       =disposal_method
-        #gce.UserInputFlag        =0x00
-       
+        gce.new(    DelayTime=delay,
+                    ColorIndex=transparent,
+                    DisposalMethod=disposal_method)
+
         descriptor=ImageDescriptor(self.stream)
-        descriptor.new()
-        descriptor.width
 
-        self.Left     =0
-        self.Top      =0
-        self.Width    =320
-        self.Height   =240
-        # computed
-        self.LocalColorTableFlag  =0
-        self.InterlaceFlag        =0
-        self.SortFlag             =0
-        self.LocalColorTableSize  =0
+        if palette:
+            res=self.add_ct(palette)
+            local_color_table    = res['table']
+            LocalColorTableSize  = res['size']
+            LocalColorTableFlag  = res['flag']
 
+        else:
+            local_color_table= None
+            LocalColorTableFlag =0
+            LocalColorTableSize =0
+        
+        descriptor.new(left=left,top=top,width=width,height=height,LocalColorTableFlag=LocalColorTableFlag,LocalColorTableSize=LocalColorTableSize)
+        
+        image_data=None
+        #e=Encode()
+        #data_buffer=[]
+        #image_data=data['data']
+        #min_code_size=8
+        #data_buffer=e.compress(min_code_size,[4,3,2,65,76,5,47,65,7,65,47,6,5,4,7,65,47,65,47,6,5,65,43,5,34,15,3,24,32,14,2,31,42,31,4])
+            
 
-            gc=self.load_graphics_control_extension()
-            if gc:
-                descriptor=None
-                local_color_table=None
-                imagedata=None
-                info={'frame':frame,'type':'image','gc':gc,'descriptor':descriptor,'color_table':local_color_table,'image':imagedata}
-                continue
-
-            descriptor =self.load_image_descriptor()
-            if descriptor:
-                if descriptor.LocalColorTableFlag==True:
-                    local_color_table=self.load_color_table(descriptor.NumberOfColorTableEntries)
-                else:
-                    local_color_table=None
-                pixels=descriptor.Height*descriptor.Width
-                imagedata=self.load_image_data(pixels,descriptor.InterlaceFlag,descriptor.Width)
-                info['descriptor']=descriptor
-                info['color_table']=local_color_table
-                info['image']=imagedata
-                self.frames.append(info)
-            comment    =self.load_comment_extension()
-            plain_text =self.load_plain_text_extension()
-                self.frames.append({'frame':frame,'type':'text','data':plain_text})
-            application=self.load_application_extension()
-            trailer=self.load_trailer()
-            if old_pos==self.stream.pos:
-
-
+        self.frames.append({'gce':gce,'descriptor':descriptor,'color_table':local_color_table,'image':image_data})
 
 
 

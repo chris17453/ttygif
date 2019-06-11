@@ -24,18 +24,27 @@ class ImageDescriptor:
         self.stream.write_word(self.Height   )
         self.stream.write_byte(self.Packed   )
 
-    def new(self):
-        self.Separator=0x2C
-        self.Left     =0
-        self.Top      =0
-        self.Width    =320
-        self.Height   =240
+    def new(self,   Separator=0x2C,
+                    Left=0,
+                    Top=0,
+                    Width=300,
+                    Height=240,
+                    LocalColorTableFlag=0,
+                    InterlaceFlag=0,
+                    SortFlag=0,
+                    Reserved=0,
+                    LocalColorTableSize=0):
+        self.Separator=Separator
+        self.Left     =Left
+        self.Top      =Top
+        self.Width    =Width
+        self.Height   =Height
         # computed
-        self.LocalColorTableFlag  =0
-        self.InterlaceFlag        =0
-        self.SortFlag             =0
-        self.Reserved             =0
-        self.LocalColorTableSize  =0
+        self.LocalColorTableFlag  =LocalColorTableFlag
+        self.InterlaceFlag        =InterlaceFlag
+        self.SortFlag             =SortFlag
+        self.Reserved             =Reserved
+        self.LocalColorTableSize  =LocalColorTableSize
 
         self.pack()
 

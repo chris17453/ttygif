@@ -5,7 +5,6 @@ from .encode import Encode
 from .header import header
 
 class gif:
-    self.
     def __init__(self,debug=None):
         self.debug=debug
 

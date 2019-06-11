@@ -1,6 +1,6 @@
 # Global header of gif file
 
-class Header:
+class gif_header:
     def __init__(self,stream):
         self.stream=stream
 
@@ -20,15 +20,10 @@ class Header:
         self.AspectRatio             = self.stream.byte()                        # Pixel Aspect Ratio
 
         # computed
-        self.GlobalColorTableSize    = self.stream.bit(self.Packed,0,3)
-        self.ColorTableSortFlag      = self.stream.bit(self.Packed,3)
-        self.ColorResolution         = self.stream.bit(self.Packed,4,3)
-        self.GlobalColorTableFlag    = self.stream.bit(self.Packed,7)
-        self.GlobalColorTableLength  = 2 << (self.GlobalColorTableSize + 1)
-
+        self.unpack()
 
     def write(self):
-        self.compute_packed()
+        self.pack()
         self.stream.write_string(self.Signature,3)
         self.stream.write_string(self.Version,3)
         self.stream.write_word  (self.ScreenWidth)
@@ -52,9 +47,16 @@ class Header:
         self.GlobalColorTableFlag   = 1
         self.GlobalColorTableLength = 256
 
-        self.compute_packed()
+        self.pack()
 
-    def compute_packed(self):
+    def unpack(self):
+        self.GlobalColorTableSize    = self.stream.bit(self.Packed,0,3)
+        self.ColorTableSortFlag      = self.stream.bit(self.Packed,3)
+        self.ColorResolution         = self.stream.bit(self.Packed,4,3)
+        self.GlobalColorTableFlag    = self.stream.bit(self.Packed,7)
+        self.GlobalColorTableLength  = 2 << (self.GlobalColorTableSize + 1)
+
+    def pack(self):
         self.packed=self.GlobalColorTableFlag<7
         self.packed+=self.ColorResolution<4
         self.packed+=self.ColorTableSortFlag<3

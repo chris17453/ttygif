@@ -38,17 +38,32 @@ class GraphicsControlExtension:
         self.DisposalMethod       =self.stream.bit(self.Packed,2,3)
         self.Reserved             =self.stream.bit(self.Packed,3)
 
-    def new(self):
+    # is no color index is passed, nothing is transparent. 
+    # if so flag is set to transparent available and the index is set
+    def new(self,   DelayTime=1,
+                    ColorIndex=None,
+                    UserInputFlag=0,
+                    DisposalMethod=0):
+
         self.Introducer= 0x21
         self.Label      =0xF9
         self.BlockSize  =0x04
-        self.DelayTime  =0x01
-        self.ColorIndex =0x00
+        self.DelayTime  =DelayTime
         self.Terminator= 0x00
 
-        self.TransparentColorFlag =0x00
-        self.UserInputFlag        =0x00
-        self.DisposalMethod       =0x00
+        if ColorIndex:
+            TransparentColorFlag=1
+            self.ColorIndex =ColorIndex
+        else:
+            TransparentColorFlag=0
+            self.ColorIndex =0
+
+
+
+
+        self.TransparentColorFlag =TransparentColorFlag
+        self.UserInputFlag        =UserInputFlag
+        self.DisposalMethod       =DisposalMethod
         self.Reserved             =0x00
         self.pack()
 

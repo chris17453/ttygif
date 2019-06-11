@@ -1,5 +1,5 @@
 from .stream import DataStream
-from .Header import Header
+from .header import gif_header
 from .ImageDescriptor import ImageDescriptor
 from .ImageData import ImageData
 from .GraphicsControlExtension import GraphicsControlExtension
@@ -36,7 +36,7 @@ class Decoder:
         self.stream.open()
         self.debug        =debug
         self.file         =file
-        self.header       =Header(self.stream)
+        self.header       =gif_header(self.stream)
         self.header.read()
         self.comments     =[]
         self.frames       =[]
