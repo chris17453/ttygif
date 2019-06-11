@@ -1,5 +1,6 @@
 import argparse
 from .gif.gif import gif
+from .gif.encode import encode_gif
 from .tty.fonts import font
 from .tty.viewer import viewer 
 from .asciicast.reader import asciicast_reader
@@ -18,6 +19,7 @@ def cli_main():
     parser.add_argument('-s', '--screen',  help='Create font html canvas web page.', action='store_true')
     parser.add_argument('-t', '--test',    help='test viewer', action='store_true')
     
+
     args = parser.parse_args()
     if args.web:
         gif().canvas_it(args.input,args.output)
@@ -36,10 +38,12 @@ def cli_main():
         #return
         v=viewer(char_width=stream['width'],char_height=stream['height'],stream="")
         index=0
+        strlen=len(stream['events'])
         for event in stream['events']:
             v.add_event(event)
+            percent=int((index*100)/strlen)
             index+=1
-            print("Index:{0}",index)
+            print("Index:{0} out of {1} - {2}%",index,strlen,percent)
             #time.sleep(.1)            
             #print event
             #v.render()
@@ -48,7 +52,12 @@ def cli_main():
         v.render()
         v.debug()
         data=v.get()
-        gif().screen(data,args.output)
+        #gif().screen(data,args.output)
+        g=encode_gif()
+        g.create(width=stream['width'],height=stream['height'],filename=args.output,default_palette=True)
+        g.add_frame(disposal_method=0,delay=1, transparent=None,top=0,left=0,width=None,Height=None,palette=None,image_data=data)
+        g.write()
+
         #g=gif()
         #print(data)
         #g.encode(data,args.output)

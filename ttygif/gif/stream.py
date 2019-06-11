@@ -13,6 +13,8 @@ class DataStream:
         self.pos=0
         self.file_length=None
         self.file=file
+        self.open()
+
     def validate_file(self):
         if None == self.file:
             raise Exception(self.FILE_NULL)
@@ -28,15 +30,15 @@ class DataStream:
             raise  Exception(self.OUT_OF_BOUNDS)
 
     def open(self):
-        if mode=='r':
+        if self.mode=='r':
             self.validate_file()
             self.file_object=open(self.file, "rb")
-        if mode=='w':
+        if self.mode=='w':
             self.file_object=open(self.file, "wb")
 
     def close(self):
         if None== self.file_object:
-            raise Exception(FILE_OBJECT_NULL)
+            raise Exception(self.FILE_OBJECT_NULL)
         self.file_object.close()
     
     def pin(self):
@@ -49,7 +51,7 @@ class DataStream:
                 #print("Position changed from {0} to {1}".format(self.pos,position))
                 self.pos=position
         else:
-            raise Exception(INVALID_POSITION)
+            raise Exception(self.INVALID_POSITION)
     
     def rewind(self):
         self.seek(self.pinned_position)

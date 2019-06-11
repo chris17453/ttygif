@@ -7,7 +7,7 @@ from .ApplicationExtension import ApplicationExtension
 from .CommentExtension import CommentExtension
 from .PlainTextExtension import PlainTextExtension
 from .Trailer import Trailer
-from .ColorTable import ColorTable
+from .color_table import gif_color_table
 
 # GIT 89A
 # freehand implimentation of information found at  https://www.fileformat.info/format/gif/egff.htm
@@ -67,7 +67,7 @@ class Decoder:
             descriptor =self.load_image_descriptor()
             if descriptor:
                 if descriptor.LocalColorTableFlag==True:
-                    local_color_table=self.load_color_table(descriptor.NumberOfColorTableEntries)
+                    local_color_table=self.load_color_table(descriptor.ColorTableLength)
                 else:
                     local_color_table=None
                 pixels=descriptor.Height*descriptor.Width
@@ -199,7 +199,7 @@ class Decoder:
     def load_color_table(self,entries):
         try:
             self.stream.pin()
-            colortable=ColorTable(self.stream)
+            colortable=gif_color_table(self.stream)
             colortable.read(entries)
             if self.debug:
                 colortable.debug()

@@ -7,15 +7,16 @@ from .ApplicationExtension import ApplicationExtension
 from .CommentExtension import CommentExtension
 from .PlainTextExtension import PlainTextExtension
 from .Trailer import Trailer
-from .ColorTable import ColorTable
+from .color_table import gif_color_table
 
 
 
 class encode_gif:
     def __init__(self):
-        self.stream=stream
+        self.stream=None
         self.header =None
         self.global_color_table=None
+        self.frames=[]
   
     def write(self):
         # auto computes packed values on write
@@ -49,10 +50,11 @@ class encode_gif:
             height,
             default_palette=True,
             palette=None):
+
+        self.stream=DataStream(filename,mode='w')
         
-        self.stream=DataStream(filename)
-        
-        self.add_header(width=width,height=height,default_palette=default_palettte)
+        self.add_header(width=width,height=height,default_palette=default_palette)
+        self.frames=[]
 
         # create the header
     # Step 1, create a header
@@ -74,17 +76,9 @@ class encode_gif:
     # STEP 2 adding a global palette to the gif 
     def add_ct(self,palette,default_palette=True):
         if palette or default_palette:
-            color_table =ColorTable(self.stream)
+            color_table =gif_color_table(self.stream)
             color_table.new(palette=palette)
-            color_table_size=0
-            if len(color_table)>0  : color_table_size+=1
-            if len(color_table)>2  : color_table_size+=1
-            if len(color_table)>4  : color_table_size+=1
-            if len(color_table)>8  : color_table_size+=1
-            if len(color_table)>16 : color_table_size+=1
-            if len(color_table)>32 : color_table_size+=1
-            if len(color_table)>64 : color_table_size+=1
-            if len(color_table)>128: color_table_size+=1
+            color_table_size=color_table.get_byte_size()
             if color_table_size==0:
               color_table_flag=0
             else:
@@ -121,7 +115,7 @@ class encode_gif:
             LocalColorTableFlag =0
             LocalColorTableSize =0
         
-        descriptor.new(left=left,top=top,width=width,height=height,LocalColorTableFlag=LocalColorTableFlag,LocalColorTableSize=LocalColorTableSize)
+        descriptor.new(Left=left,Top=top,Width=width,Height=height,LocalColorTableFlag=LocalColorTableFlag,LocalColorTableSize=LocalColorTableSize)
         
         image_data=None
         #e=Encode()
@@ -184,7 +178,7 @@ class Encode:
       for i in range (1,il):
         k = index_stream[i] & self.code_mask
         cur_key = ib_code << 8 | k
-        print cur_key
+        print(cur_key)
         
         if code_table[cur_key]==4096: # TODO
           self.cur |= ib_code << self.cur_shift
@@ -218,7 +212,7 @@ class Encode:
           ib_code = cur_code
 
       self.emit_code(ib_code)
-      self.emit_code(eoi_code)
+      self.emit_code(self.eoi_code)
       self.emit_bytes_to_buffer(1)
 
       if self.cur_subblock + 1 == self.p:

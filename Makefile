@@ -60,11 +60,14 @@ uninstall:
 	pip uninstall ttygif
 
  
-test:
+test-cast-2-canvas:
 #Pikachu
 #	@python -m ttygif.cli -t -i data/236096.cast -o examples/encode/test_cast.html
 #Nyan
 #	@python -m ttygif.cli -t -i data/3.cast -o examples/encode/test_cast.html
 #Compile
 	@python -m ttygif.cli -t -i data/234628.cast -o examples/encode/test_cast.html
+	
+test-cast-2-gif:
+	@python -m ttygif.cli -t -i data/234628.cast -o examples/encode/234628.gif
 	

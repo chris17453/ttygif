@@ -1,11 +1,24 @@
 
 # array..
 # ColorTableSize = 3L * (1L << (SizeOfGlobalColorTable + 1));
-class ColorTable:
+class gif_color_table:
     def __init__(self,stream):
         self.stream=stream
         self.colors=[]
 
+    def get_byte_size(self):
+        size=0
+        colors_len=len(self.colors)
+        if colors_len>0  : size+=1
+        if colors_len>2  : size+=1
+        if colors_len>4  : size+=1
+        if colors_len>8  : size+=1
+        if colors_len>16 : size+=1
+        if colors_len>32 : size+=1
+        if colors_len>64 : size+=1
+        if colors_len>128: size+=1
+        return size
+            
     def read(self,entries):
         self.internal_position=self.stream.pos
         self.colors=[]
@@ -16,7 +29,7 @@ class ColorTable:
             self.colors.append([red,green,blue])
 
     def write(self):
-        for color in range(0,len(self.colors)):
+        for color in self.colors:
             self.stream.write_byte(color[0])
             self.stream.write_byte(color[1])
             self.stream.write_byte(color[2])
@@ -75,7 +88,7 @@ class ColorTable:
                 [78,78,78],[88,88,88],[98,98,98],[108,108,108],[118,118,118],[128,128,128],
                 [138,138,138],[148,148,148],[158,158,158],[168,168,168],[178,178,178],[188,188,188],
                 [198,198,198],[208,208,208],[218,218,218],[228,228,228],[238,238,238] ]
-            for color in range(0,len(color_table)):
+            for color in color_table:
                 self.stream.write_byte(color[0])
                 self.stream.write_byte(color[1])
                 self.stream.write_byte(color[2])

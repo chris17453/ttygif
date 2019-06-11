@@ -26,11 +26,11 @@ class GraphicsControlExtension:
         self.stream.write_byte(self.Terminator)
 
     def pack(self):
-        self.packed=0
-        self.packed =self.Reserved             <3
-        self.packed+=self.DisposalMethod       <2
-        self.packed+=self.UserInputFlag        <1
-        self.packed+=self.TransparentColorFlag
+        self.Packed=0
+        self.Packed =self.Reserved             <3
+        self.Packed+=self.DisposalMethod       <2
+        self.Packed+=self.UserInputFlag        <1
+        self.Packed+=self.TransparentColorFlag
 
     def unpack(self):
         self.TransparentColorFlag =self.stream.bit(self.Packed,0)
