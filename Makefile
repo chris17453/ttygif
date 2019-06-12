@@ -70,4 +70,6 @@ test-cast-2-canvas:
 	
 test-cast-2-gif:
 	@python -m ttygif.cli -t -i data/234628.cast -o examples/encode/234628.gif
+	@python -m ttygif.cli -v -w -i examples/encode/234628.gif -o examples/encode/234628.html
+
 	

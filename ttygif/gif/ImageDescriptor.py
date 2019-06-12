@@ -1,6 +1,7 @@
 class ImageDescriptor:
     def __init__(self,stream):
         self.stream=stream
+        self.internal_position=self.stream.pos
 
 
     def read(self):
@@ -58,10 +59,10 @@ class ImageDescriptor:
 
     def pack(self):
         self.Packed=0
-        self.Packed+=self.LocalColorTableFlag  <7
-        self.Packed+=self.InterlaceFlag        <6
-        self.Packed+=self.SortFlag             <5
-        self.Packed+=self.Reserved             <3
+        self.Packed+=self.LocalColorTableFlag  <<7
+        self.Packed+=self.InterlaceFlag        <<6
+        self.Packed+=self.SortFlag             <<5
+        self.Packed+=self.Reserved             <<3
         self.Packed+=self.LocalColorTableSize
         
 

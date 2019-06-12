@@ -3,6 +3,7 @@
 class gif_header:
     def __init__(self,stream):
         self.stream=stream
+        self.internal_position=self.stream.pos
 
     
     def read(self):
@@ -43,7 +44,7 @@ class gif_header:
         self.AspectRatio            = 0
         self.GlobalColorTableSize   = 6
         self.ColorTableSortFlag     = 0
-        self.ColorResolution        = 6
+        self.ColorResolution        = 1
         self.GlobalColorTableFlag   = 1
         self.GlobalColorTableLength = 256
 
@@ -57,10 +58,11 @@ class gif_header:
         self.GlobalColorTableLength  = 2 << (self.GlobalColorTableSize + 1)
 
     def pack(self):
-        self.packed=self.GlobalColorTableFlag<7
-        self.packed+=self.ColorResolution<4
-        self.packed+=self.ColorTableSortFlag<3
-        self.packed+=self.GlobalColorTableSize
+        self.Packed= self.GlobalColorTableFlag<<7
+        self.Packed+=self.ColorResolution<<4
+        self.Packed+=self.ColorTableSortFlag<<3
+        self.Packed+=self.GlobalColorTableSize
+        
         
 
     def debug(self):

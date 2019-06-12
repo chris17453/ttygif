@@ -42,14 +42,16 @@ class Decoder:
         self.frames       =[]
         self.applications =[]
         if self.header.GlobalColorTableFlag==True:
+            print self.header.GlobalColorTableLength
+            print self.header.GlobalColorTableSize
             self.global_color_table=self.load_color_table(self.header.GlobalColorTableLength)
         else:
             # TODO default global color table
             self.global_color_table=None
 
-        if self.debug:
-            self.header.debug()
-
+        #if self.debug:
+        self.header.debug()
+        print ("{0:02X}".format(self.stream.pos))
         loop=True
         frame=0
         old_pos=-1
@@ -58,6 +60,8 @@ class Decoder:
             # try for an image
             gc=self.load_graphics_control_extension()
             if gc:
+                gc.debug()
+                print ("GC")
                 descriptor=None
                 local_color_table=None
                 imagedata=None
@@ -66,12 +70,16 @@ class Decoder:
 
             descriptor =self.load_image_descriptor()
             if descriptor:
+                descriptor.debug()
                 if descriptor.LocalColorTableFlag==True:
+                    print ("Has color table")
                     local_color_table=self.load_color_table(descriptor.ColorTableLength)
                 else:
+                    print ("No color table")
                     local_color_table=None
                 pixels=descriptor.Height*descriptor.Width
                 imagedata=self.load_image_data(pixels,descriptor.InterlaceFlag,descriptor.Width)
+                print ("Image Data")
                 info['descriptor']=descriptor
                 info['color_table']=local_color_table
                 info['image']=imagedata
@@ -100,11 +108,13 @@ class Decoder:
             # EOF
             trailer=self.load_trailer()
             if trailer:
+                print ("Trailer")
                 #print ("END POSITION: {0:02X}".format(self.stream.pos))
                 break
             if self.debug:
                 print ("POSITION: {0:02X}".format(self.stream.pos))
             if old_pos==self.stream.pos:
+                print ("POSITION: {0:02X}".format(self.stream.pos))
                 raise Exception ("Forever loop. Death.")
             old_pos=self.stream.pos
                         #break
@@ -136,7 +146,7 @@ class Decoder:
                 descriptor.debug()
             return descriptor
         except Exception as ex:
-            #print("Trying:{0}".format(ex))
+            print("Trying:{0}".format(ex))
             self.stream.rewind()
 
     def load_comment_extension(self):
@@ -147,7 +157,7 @@ class Decoder:
                 comment.debug()
             return comment
         except Exception as ex:
-            print("Trying:{0}".format(ex))
+            #print("Trying:{0}".format(ex))
             self.stream.rewind()
             
     def load_graphics_control_extension(self):
@@ -159,7 +169,7 @@ class Decoder:
                 graphiccontrol.debug()
             return graphiccontrol
         except Exception as ex:
-            #print("Trying:{0}".format(ex))
+            print("Trying:{0}".format(ex))
             self.stream.rewind()
 
     def load_plain_text_extension(self):
@@ -205,13 +215,14 @@ class Decoder:
                 colortable.debug()
             return colortable
         except Exception as ex:
-            #print("Trying:{0}".format(ex))
+            print("Trying:{0}".format(ex))
             self.stream.rewind()
 
     def load_image_data(self,pixels,interlace,width):
         #try:
             self.stream.pin()
-            imagedata=ImageData(self.stream,pixels,interlace,width)
+            imagedata=ImageData(self.stream)
+            imagedata.read(pixels,interlace,width)
             if self.debug:
                 imagedata.debug()
             return imagedata

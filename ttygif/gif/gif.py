@@ -1,7 +1,6 @@
 
 from .Decoder import Decoder
 from .canvas import canvas
-from .encode import Encode
 
 class gif:
     def __init__(self,debug=None):
@@ -25,13 +24,4 @@ class gif:
     def screen(self,data,output_filename):
         canvas().screen_canvas(data,output_filename)
 
-    def encode(self,data,output_filename):
-        e=Encode()
-        data_buffer=[]
-        image_data=data['data']
-        min_code_size=8
-        e.compress(min_code_size,[4,3,2,65,76,5,47,65,7,65,47,6,5,4,7,65,47,65,47,6,5,65,43,5,34,15,3,24,32,14,2,31,42,31,4])
-        #content=open (output_filename,"wb")
-        #content.
-        print(data_buffer)
-
+    

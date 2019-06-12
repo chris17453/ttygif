@@ -1,6 +1,7 @@
 class GraphicsControlExtension:
     def __init__(self,stream):
         self.stream=stream
+        self.internal_position=self.stream.pos
 
     def read(self):
         self.internal_position  = self.stream.pos
@@ -27,9 +28,9 @@ class GraphicsControlExtension:
 
     def pack(self):
         self.Packed=0
-        self.Packed =self.Reserved             <3
-        self.Packed+=self.DisposalMethod       <2
-        self.Packed+=self.UserInputFlag        <1
+        self.Packed =self.Reserved             <<3
+        self.Packed+=self.DisposalMethod       <<2
+        self.Packed+=self.UserInputFlag        <<1
         self.Packed+=self.TransparentColorFlag
 
     def unpack(self):

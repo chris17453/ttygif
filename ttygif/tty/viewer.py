@@ -268,7 +268,8 @@ class viewer:
 #       ESC ]     OSC      (Should be: Operating system command) ESC ] P
 #                          nrrggbb: set palette, with parameter given in 7
     def info(self,text):
-        print(text)
+        return
+        #print(text)
 
     def stream_to_buffer(self):
         window_width=self.width/font['font_width']
@@ -500,7 +501,7 @@ class viewer:
                                 self.write_buffer(x2,y,32,buffer,fg,bg)
                     else:
                         self.info("Impliment: Start: {5} pos x:{3},Y:{4} - {0}-{1}-{2}".format(command,params,paramstring,x,y,start))
-            print( esc_type,command,params)
+#            print( esc_type,command,params)
             
         for i in range(cursor,len(self.stream)):
             character=self.stream[i]

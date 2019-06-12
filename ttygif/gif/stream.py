@@ -107,11 +107,17 @@ class DataStream:
             raise Exception ("Read Error {0}, WORD,{1}".format(ex,word))
 
     def write_byte(self,byte):
-        self.file_object.write(bytearray(byte))
+        #print ("'{0}'".format(byte))
+        ba=bytearray()
+        ba.append(byte)
+        self.file_object.write(ba)
         self.pos+=1
 
     def write_word(self,word):
-        self.file_object.write(bytearray(int(word)))
+        ba=bytearray()
+        ba.append(word & 0xFF)
+        ba.append((word>>8) & 0xFF)
+        self.file_object.write(ba)
         self.pos+=1
 
     def write_string(self,string,length):

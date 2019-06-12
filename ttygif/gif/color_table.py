@@ -4,13 +4,12 @@
 class gif_color_table:
     def __init__(self,stream):
         self.stream=stream
+        self.internal_position=self.stream.pos
         self.colors=[]
 
     def get_byte_size(self):
         size=0
         colors_len=len(self.colors)
-        if colors_len>0  : size+=1
-        if colors_len>2  : size+=1
         if colors_len>4  : size+=1
         if colors_len>8  : size+=1
         if colors_len>16 : size+=1
@@ -37,10 +36,7 @@ class gif_color_table:
     def new(self,palette=None):
         self.colors=[]
         if palette:
-            for color in range(0,len(palette)):
-                self.stream.write_byte(color[0])
-                self.stream.write_byte(color[1])
-                self.stream.write_byte(color[2])
+            self.colors=palette
         else:
             color_table=[  # 16 System Colors
                 [0,0,0],[128,0,0],[0,128,0],[128,128,0],
@@ -88,10 +84,6 @@ class gif_color_table:
                 [78,78,78],[88,88,88],[98,98,98],[108,108,108],[118,118,118],[128,128,128],
                 [138,138,138],[148,148,148],[158,158,158],[168,168,168],[178,178,178],[188,188,188],
                 [198,198,198],[208,208,208],[218,218,218],[228,228,228],[238,238,238] ]
-            for color in color_table:
-                self.stream.write_byte(color[0])
-                self.stream.write_byte(color[1])
-                self.stream.write_byte(color[2])
             self.colors=color_table
 
 
