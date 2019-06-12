@@ -12,13 +12,17 @@ from .color_table import gif_color_table
 
 
 class encode_gif:
-    def __init__(self):
+    def __init__(self,debug=None,auto=True):
         self.stream=None
         self.header =None
         self.global_color_table=None
         self.frames=[]
+        self.debug=debug
+        self.auto=auto
   
     def write(self):
+        if self.auto:
+          return
         # auto computes packed values on write
         self.header.write()
         
@@ -38,11 +42,13 @@ class encode_gif:
               frame['image'].write()
 
         # write terminator
-        self.trailer=Trailer(self.stream)
-        self.trailer.new()
         self.trailer.write()
         self.stream.close()
 
+    def close(self):
+      if self.auto:
+        self.trailer.write()
+        self.stream.close()
 
   
     def create(self,filename,
@@ -55,6 +61,8 @@ class encode_gif:
         
         self.add_header(width=width,height=height,palette=palette,default_palette=default_palette)
         self.frames=[]
+        self.trailer=Trailer(self.stream)
+        self.trailer.new()
 
         # create the header
     # Step 1, create a header
@@ -72,8 +80,14 @@ class encode_gif:
           self.header.GlobalColorTableSize    =res['size']
           self.header.GlobalColorTableFlag    =res['flag']
           self.header.pack()
-        self.header.debug()
+        if self.debug:
+          self.header.debug()
+        if self.auto:
+          self.header.write()
+          if default_palette or palette:
+            self.global_color_table.write()
 
+        
     # STEP 2 adding a global palette to the gif 
     def add_ct(self,palette,default_palette=True):
         if palette or default_palette:
@@ -84,6 +98,10 @@ class encode_gif:
               color_table_flag=0
             else:
               color_table_flag=1
+        else:
+          color_table=None
+          color_table_flag=0
+          color_table_size=0
 
         return {'table':color_table,
                 'flag':color_table_flag,
@@ -102,24 +120,43 @@ class encode_gif:
         gce.new(    DelayTime=delay,
                     ColorIndex=transparent,
                     DisposalMethod=disposal_method)
-
         descriptor=ImageDescriptor(self.stream)
+        
 
         if palette:
             res=self.add_ct(palette)
             local_color_table    = res['table']
             LocalColorTableSize  = res['size']
             LocalColorTableFlag  = res['flag']
-
         else:
             local_color_table= None
             LocalColorTableFlag =0
             LocalColorTableSize =0
         
         descriptor.new(Left=left,Top=top,Width=width,Height=height,LocalColorTableFlag=LocalColorTableFlag,LocalColorTableSize=LocalColorTableSize)
+
         
         imagedata=ImageData(self.stream)
         imagedata.new(data=image_data)
+
+        if self.debug:
+          gce.debug()
+          descriptor.debug()
+          if local_color_table:
+              local_color_table.debug()
+          imagedata.debug()
+
+        if self.auto:
+            if gce:
+              gce.write()
+            if descriptor:
+              descriptor.write()
+            if local_color_table:
+              local_color_table.write()
+            if imagedata:
+              imagedata.write()
+
+
 
         self.frames.append({'gce':gce,'descriptor':descriptor,'color_table':local_color_table,'image':imagedata})
 

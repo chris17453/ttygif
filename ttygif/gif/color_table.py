@@ -8,14 +8,15 @@ class gif_color_table:
         self.colors=[]
 
     def get_byte_size(self):
-        size=0
         colors_len=len(self.colors)
-        if colors_len>4  : size+=1
-        if colors_len>8  : size+=1
-        if colors_len>16 : size+=1
-        if colors_len>32 : size+=1
-        if colors_len>64 : size+=1
-        if colors_len>128: size+=1
+        size=0
+        if   colors_len>128: size=7
+        elif colors_len>64 : size=6
+        elif colors_len>32 : size=5
+        elif colors_len>16 : size=4
+        elif colors_len>8  : size=3
+        elif colors_len>4  : size=2
+        elif colors_len>0  : size=1
         return size
             
     def read(self,entries):

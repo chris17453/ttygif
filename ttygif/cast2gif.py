@@ -1,3 +1,4 @@
+import sys
 from .gif.encode import encode_gif
 from .asciicast.reader import asciicast_reader
 from .tty.viewer import viewer
@@ -27,8 +28,13 @@ class cast2gif:
                         max_y=y
                 pos+=1
         # it didnt change...
+        # place holder so delat is kept same same
         if same:
-            return None
+            min_x=0
+            min_y=0
+            max_x=2
+            max_y=2
+            #return None
 
         bound_height=max_y-min_y+1
         bound_width =max_x-min_x+1
@@ -60,9 +66,10 @@ class cast2gif:
         timestamp=0
         interval=.100
         frame=0
-        max_frames=100
+        max_frames=50
         data=None
         old_data=None
+        strlen=len(stream['events'])
         for event in stream['events']:
             index+=1
             if timestamp==0:
@@ -70,16 +77,19 @@ class cast2gif:
 
             cur_timestamp=float(event[0])
             if cur_timestamp-timestamp>interval:
-                print("Frame: {0}".format(frame))
+                timestamp=cur_timestamp
+                percent=int((index*100)/strlen)
+                sys.stdout.write("Time: {0}-{1} - {2}%\r".format(index,strlen,percent))
+                sys.stdout.flush()
+                
                 frame+=1
                 if frame>max_frames:
                     break
-                #percent=int((index*100)/strlen)
-                #print("Index:{0} out of {1} - {2}%".format(index,strlen,percent))
                 v.render()
                 old_data=data
                 data=v.get()
                 diff=self.get_frame_bounding_diff(old_data,data,v.width,v.height)
+                
                 if diff:
                     frame_snip=self.copy_area(data['data'],diff,v.width,v.height)
 
@@ -95,11 +105,17 @@ class cast2gif:
                                     palette=None,image_data=frame_snip)
             v.add_event(event)
 
+        # need to close the gif
         # last frame    
-        # v.render()
-        # data=v.get()
-        # diff=self.get_frame_bounding_diff(None,data,v.width,v.height)
-        # frame_snip=self.copy_area(data['data'],diff,v.width,v.height)
-        # g.add_frame(disposal_method=0,delay=1, transparent=None,top=diff['min_x'],left=diff['min_y'],width=diff['width'],height=diff['height'],palette=None,image_data=frame_snip)
-        g.write()
+        v.render()
+        data=v.get()
+        diff=self.get_frame_bounding_diff(old_data,data,v.width,v.height)
+        frame_snip=self.copy_area(data['data'],diff,v.width,v.height)
+        g.add_frame(disposal_method=0,delay=delay, 
+                        transparent=None,
+                        left=diff['min_x'],top=diff['min_y'],
+                        width=diff['width'],height=diff['height'],
+                        palette=None,image_data=frame_snip)
+        g.close()
+        print("finished")
         

@@ -183,15 +183,15 @@ class viewer:
         self.video_length=len(self.video)
 
         
-        buffer_height=self.get_buffer_height()
+        #buffer_height=self.get_buffer_height()
         #if self.window=="BOTTOM":
-         #   if  buffer_height<=self.height:
-         #       offset=0
-         #   else:
-         #       offset=buffer_height-self.height
+        #   if  self.buffer_rows<=self.window_height:
+        #       offset=0
+        #   else:
+        #       offset=buffer_height-self.height
 
         #if self.window=="TOP":
-        offset=0
+        #    offset=0
 
         #print offset,buffer_height
         buffer_len=len(self.buffer)
@@ -204,11 +204,11 @@ class viewer:
         index=0
         for y in range(0,self.window_height):
             for x in range(0,self.window_width):
-                if y<offset:
-                    continue
+                #if y<offset:
+                #    continue
                 color=self.buffer[index]
                 character=self.buffer[index+1]
-                self.draw_character(character,x,y,offset,color)
+                self.draw_character(character,x,y,0,color)
                 index+=2
   
     # convert the text stream to a text formated grid
@@ -224,11 +224,26 @@ class viewer:
         print("buffer char height:     {0}".format(self.buffer_rows))
         print("buffer_len:     {0}".format(self.buffer_len))
 
+    
+        
+
+
     def write_buffer(self,x,y,c,buffer,fg,bg):
+        print('---')
+        while y>=self.window_height:
+            print y,self.window_height
+            index=self.window_width*2
+            for i in range(0,index):
+                buffer.pop(0)
+            buffer+=[0]*index
+            y-=1
+        print (len(buffer))
+
+
         pos=x*2+y*self.window_width*2
         buffer_len=len(buffer)
-        if pos>=buffer_len:
-            buffer+=[[0,0],0]*((pos+1-buffer_len))
+        #if pos>=buffer_len:
+        #    buffer+=[[0,0],0]*((pos+1-buffer_len))
         buffer[pos]=[fg,bg]
         buffer[pos+1]=c
         #print c
