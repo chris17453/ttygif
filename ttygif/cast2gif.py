@@ -12,9 +12,11 @@ class cast2gif:
         min_y=height
         max_x=0
         max_y=0
+        same=True
         for y in range(0,height):
             for x in range(0,width):
-                if frame1[pos]!=frame2[pos]:
+                if frame1['data'][pos]!=frame2['data'][pos]:
+                    same=None
                     if x<min_x:
                         min_x=x
                     if x>max_x:
@@ -24,20 +26,25 @@ class cast2gif:
                     if y>max_y:
                         max_y=y
                 pos+=1
-        bound_height=max_y-min_y
-        bound_width =max_x-min_x
+        # it didnt change...
+        if same:
+            return None
+
+        bound_height=max_y-min_y+1
+        bound_width =max_x-min_x+1
         return {'min_x':min_x,'min_y':min_y,'max_x':max_x,'max_y':max_y,'width':bound_width,'height':bound_height}
 
     def copy_area(self,data,diff,width,height):
         pos=0
         new_data_len=diff['width']*diff['height']
-        print diff,new_data_len,len(data)
+       # print new_data_len
         new_data=[0]*new_data_len
         for y in range(diff['min_y'],diff['max_y']+1):
             y_offset=y*width
             for x in range(diff['min_x'],diff['max_x']+1):
                 new_data[pos]=data[x+y_offset]
                 pos+=1
+                
         
         return new_data
 
@@ -45,17 +52,15 @@ class cast2gif:
         cast=asciicast_reader(debug=None)
         stream=cast.load(cast_file)
 
-        v=viewer(char_width=stream['width'],char_height=stream['height'],stream="")
-        index=0
-        strlen=len(stream['events'])
-
         g=encode_gif()
+        v=viewer(char_width=stream['width'],char_height=stream['height'],stream="")
         g.create(width=v.width,height=v.height,filename=gif_file,default_palette=True)
 
+        index=0
         timestamp=0
         interval=.100
         frame=0
-        max_frames=10
+        max_frames=100
         data=None
         old_data=None
         for event in stream['events']:
@@ -69,32 +74,32 @@ class cast2gif:
                 frame+=1
                 if frame>max_frames:
                     break
-                percent=int((index*100)/strlen)
+                #percent=int((index*100)/strlen)
                 #print("Index:{0} out of {1} - {2}%".format(index,strlen,percent))
                 v.render()
                 old_data=data
                 data=v.get()
-                print len(data)
                 diff=self.get_frame_bounding_diff(old_data,data,v.width,v.height)
-                frame_snip=self.copy_area(data,diff,v.width,v.height)
+                if diff:
+                    frame_snip=self.copy_area(data['data'],diff,v.width,v.height)
 
-                delay=int(interval*100)
-                if delay>255:
-                    delay=255
-                g.add_frame(disposal_method=0,delay=delay, 
-                                transparent=None,
-                                top=diff['min_x'],left=diff['min_y'],
-                                width=diff['width'],height=diff['height'],
-                                palette=None,image_data=frame_snip)
+                    delay=int(interval*100)
+                    if delay>255:
+                        delay=255
+                    #print diff
+                    #print (len(frame_snip))
+                    g.add_frame(disposal_method=0,delay=delay, 
+                                    transparent=None,
+                                    left=diff['min_x'],top=diff['min_y'],
+                                    width=diff['width'],height=diff['height'],
+                                    palette=None,image_data=frame_snip)
             v.add_event(event)
 
         # last frame    
-        v.render()
-        data=v.get()
-        g.add_frame(disposal_method=0,delay=1, transparent=None,top=0,left=0,width=data['width'],height=data['height'],palette=None,image_data=data['data'])
+        # v.render()
+        # data=v.get()
+        # diff=self.get_frame_bounding_diff(None,data,v.width,v.height)
+        # frame_snip=self.copy_area(data['data'],diff,v.width,v.height)
+        # g.add_frame(disposal_method=0,delay=1, transparent=None,top=diff['min_x'],left=diff['min_y'],width=diff['width'],height=diff['height'],palette=None,image_data=frame_snip)
         g.write()
-        #gif().screen(data,args.output)
-
-        #g=gif()
-        #print(data)
-        #g.encode(data,args.output)
+        

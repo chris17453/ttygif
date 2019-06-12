@@ -329,7 +329,7 @@ class LZWDecompressionTable(object):
     def show(self):
         """Print the code table."""
         for key in sorted(self.codes):
-            print key, '|', repr(self.codes[key])
+            print (key, '|', repr(self.codes[key]))
 
     @property
     def code_size(self):
@@ -395,6 +395,8 @@ def compress(data, lzw_min, max_code_size=12):
     codes = bitarray.bitarray(endian='little')
     for code in _compress():
         # Convert code to bits, and append it
-        codes.extend(bin(code)[2:].rjust(table.code_size, '0')[::-1])
+        #print code,table.code_size
+        codes.extend(            bin(code)
+                [2:].rjust(table.code_size, '0')[::-1])
     return codes.tobytes()
 
