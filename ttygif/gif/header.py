@@ -58,9 +58,9 @@ class gif_header:
         self.GlobalColorTableLength  = 2 << (self.GlobalColorTableSize + 1)
 
     def pack(self):
-        self.Packed= self.GlobalColorTableFlag<<7
-        self.Packed+=self.ColorResolution<<4
-        self.Packed+=self.ColorTableSortFlag<<3
+        self.Packed= self.GlobalColorTableFlag <<7
+        self.Packed+=self.ColorResolution      <<4
+        self.Packed+=self.ColorTableSortFlag   <<3
         self.Packed+=self.GlobalColorTableSize
         
         

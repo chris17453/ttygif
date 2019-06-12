@@ -72,6 +72,7 @@ class encode_gif:
           self.header.GlobalColorTableSize    =res['size']
           self.header.GlobalColorTableFlag    =res['flag']
           self.header.pack()
+        self.header.debug()
 
     # STEP 2 adding a global palette to the gif 
     def add_ct(self,palette,default_palette=True):
