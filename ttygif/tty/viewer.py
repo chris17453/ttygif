@@ -226,33 +226,20 @@ class viewer:
 
     
         
+    def shift_buffer(self,buffer):
+        index=self.window_width
+        for i in range(0,index):
+            buffer.pop(0)
+            buffer.pop(0)
+        buffer+=[[0,0],0]*self.window_width
 
 
     def write_buffer(self,x,y,c,buffer,fg,bg):
-        print('---')
-        while y>=self.window_height:
-            print y,self.window_height
-            index=self.window_width*2
-            for i in range(0,index):
-                buffer.pop(0)
-            buffer+=[0]*index
-            y-=1
-        print (len(buffer))
-
-
         pos=x*2+y*self.window_width*2
-        buffer_len=len(buffer)
-        #if pos>=buffer_len:
-        #    buffer+=[[0,0],0]*((pos+1-buffer_len))
         buffer[pos]=[fg,bg]
         buffer[pos+1]=c
-        #print c
 
 
-        
-
-
-        
 # NON CSI Sequences
 #       ESC c     RIS      Reset.
 #       ESC D     IND      Linefeed.
@@ -359,14 +346,23 @@ class viewer:
                     if char_ord==0x0A:
                         x=0
                         y+=1
+                        if y>=self.window_height:
+                            y-=1
+                            self.shift_buffer(buffer)
                         continue
                     if x>=self.window_width:
                         x=0
                         y+=1
+                        if y>=self.window_height:
+                            y-=1
+                            self.shift_buffer(buffer)
                     continue
                 if x>=self.window_width:
                     x=0
                     y+=1
+                    if y>=self.window_height:
+                        y-=1
+                        self.shift_buffer(buffer)
                     #print x,y,character,fg,bg
                 # print the space...
                 self.write_buffer(x,y,char_ord,buffer,fg,bg)
@@ -482,12 +478,16 @@ class viewer:
                         self.info("Cursor Next Line:{0}".format(params[0]))
                         x=0
                         y+=params[0]
+                        if y>=self.window_height:
+                            y-=1
+                            self.shift_buffer(buffer)
+
                     elif command==ord('F'): # move cursor previous  line
                         self.info("Cursor Previous Line:{0}".format(params[0]))
                         x=0
                         y-=params[0]
                         if y<0:
-                            y+=self.window_height
+                            y=0
                     elif command==ord('G'): # move cursor to HORIZONTAL pos X
                         self.info("Cursor X:{0}".format(params[0]))
                         x=params[0]
@@ -529,24 +529,31 @@ class viewer:
                 if char_ord==0x0A:
                     x=0
                     y+=1
+                    if y>=self.window_height:
+                        y-=1
+                        self.shift_buffer(buffer)
+
                 if x>=self.window_width:
                     x=0
                     y+=1
+                    if y>=self.window_height:
+                        y-=1
+                        self.shift_buffer(buffer)
                 continue
             if x>=self.window_width:
                 x=0
                 y+=1
+                if y>=self.window_height:
+                    y-=1
+                    self.shift_buffer(buffer)
             self.write_buffer(x,y,char_ord,buffer,fg,bg)
             x+=1        
         
         
-        if x<self.window_width:
-            for i in range(x,self.window_width):
-                pos=i*2+y*self.window_width*2
-                if pos+1>=buffer_len:
-                    buffer+=[[0,0],0]*((pos-buffer_len))
+
         self.buffer_len=len(buffer)
-        self.buffer_rows=y+1
+        #print ("BL:",self.buffer_len)
+        self.buffer_rows=self.window_height
         self.buffer=buffer
    
 

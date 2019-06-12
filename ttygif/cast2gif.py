@@ -83,11 +83,12 @@ class cast2gif:
                 sys.stdout.flush()
                 
                 frame+=1
-                if frame>max_frames:
-                    break
+                #if frame>max_frames:
+                 #   break
                 v.render()
                 old_data=data
                 data=v.get()
+                #old_data=None
                 diff=self.get_frame_bounding_diff(old_data,data,v.width,v.height)
                 
                 if diff:
@@ -107,15 +108,16 @@ class cast2gif:
 
         # need to close the gif
         # last frame    
-        v.render()
-        data=v.get()
-        diff=self.get_frame_bounding_diff(old_data,data,v.width,v.height)
-        frame_snip=self.copy_area(data['data'],diff,v.width,v.height)
-        g.add_frame(disposal_method=0,delay=delay, 
-                        transparent=None,
-                        left=diff['min_x'],top=diff['min_y'],
-                        width=diff['width'],height=diff['height'],
-                        palette=None,image_data=frame_snip)
+        if 1==0:
+            v.render()
+            data=v.get()
+            diff=self.get_frame_bounding_diff(old_data,data,v.width,v.height)
+            frame_snip=self.copy_area(data['data'],diff,v.width,v.height)
+            g.add_frame(disposal_method=0,delay=delay, 
+                            transparent=None,
+                            left=diff['min_x'],top=diff['min_y'],
+                            width=diff['width'],height=diff['height'],
+                            palette=None,image_data=frame_snip)
         g.close()
         print("finished")
         
