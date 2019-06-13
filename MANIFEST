@@ -44,4 +44,3 @@ ttygif/gif/header.py
 ttygif/gif/stream.py
 ttygif/gif/trailer.py
 ttygif/tty/__init__.py
-ttygif/tty/version.py
