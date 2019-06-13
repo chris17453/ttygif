@@ -248,8 +248,8 @@ class canvas:
 </html>"""
         frame=self.render(screen)
         doc=template.format( output_file,     #0
-                             screen['width'],
-                             screen['height'],
+                             screen.width,
+                             screen.height,
                              frame,         #4
                              )
         file = open(output_file,"w") 

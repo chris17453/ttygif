@@ -1,5 +1,6 @@
 import argparse
 from .gif.gif import gif
+from .tty.fonts import font
 from .gif.encode import encode_gif
 from .tty.viewer import viewer 
 from .asciicast.reader import asciicast_reader
