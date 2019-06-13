@@ -1,4 +1,4 @@
-from cpython import carray
+from cpython cimport array
 import array
 
 font={}
