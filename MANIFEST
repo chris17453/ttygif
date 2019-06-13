@@ -19,6 +19,7 @@ setup.py
 ./ttygif/gif/header.c
 ./ttygif/gif/stream.c
 ./ttygif/gif/trailer.c
+./ttygif/tty/font.c
 ./ttygif/tty/fonts.c
 ./ttygif/tty/viewer.c
 ttygif/__init__.py
@@ -44,4 +45,3 @@ ttygif/gif/stream.py
 ttygif/gif/trailer.py
 ttygif/tty/__init__.py
 ttygif/tty/version.py
-ttygif/tty/viewer.py

@@ -3,13 +3,8 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
-[dev-packages]
-cython = "*"
-
 [packages]
-pipenv = "*"
-install = "*"
-unittest = "*"
+cython = "*"
 
 [requires]
 python_version = "2.7"

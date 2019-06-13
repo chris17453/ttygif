@@ -1,29 +1,39 @@
+from cython cimport arrat
+import array
+
 from .fonts import font
 import re
 # Reference
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 
-class viewer:
+cdef class viewer:
     # TODO Fix self... on font
     # create loader from gif...
     # save byt3stream into file manually
     # load bytestream
     # automate this with a funciton
+    cdef int   viewport_px_width
+    cdef int   viewport_px_height
+    cdef int   viewport_char_height
+    cdef int   viewport_char_width
+    cdef int   background_color
+    cdef int   foreground_color
+    cdef char* window="BOTTOM"
+
 
     def __init__(self,width=640,height=480,char_width=None,char_height=None,stream=''):
-        if char_width:
-            width=char_width*font.font_width
-        if char_height:
-            height=char_height*font.font_height
 
-        self.width=width
-        self.height=height
-        
+        self.viewport_px_width    =width
+        self.viewport_px_height   =height
+        self.viewport_char_height =self.viewport_px_width/font.font_width
+        self.viewport_char_width  =self.viewport_px_height/font.font_height
+        self.background_color     =0
+        self.foreground_color     =3
+        self.window_style         ="BOTTOM"
+
+
         self.stream=stream
-        self.background_color=0
-        self.foreground_color=3
-        self.window="BOTTOM"
         self.color_table=[  # 16 System Colors
                             [0,0,0],[128,0,0],[0,128,0],[128,128,0],
                             [0,0,128],[128,0,128],[0,128,128],[192,192,192],
@@ -150,7 +160,7 @@ class viewer:
         for fy in range(0,fh): 
             sy=fy+(y*(fh+fsy))
             sx=(x*(fw+fsx))
-            screen_pos=sx+(sy-offset)*self.width
+            screen_pos=sx+(sy-offset)*self.viewport_px_width
             if screen_pos<0 or screen_pos>=self.video_length:
                 continue
             pos=pre+pre_y2
@@ -179,31 +189,31 @@ class viewer:
     def render(self):
         self.stream_to_buffer()
         #self.clear_screen(self.bg,255) x
-        self.video=[self.background_color]*(self.width*self.height)
+        self.video=[self.background_color]*(self.viewport_px_width*self.viewport_px_height)
         self.video_length=len(self.video)
 
         
         #buffer_height=self.get_buffer_height()
         #if self.window=="BOTTOM":
-        #   if  self.buffer_rows<=self.window_height:
+        #   if  self.buffer_rows<=self.viewport_char_height:
         #       offset=0
         #   else:
-        #       offset=buffer_height-self.height
+        #       offset=buffer_height-self.viewport_px_height
 
         #if self.window=="TOP":
         #    offset=0
 
         #print offset,buffer_height
         buffer_len=len(self.buffer)
-        buffer_size_needed=self.window_width*self.window_height*2
+        buffer_size_needed=self.viewport_char_width*self.viewport_char_height*2
         #print("Buffer - Have:{0}, Need: {1}".format(buffer_len,buffer_size_needed))
-        if buffer_len<self.window_width*self.window_height*2:
+        if buffer_len<self.viewport_char_width*self.viewport_char_height*2:
             err_msg="Buffer underflow: buffersize to small Have:{0}, Need: {1}".format(buffer_len,buffer_size_needed)
             raise Exception(err_msg)
         
         index=0
-        for y in range(0,self.window_height):
-            for x in range(0,self.window_width):
+        for y in range(0,self.viewport_char_height):
+            for x in range(0,self.viewport_char_width):
                 #if y<offset:
                 #    continue
                 color=self.buffer[index]
@@ -214,30 +224,30 @@ class viewer:
     # convert the text stream to a text formated grid
     def debug(self): 
         print("VIEWPORT:")
-        print("  px height:      {0}".format(self.height))
-        print("  px width:       {0}".format(self.width))
-        print("  char height:    {0}".format(self.window_height))
-        print("  char width:     {0}".format(self.window_width))
-        print("  buffer size:    {0}".format(self.window_width*self.window_height*2))
+        print("  px height:      {0}".format(self.viewport_px_height))
+        print("  px width:       {0}".format(self.viewport_px_width))
+        print("  char height:    {0}".format(self.viewport_char_height))
+        print("  char width:     {0}".format(self.viewport_char_width))
+        print("  buffer size:    {0}".format(self.viewport_char_width*self.viewport_char_height*2))
 
         print("Buffer:")
-        print("buffer char height:     {0}".format(self.buffer_rows))
+        print("buffer char height: {0}".format(self.buffer_rows))
         print("buffer_len:     {0}".format(self.buffer_len))
 
     
         
     def shift_buffer(self,buffer):
-        index=self.window_width
+        index=self.viewport_char_width
         for i in range(0,index):
             buffer.pop(0)
             buffer.pop(0)
-        buffer+=[[0,0],0]*self.window_width
+        buffer+=[[0,0],0]*self.viewport_char_width
 
 
     def write_buffer(self,x,y,c,buffer,fg,bg):
-        pos=x*2+y*self.window_width*2
+        pos=x*2+y*self.viewport_char_width*2
         #if pos>= len(buffer):
-        #print (pos,x,y,len(buffer),self.window_width,self.window_height)
+        #print (pos,x,y,len(buffer),self.viewport_char_width,self.viewport_char_height)
         buffer[pos]=[fg,bg]
         buffer[pos+1]=c
 
@@ -276,13 +286,10 @@ class viewer:
         #print(text)
 
     def stream_to_buffer(self):
-        window_width=self.width/font.font_width
-        window_height=self.height/font.font_height
-        self.window_height=window_height
-        self.window_width=window_width
+        
         pos=0
         # pre buffer
-        buffer=[[0,0],0]*self.window_width*self.window_height
+        buffer=[[0,0],0]*self.viewport_char_width*self.viewport_char_height
         overflow=None
 
 
@@ -348,21 +355,21 @@ class viewer:
                     if char_ord==0x0A:
                         x=0
                         y+=1
-                        if y>=self.window_height:
+                        if y>=self.viewport_char_height:
                             y-=1
                             self.shift_buffer(buffer)
                         continue
-                    if x>=self.window_width:
+                    if x>=self.viewport_char_width:
                         x=0
                         y+=1
-                        if y>=self.window_height:
+                        if y>=self.viewport_char_height:
                             y-=1
                             self.shift_buffer(buffer)
                     continue
-                if x>=self.window_width:
+                if x>=self.viewport_char_width:
                     x=0
                     y+=1
-                    if y>=self.window_height:
+                    if y>=self.viewport_char_height:
                         y-=1
                         self.shift_buffer(buffer)
                     #print x,y,character,fg,bg
@@ -470,18 +477,18 @@ class viewer:
                         self.info("Cursor Left:{0}".format(params[0]))
                         x=-params[0]
                         if x<0:
-                            x+=self.window_width
+                            x+=self.viewport_char_width
                     elif command==ord('D'): # move cursor right
                         self.info("Cursor Right:{0}".format(params[0]))
                         x=+params[0]
-                        if x>=self.window_width:
-                            x-=self.window_width
+                        if x>=self.viewport_char_width:
+                            x-=self.viewport_char_width
                     elif command==ord('E'): # move cursor next line
                         self.info("Cursor Next Line:{0}".format(params[0]))
                         x=0
                         y+=params[0]
-                        if y>=self.window_height:
-                            while y>=self.window_height:
+                        if y>=self.viewport_char_height:
+                            while y>=self.viewport_char_height:
                                 y-=1
                                 self.shift_buffer(buffer)
 
@@ -498,26 +505,26 @@ class viewer:
                         self.info("Cursor Pos:{0},{1}".format(params[0],params[1]))
                         x=params[0]
                         y=params[1]
-                        if y>=self.window_height:
-                            y=self.window_height-1
+                        if y>=self.viewport_char_height:
+                            y=self.viewport_char_height-1
 
                     elif command==ord('J'): # erase display
                         self.info("Erase Display")
                         x=0
                         y=0
                         pos=0
-                        buffer=[[0,0],0]*self.window_width*self.window_height
+                        buffer=[[0,0],0]*self.viewport_char_width*self.viewport_char_height
                         buffer_len=len(buffer)
                     elif command==ord('K'): # erase line
                         self.info("Erase Line: {0}".format(params[0]))
                         if params[0]==0:
-                            for x2 in range(x,self.window_width):
+                            for x2 in range(x,self.viewport_char_width):
                                 self.write_buffer(x2,y,32,buffer,fg,bg)
                         elif params[0]==1:
                             for x2 in range(0,x):
                                 self.write_buffer(x2,y,32,buffer,fg,bg)
                         elif params[0]==2:
-                            for x2 in range(0,self.window_width):
+                            for x2 in range(0,self.viewport_char_width):
                                 self.write_buffer(x2,y,32,buffer,fg,bg)
                     else:
                         self.info("Impliment: Start: {5} pos x:{3},Y:{4} - {0}-{1}-{2}".format(command,params,paramstring,x,y,start))
@@ -534,21 +541,21 @@ class viewer:
                 if char_ord==0x0A:
                     x=0
                     y+=1
-                    if y>=self.window_height:
+                    if y>=self.viewport_char_height:
                         y-=1
                         self.shift_buffer(buffer)
 
-                if x>=self.window_width:
+                if x>=self.viewport_char_width:
                     x=0
                     y+=1
-                    if y>=self.window_height:
+                    if y>=self.viewport_char_height:
                         y-=1
                         self.shift_buffer(buffer)
                 continue
-            if x>=self.window_width:
+            if x>=self.viewport_char_width:
                 x=0
                 y+=1
-                if y>=self.window_height:
+                if y>=self.viewport_char_height:
                     y-=1
                     self.shift_buffer(buffer)
             self.write_buffer(x,y,char_ord,buffer,fg,bg)
@@ -558,12 +565,12 @@ class viewer:
 
         self.buffer_len=len(buffer)
         #print ("BL:",self.buffer_len)
-        self.buffer_rows=self.window_height
+        self.buffer_rows=self.viewport_char_height
         self.buffer=buffer
    
 
     def get(self):
-        return {'width':self.width,'height':self.height,'data':self.video,'color_table':self.color_table}
+        return {'width':self.viewport_px_width,'height':self.viewport_px_height,'data':self.video,'color_table':self.color_table}
 
     def add_event(self,event):
         timestamp=event[0]
