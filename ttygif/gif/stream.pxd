@@ -13,7 +13,6 @@ cdef class DataStream:
     cdef long file_length
     cdef char *file
 
-    def __cinit__(self,file=None,mode="r")
     cdef validate_file(self)
     cdef validate_bounds(self)
     cdef open(self)
