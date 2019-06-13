@@ -7,8 +7,14 @@ cdef class DataStream:
     cdef char *FILE_OBJECT_NULL = "file object is null, id10t?"
     cdef char *OUT_OF_BOUNDS    = "Trying to access a position in the file that does not exist, come on bro."
     cdef char *INVALID_POSITION = "Seek position not within file bounds"
+    cdef char *mode=mode
+    cdef int pos=0
+    cdef clong file_length=None
+    cdef char *file
+    
 
-    cdef __cinit__(self,file=None,mode="r"):
+
+    def __cinit__(self,file=None,mode="r"):
         self.mode=mode
         self.pos=0
         self.file_length=None
