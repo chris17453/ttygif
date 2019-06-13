@@ -10,7 +10,7 @@ from .fonts cimport font
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 
-class viewer:
+cdef class viewer:
     cdef public int   debug
     cdef public int   viewport_px_width
     cdef public int   viewport_px_height
@@ -20,11 +20,11 @@ class viewer:
     cdef public int   foreground_color
     cdef public char* window  
 
-    def info(self,text):
+    cdef info(self,text):
         if self.debug:
             print(text)
 
-    def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
+    cdef __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
         self.debug                =debug
         self.viewport_px_width    =width
         self.viewport_px_height   =height
@@ -97,7 +97,7 @@ class viewer:
    
     # only level 1 optomised for reduced calculations in inner loops
     # TODO: runtime calculation
-    def draw_character(self,character,x,y,offset,color):
+    cdef draw_character(self,character,x,y,offset,color):
         
         #print character
         if character>255:
@@ -161,14 +161,14 @@ class viewer:
             pre_y2+=fs
             
 
-    def get_buffer_height(self):
+    cdef get_buffer_height(self):
         #print self.buffer_rows,"ROWS"
         height=self.buffer_rows*font.font_height
         return height
 
     # todo save as gif..
     # pre test with canvas extension    
-    def render(self):
+    cdef render(self):
         self.stream_to_buffer()
         #self.clear_screen(self.bg,255) x
         self.video=[self.background_color]*(self.viewport_px_width*self.viewport_px_height)
@@ -204,7 +204,7 @@ class viewer:
                 index+=2
   
     # convert the text stream to a text formated grid
-    def debug(self): 
+    cdef debug(self): 
         print("VIEWPORT:")
         print("  px height:      {0}".format(self.viewport_px_height))
         print("  px width:       {0}".format(self.viewport_px_width))
@@ -218,7 +218,7 @@ class viewer:
 
     
         
-    def shift_buffer(self,buffer):
+    cdef shift_buffer(self,buffer):
         index=self.viewport_char_width
         for i in range(0,index):
             buffer.pop(0)
@@ -226,7 +226,7 @@ class viewer:
         buffer+=[[0,0],0]*self.viewport_char_width
 
 
-    def write_buffer(self,x,y,c,buffer,fg,bg):
+    cdef write_buffer(self,x,y,c,buffer,fg,bg):
         pos=x*2+y*self.viewport_char_width*2
         #if pos>= len(buffer):
         #print (pos,x,y,len(buffer),self.viewport_char_width,self.viewport_char_height)
@@ -264,7 +264,7 @@ class viewer:
 #       ESC ]     OSC      (Should be: Operating system command) ESC ] P
 #                          nrrggbb: set palette, with parameter given in 7
 
-    def stream_to_buffer(self):
+    cdef stream_to_buffer(self):
         
         pos=0
         # pre buffer
@@ -548,10 +548,10 @@ class viewer:
         self.buffer=buffer
    
 
-    def get(self):
+    cdef get(self):
         return {'width':self.viewport_px_width,'height':self.viewport_px_height,'data':self.video,'color_table':self.color_table}
 
-    def add_event(self,event):
+    cdef add_event(self,event):
         timestamp=event[0]
         event_type=event[1]
         event_io=event[2]
@@ -562,7 +562,7 @@ class viewer:
         #asciidata=udata.encode("ascii","ignore")
         #self.stream+=asciidata
 
-    def save_screen(self):
+    cdef save_screen(self):
         # todo save as gif..
         # pre test with canvas extension
         x=1
