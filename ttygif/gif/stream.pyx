@@ -2,16 +2,8 @@
 import os
 import struct 
 
-class DataStream:
-    cdef char *FILE_NULL
-    cdef char *FILE_NOT_FOUND
-    cdef char *FILE_OBJECT_NULL
-    cdef char *OUT_OF_BOUNDS
-    cdef char *INVALID_POSITION
-    cdef char *mode
-    cdef int pos
-    cdef long file_length
-    cdef char *file
+cdef class DataStream:
+
 
     def __cinit__(self,file=None,mode="r"):
         self.FILE_NULL        = 'input file is empty, pebkac'
