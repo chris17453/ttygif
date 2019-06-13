@@ -9,7 +9,7 @@ cdef class DataStream:
     cdef char *INVALID_POSITION
     cdef char *mode
     cdef int pos
-    cdef clong file_length
+    cdef long file_length
     cdef char *file
     
 
