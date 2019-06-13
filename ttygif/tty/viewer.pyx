@@ -10,7 +10,7 @@ from .fonts cimport font
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 
-def class viewer:
+class viewer:
   
 
     def info(self,text):
