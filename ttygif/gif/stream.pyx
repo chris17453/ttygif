@@ -62,6 +62,7 @@ cdef class DataStream:
         self.seek(self.pinned_position)
 
     cdef get_file_size(self):
+        print ("file",self.file)
         self.validate_file()
         self.file_length=os.path.getsize(self.file)
         print ("FILE SIZE",self.file_length)
