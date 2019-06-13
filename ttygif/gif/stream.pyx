@@ -1,3 +1,4 @@
+# cython: language_level=2
 import os
 import struct 
 
@@ -11,8 +12,6 @@ cdef class DataStream:
     cdef int pos
     cdef long file_length
     cdef char *file
-    
-
 
     def __cinit__(self,file=None,mode="r"):
         self.FILE_NULL        = 'input file is empty, pebkac'
