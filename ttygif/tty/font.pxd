@@ -17,4 +17,4 @@ cdef class font_map:
     cdef int        offset_y      
     cdef public  array.array color_table
     cdef int        transparent
-    cdef public array.array graphics
+    cdef public array.array graphic
