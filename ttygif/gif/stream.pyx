@@ -110,7 +110,7 @@ cdef class DataStream:
         except Exception as ex:
             raise Exception ("Read Error {0}, WORD,{1}".format(ex,word))
 
-    cdef write_byte(self,byte):
+    def write_byte(self,byte):
         #print ("'{0}'".format(byte))
         ba=bytearray()
         ba.append(byte)
