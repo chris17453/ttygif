@@ -24,7 +24,7 @@ Normal/colorized output work fine.
 - image overlay (branding)
 
 
-### Examples
+### Examples, including failures
 ![asciicast-174524](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/174524.gif)
 ![asciicast-232377](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/232377.gif)
 ![asciicast-234628](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/234628.gif)
