@@ -11,6 +11,17 @@ pip install ttygif --user
 ttygif -i ascii.cast -o outpu t.gif
 ```
 
+### 
+Normal/colorized output work fine.
+
+### Features still left to handle.
+- cursor position saving
+- cursor emulation
+- erase screen with default bg color
+- overflow on cursor position out of bounds
+- cythonic definitions for speed improvment
+- image underlay (branding)
+- image overlay (branding)
 
 
 ### Examples
