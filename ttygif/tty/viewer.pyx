@@ -2,6 +2,7 @@ from cpython cimport array
 import array
 import re
 
+from .font cimport font_map
 from .fonts import font
 #import font
 
