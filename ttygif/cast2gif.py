@@ -1,4 +1,4 @@
-v.import sys
+import sys
 from .gif.encode import encode_gif
 from .asciicast.reader import asciicast_reader
 from .tty.viewer import viewer
