@@ -49,7 +49,7 @@ if USE_CYTHON:
     try:
         from Cython.Build import cythonize
         extensions = cythonize(extensions)
-    except BaseException be:
+    except BaseException as be:
         print (be)
         print ("No Cython installed")
         print("Building")
