@@ -163,7 +163,7 @@ cdef class DataStream:
     cdef byte(self,length=1,ptr=None,value=None,eod=None):
         if eod==0x00:
             chunk=[]
-            byte=self.read(length,byte=True)
+            byte=self.read(length,word=None,char=None,byte=True,string=None)
             while byte:
                 print("POS {0}".format(self.pos))
                 chunk.append(byte)
