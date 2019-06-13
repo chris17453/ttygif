@@ -42,6 +42,8 @@ class application_extension:
         self.stream.write_byte(self.Terminator)
 
     def new_netscape_block(self,loop_count=0xFFFF):
+        if loop_count>0xFFFF:
+            loop_count=0xFFFF
         self.Introducer        = 0x21
         self.Label             = 0xFF
         self.BlockSize         = 0x0B

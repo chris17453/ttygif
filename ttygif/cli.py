@@ -21,6 +21,7 @@ def cli_main():
     parser.add_argument('-w', '--web',     help='Convert a gif to a html canvas web page.', action='store_true')
     parser.add_argument('-s', '--screen',  help='Create font html canvas web page.', action='store_true')
     parser.add_argument('-t', '--test',    help='test viewer', action='store_true')
+    parser.add_argument('-l', '--loop',     help='Number of times to loop animation', default=0xFFFF)
     
 
     args = parser.parse_args()
@@ -35,7 +36,7 @@ def cli_main():
     
 
     elif args.input and args.output:
-        cast2gif(args.input,args.output)
+        cast2gif(args.input,args.output,loop_count=args.loop)
     else:
         print("usage: ttygif -i input.cast -o output.gif")
                     

@@ -12,10 +12,11 @@ from .color_table import gif_color_table
 
 
 class encode_gif:
-    def __init__(self,debug=None,auto=True):
+    def __init__(self,loop_count=0xFFFF,debug=None,auto=True):
         self.stream=None
         self.header =None
         self.global_color_table=None
+        self.loop_count=loop_count
         self.frames=[]
         self.debug=debug
         self.auto=auto
@@ -30,6 +31,8 @@ class encode_gif:
         if self.global_color_table:
           self.global_color_table.write()
 
+          self.application_extension.write()
+        
         #process frames
         for frame in self.frames:
             if frame['gce']: 
@@ -60,7 +63,14 @@ class encode_gif:
         self.stream=DataStream(filename,mode='w')
         
         self.add_header(width=width,height=height,palette=palette,default_palette=default_palette)
+        self.application_extension=application_extension(self.stream)
+        self.application_extension.new(loop_count=loop_count)
+        
+        if self.auto:
+          self.application_extension.write()
+        
         self.frames=[]
+        
         self.trailer=trailer(self.stream)
         self.trailer.new()
 

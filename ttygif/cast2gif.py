@@ -54,11 +54,11 @@ class cast2gif:
         
         return new_data
 
-    def __init__(self,cast_file,gif_file):
+    def __init__(self,cast_file,gif_file,loop_count=0xFFFF):
         cast=asciicast_reader(debug=None)
         stream=cast.load(cast_file)
 
-        g=encode_gif()
+        g=encode_gif(loop_count)
         v=viewer(char_width=stream['width'],char_height=stream['height'],stream="")
         g.create(width=v.width,height=v.height,filename=gif_file,default_palette=True)
 
