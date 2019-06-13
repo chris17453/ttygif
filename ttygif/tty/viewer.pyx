@@ -10,7 +10,7 @@ from .fonts cimport font
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 
-cdef class viewer:
+def class viewer:
     cdef public int         debug
     cdef public int         viewport_px_width
     cdef public int         viewport_px_height
@@ -20,8 +20,8 @@ cdef class viewer:
     cdef public int         foreground_color
     cdef public char*       window_style
     cdef public char*       stream
-    video=[]
     cdef public int         video_length
+    video=[]
     color_table=[]
     
     cdef info(self,text):
