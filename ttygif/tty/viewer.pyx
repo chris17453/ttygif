@@ -18,15 +18,14 @@ cdef class viewer:
             print(text)
 
     def __cinit__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
-        
-        cdef int   self.debug                = debug
-        cdef int   self.viewport_px_width    = width
-        cdef int   self.viewport_px_height   = height
-        cdef int   self.viewport_char_height = self.viewport_px_width/font.font_width
-        cdef int   self.viewport_char_width  = self.viewport_px_height/font.font_height
-        cdef int   self.background_color     = 0
-        cdef int   self.foreground_color     =3
-        cdef char* self.window_style         ="BOTTOM"
+        self.debug=debug
+        self.viewport_px_width    =width
+        self.viewport_px_height   =height
+        self.viewport_char_height =self.viewport_px_width/font.font_width
+        self.viewport_char_width  =self.viewport_px_height/font.font_height
+        self.background_color     =0
+        self.foreground_color     =3
+        self.window_style         ="BOTTOM"
 
 
         self.stream=stream
