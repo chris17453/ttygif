@@ -23,6 +23,7 @@ cdef class viewer:
     cdef public int         video_length
     cdef object video
     cdef object color_table
+    cdef object buffer
     
     cdef info(self,text):
         if self.debug:
@@ -214,7 +215,7 @@ cdef class viewer:
 
         print("Buffer:")
         print("buffer char height: {0}".format(self.buffer_rows))
-        print("buffer_len:     {0}".format(self.buffer_len))
+        print("buffer_len:     {0}".format(len(self.buffer)))
 
     
         
@@ -514,8 +515,6 @@ cdef class viewer:
         
         
 
-        self.buffer_len=len(buffer)
-        #print ("BL:",self.buffer_len)
         self.buffer_rows=self.viewport_char_height
         self.buffer=buffer
    
