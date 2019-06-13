@@ -50,7 +50,6 @@ cdef class DataStream:
         self.pinned_position=self.pos
         
     cdef seek(self,position):
-        print position
         if position and position >-1:
             if self.file_object:
                 self.file_object.seek(position)
@@ -135,7 +134,7 @@ cdef class DataStream:
         
 
     def character(self,length=1,ptr=None,value=None):
-        chunk=self.read(length,word=None,character=True,byte=True,string=None)
+        chunk=self.read(length,word=None,character=True,byte=None,string=None)
         # if there is a value and the result is not a list...
         if value and  not isinstance(chunk,list):
             if isinstance(value,list):
