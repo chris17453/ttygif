@@ -1,6 +1,5 @@
 import argparse
 from .gif.gif import gif
-from .tty.fonts import font
 from .gif.encode import encode_gif
 from .tty.viewer import viewer 
 from .asciicast.reader import asciicast_reader
@@ -19,7 +18,6 @@ def cli_main():
     parser.add_argument('-o', '--output',  help='destination file', default= None)
     parser.add_argument('-x', '--extract', help='Extract data from gif as json', action='store_true')
     parser.add_argument('-w', '--html',    help='Convert a gif to a html canvas web page.', action='store_true')
-    parser.add_argument('-s', '--font',    help='Create font html canvas web page from input', action='store_true')
     parser.add_argument('-l', '--loop',    help='number of times to loop animation', default=0xFFFF)
     
 
@@ -30,9 +28,6 @@ def cli_main():
     elif args.extract:
         gif(debug=None).extract(args.input,args.output)
 
-    elif args.screen:
-        gif().screen(font,args.output)
-    
 
     elif args.input and args.output:
         cast2gif(args.input,args.output,loop_count=args.loop,debug=args.debug)
