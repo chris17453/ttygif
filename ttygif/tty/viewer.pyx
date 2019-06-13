@@ -24,7 +24,7 @@ cdef class viewer:
         if self.debug:
             print(text)
 
-    cdef __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
+    cdef __cinit__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
         self.debug                =debug
         self.viewport_px_width    =width
         self.viewport_px_height   =height
