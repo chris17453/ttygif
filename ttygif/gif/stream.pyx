@@ -2,7 +2,7 @@
 import os
 import struct 
 
-cdef class DataStream:
+class DataStream:
     cdef char *FILE_NULL
     cdef char *FILE_NOT_FOUND
     cdef char *FILE_OBJECT_NULL
