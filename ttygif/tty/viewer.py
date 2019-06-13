@@ -236,6 +236,8 @@ class viewer:
 
     def write_buffer(self,x,y,c,buffer,fg,bg):
         pos=x*2+y*self.window_width*2
+        #if pos>= len(buffer):
+        print (pos,x,y,len(buffer),self.window_width,self.window_height)
         buffer[pos]=[fg,bg]
         buffer[pos+1]=c
 
@@ -270,8 +272,8 @@ class viewer:
 #       ESC ]     OSC      (Should be: Operating system command) ESC ] P
 #                          nrrggbb: set palette, with parameter given in 7
     def info(self,text):
-        return
-        #print(text)
+        #return
+        print(text)
 
     def stream_to_buffer(self):
         window_width=self.width/font['font_width']
@@ -479,8 +481,9 @@ class viewer:
                         x=0
                         y+=params[0]
                         if y>=self.window_height:
-                            y-=1
-                            self.shift_buffer(buffer)
+                            while y>=self.window_height:
+                                y-=1
+                                self.shift_buffer(buffer)
 
                     elif command==ord('F'): # move cursor previous  line
                         self.info("Cursor Previous Line:{0}".format(params[0]))
@@ -495,6 +498,8 @@ class viewer:
                         self.info("Cursor Pos:{0},{1}".format(params[0],params[1]))
                         x=params[0]
                         y=params[1]
+                        if y>=self.window_height:
+                            y=self.window_height-1
 
                     elif command==ord('J'): # erase display
                         self.info("Erase Display")
