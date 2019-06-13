@@ -1,4 +1,4 @@
-import sys
+v.import sys
 from .gif.encode import encode_gif
 from .asciicast.reader import asciicast_reader
 from .tty.viewer import viewer
@@ -62,7 +62,7 @@ class cast2gif:
 
         g=encode_gif(loop_count,debug=debug)
         v=viewer(char_width=stream['width'],char_height=stream['height'],stream="",debug=debug)
-        g.create(width=v.width,height=v.height,filename=gif_file,default_palette=True)
+        g.create(width=v.viewport_px_width,height=v.viewport_px_height,filename=gif_file,default_palette=True)
 
         index=0
         timestamp=0
@@ -91,10 +91,10 @@ class cast2gif:
                 old_data=data
                 data=v.get()
                 #old_data=None
-                diff=self.get_frame_bounding_diff(old_data,data,v.width,v.height)
+                diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
                 
                 if diff:
-                    frame_snip=self.copy_area(data['data'],diff,v.width,v.height)
+                    frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
 
                     delay=int(interval*100)
                     if delay>255:
@@ -113,8 +113,8 @@ class cast2gif:
         if 1==0:
             v.render()
             data=v.get()
-            diff=self.get_frame_bounding_diff(old_data,data,v.width,v.height)
-            frame_snip=self.copy_area(data['data'],diff,v.width,v.height)
+            diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
+            frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
             g.add_frame(disposal_method=0,delay=delay, 
                             transparent=None,
                             left=diff['min_x'],top=diff['min_y'],
