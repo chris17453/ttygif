@@ -10,14 +10,14 @@ from .fonts cimport font
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 
-class viewer:
-    cint         debug
-    cint         viewport_px_width
-    cint         viewport_px_height
-    cint         viewport_char_height
-    cint         viewport_char_width
-    cint         background_color
-    cint         foreground_color
+cdef class viewer:
+    cdef public int         debug
+    cdef public int         viewport_px_width
+    cdef public int         viewport_px_height
+    cdef public int         viewport_char_height
+    cdef public int         viewport_char_width
+    cdef public int         background_color
+    cdef public int         foreground_color
     cdef public char*       window_style
     cdef public char*       stream
     cdef public int         video_length
@@ -28,7 +28,7 @@ class viewer:
         if self.debug:
             print(text)
 
-    def __cinit__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
+    def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
         self.debug                =debug
         self.viewport_px_width    =width
         self.viewport_px_height   =height
