@@ -1,18 +1,14 @@
 from cpython cimport array
 import array
+import re
 
 from .fonts import font
-import re
+
 # Reference
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 
 cdef class viewer:
-    # TODO Fix self... on font
-    # create loader from gif...
-    # save byt3stream into file manually
-    # load bytestream
-    # automate this with a funciton
     cdef int   viewport_px_width
     cdef int   viewport_px_height
     cdef int   viewport_char_height
