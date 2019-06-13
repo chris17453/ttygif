@@ -2,7 +2,7 @@ from cpython cimport array
 import array
 import re
 
-from .fonts import font
+from .fonts cimport font
 
 # Reference
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
