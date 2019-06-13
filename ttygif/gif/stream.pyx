@@ -45,7 +45,7 @@ cdef class DataStream:
             self.file_object=open(self.file, "wb")
         print ("OUT OPEN")
 
-    cdef close(self):
+    def close(self):
         if None== self.file_object:
             raise Exception(self.FILE_OBJECT_NULL)
         self.file_object.close()
