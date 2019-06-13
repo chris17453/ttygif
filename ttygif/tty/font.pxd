@@ -15,4 +15,6 @@ cdef class font_map:
     cdef int        spacing_y     
     cdef int        offset_x      
     cdef int        offset_y      
+    cdef array.array color_table
     cdef int        transparent
+    cdef array.array graphics
