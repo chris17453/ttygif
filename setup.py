@@ -1,3 +1,4 @@
+# cython: language_level=2
 import os
 import sys
 from distutils.core import setup, Command
@@ -52,7 +53,10 @@ if USE_CYTHON:
         extensions = cythonize(extensions)
     except BaseException as be:
         print (be)
-        print ("No Cython installed")
+        print("You don't seem to have Cython installed.")
+        print("www.cython.org")
+        print("with pip ->pip install cython --user")
+        print("with a pipenv ->pipenv install cython")
         print("Building")
         exit(1)
 else:
