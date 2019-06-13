@@ -3,3 +3,6 @@
 __pycache__
 builds
 pypi
+build
+*.so
+*.o
