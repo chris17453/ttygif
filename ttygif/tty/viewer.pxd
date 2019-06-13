@@ -1,2 +1,2 @@
 cdef class viewer:
-    def int debug
+    cdef int debug
