@@ -110,6 +110,8 @@ class cast2gif:
                                     width=diff['width'],height=diff['height'],
                                     palette=None,image_data=frame_snip)
             v.add_event(event)
+        sys.stdout.write("                          \r".format(index,strlen,percent))
+        sys.stdout.flush()
 
         # need to close the gif
         # last frame    
