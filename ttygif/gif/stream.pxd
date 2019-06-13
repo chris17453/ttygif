@@ -9,7 +9,7 @@ cdef class DataStream:
     cdef object OUT_OF_BOUNDS
     cdef object INVALID_POSITION
     cdef object mode
-    cdef int    pos
+    cdef public int    pos
     cdef long   file_length
     cdef object file
     cdef object file_object
