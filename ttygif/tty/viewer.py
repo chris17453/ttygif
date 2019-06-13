@@ -13,9 +13,9 @@ class viewer:
 
     def __init__(self,width=640,height=480,char_width=None,char_height=None,stream=''):
         if char_width:
-            width=char_width*font['font_width']
+            width=char_width*font.font_width
         if char_height:
-            height=char_height*font['font_height']
+            height=char_height*font.font_height
 
         self.width=width
         self.height=height
@@ -132,16 +132,16 @@ class viewer:
                 return
 
         #print "FOUND"
-        fs=font['width']
-        fw=font['font_width']
-        fh=font['font_height']
-        fox=font['offset_x']
-        foy=font['offset_y']
-        fsx=font['spacing_x']
-        fsy=font['spacing_y']
-        transparent=font['transparent']
-        cx=int(character%font['chars_per_line'])
-        cy=int(character/font['chars_per_line'])
+        fs= font.width
+        fw= font.font_width
+        fh= font.font_height
+        fox=font.offset_x
+        foy=font.offset_y
+        fsx=font.spacing_x
+        fsy=font.spacing_y
+        transparent=font.transparent
+        cx=int(character%font.chars_per_line)
+        cy=int(character/font.chars_per_line)
 
         pre_x=fox+cx*fw
         pre_y=(foy+cy*fh)*fs
@@ -159,7 +159,7 @@ class viewer:
                 if screen_pos2<0 or screen_pos2>=self.video_length:
                     continue
                 pos2=pos+fx
-                pixel=font['data'][pos2]
+                pixel=font.graphic[pos2]
                 if pixel!=transparent:
                     self.video[screen_pos2]=color[0]
                 else:
@@ -167,11 +167,11 @@ class viewer:
             pre_y2+=fs
             
     def clear_screen(self,character,color):
-        self.screen=[color]*self.buffer_len*font['font_height']*font['font_width']
+        self.screen=[color]*self.buffer_len*font.font_height*font.font_width
 
     def get_buffer_height(self):
         #print self.buffer_rows,"ROWS"
-        height=self.buffer_rows*font['font_height']
+        height=self.buffer_rows*font.font_height
         return height
 
     # todo save as gif..
@@ -276,8 +276,8 @@ class viewer:
         #print(text)
 
     def stream_to_buffer(self):
-        window_width=self.width/font['font_width']
-        window_height=self.height/font['font_height']
+        window_width=self.width/font.font_width
+        window_height=self.height/font.font_height
         self.window_height=window_height
         self.window_width=window_width
         pos=0
