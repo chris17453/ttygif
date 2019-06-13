@@ -1,4 +1,4 @@
-from cython cimport arrat
+from cython cimport array
 import array
 
 from .fonts import font
