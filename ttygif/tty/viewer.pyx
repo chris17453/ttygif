@@ -10,7 +10,7 @@ from .fonts cimport font
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 
-cdef class viewer:
+def class viewer:
     cdef int   debug
     cdef int   viewport_px_width
     cdef int   viewport_px_height
@@ -20,6 +20,9 @@ cdef class viewer:
     cdef int   foreground_color
     cdef char* window
 
+    def info(self,text):
+        return
+        #print(text)
 
     def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
         self.debug=debug
@@ -91,25 +94,7 @@ cdef class viewer:
         self.attribs=0
 
 
-    def do_escape_code(self,character):
-        #ATTRIBS
-      
-        o=""
-        return o
-
-    def is_escape_code(self,character):
-        escape_codes=[1,2,4,5,7,8,0,21,22,24,25,27,28,39,30,31,32,33,
-        34,35,36,37,90,91,92,93,94,95,96,97,49,40,41,42,
-        43,44,45,46,47,100,101,102,103,104,105,106,107]
-
-        
-        #if character!=0:
-        #    print ord(character)
-        
-        if character in escape_codes:
-            return True
-        return None
-
+   
     # only level 1 optomised for reduced calculations in inner loops
     # TODO: runtime calculation
     def draw_character(self,character,x,y,offset,color):
@@ -175,8 +160,6 @@ cdef class viewer:
                     self.video[screen_pos2]=color[1]
             pre_y2+=fs
             
-    def clear_screen(self,character,color):
-        self.screen=[color]*self.buffer_len*font.font_height*font.font_width
 
     def get_buffer_height(self):
         #print self.buffer_rows,"ROWS"
@@ -280,9 +263,6 @@ cdef class viewer:
 #       ESC =     DECPAM   Set application keypad mode
 #       ESC ]     OSC      (Should be: Operating system command) ESC ] P
 #                          nrrggbb: set palette, with parameter given in 7
-    def info(self,text):
-        return
-        #print(text)
 
     def stream_to_buffer(self):
         
