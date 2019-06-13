@@ -1,7 +1,7 @@
 from cpython cimport array
 import array
 
-class font:
+cdef class font:
 
     name          =""
     cdef cint        chars_per_line=0
