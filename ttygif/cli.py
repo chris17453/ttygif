@@ -1,7 +1,6 @@
 import argparse
 from .gif.gif import gif
 from .gif.encode import encode_gif
-from .tty.fonts import font
 from .tty.viewer import viewer 
 from .asciicast.reader import asciicast_reader
 from .cast2gif import cast2gif
@@ -18,14 +17,13 @@ def cli_main():
     parser.add_argument('-i', '--input',   help='source file', default= None)
     parser.add_argument('-o', '--output',  help='destination file', default= None)
     parser.add_argument('-x', '--extract', help='Extract data from gif as json', action='store_true')
-    parser.add_argument('-w', '--web',     help='Convert a gif to a html canvas web page.', action='store_true')
-    parser.add_argument('-s', '--screen',  help='Create font html canvas web page.', action='store_true')
-    parser.add_argument('-t', '--test',    help='test viewer', action='store_true')
-    parser.add_argument('-l', '--loop',     help='Number of times to loop animation', default=0xFFFF)
+    parser.add_argument('-w', '--html',    help='Convert a gif to a html canvas web page.', action='store_true')
+    parser.add_argument('-s', '--font',    help='Create font html canvas web page from input', action='store_true')
+    parser.add_argument('-l', '--loop',    help='number of times to loop animation', default=0xFFFF)
     
 
     args = parser.parse_args()
-    if args.web:
+    if args.html:
         gif().canvas_it(args.input,args.output)
     
     elif args.extract:
@@ -36,9 +34,9 @@ def cli_main():
     
 
     elif args.input and args.output:
-        cast2gif(args.input,args.output,loop_count=args.loop)
+        cast2gif(args.input,args.output,loop_count=args.loop,debug=args.debug)
     else:
-        print("usage: ttygif -i input.cast -o output.gif")
+        print("usage: ttygif -i input.cast -o output.gif -l 1")
                     
 
 if __name__=='__main__':
