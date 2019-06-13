@@ -97,7 +97,7 @@ cdef class viewer:
    
     # only level 1 optomised for reduced calculations in inner loops
     # TODO: runtime calculation
-    cdef draw_character(self,character:,x,y,offset,color):
+    cdef draw_character(self,character,x,y,offset,color):
         
         #print character
         if character>255:
