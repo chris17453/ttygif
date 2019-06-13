@@ -11,6 +11,7 @@ from .fonts cimport font
 
 
 cdef class viewer:
+    cdef int   debug
     cdef int   viewport_px_width
     cdef int   viewport_px_height
     cdef int   viewport_char_height
@@ -20,8 +21,8 @@ cdef class viewer:
     cdef char* window
 
 
-    def __init__(self,width=640,height=480,char_width=None,char_height=None,stream=''):
-
+    def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
+        self.debug=debug
         self.viewport_px_width    =width
         self.viewport_px_height   =height
         self.viewport_char_height =self.viewport_px_width/font.font_width

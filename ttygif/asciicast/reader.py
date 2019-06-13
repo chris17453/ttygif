@@ -1,7 +1,7 @@
 import json 
 
 class asciicast_reader:
-    def __init__(self,debug):
+    def __init__(self,debug=None):
         self.debug=debug
 
     def load(self,filename):
