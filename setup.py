@@ -24,51 +24,33 @@ else:
 # distutils: define_macros=CYTHON_TRACE_NOGIL=1
 
 extensions = [
-    Extension("ddb.evaluate.match",                     [prefix+"./ddb/evaluate/match" + ext2], define_macros=[('CYTHON_TRACE', '1')]),
-    Extension("ddb.functions.functions",                [prefix+"./ddb/functions/functions" + ext], define_macros=[('CYTHON_TRACE', '1')]),
-    Extension("ddb.lexer.language",                     [prefix+"./ddb/lexer/language" + ext], define_macros=[('CYTHON_TRACE', '1')]),
-    Extension("ddb.lexer.tokenize",                     [prefix+"./ddb/lexer/tokenize" + ext], define_macros=[('CYTHON_TRACE', '1')]),
-    Extension("ddb.lexer.lexer",                        [prefix+"./ddb/lexer/lexer" + ext], define_macros=[('CYTHON_TRACE', '1')]),
-    Extension("ddb.meta.meta",                          [prefix+"./ddb/meta/meta" + ext], define_macros=[('CYTHON_TRACE', '1')]),
-    Extension("ddb.configuration.column",               [prefix+"./ddb/configuration/column" + ext], define_macros=[('CYTHON_TRACE', '1')]),
-    Extension("ddb.configuration.table",                [prefix+"./ddb/configuration/table" + ext], define_macros=[('CYTHON_TRACE', '1')]),
-    Extension("ddb.configuration.database",             [prefix+"./ddb/configuration/database" + ext], define_macros=[('CYTHON_TRACE', '1')]),
-    Extension("ddb.output.factory",                     [prefix+"./ddb/output/factory" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
-    Extension("ddb.output.factory_yaml",                [prefix+"./ddb/output/factory_yaml" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
-    Extension("ddb.output.factory_xml",                 [prefix+"./ddb/output/factory_xml" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
-    Extension("ddb.output.factory_json",                [prefix+"./ddb/output/factory_json" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
-    Extension("ddb.output.factory_term",                [prefix+"./ddb/output/factory_term" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
-    Extension("ddb.file_io.locking",                    [prefix+"./ddb/file_io/locking" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
-    Extension("ddb.methods.database_show_errors",       [prefix+"./ddb/methods/database_show_errors" + ext], define_macros=[('CYTHON_TRACE', '1')] ),            
-    Extension("ddb.methods.database_use",               [prefix+"./ddb/methods/database_use" + ext], define_macros=[('CYTHON_TRACE', '1')] ),    
-    Extension("ddb.methods.record_core",                [prefix+"./ddb/methods/record_core" + ext2], define_macros=[('CYTHON_TRACE', '1')] ),   
-    Extension("ddb.methods.record_delete",              [prefix+"./ddb/methods/record_delete" + ext], define_macros=[('CYTHON_TRACE', '1')] ),     
-    Extension("ddb.methods.record_insert",              [prefix+"./ddb/methods/record_insert" + ext], define_macros=[('CYTHON_TRACE', '1')] ),     
-    Extension("ddb.methods.record_select",              [prefix+"./ddb/methods/record_select" + ext], define_macros=[('CYTHON_TRACE', '1')] ),     
-    Extension("ddb.methods.record_update",              [prefix+"./ddb/methods/record_update" + ext], define_macros=[('CYTHON_TRACE', '1')] ),     
-    Extension("ddb.methods.record_upsert",              [prefix+"./ddb/methods/record_upsert" + ext], define_macros=[('CYTHON_TRACE', '1')] ),     
-    Extension("ddb.methods.system_begin",               [prefix+"./ddb/methods/system_begin" + ext], define_macros=[('CYTHON_TRACE', '1')] ),    
-    Extension("ddb.methods.system_commit",              [prefix+"./ddb/methods/system_commit" + ext], define_macros=[('CYTHON_TRACE', '1')] ),     
-    Extension("ddb.methods.system_rollback",            [prefix+"./ddb/methods/system_rollback" + ext], define_macros=[('CYTHON_TRACE', '1')] ),       
-    Extension("ddb.methods.system_set",                 [prefix+"./ddb/methods/system_set" + ext], define_macros=[('CYTHON_TRACE', '1')] ),  
-    Extension("ddb.methods.system_show_columns",        [prefix+"./ddb/methods/system_show_columns" + ext], define_macros=[('CYTHON_TRACE', '1')] ),           
-    Extension("ddb.methods.system_show_output_modules", [prefix+"./ddb/methods/system_show_output_modules" + ext], define_macros=[('CYTHON_TRACE', '1')] ),                  
-    Extension("ddb.methods.system_show_tables",         [prefix+"./ddb/methods/system_show_tables" + ext], define_macros=[('CYTHON_TRACE', '1')] ),          
-    Extension("ddb.methods.system_show_variables",      [prefix+"./ddb/methods/system_show_variables" + ext], define_macros=[('CYTHON_TRACE', '1')] ),             
-    Extension("ddb.methods.table_create",               [prefix+"./ddb/methods/table_create" + ext], define_macros=[('CYTHON_TRACE', '1')] ),    
-    Extension("ddb.methods.table_describe",             [prefix+"./ddb/methods/table_describe" + ext], define_macros=[('CYTHON_TRACE', '1')] ),      
-    Extension("ddb.methods.table_drop",                 [prefix+"./ddb/methods/table_drop" + ext], define_macros=[('CYTHON_TRACE', '1')] ),  
-    Extension("ddb.methods.table_update",               [prefix+"./ddb/methods/table_update" + ext], define_macros=[('CYTHON_TRACE', '1')] ),    
-    Extension("ddb.version",                            [prefix+"./ddb/version" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
-    Extension("ddb.engine",                             [prefix+"./ddb/engine" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
-    Extension("ddb.interactive",                        [prefix+"./ddb/interactive" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
-    Extension("ddb.cli",                                [prefix+"./ddb/cli" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
+    Extension("ttygif.asciicast.reader"                 [prefix+"./ttygif/asciicast/reader"             +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.ApplicationExtension"         [prefix+"./ttygif/gif/ApplicationExtension"     +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.canvas"                       [prefix+"./ttygif/gif/canvas"                   +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.color_table"                  [prefix+"./ttygif/gif/color_table"              +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.CommentExtension"             [prefix+"./ttygif/gif/CommentExtension"         +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.Decoder"                      [prefix+"./ttygif/gif/Decoder"                  +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.encode"                       [prefix+"./ttygif/gif/encode"                   +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.gif"                          [prefix+"./ttygif/gif/gif"                      +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.GraphicsControlExtension"     [prefix+"./ttygif/gif/GraphicsControlExtension" +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.header"                       [prefix+"./ttygif/gif/header"                   +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.ImageData"                    [prefix+"./ttygif/gif/ImageData"                +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.ImageDescriptor"              [prefix+"./ttygif/gif/ImageDescriptor"          +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.PlainTextExtension"           [prefix+"./ttygif/gif/PlainTextExtension"       +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.stream"                       [prefix+"./ttygif/gif/stream"                   +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.Trailer"                      [prefix+"./ttygif/gif/Trailer"                  +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.tty.viewer"                       [prefix+"./ttygif/tty/viewer"                   +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.tty.fonts"                        [prefix+"./ttygif/tty/fonts"                    +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.cast2gif"                         [prefix+"./ttygif/cast2gif"                     +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.version"                          [prefix+"./ttygif/version"                      +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.cli"                              [prefix+"./ttygif/cli"                          +ext2], define_macros=[('CYTHON_TRACE', '1')]),
 ]
 if USE_CYTHON:
     try:
         from Cython.Build import cythonize
         extensions = cythonize(extensions)
-    except BaseException:
+    except BaseException be:
+        print (be)
         print ("No Cython installed")
         print("Building")
         exit(1)
@@ -76,15 +58,10 @@ else:
     print("Not using CYTHON")
 
 
-packages=['ddb',
-          'ddb.lexer',
-          'ddb.meta',
-          'ddb.evaluate',
-          'ddb.file_io',
-          'ddb.methods',
-          'ddb.functions',
-          'ddb.configuration',
-          'ddb.output',
+packages=[  'ttygif',
+            'ttygif.tty',
+            'ttygif.gif',
+            'ttygif.asciicast'
          ]
     
 
