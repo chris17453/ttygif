@@ -28,9 +28,10 @@ cdef class DataStream:
             raise Exception(self.FILE_NOT_FOUND)
 
     cdef validate_bounds(self):
+        print self.file_length
         if self.file_length==-1:
             self.get_file_size()
-
+        print self.file_length,        self.pos
         if self.pos>=self.file_length:
             raise  Exception(self.OUT_OF_BOUNDS)
 
@@ -134,7 +135,7 @@ cdef class DataStream:
         
 
     def character(self,length=1,ptr=None,value=None):
-        chunk=self.read(length,word=None,character=True,byte=None,string=None)
+        chunk=self.read(length,character=True)
         # if there is a value and the result is not a list...
         if value and  not isinstance(chunk,list):
             if isinstance(value,list):
@@ -155,14 +156,14 @@ cdef class DataStream:
     def byte(self,length=1,ptr=None,value=None,eod=None):
         if eod==0x00:
             chunk=[]
-            byte=self.read(length,word=None,character=None,byte=True,string=None)
+            byte=self.read(length,byte=True)
             while byte:
                 print("POS {0}".format(self.pos))
                 chunk.append(byte)
-                byte=self.read(length,word=None,character=None,byte=True,string=None)
+                byte=self.read(length,byte=True)
             self.seek(self.pos-1)
         else:
-            chunk=self.read(length,word=None,character=None,byte=True,string=None)
+            chunk=self.read(length,byte=True)
             if value and not isinstance(chunk,list):
                 if isinstance(value,list):
                     found=None
@@ -180,11 +181,11 @@ cdef class DataStream:
         return chunk
 
     def string(self,length=1,ptr=None,value=None,EOD=None):
-        chunk=self.read(length,word=None,character=None,byte=None,string=True)
+        chunk=self.read(length,string=True)
         return chunk
 
     def word(self,length=1,ptr=None,value=None,EOD=None):
-        chunk=self.read(length,word=True,character=None,byte=None,string=None)
+        chunk=self.read(length,word=True)
         return chunk
    
     def print_bit(self,byte,length=8):
