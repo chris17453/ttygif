@@ -15,6 +15,9 @@ ttygif -i ascii.cast -o outpu t.gif
 Normal/colorized output work fine.
 
 ### Features still left to handle.
+- documentation
+- gif error handeling
+- file io error handeling
 - cursor position saving
 - cursor emulation
 - erase screen with default bg color
