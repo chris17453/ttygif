@@ -33,11 +33,21 @@ class application_extension:
         
         self.SubBlockDataSize=0
         self.data_sub_blocks=[]
-        SubBlockDataSize= self.stream.byte()
-        while SubBlockDataSize!=0:
-            self.SubBlockDataSize+=SubBlockDataSize
-            self.data_sub_blocks+=self.stream.byte(SubBlockDataSize)      # Point to Application Data sub-blocks 
-            SubBlockDataSize= self.stream.byte()
+        
+        left=len(self.data_sub_blocks)
+        index=0
+        while left>0:
+            if left>255:
+                self.stream.write_byte(255)
+                for b in self.data_sub_blocks[index:left]:
+                    self.stream.write_byte(b)
+                left-=255
+            else:
+                self.stream.write_byte(left)
+                for b in self.data_sub_blocks[index:left]:
+                    self.stream.write_byte(b)
+                left=0
+
         
         self.stream.write_byte(self.Terminator)
 
