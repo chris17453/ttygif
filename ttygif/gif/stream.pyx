@@ -43,10 +43,10 @@ cdef class DataStream:
             raise  Exception(self.OUT_OF_BOUNDS)
 
     cdef open(self):
-        if self.mode=='r':
+        if self.mode==b'r':
             self.validate_file()
             self.file_object=open(self.file, "rb")
-        if self.mode=='w':
+        if self.mode==b'w':
             self.file_object=open(self.file, "wb")
 
     cdef close(self):
