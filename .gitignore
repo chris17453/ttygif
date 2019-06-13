@@ -1,2 +1,5 @@
 *.pyc
 .vscode
+__pycache__
+builds
+pypi
