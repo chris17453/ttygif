@@ -64,7 +64,7 @@ class encode_gif:
         
         self.add_header(width=width,height=height,palette=palette,default_palette=default_palette)
         self.application_extension=application_extension(self.stream)
-        self.application_extension.new(loop_count=self.loop_count)
+        self.application_extension.new_netscape_block(loop_count=self.loop_count)
         
         if self.auto:
           self.application_extension.write()
