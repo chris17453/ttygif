@@ -15,11 +15,11 @@ cdef class DataStream:
 
 
     def __cinit__(self,file=None,mode="r"):
-        self.FILE_NULL        = "input file is empty, pebkac"
-        self.FILE_NOT_FOUND   = "input file does not exist, rtfm"
-        self.FILE_OBJECT_NULL = "file object is null, id10t?"
-        self.OUT_OF_BOUNDS    = "Trying to access a position in the file that does not exist, come on bro."
-        self.INVALID_POSITION = "Seek position not within file bounds"
+        self.FILE_NULL        = 'input file is empty, pebkac'
+        self.FILE_NOT_FOUND   = 'input file does not exist, rtfm'
+        self.FILE_OBJECT_NULL = 'file object is null, id10t?'
+        self.OUT_OF_BOUNDS    = 'Trying to access a position in the file that does not exist, come on bro.'
+        self.INVALID_POSITION = 'Seek position not within file bounds'
 
 
         self.mode=mode
