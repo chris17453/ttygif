@@ -3,15 +3,16 @@ import os
 import struct 
 
 cdef class DataStream:
-    cdef char *FILE_NULL
-    cdef char *FILE_NOT_FOUND
-    cdef char *FILE_OBJECT_NULL
-    cdef char *OUT_OF_BOUNDS
-    cdef char *INVALID_POSITION
-    cdef char *mode
-    cdef int pos
-    cdef long file_length
-    cdef char *file
+    cdef object FILE_NULL
+    cdef object FILE_NOT_FOUND
+    cdef object FILE_OBJECT_NULL
+    cdef object OUT_OF_BOUNDS
+    cdef object INVALID_POSITION
+    cdef object mode
+    cdef int    pos
+    cdef long   file_length
+    cdef object file
+    cdef object file_object
 
     cdef validate_file(self)
     cdef validate_bounds(self)
