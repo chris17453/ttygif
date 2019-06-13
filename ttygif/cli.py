@@ -5,12 +5,14 @@ from .tty.fonts import font
 from .tty.viewer import viewer 
 from .asciicast.reader import asciicast_reader
 from .cast2gif import cast2gif
+from .version import __version__
 import pprint
 import time
 
 def cli_main():
-    parser = argparse.ArgumentParser("ttygif", usage='%(prog)s [options]', description="""tty output to gif""", epilog="Dont yaknow?")
+    print("ttygif version {0}".format( __version__))
 
+    parser = argparse.ArgumentParser("ttygif", usage='%(prog)s [options]', description="""tty output to gif""", epilog="Dont yaknow?")
     # actions
     parser.add_argument('-v', '--debug',   help='show debuging statistics', action='store_true')
     parser.add_argument('-i', '--input',   help='source file', default= None)

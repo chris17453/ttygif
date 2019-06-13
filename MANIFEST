@@ -43,6 +43,5 @@ ttygif/gif/header.py
 ttygif/gif/stream.py
 ttygif/gif/trailer.py
 ttygif/tty/__init__.py
-ttygif/tty/fonts.py
 ttygif/tty/version.py
 ttygif/tty/viewer.py
