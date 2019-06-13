@@ -35,10 +35,10 @@ cdef class DataStream:
                 raise  Exception(self.OUT_OF_BOUNDS)
 
     cdef open(self):
-        if self.mode==b'r':
+        if self.mode=='r':
             self.validate_file()
             self.file_object=open(self.file, "rb")
-        if self.mode==b'w':
+        if self.mode=='w':
             self.file_object=open(self.file, "wb")
 
     cdef close(self):
@@ -62,10 +62,8 @@ cdef class DataStream:
         self.seek(self.pinned_position)
 
     cdef get_file_size(self):
-        print ("file",self.file)
         self.validate_file()
         self.file_length=os.path.getsize(self.file)
-        print ("FILE SIZE",self.file_length)
 
     def read(self,length=1,word=None,character=None,byte=None,string=None):
         try:
