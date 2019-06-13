@@ -18,12 +18,13 @@ cdef class viewer:
     cdef public int         viewport_char_width
     cdef public int         background_color
     cdef public int         foreground_color
-    cdef public object       window_style
-    cdef public object       stream
+    cdef public object      window_style
+    cdef public object      stream
     cdef public int         video_length
     cdef object video
     cdef object color_table
     cdef object buffer
+    cdef public int         buffer_rows
     
     cdef info(self,text):
         if self.debug:
