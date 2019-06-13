@@ -2,11 +2,11 @@ from .stream import DataStream
 from .header import gif_header
 from .ImageDescriptor import ImageDescriptor
 from .ImageData import ImageData
-from .GraphicsControlExtension import GraphicsControlExtension
-from .ApplicationExtension import ApplicationExtension
+from .graphics_control_extension import graphics_control_extension
+from .application_extension import application_extension
 from .CommentExtension import CommentExtension
 from .PlainTextExtension import PlainTextExtension
-from .Trailer import Trailer
+from .trailer import trailer
 from .color_table import gif_color_table
 
 # GIT 89A
@@ -163,7 +163,7 @@ class Decoder:
     def load_graphics_control_extension(self):
         try:
             self.stream.pin()
-            graphiccontrol=GraphicsControlExtension(self.stream)
+            graphiccontrol=Ggraphics_control_extension(self.stream)
             graphiccontrol.read()
             if self.debug:
                 graphiccontrol.debug()
@@ -186,7 +186,9 @@ class Decoder:
     def load_application_extension(self):
         try:
             self.stream.pin()
-            applicaitonextension=ApplicationExtension(self.stream)
+
+            applicaitonextension=application_extension(self.stream)
+            applicaitonextension.read()
             if self.debug:
                 applicaitonextension.debug()
             return applicaitonextension
@@ -197,7 +199,7 @@ class Decoder:
     def load_trailer(self):
         try:
             self.stream.pin()
-            trailer=Trailer(self.stream)
+            trailer=trailer(self.stream)
             trailer.read()
             if self.debug:
                 trailer.debug()

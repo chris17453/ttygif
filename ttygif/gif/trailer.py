@@ -1,4 +1,5 @@
-class Trailer:
+
+class trailer:
     def __init__(self,stream):
         self.stream=stream
         self.Trailer=None

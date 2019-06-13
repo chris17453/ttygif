@@ -1,4 +1,4 @@
-class GraphicsControlExtension:
+class graphics_control_extension:
     def __init__(self,stream):
         self.stream=stream
         self.internal_position=self.stream.pos

@@ -1,10 +1,10 @@
-class ApplicationExtension:
+class application_extension:
     def __init__(self,stream):
         self.stream=stream
 
 
 
-    def read(self)
+    def read(self):
         self.internal_position = self.stream.pos
         self.Introducer        = self.stream.byte(value=0x21)           # Extension Introducer (always 21h) 
         self.Label             = self.stream.byte(value=0xFF)           # Extension Label (always FFh) 
