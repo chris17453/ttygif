@@ -40,6 +40,5 @@ ttygif/gif/encode.py
 ttygif/gif/gif.py
 ttygif/gif/graphics_control_extension.py
 ttygif/gif/header.py
-ttygif/gif/stream.py
 ttygif/gif/trailer.py
 ttygif/tty/__init__.py

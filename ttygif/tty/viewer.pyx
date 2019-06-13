@@ -11,16 +11,20 @@ from .fonts cimport font
 
 
 cdef class viewer:
-    cdef public int   debug
-    cdef public int   viewport_px_width
-    cdef public int   viewport_px_height
-    cdef public int   viewport_char_height
-    cdef public int   viewport_char_width
-    cdef public int   background_color
-    cdef public int   foreground_color
-    cdef public char* window_style
+    cdef public int         debug
+    cdef public int         viewport_px_width
+    cdef public int         viewport_px_height
+    cdef public int         viewport_char_height
+    cdef public int         viewport_char_width
+    cdef public int         background_color
+    cdef public int         foreground_color
+    cdef public char*       window_style
+    cdef public char*       stream
+    cdef public array.array video
+    cdef public array.array color_table
+    cdef public int         video_length
+        
     
-
     cdef info(self,text):
         if self.debug:
             print(text)
