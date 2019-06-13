@@ -1016,10 +1016,10 @@ int __pyx_module_is_main_ttygif__version = 0;
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_test[] = "__test__";
-static const char __pyx_k_1_0_28[] = "1.0.28";
+static const char __pyx_k_1_0_29[] = "1.0.29";
 static const char __pyx_k_version[] = "__version__";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static PyObject *__pyx_kp_s_1_0_28;
+static PyObject *__pyx_kp_s_1_0_29;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_name;
@@ -1073,7 +1073,7 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_kp_s_1_0_28, __pyx_k_1_0_28, sizeof(__pyx_k_1_0_28), 0, 0, 1, 0},
+  {&__pyx_kp_s_1_0_29, __pyx_k_1_0_29, sizeof(__pyx_k_1_0_29), 0, 0, 1, 0},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
@@ -1362,9 +1362,9 @@ if (!__Pyx_RefNanny) {
   #endif
 
   /* "ttygif/version.py":1
- * __version__='1.0.28'             # <<<<<<<<<<<<<<
+ * __version__='1.0.29'             # <<<<<<<<<<<<<<
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_version, __pyx_kp_s_1_0_28) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_version, __pyx_kp_s_1_0_29) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
