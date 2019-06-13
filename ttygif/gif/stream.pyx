@@ -142,7 +142,7 @@ cdef class DataStream:
         
 
     cdef char(self,length=1,ptr=None,value=None):
-        chunk=self.read(length,char=True)
+        chunk=self.read(length,word=None,char=True,byte=True,string=None)
         # if there is a value and the result is not a list...
         if value and  not isinstance(chunk,list):
             if isinstance(value,list):
