@@ -1,5 +1,5 @@
 from cpython import carray
-import arrat
+import array
 
 font={}
 font['name']="VGA-8x19"
