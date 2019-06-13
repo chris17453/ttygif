@@ -4,7 +4,7 @@ from font import font_map
 
 
 font=font_map()
-font.name           ="VGA-8x19"
+#font.name           ="VGA-8x19"
 font.chars_per_line =64
 font.lines          =4
 font.width          =512
