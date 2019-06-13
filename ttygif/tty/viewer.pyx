@@ -168,7 +168,7 @@ cdef class viewer:
 
     # todo save as gif..
     # pre test with canvas extension    
-    cdef render(self):
+    def render(self):
         self.stream_to_buffer()
         #self.clear_screen(self.bg,255) x
         self.video=[self.background_color]*(self.viewport_px_width*self.viewport_px_height)
