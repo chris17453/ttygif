@@ -20,9 +20,9 @@ cdef class viewer:
     cdef public int         foreground_color
     cdef public char*       window_style
     cdef public char*       stream
-    cdef public list        video
+    video=[]
     cdef public int         video_length
-    cdef publc list         color_table
+    color_table=[]
     
     cdef info(self,text):
         if self.debug:
