@@ -1,50 +1,50 @@
 import os
 import struct 
 
-class DataStream:
-    FILE_NULL        = "input file is empty, pebkac"
-    FILE_NOT_FOUND   = "input file does not exist, rtfm"
-    FILE_OBJECT_NULL = "file object is null, id10t?"
-    OUT_OF_BOUNDS    = "Trying to access a position in the file that does not exist, come on bro."
-    INVALID_POSITION = "Seek position not within file bounds"
+cdef class DataStream:
+    cdef char *FILE_NULL        = "input file is empty, pebkac"
+    cdef char *FILE_NOT_FOUND   = "input file does not exist, rtfm"
+    cdef char *FILE_OBJECT_NULL = "file object is null, id10t?"
+    cdef char *OUT_OF_BOUNDS    = "Trying to access a position in the file that does not exist, come on bro."
+    cdef char *INVALID_POSITION = "Seek position not within file bounds"
 
-    def __init__(self,file=None,mode="r"):
+    cdef __cinit__(self,file=None,mode="r"):
         self.mode=mode
         self.pos=0
         self.file_length=None
         self.file=file
         self.open()
 
-    def validate_file(self):
+    cdef validate_file(self):
         if None == self.file:
             raise Exception(self.FILE_NULL)
 
         if False == os.path.exists(self.file):
             raise Exception(self.FILE_NOT_FOUND)
 
-    def validate_bounds(self):
+    cdef validate_bounds(self):
         if None == self.file_length:
             self.get_file_size()
 
         if self.pos>=self.file_length:
             raise  Exception(self.OUT_OF_BOUNDS)
 
-    def open(self):
+    cdef open(self):
         if self.mode=='r':
             self.validate_file()
             self.file_object=open(self.file, "rb")
         if self.mode=='w':
             self.file_object=open(self.file, "wb")
 
-    def close(self):
+    cdef close(self):
         if None== self.file_object:
             raise Exception(self.FILE_OBJECT_NULL)
         self.file_object.close()
     
-    def pin(self):
+    cdef pin(self):
         self.pinned_position=self.pos
         
-    def seek(self,position):
+    cdef seek(self,position):
         if position and position >-1:
             if self.file_object:
                 self.file_object.seek(position)
@@ -53,14 +53,14 @@ class DataStream:
         else:
             raise Exception(self.INVALID_POSITION)
     
-    def rewind(self):
+    cdef rewind(self):
         self.seek(self.pinned_position)
 
-    def get_file_size(self):
+    cdef get_file_size(self):
         self.validate_file()
         self.file_length=os.path.getsize(self.file)
 
-    def read(self,length=1,word=None,char=None,byte=None,string=None):
+    cdef read(self,length=1,word=None,char=None,byte=None,string=None):
         try:
             #start_pos=self.pos
             self.validate_bounds()
@@ -106,21 +106,21 @@ class DataStream:
         except Exception as ex:
             raise Exception ("Read Error {0}, WORD,{1}".format(ex,word))
 
-    def write_byte(self,byte):
+    cdef write_byte(self,byte):
         #print ("'{0}'".format(byte))
         ba=bytearray()
         ba.append(byte)
         self.file_object.write(ba)
         self.pos+=1
 
-    def write_word(self,word):
+    cdef write_word(self,word):
         ba=bytearray()
         ba.append(word & 0xFF)
         ba.append((word>>8) & 0xFF)
         self.file_object.write(ba)
         self.pos+=1
 
-    def write_string(self,string,length):
+    cdef write_string(self,string,length):
         ba=bytearray()
         for i in range(0,length):
             ba.append(ord(string[i]))
@@ -128,7 +128,7 @@ class DataStream:
         self.pos+=length
         
 
-    def char(self,length=1,ptr=None,value=None):
+    cdef char(self,length=1,ptr=None,value=None):
         chunk=self.read(length,char=True)
         # if there is a value and the result is not a list...
         if value and  not isinstance(chunk,list):
@@ -147,7 +147,7 @@ class DataStream:
 
         return chunk
     
-    def byte(self,length=1,ptr=None,value=None,eod=None):
+    cdef byte(self,length=1,ptr=None,value=None,eod=None):
         if eod==0x00:
             chunk=[]
             byte=self.read(length,byte=True)
@@ -174,15 +174,15 @@ class DataStream:
 
         return chunk
 
-    def string(self,length=1,ptr=None,value=None,EOD=None):
+    cdef string(self,length=1,ptr=None,value=None,EOD=None):
         chunk=self.read(length,string=True)
         return chunk
 
-    def word(self,length=1,ptr=None,value=None,EOD=None):
+    cdef word(self,length=1,ptr=None,value=None,EOD=None):
         chunk=self.read(length,word=True)
         return chunk
    
-    def print_bit(self,byte,length=8):
+    cdef print_bit(self,byte,length=8):
         o=" <- 0"
         for i in range(0,length):
             bit_value=byte >> i &1
@@ -190,7 +190,7 @@ class DataStream:
         o="{0} -> ".format(length)+o
         print(o)
 
-    def bit(self,byte,index,length=None):
+    cdef bit(self,byte,index,length=None):
     
         if None==length:
             mask=1

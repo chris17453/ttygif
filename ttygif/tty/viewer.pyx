@@ -19,6 +19,7 @@ cdef class viewer:
     cdef public int   background_color
     cdef public int   foreground_color
     cdef public char* window_style
+    
 
     cdef info(self,text):
         if self.debug:
@@ -30,12 +31,12 @@ cdef class viewer:
         self.viewport_px_height   =height
         self.viewport_char_height =self.viewport_px_width/font.font_width
         self.viewport_char_width  =self.viewport_px_height/font.font_height
+        self.video                =[0]*self.viewport_px_width*self.viewport_px_height
+        self.video_length         =len(self.video)
         self.background_color     =0
         self.foreground_color     =3
         self.window_style         ="BOTTOM"
-
-
-        self.stream=stream
+        self.stream               =stream
         self.color_table=[  # 16 System Colors
                             [0,0,0],[128,0,0],[0,128,0],[128,128,0],
                             [0,0,128],[128,0,128],[0,128,128],[192,192,192],
@@ -85,13 +86,6 @@ cdef class viewer:
         ]
 
 
-        self.video=[]
-        self.video_length=len(self.video)
-        # SET DEFAULTS
-        self.fg=0
-        self.bg=0
-        self.reset=0
-        self.attribs=0
 
 
    
