@@ -2,12 +2,12 @@ import os
 import struct 
 
 cdef class DataStream:
-    cdef char *FILE_NULL        = "input file is empty, pebkac"
-    cdef char *FILE_NOT_FOUND   = "input file does not exist, rtfm"
-    cdef char *FILE_OBJECT_NULL = "file object is null, id10t?"
-    cdef char *OUT_OF_BOUNDS    = "Trying to access a position in the file that does not exist, come on bro."
-    cdef char *INVALID_POSITION = "Seek position not within file bounds"
-    cdef char *mode=mode
+    cdef char *FILE_NULL
+    cdef char *FILE_NOT_FOUND
+    cdef char *FILE_OBJECT_NULL
+    cdef char *OUT_OF_BOUNDS
+    cdef char *INVALID_POSITION
+    cdef char *mode
     cdef int pos=0
     cdef clong file_length=None
     cdef char *file
@@ -15,6 +15,13 @@ cdef class DataStream:
 
 
     def __cinit__(self,file=None,mode="r"):
+        self.FILE_NULL        = "input file is empty, pebkac"
+        self.FILE_NOT_FOUND   = "input file does not exist, rtfm"
+        self.FILE_OBJECT_NULL = "file object is null, id10t?"
+        self.OUT_OF_BOUNDS    = "Trying to access a position in the file that does not exist, come on bro."
+        self.INVALID_POSITION = "Seek position not within file bounds"
+
+
         self.mode=mode
         self.pos=0
         self.file_length=None
