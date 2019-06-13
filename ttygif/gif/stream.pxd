@@ -17,7 +17,6 @@ cdef class DataStream:
     cdef validate_file(self)
     cdef validate_bounds(self)
     cdef open(self)
-    cdef close(self)
     cdef pin(self)
     cdef seek(self,position)
     cdef rewind(self)
