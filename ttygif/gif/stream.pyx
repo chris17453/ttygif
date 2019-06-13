@@ -167,10 +167,10 @@ cdef class DataStream:
             while byte:
                 print("POS {0}".format(self.pos))
                 chunk.append(byte)
-                byte=self.read(length,byte=True)
+                byte=self.read(length,word=None,char=None,byte=True,string=None)
             self.seek(self.pos-1)
         else:
-            chunk=self.read(length,byte=True)
+            chunk=self.read(length,word=None,char=None,byte=True,string=None)
             if value and not isinstance(chunk,list):
                 if isinstance(value,list):
                     found=None
@@ -188,11 +188,11 @@ cdef class DataStream:
         return chunk
 
     cdef string(self,length=1,ptr=None,value=None,EOD=None):
-        chunk=self.read(length,string=True)
+        chunk=self.read(length,word=None,char=None,byte=None,string=True)
         return chunk
 
     cdef word(self,length=1,ptr=None,value=None,EOD=None):
-        chunk=self.read(length,word=True)
+        chunk=self.read(length,word=True,char=None,byte=None,string=None)
         return chunk
    
     cdef print_bit(self,byte,length=8):
