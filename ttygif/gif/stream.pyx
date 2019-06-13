@@ -64,7 +64,7 @@ cdef class DataStream:
         self.validate_file()
         self.file_length=os.path.getsize(self.file)
 
-    cdef read(self,length=1,word=None,char=None,byte=None,string=None):
+    cdef read(self,length=1,word=None,character=None,byte=None,string=None):
         try:
             #start_pos=self.pos
             self.validate_bounds()
@@ -95,7 +95,7 @@ cdef class DataStream:
                             chunk.append(struct.unpack('B', self.file_object.read(1))[0])
                             self.pos+=1
 
-                elif char:
+                elif character:
                     if length==1:
                         chunk=struct.unpack('b', self.file_object.read(1))[0]
                         self.pos+=1

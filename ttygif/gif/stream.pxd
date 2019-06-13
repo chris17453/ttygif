@@ -21,7 +21,7 @@ cdef class DataStream:
     cdef seek(self,position)
     cdef rewind(self)
     cdef get_file_size(self)
-    cdef read(self,length,word,char,byte,string)
+    cdef read(self,length,word,character,byte,string)
     cdef write_byte(self,byte)
     cdef write_word(self,word)
     cdef write_string(self,string,length)
