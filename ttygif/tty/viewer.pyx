@@ -523,7 +523,7 @@ cdef class viewer:
     cdef get(self):
         return {'width':self.viewport_px_width,'height':self.viewport_px_height,'data':self.video,'color_table':self.color_table}
 
-    cdef add_event(self,event):
+    def add_event(self,event):
         timestamp=event[0]
         event_type=event[1]
         event_io=event[2]
