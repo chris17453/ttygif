@@ -28,13 +28,16 @@ cdef class viewer:
         if self.debug:
             print(text)
 
+    cdef init_video(self):
+        self.video                =[0]*self.viewport_px_width*self.viewport_px_height
+        
     def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
         self.debug                =debug
         self.viewport_px_width    =width
         self.viewport_px_height   =height
         self.viewport_char_height =self.viewport_px_width/font.font_width
         self.viewport_char_width  =self.viewport_px_height/font.font_height
-        self.video                =[0]*self.viewport_px_width*self.viewport_px_height
+        self.init_video()
         self.video_length         =len(self.video)
         self.background_color     =0
         self.foreground_color     =3
@@ -94,7 +97,7 @@ cdef class viewer:
    
     # only level 1 optomised for reduced calculations in inner loops
     # TODO: runtime calculation
-    cdef draw_character(self,character,x,y,offset,color):
+    cdef draw_character(self,character:,x,y,offset,color):
         
         #print character
         if character>255:
