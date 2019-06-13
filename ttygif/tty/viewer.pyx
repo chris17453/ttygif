@@ -115,6 +115,8 @@ cdef class viewer:
                 character=218
             elif character==9488:
                 character=191
+            elif character==9492:
+                character=192
             elif character==9496:
                 character=217
             elif character==9600:

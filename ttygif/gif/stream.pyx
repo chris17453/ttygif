@@ -35,15 +35,15 @@ cdef class DataStream:
                 raise  Exception(self.OUT_OF_BOUNDS)
 
     cdef open(self):
-        print ("IN OPEN")
+        #print ("IN OPEN")
         if self.mode=='r':
-            print ("R")
+            #print ("R")
             self.validate_file()
             self.file_object=open(self.file, "rb")
         if self.mode=='w':
-            print ("W")
+            #print ("W")
             self.file_object=open(self.file, "wb")
-        print ("OUT OPEN")
+        #print ("OUT OPEN")
 
     def close(self):
         if None== self.file_object:
