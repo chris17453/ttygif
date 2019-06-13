@@ -24,7 +24,7 @@ cdef class DataStream:
 
         self.mode=mode
         self.pos=0
-        self.file_length=None
+        self.file_length=-1
         self.file=file
         self.open()
 
@@ -36,7 +36,7 @@ cdef class DataStream:
             raise Exception(self.FILE_NOT_FOUND)
 
     cdef validate_bounds(self):
-        if None == self.file_length:
+        if self.file_length==-1:
             self.get_file_size()
 
         if self.pos>=self.file_length:
