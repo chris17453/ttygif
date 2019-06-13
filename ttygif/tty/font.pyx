@@ -3,7 +3,7 @@ import array
 
 cdef class font:
 
-    name          =""
+    cdef char *      name          =""
     cdef cint        chars_per_line=0
     cdef cint        lines         =0
     cdef cint        width         =0
