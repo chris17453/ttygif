@@ -10,15 +10,15 @@ from .fonts cimport font
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 
-cdef class viewer:
+def class viewer:
   
 
     def info(self,text):
         if self.debug:
             print(text)
 
-    def __cinit__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
-        self.debug=debug
+    def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
+        self.debug                =debug
         self.viewport_px_width    =width
         self.viewport_px_height   =height
         self.viewport_char_height =self.viewport_px_width/font.font_width
