@@ -13,13 +13,13 @@ from .color_table import gif_color_table
 
 class encode_gif:
     def __init__(self,loop_count=0xFFFF,debug=None,auto=True):
-        self.stream=None
+        self.stream  =None
         self.header =None
         self.global_color_table=None
         self.loop_count=loop_count
-        self.frames=[]
-        self.debug=debug
-        self.auto=auto
+        self.frames  =[]
+        self.debug   =debug
+        self.auto    =auto
   
     def write(self):
         if self.auto:

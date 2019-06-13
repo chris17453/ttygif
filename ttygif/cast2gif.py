@@ -58,7 +58,7 @@ class cast2gif:
         self.debug=debug
 
         cast=asciicast_reader(debug=debug)
-        stream=cast.load(cast_file,debug=debug)
+        stream=cast.load(cast_file)
 
         g=encode_gif(loop_count,debug=debug)
         v=viewer(char_width=stream['width'],char_height=stream['height'],stream="",debug=debug)
