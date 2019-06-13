@@ -163,7 +163,7 @@ class Decoder:
     def load_graphics_control_extension(self):
         try:
             self.stream.pin()
-            graphiccontrol=Ggraphics_control_extension(self.stream)
+            graphiccontrol=graphics_control_extension(self.stream)
             graphiccontrol.read()
             if self.debug:
                 graphiccontrol.debug()

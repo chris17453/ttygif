@@ -61,7 +61,7 @@ class encode_gif:
         
         self.add_header(width=width,height=height,palette=palette,default_palette=default_palette)
         self.frames=[]
-        self.trailer=Trailer(self.stream)
+        self.trailer=trailer(self.stream)
         self.trailer.new()
 
         # create the header
@@ -116,7 +116,7 @@ class encode_gif:
             height=self.header.ScreenHeight
 
 
-        gce=GraphicsControlExtension(self.stream)
+        gce=graphics_control_extension(self.stream)
         gce.new(    DelayTime=delay,
                     ColorIndex=transparent,
                     DisposalMethod=disposal_method)
