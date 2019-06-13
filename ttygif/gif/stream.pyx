@@ -133,7 +133,7 @@ cdef class DataStream:
         
 
     cdef char(self,length=1,ptr=None,value=None):
-        chunk=self.read(length,word=None,char=True,byte=True,string=None)
+        chunk=self.read(length,word=None,character=True,byte=True,string=None)
         # if there is a value and the result is not a list...
         if value and  not isinstance(chunk,list):
             if isinstance(value,list):
@@ -154,14 +154,14 @@ cdef class DataStream:
     cdef byte(self,length=1,ptr=None,value=None,eod=None):
         if eod==0x00:
             chunk=[]
-            byte=self.read(length,word=None,char=None,byte=True,string=None)
+            byte=self.read(length,word=None,character=None,byte=True,string=None)
             while byte:
                 print("POS {0}".format(self.pos))
                 chunk.append(byte)
-                byte=self.read(length,word=None,char=None,byte=True,string=None)
+                byte=self.read(length,word=None,character=None,byte=True,string=None)
             self.seek(self.pos-1)
         else:
-            chunk=self.read(length,word=None,char=None,byte=True,string=None)
+            chunk=self.read(length,word=None,character=None,byte=True,string=None)
             if value and not isinstance(chunk,list):
                 if isinstance(value,list):
                     found=None
@@ -179,11 +179,11 @@ cdef class DataStream:
         return chunk
 
     cdef string(self,length=1,ptr=None,value=None,EOD=None):
-        chunk=self.read(length,word=None,char=None,byte=None,string=True)
+        chunk=self.read(length,word=None,character=None,byte=None,string=True)
         return chunk
 
     cdef word(self,length=1,ptr=None,value=None,EOD=None):
-        chunk=self.read(length,word=True,char=None,byte=None,string=None)
+        chunk=self.read(length,word=True,character=None,byte=None,string=None)
         return chunk
    
     cdef print_bit(self,byte,length=8):
