@@ -19,6 +19,7 @@ cdef class DataStream:
         self.file=file
         self.open()
 
+
     cdef validate_file(self):
         if None == self.file:
             raise Exception(self.FILE_NULL)
@@ -49,6 +50,7 @@ cdef class DataStream:
         self.pinned_position=self.pos
         
     cdef seek(self,position):
+        print position
         if position and position >-1:
             if self.file_object:
                 self.file_object.seek(position)
