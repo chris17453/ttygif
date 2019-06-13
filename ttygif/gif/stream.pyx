@@ -19,7 +19,7 @@ cdef class DataStream:
         self.file=file
         self.open()
 
-    cpdef validate_file(self):
+    cdef validate_file(self):
         if None == self.file:
             raise Exception(self.FILE_NULL)
 
@@ -64,7 +64,7 @@ cdef class DataStream:
         self.validate_file()
         self.file_length=os.path.getsize(self.file)
 
-    cdef read(self,length=1,word=None,character=None,byte=None,string=None):
+    def read(self,length=1,word=None,character=None,byte=None,string=None):
         try:
             #start_pos=self.pos
             self.validate_bounds()
@@ -110,21 +110,21 @@ cdef class DataStream:
         except Exception as ex:
             raise Exception ("Read Error {0}, WORD,{1}".format(ex,word))
 
-    cdef write_byte(self,byte):
+    def write_byte(self,byte):
         #print ("'{0}'".format(byte))
         ba=bytearray()
         ba.append(byte)
         self.file_object.write(ba)
         self.pos+=1
 
-    cdef write_word(self,word):
+    def write_word(self,word):
         ba=bytearray()
         ba.append(word & 0xFF)
         ba.append((word>>8) & 0xFF)
         self.file_object.write(ba)
         self.pos+=1
 
-    cdef write_string(self,string,length):
+    def write_string(self,string,length):
         ba=bytearray()
         for i in range(0,length):
             ba.append(ord(string[i]))
@@ -132,7 +132,7 @@ cdef class DataStream:
         self.pos+=length
         
 
-    cdef character(self,length=1,ptr=None,value=None):
+    def character(self,length=1,ptr=None,value=None):
         chunk=self.read(length,word=None,character=True,byte=True,string=None)
         # if there is a value and the result is not a list...
         if value and  not isinstance(chunk,list):
@@ -151,7 +151,7 @@ cdef class DataStream:
 
         return chunk
     
-    cdef byte(self,length=1,ptr=None,value=None,eod=None):
+    def byte(self,length=1,ptr=None,value=None,eod=None):
         if eod==0x00:
             chunk=[]
             byte=self.read(length,word=None,character=None,byte=True,string=None)
@@ -178,15 +178,15 @@ cdef class DataStream:
 
         return chunk
 
-    cdef string(self,length=1,ptr=None,value=None,EOD=None):
+    def string(self,length=1,ptr=None,value=None,EOD=None):
         chunk=self.read(length,word=None,character=None,byte=None,string=True)
         return chunk
 
-    cdef word(self,length=1,ptr=None,value=None,EOD=None):
+    def word(self,length=1,ptr=None,value=None,EOD=None):
         chunk=self.read(length,word=True,character=None,byte=None,string=None)
         return chunk
    
-    cdef print_bit(self,byte,length=8):
+    def print_bit(self,byte,length=8):
         o=" <- 0"
         for i in range(0,length):
             bit_value=byte >> i &1
@@ -194,7 +194,7 @@ cdef class DataStream:
         o="{0} -> ".format(length)+o
         print(o)
 
-    cdef bit(self,byte,index,length=None):
+    def bit(self,byte,index,length=None):
     
         if None==length:
             mask=1
