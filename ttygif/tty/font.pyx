@@ -14,7 +14,6 @@ cdef class font:
     cdef cint        spacing_y     =0
     cdef cint        offset_x      =0
     cdef cint        offset_y      =0
-    cdef array.array color_table   =array.array('B',[0x00,0x00,0x00,
-                                                     0xFF,0xFF,0xFF])
+    cdef array.array color_table
     cdef cint        transparent   =0
-    cdef array.array graphics=array.array('B')
+    cdef array.array graphics
