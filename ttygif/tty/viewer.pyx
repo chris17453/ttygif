@@ -22,7 +22,7 @@ cdef class viewer:
     cdef char* window
 
 
-    cdef __init__(self,width=640,height=480,char_width=None,char_height=None,stream=''):
+    def __init__(self,width=640,height=480,char_width=None,char_height=None,stream=''):
 
         self.viewport_px_width    =width
         self.viewport_px_height   =height
