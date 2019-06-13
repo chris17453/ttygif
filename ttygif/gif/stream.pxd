@@ -25,7 +25,7 @@ cdef class DataStream:
     cdef write_byte(self,byte)
     cdef write_word(self,word)
     cdef write_string(self,string,length)
-    cdef char(self,length,ptr,value)
+    cdef character(self,length,ptr,value)
     cdef byte(self,length,ptr,value,eod)
     cdef string(self,length,ptr,value,EOD)
     cdef word(self,length,ptr,value,EOD)

@@ -110,7 +110,7 @@ cdef class DataStream:
         except Exception as ex:
             raise Exception ("Read Error {0}, WORD,{1}".format(ex,word))
 
-    def write_byte(self,byte):
+    cdef write_byte(self,byte):
         #print ("'{0}'".format(byte))
         ba=bytearray()
         ba.append(byte)
@@ -132,7 +132,7 @@ cdef class DataStream:
         self.pos+=length
         
 
-    cdef char(self,length=1,ptr=None,value=None):
+    cdef character(self,length=1,ptr=None,value=None):
         chunk=self.read(length,word=None,character=True,byte=True,string=None)
         # if there is a value and the result is not a list...
         if value and  not isinstance(chunk,list):
