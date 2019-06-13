@@ -8,8 +8,8 @@ cdef class DataStream:
     cdef char *OUT_OF_BOUNDS
     cdef char *INVALID_POSITION
     cdef char *mode
-    cdef int pos=0
-    cdef clong file_length=None
+    cdef int pos
+    cdef clong file_length
     cdef char *file
     
 
