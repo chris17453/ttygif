@@ -3,7 +3,7 @@ import array
 
 cdef class font:
 
-    name
+    str name
     cdef int        chars_per_line
     cdef int        lines         
     cdef int        width         
