@@ -3,7 +3,7 @@ import array
 import re
 
 from .font cimport font_map
-from .fonts import font
+from .fonts cimport font
 #import font
 
 # Reference
