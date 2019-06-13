@@ -1,6 +1,6 @@
 from cpython cimport array
 import array
-from .font import font_map
+from .font cimport font_map
 
 
 cdef font_map font=font_map()
