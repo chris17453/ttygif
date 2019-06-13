@@ -8,7 +8,7 @@ from .version import __version__
 import pprint
 import time
 
-cpdef cli_main():
+def cli_main():
     print("ttygif version {0}".format( __version__))
 
     parser = argparse.ArgumentParser("ttygif", usage='%(prog)s [options]', description="""tty output to gif""", epilog="Dont yaknow?")
