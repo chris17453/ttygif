@@ -3,17 +3,17 @@ import array
 
 cdef class font:
 
-    char *      name          =""
-    cdef int        chars_per_line=0
-    cdef int        lines         =0
-    cdef int        width         =0
-    cdef int        height        =0
-    cdef int        font_width    =0
-    cdef int        font_height   =0
-    cdef int        spacing_x     =0
-    cdef int        spacing_y     =0
-    cdef int        offset_x      =0
-    cdef int        offset_y      =0
+    char *          name=
+    cdef int        chars_per_line
+    cdef int        lines         
+    cdef int        width         
+    cdef int        height        
+    cdef int        font_width    
+    cdef int        font_height   
+    cdef int        spacing_x     
+    cdef int        spacing_y     
+    cdef int        offset_x      
+    cdef int        offset_y      
     cdef array.array color_table
-    cdef int        transparent   =0
+    cdef int        transparent
     cdef array.array graphics
