@@ -106,8 +106,8 @@ class Decoder:
                 continue
             
             # EOF
-            trailer=self.load_trailer()
-            if trailer:
+            _trailer=self.load_trailer()
+            if _trailer:
                 print ("Trailer")
                 #print ("END POSITION: {0:02X}".format(self.stream.pos))
                 break
@@ -199,11 +199,11 @@ class Decoder:
     def load_trailer(self):
         try:
             self.stream.pin()
-            trailer=trailer(self.stream)
-            trailer.read()
+            _trailer=trailer(self.stream)
+            _trailer.read()
             if self.debug:
-                trailer.debug()
-            return trailer
+                _trailer.debug()
+            return _trailer
         except Exception as ex:
             #print("Trying:{0}".format(ex))
             self.stream.rewind()
