@@ -19,7 +19,7 @@ cdef class DataStream:
         self.file=file
         self.open()
 
-    cdef validate_file(self):
+    cpdef validate_file(self):
         if None == self.file:
             raise Exception(self.FILE_NULL)
 
