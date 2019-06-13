@@ -30,9 +30,9 @@ cdef class DataStream:
     cdef validate_bounds(self):
         if self.file_length==-1:
             self.get_file_size()
-        
-        if self.pos>=self.file_length:
-            raise  Exception(self.OUT_OF_BOUNDS)
+        if self.mode=='r':
+            if self.pos>=self.file_length:
+                raise  Exception(self.OUT_OF_BOUNDS)
 
     cdef open(self):
         if self.mode==b'r':
