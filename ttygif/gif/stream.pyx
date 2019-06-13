@@ -28,10 +28,9 @@ cdef class DataStream:
             raise Exception(self.FILE_NOT_FOUND)
 
     cdef validate_bounds(self):
-        print self.file_length
         if self.file_length==-1:
             self.get_file_size()
-        print self.file_length,        self.pos
+        
         if self.pos>=self.file_length:
             raise  Exception(self.OUT_OF_BOUNDS)
 
@@ -65,6 +64,7 @@ cdef class DataStream:
     cdef get_file_size(self):
         self.validate_file()
         self.file_length=os.path.getsize(self.file)
+        print ("FILE SIZE",self.file_length)
 
     def read(self,length=1,word=None,character=None,byte=None,string=None):
         try:
