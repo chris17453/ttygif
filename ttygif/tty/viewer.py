@@ -237,7 +237,7 @@ class viewer:
     def write_buffer(self,x,y,c,buffer,fg,bg):
         pos=x*2+y*self.window_width*2
         #if pos>= len(buffer):
-        print (pos,x,y,len(buffer),self.window_width,self.window_height)
+        #print (pos,x,y,len(buffer),self.window_width,self.window_height)
         buffer[pos]=[fg,bg]
         buffer[pos+1]=c
 
@@ -272,8 +272,8 @@ class viewer:
 #       ESC ]     OSC      (Should be: Operating system command) ESC ] P
 #                          nrrggbb: set palette, with parameter given in 7
     def info(self,text):
-        #return
-        print(text)
+        return
+        #print(text)
 
     def stream_to_buffer(self):
         window_width=self.width/font['font_width']

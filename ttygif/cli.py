@@ -25,15 +25,17 @@ def cli_main():
     if args.web:
         gif().canvas_it(args.input,args.output)
     
-    if args.extract:
+    elif args.extract:
         gif(debug=None).extract(args.input,args.output)
 
-    if args.screen:
+    elif args.screen:
         gif().screen(font,args.output)
     
 
-    if args.test:
+    elif args.input and args.output:
         cast2gif(args.input,args.output)
+    else:
+        print("usage: ttygif -i input.cast -o output.gif")
                     
 
 if __name__=='__main__':
