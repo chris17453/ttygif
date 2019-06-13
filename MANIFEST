@@ -2,7 +2,6 @@
 README.md
 setup.py
 ./ttygif/cast2gif.c
-./ttygif/cli.c
 ./ttygif/version.c
 ./ttygif/asciicast/reader.c
 ./ttygif/gif/CommentExtension.c
