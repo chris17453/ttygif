@@ -3,7 +3,7 @@ import array
 
 cdef class font_map:
 
-    char* name=None
+    cdef char *name
     cdef int        chars_per_line
     cdef int        lines         
     cdef int        width         
