@@ -1,4 +1,3 @@
-# cython: language_level=2
 
 import argparse
 from .gif.gif import gif
