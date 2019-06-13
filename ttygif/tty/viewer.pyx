@@ -520,7 +520,7 @@ cdef class viewer:
         self.buffer=buffer
    
 
-    cdef get(self):
+    def get(self):
         return {'width':self.viewport_px_width,'height':self.viewport_px_height,'data':self.video,'color_table':self.color_table}
 
     def add_event(self,event):
