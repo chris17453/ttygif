@@ -9,16 +9,16 @@ class cast2gif:
     def get_frame_bounding_diff(self,frame1,frame2,width,height):
         if frame1==None or frame2==None:
             return {'min_x':0,'min_y':0,'max_x':width-1,'max_y':height-1,'width':width,'height':height}
-        pos=0
-        min_x=width
-        min_y=height
-        max_x=0
-        max_y=0
-        same=True
+        cdef int pos=0
+        cdef int min_x=width
+        cdef int min_y=height
+        cdef int max_x=0
+        cdef int max_y=0
+        cdef same=1
         for y in range(0,height):
             for x in range(0,width):
                 if frame1['data'][pos]!=frame2['data'][pos]:
-                    same=None
+                    same=0
                     if x<min_x:
                         min_x=x
                     if x>max_x:
@@ -30,21 +30,23 @@ class cast2gif:
                 pos+=1
         # it didnt change...
         # place holder so delat is kept same same
-        if same:
+        if same==1:
             min_x=0
             min_y=0
             max_x=2
             max_y=2
             #return None
 
-        bound_height=max_y-min_y+1
-        bound_width =max_x-min_x+1
+        cdef int bound_height=max_y-min_y+1
+        cdef int bound_width =max_x-min_x+1
         return {'min_x':min_x,'min_y':min_y,'max_x':max_x,'max_y':max_y,'width':bound_width,'height':bound_height}
 
     def copy_area(self,data,diff,width,height):
-        pos=0
-        new_data_len=diff['width']*diff['height']
-       # print new_data_len
+        cdef int pos=0
+        cdef int new_data_len=diff['width']*diff['height']
+        cdef int y_offset
+       
+       #  print new_data_len
         new_data=[0]*new_data_len
         for y in range(diff['min_y'],diff['max_y']+1):
             y_offset=y*width
