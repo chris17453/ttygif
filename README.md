@@ -25,7 +25,7 @@ Normal/colorized output work fine.
 - cythonic definitions for speed improvment
 - image underlay (branding)
 - image overlay (branding)
-
+- palette flags, monochrome,  ggrayscale, system, custom, count [n]<256
 
 ### Examples, including failures
 ![asciicast-174524](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/174524.gif)

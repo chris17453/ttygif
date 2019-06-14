@@ -59,7 +59,7 @@ class application_extension:
         self.SubBlockDataSize  = 0x03
         self.data_sub_blocks   = [1,loop_count & 0xFF,(loop_count>>8) & 0xFF]
         self.Terminator        = 0x00
-        print("LOOP",loop_count & 0xFF,(loop_count>>8) & 0xFF)
+        @#print("LOOP",loop_count & 0xFF,(loop_count>>8) & 0xFF)
 
 
 
