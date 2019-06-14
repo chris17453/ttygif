@@ -11,7 +11,6 @@ from .fonts cimport font
 
 
 cdef class viewer:
-    cdef object      debug
     cdef public int         viewport_px_width
     cdef public int         viewport_px_height
     cdef public int         viewport_char_height
@@ -21,10 +20,11 @@ cdef class viewer:
     cdef public object      window_style
     cdef public object      stream
     cdef public int         video_length
-    cdef object video
-    cdef object color_table
-    cdef object buffer
+    cdef        object      video
+    cdef        object      color_table
+    cdef        object      buffer
     cdef public int         buffer_rows
+    cdef        object      debug
     
     cdef info(self,text):
         if self.debug:
