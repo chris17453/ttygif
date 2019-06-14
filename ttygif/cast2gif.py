@@ -54,7 +54,7 @@ class cast2gif:
         
         return new_data
 
-    def __init__(self,cast_file,gif_file,loop_count=0xFFFF,debug=None):
+    def __init__(self,cast_file,gif_file,loop_count=0xFFFF,debug=None,frame_rate=100):
         self.debug=debug
 
         cast=asciicast_reader(debug=debug)
@@ -67,7 +67,7 @@ class cast2gif:
         percent=-1
         index=0
         timestamp=0
-        interval=.100
+        interval=float(1/frame_rate)
         frame=0
         max_frames=50
         data=None
@@ -105,15 +105,21 @@ class cast2gif:
                     frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
 
                     delay=int(interval*100)
-                    if delay>255:
-                        delay=255
-                    #print diff
-                    #print (len(frame_snip))
-                    g.add_frame(disposal_method=0,delay=delay, 
-                                    transparent=None,
-                                    left=diff['min_x'],top=diff['min_y'],
-                                    width=diff['width'],height=diff['height'],
-                                    palette=None,image_data=frame_snip)
+                    while delay!=0:
+                        if delay>255:
+                            partial_delay=255
+                        else:
+                            partial_delay=delay
+                        delay-=partial_delay
+                        #print diff
+                        #print (len(frame_snip))
+                        g.add_frame(disposal_method=0,delay=partial_delay, 
+                                        transparent=None,
+                                        left=diff['min_x'],top=diff['min_y'],
+                                        width=diff['width'],height=diff['height'],
+                                        palette=None,image_data=frame_snip)
+
+
             v.add_event(event)
         sys.stdout.write("                          \r".format(index,strlen,percent))
         sys.stdout.flush()

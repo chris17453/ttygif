@@ -14,12 +14,13 @@ def cli_main():
 
     parser = argparse.ArgumentParser("ttygif", usage='%(prog)s [options]', description="""tty output to gif""", epilog="Dont yaknow?")
     # actions
-    parser.add_argument('-v', '--debug',   help='show debuging statistics', action='store_true')
-    parser.add_argument('-i', '--input',   help='source file', default= None)
-    parser.add_argument('-o', '--output',  help='destination file', default= None)
-    parser.add_argument('-x', '--extract', help='Extract data from gif as json', action='store_true')
-    parser.add_argument('-w', '--html',    help='Convert a gif to a html canvas web page.', action='store_true')
-    parser.add_argument('-l', '--loop',    help='number of times to loop animation', default=0xFFFF)
+    parser.add_argument('-v', '--debug',      help='show debuging statistics', action='store_true')
+    parser.add_argument('-i', '--input',      help='source file', default= None)
+    parser.add_argument('-o', '--output',     help='destination file', default= None)
+    parser.add_argument('-x', '--extract',    help='Extract data from gif as json', action='store_true')
+    parser.add_argument('-w', '--html',       help='Convert a gif to a html canvas web page.', action='store_true')
+    parser.add_argument('-l', '--loop',       help='number of times to loop animation', default=0xFFFF)
+    parser.add_argument('-f', '--frame-rate', help='frame rate, default 8 FPS (1-25)', default=8)
     
 
     args = parser.parse_args()
@@ -31,7 +32,12 @@ def cli_main():
 
 
     elif args.input and args.output:
-        cast2gif(args.input,args.output,loop_count=args.loop,debug=args.debug)
+        if args.frame_rate<0:
+            args.frame_rate=1
+        if args.frame_rate>25:
+            args.frame_rate=25
+            
+        cast2gif(args.input,args.output,loop_count=args.loop,debug=args.debug,frame_rate=args.frame_rate)
     else:
         print("usage: ttygif -i input.cast -o output.gif -l 1")
                     
