@@ -22,7 +22,6 @@ setup.py
 ./ttygif/tty/fonts.c
 ./ttygif/tty/viewer.c
 ttygif/__init__.py
-ttygif/cast2gif.py
 ttygif/cli.py
 ttygif/version.py
 ttygif/asciicast/__init__.py

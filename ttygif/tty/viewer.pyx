@@ -152,26 +152,31 @@ cdef class viewer:
                 return
 
         #print "FOUND"
-        fs= font.width
-        fw= font.font_width
-        fh= font.font_height
-        fox=font.offset_x
-        foy=font.offset_y
-        fsx=font.spacing_x
-        fsy=font.spacing_y
-        transparent=font.transparent
-        cx=int(character%font.chars_per_line)
-        cy=int(character/font.chars_per_line)
-
-        pre_x=fox+cx*fw
-        pre_y=(foy+cy*fh)*fs
-        pre=pre_x+pre_y
-        pre_y2=0
+        cdef int fs= font.width
+        cdef int fw= font.font_width
+        cdef int fh= font.font_height
+        cdef int fox=font.offset_x
+        cdef int foy=font.offset_y
+        cdef int fsx=font.spacing_x
+        cdef int fsy=font.spacing_y
+        cdef int transparent=font.transparent
+        cdef int cx=int(character%font.chars_per_line)
+        cdef int cy=int(character/font.chars_per_line)
+        cdef int pre_x=fox+cx*fw
+        cdef int pre_y=(foy+cy*fh)*fs
+        cdef int pre=pre_x+pre_y
+        cdef int pre_y2=0
+        cdef int screen_pos
+        cdef int screen_pos2
+        cdef int pos
+        cdef int pos2
+        if y<0 or x<0:
+         return
         for fy in range(0,fh): 
             sy=fy+(y*(fh+fsy))
             sx=(x*(fw+fsx))
             screen_pos=sx+(sy-offset)*self.viewport_px_width
-            if screen_pos<0 or screen_pos>=self.video_length:
+            if screen_pos>=self.video_length:
                 continue
             pos=pre+pre_y2
             for fx in range(0,fw):
