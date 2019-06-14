@@ -32,12 +32,13 @@ def cli_main():
 
 
     elif args.input and args.output:
-        if args.frame_rate<0:
-            args.frame_rate=1
-        if args.frame_rate>25:
-            args.frame_rate=25
+        frame_rate=int(args.frame_rate)
+        if frame_rate<0:
+            frame_rate=1
+        if frame_rate>25:
+           frame_rate=25
             
-        cast2gif(args.input,args.output,loop_count=args.loop,debug=args.debug,frame_rate=args.frame_rate)
+        cast2gif(args.input,args.output,loop_count=args.loop,debug=args.debug,frame_rate=frame_rate)
     else:
         print("usage: ttygif -i input.cast -o output.gif -l 1")
                     

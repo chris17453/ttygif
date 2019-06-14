@@ -89,7 +89,7 @@ class cast2gif:
                 old_percent=percent
                 percent=int((index*100)/strlen)
                 if percent!=old_percent:
-                    sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS or {4}ms\r".format(timestamp,last_timestamp,percent,frame_rate,interval))
+                    sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS or {4}ms    \r".format(timestamp,last_timestamp,percent,frame_rate,interval))
                     sys.stdout.flush()
                 
                 frame+=1
@@ -121,7 +121,7 @@ class cast2gif:
 
 
             v.add_event(event)
-        sys.stdout.write("                          \r".format(index,strlen,percent))
+        sys.stdout.write("                                           \r".format(index,strlen,percent))
         sys.stdout.flush()
 
         # need to close the gif
