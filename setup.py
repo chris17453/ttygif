@@ -43,7 +43,7 @@ extensions = [
     Extension("ttygif.tty.font"                         ,[prefix+"./ttygif/tty/font"                       +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.fonts"                        ,[prefix+"./ttygif/tty/fonts"                      +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.viewer"                       ,[prefix+"./ttygif/tty/viewer"                     +ext2], define_macros=[('CYTHON_TRACE', '1')]),
-    Extension("ttygif.cast2gif"                         ,[prefix+"./ttygif/cast2gif"                       +ext ], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.cast2gif"                         ,[prefix+"./ttygif/cast2gif"                       +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.version"                          ,[prefix+"./ttygif/version"                        +ext ], define_macros=[('CYTHON_TRACE', '1')]),
     #Extension("ttygif.cli"                              ,[prefix+"./ttygif/cli"                            +ext ], define_macros=[('CYTHON_TRACE', '1')]),
 ]
