@@ -112,7 +112,6 @@ cdef class viewer:
     # only level 1 optomised for reduced calculations in inner loops
     # TODO: runtime calculation
     cdef draw_character(self,character,x,y,offset,color):
-        
         #print character
         if character>255:
             if character==8216:
@@ -250,7 +249,7 @@ cdef class viewer:
     
         
     cdef shift_buffer(self,buffer):
-        index=self.viewport_char_width
+        cdef int index=self.viewport_char_width
         for i in range(0,index):
             buffer.pop(0)
             buffer.pop(0)
@@ -258,7 +257,7 @@ cdef class viewer:
 
 
     cdef write_buffer(self,x,y,c,buffer,fg,bg):
-        pos=x*2+y*self.viewport_char_width*2
+        cdef int pos=x*2+y*self.viewport_char_width*2
         #if pos>= len(buffer):
         #print (pos,x,y,len(buffer),self.viewport_char_width,self.viewport_char_height)
         buffer[pos]=[fg,bg]
@@ -269,13 +268,13 @@ cdef class viewer:
 
     cdef stream_to_buffer(self):
         
-        pos=0
+        cdef int pos=0
+        cdef int cursor = 0
         # pre buffer
         buffer=[[0,0],0]*self.viewport_char_width*self.viewport_char_height
         overflow=None
 
 
-        cursor = 0
         
         ANSI_OSC_RE = re.compile('\001?\033\\]((?:.|;)*?)(\x07)\002?')        # Operating System Command
         text=""
