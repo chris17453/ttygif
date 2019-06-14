@@ -1,3 +1,4 @@
+# cython: linetrace=True
 from cpython cimport array
 import array
 from .font cimport font_map

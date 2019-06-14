@@ -1,3 +1,4 @@
+# cython: linetrace=True
 
 import argparse
 from .gif.gif import gif

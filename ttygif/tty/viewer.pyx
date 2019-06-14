@@ -1,3 +1,5 @@
+# cython: linetrace=True
+
 from cpython cimport array
 import array
 import re

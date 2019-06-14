@@ -18,6 +18,18 @@ for dir in dirs:
         os.mkdir(dir)
         print("Created Directory {0}".format(dir))
 
+def os_cmd(cmd,err_msg):
+    p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    output, err = p.communicate()
+    rc = p.returncode
+    if rc!=0:
+        print(output)
+        print(err)
+        raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
+    return output
+    
+
+
 print ("Function execution")
 
 for func in run:
@@ -29,7 +41,7 @@ for func in run:
     
     
     #ttygif.cast2gif.cast2gif('data/234628.cast','a.gif',1,'1',None)
-    cProfile.runctx("ttygif.cast2gif.cast2gif('data/232377.cast','a.gif',1,'1',None)".format(func)   , globals(), locals())
+    cProfile.runctx("ttygif.cast2gif.cast2gif('data/232377.cast','a.gif',1,'1',None)".format(func)   , globals(), locals(),profile_name)
     
     print profile_name
     s = pstats.Stats(profile_name)
