@@ -76,8 +76,8 @@ class cast2gif:
         if strlen<1:
             print("Empty stream")
             exit(0)
-            
-        last_timestamp=float(stream['events'][strlen-1])
+
+        last_timestamp=float(stream['events'][strlen-1[0]])
         for event in stream['events']:
             index+=1
             if timestamp==0:
