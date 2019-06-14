@@ -64,7 +64,7 @@ class cast2gif:
         v=viewer(char_width=stream['width'],char_height=stream['height'],stream="",debug=debug)
         g.create(width=v.viewport_px_width,height=v.viewport_px_height,filename=gif_file,default_palette=True)
 
-        percent=0
+        percent=-1
         index=0
         timestamp=0
         interval=.100
@@ -89,7 +89,7 @@ class cast2gif:
                 old_percent=percent
                 percent=int((index*100)/strlen)
                 if percent!=old_percent:
-                    sys.stdout.write("Time: {0}-{1} {2}%\r".format(timestamp,last_timestamp,percent))
+                    sys.stdout.write("Seconds: {0} of {1} {2}%\r".format(timestamp,last_timestamp,percent))
                     sys.stdout.flush()
                 
                 frame+=1
