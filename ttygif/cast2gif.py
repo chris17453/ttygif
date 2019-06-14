@@ -67,7 +67,7 @@ class cast2gif:
         percent=-1
         index=0
         timestamp=0
-        interval=float(1/frame_rate)
+        interval=float(1)/float(frame_rate)
         frame=0
         max_frames=50
         data=None
