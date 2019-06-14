@@ -12,7 +12,7 @@ from .color_table import gif_color_table
 
 
 class encode_gif:
-    def __init__(self,loop_count=0xFFFF,debug=None,auto=True):
+    def __init__(self,loop_count=0xFFFF,debug=-1,auto=True):
         self.stream  =None
         self.header =None
         self.global_color_table=None

@@ -14,12 +14,12 @@ def cli_main():
 
     parser = argparse.ArgumentParser("ttygif", usage='%(prog)s [options]', description="""tty output to gif""", epilog="Dont yaknow?")
     # actions
-    parser.add_argument('-v', '--debug',      help='show debuging statistics', action='store_true')
+    parser.add_argument('-v', '--debug',      help='show debuging statistics', default =-1)
     parser.add_argument('-i', '--input',      help='source file', default= None)
     parser.add_argument('-o', '--output',     help='destination file', default= None)
     parser.add_argument('-x', '--extract',    help='Extract data from gif as json', action='store_true')
     parser.add_argument('-w', '--html',       help='Convert a gif to a html canvas web page.', action='store_true')
-    parser.add_argument('-l', '--loop',       help='number of times to loop animation, default 0=forever', default=0)
+    parser.add_argument('-l', '--loop',       help='number of times to loop animation, default 0= forever', default=0)
     parser.add_argument('-f', '--frame-rate', help='frame rate, default 8 FPS (1-25)', default=8)
     
 

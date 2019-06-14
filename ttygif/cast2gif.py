@@ -54,7 +54,7 @@ class cast2gif:
         
         return new_data
 
-    def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,debug=None):
+    def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,debug=-1):
         self.debug=debug
 
         cast=asciicast_reader(debug=debug)

@@ -27,7 +27,7 @@ cdef class viewer:
     cdef        object      debug
     
     cdef info(self,text):
-        if self.debug:
+        if self.debug>-1:
             print(text)
 
     cdef init_video(self):
