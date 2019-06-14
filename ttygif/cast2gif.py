@@ -73,6 +73,11 @@ class cast2gif:
         data=None
         old_data=None
         strlen=len(stream['events'])
+        if strlen<1:
+            print("Empty stream")
+            exit(0)
+            
+        last_timestamp=float(stream['events'][strlen-1])
         for event in stream['events']:
             index+=1
             if timestamp==0:
@@ -84,7 +89,7 @@ class cast2gif:
                 old_percent=percent
                 percent=int((index*100)/strlen)
                 if percent!=old_percent:
-                    sys.stdout.write("Time: {0}-{1} - {2}%\r".format(index,strlen,percent))
+                    sys.stdout.write("Time: {0}-{1} {2}%\r".format(timestamp,last_timestamp,percent))
                     sys.stdout.flush()
                 
                 frame+=1
