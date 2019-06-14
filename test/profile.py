@@ -27,8 +27,9 @@ for func in run:
         os.remove(profile_name)
         print("Deleted {0}".format(profile_name))
     
-    ttygif.cast2gif.cast2gif('data/234628.cast','a.gif',1,'1',None)
-    cProfile.runctx("ttygif.cast2gif.cast2gif('data/234628.cast','a.gif',1,'1',None)".format(func)   , globals(), locals())
+    
+    #ttygif.cast2gif.cast2gif('data/234628.cast','a.gif',1,'1',None)
+    cProfile.runctx("ttygif.cast2gif.cast2gif('data/232377.cast','a.gif',1,'1',None)".format(func)   , globals(), locals())
     
     print profile_name
     s = pstats.Stats(profile_name)
