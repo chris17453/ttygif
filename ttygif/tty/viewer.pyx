@@ -34,7 +34,7 @@ cdef class viewer:
         self.video                =[0]*self.viewport_px_width*self.viewport_px_height
         
     def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=-1):
-        self.debug                =debug
+       # self.debug                =debug
         self.viewport_px_width    =width
         self.viewport_px_height   =height
 
