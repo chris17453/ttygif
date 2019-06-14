@@ -41,11 +41,11 @@ cdef class viewer:
         if char_width and char_height:
             self.viewport_char_width  = char_width
             self.viewport_char_height = char_height
-            self.viewport_px_width    = self.viewport_char_height*font.font_width
-            self.viewport_px_height   = self.viewport_char_width*font.font_height
+            self.viewport_px_width    = self.viewport_char_width*font.font_width
+            self.viewport_px_height   = self.viewport_char_height*font.font_height
         else:
-            self.viewport_char_height = self.viewport_px_width/font.font_width
-            self.viewport_char_width  = self.viewport_px_height/font.font_height
+            self.viewport_char_height = self.viewport_px_height/font.font_width
+            self.viewport_char_width  = self.viewport_px_width/font.font_height
             self.viewport_px_width    = width
             self.viewport_px_height   = height
 
