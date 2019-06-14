@@ -24,17 +24,17 @@ cdef class viewer:
     cdef        object      color_table
     cdef        object      buffer
     cdef public int         buffer_rows
-    cdef        object      debug
+    cdef        object      debug_mode
     
     cdef info(self,text):
-        if self.debug>-1:
+        if self.debug:
             print(text)
 
     cdef init_video(self):
         self.video                =[0]*self.viewport_px_width*self.viewport_px_height
         
-    def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=-1):
-       # self.debug                =debug
+    def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug_mode=None):
+        self.debug_mode                =debug_mode
         self.viewport_px_width    =width
         self.viewport_px_height   =height
 
