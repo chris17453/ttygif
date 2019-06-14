@@ -11,7 +11,7 @@ from .fonts cimport font
 
 
 cdef class viewer:
-    cdef public object     debug
+    cdef object      debug
     cdef public int         viewport_px_width
     cdef public int         viewport_px_height
     cdef public int         viewport_char_height
