@@ -24,7 +24,7 @@ cdef class viewer:
     cdef        object      color_table
     cdef        object      buffer
     cdef public int         buffer_rows
-    cdef        int         debug
+    cdef        object      debug
     
     cdef info(self,text):
         if self.debug:
