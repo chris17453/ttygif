@@ -31,9 +31,6 @@ class application_extension:
         self.stream.write_string(self.Identifier,8)
         self.stream.write_string(self.AuthentCode,3)
         
-        self.SubBlockDataSize=0
-        self.data_sub_blocks=[]
-        
         left=len(self.data_sub_blocks)
         index=0
         while left>0:
@@ -62,6 +59,7 @@ class application_extension:
         self.SubBlockDataSize  = 0x03
         self.data_sub_blocks   = [1,loop_count & 0xFF,(loop_count>>8) & 0xFF]
         self.Terminator        = 0x00
+        print("LOOP",loop_count & 0xFF,(loop_count>>8) & 0xFF)
 
 
 
