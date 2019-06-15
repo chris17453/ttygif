@@ -580,8 +580,9 @@ cdef class viewer:
             start, end = match.span()
             replacment_text+=text[cursor:start]
             cursor=end
+            groups= match.groups()
             paramstring, command = match.groups()
-            self.sequence.append({'type':'command','esc_type':'OSC','command':command,'params':paramstring})
+            self.sequence.append({'type':'command','esc_type':'OSC','command':command,'params':paramstring,'groups':groups})
 
             #if command in '\x07':       # \x07 = BEL
             #    params = paramstring.split(";")
@@ -719,7 +720,7 @@ cdef class viewer:
             if item['type']=='text':
                 print("Text: '{0}' Length:{1}".format(item['data'],len(item['data'])))
             else:
-                print("CMD:  '{0}' Type:{1}, Name:{4}, Command:{1}, Params:{2}, Gropps: {3} ".format(item['esc_type'],
+                print("CMD:  '{0}' Type:{1}, Name:{4}, Command:{1}, Params:{2}, Groups: {3} ".format(item['esc_type'],
                                                     item['command'],
                                                     item['params'],
                                                     item['groups'],
