@@ -95,9 +95,9 @@ class cast2gif:
             
             if natural and cur_timestamp-timestamp!=0:
                 new_frame=True
-            elif cur_timestamp-timestamp>interval
+            elif cur_timestamp-timestamp>interval:
                 new_frame=True
-                
+
             if new_frame:
                 new_frame=None
                 #print ("New Frame")
