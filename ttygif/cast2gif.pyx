@@ -94,7 +94,7 @@ class cast2gif:
             cur_timestamp=float(event[0])
             #print cur_timestamp,cur_timestamp-timestamp,interval
             
-            if natural and cur_timestamp-timestamp!=0:
+            if natural:
                 new_frame=True
             elif cur_timestamp-timestamp>interval:
                 new_frame=True
