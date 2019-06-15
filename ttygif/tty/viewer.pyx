@@ -607,7 +607,7 @@ cdef class viewer:
         ANSI=re.compile(ANSI_REGEX)
         cursor=0
         for match in ANSI.finditer(text):
-        name=""
+            name=""
             start, end = match.span()
             self.add_text_sequence(text[cursor:start])
             cursor = end
