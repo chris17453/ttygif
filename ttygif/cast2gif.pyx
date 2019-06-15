@@ -82,7 +82,7 @@ class cast2gif:
 
         last_timestamp=float(stream['events'][strlen-1][0])
         timestamp=float(stream['events'][0][0])
-        print timestamp
+        #print timestamp
         for event in stream['events']:
             index+=1
             old_percent=percent
@@ -93,7 +93,7 @@ class cast2gif:
             cur_timestamp=float(event[0])
             if cur_timestamp-timestamp<interval:
                 timestamp=cur_timestamp
-                
+                print ("New Frame")
                 frame+=1
                 #if frame>max_frames:
                  #   break
