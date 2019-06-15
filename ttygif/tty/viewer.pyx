@@ -571,6 +571,7 @@ cdef class viewer:
 
     
     cdef stream_2_sequence(self,text):
+        print ("Processing")
         ANSI_OSC_RE = re.compile('\001?\033\\]((?:.|;)*?)(\x07)\002?')        # Operating System Command
         # stripping OS Commands
         replacment_text=""
@@ -592,7 +593,7 @@ cdef class viewer:
                 #    winterm.set_title(params[1])
         replacment_text+=text[cursor:]
         text=replacment_text
-        print text
+        
         
         ANSI_SINGLE='[\001b|\033]([cDEHMZ78>=])'
         ANSI_CHAR_SET = '[\001b|\033]\\%([@G*])'
@@ -696,7 +697,10 @@ cdef class viewer:
                     elif command==ord('K'): # erase line
                         name="Erase Line"
                 self.add_command_sequence(esc_type,command,params,groups,name)
+        
+        
         self.add_text_sequence(text[cursor:])
+
     def clear_sequence(self):
         self.sequence=[]
 
