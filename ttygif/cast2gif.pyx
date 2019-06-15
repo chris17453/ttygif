@@ -57,7 +57,7 @@ class cast2gif:
         
         return new_data
 
-    def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,debug=None):
+    def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,natural=None,debug=None):
         self.debug=debug
 
         cast=asciicast_reader(debug=debug)
@@ -132,16 +132,16 @@ class cast2gif:
 
         # need to close the gif
         # last frame    
-        if 1==0:
-            v.render()
-            data=v.get()
-            diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
-            frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
-            g.add_frame(disposal_method=0,delay=delay, 
-                            transparent=None,
-                            left=diff['min_x'],top=diff['min_y'],
-                            width=diff['width'],height=diff['height'],
-                            palette=None,image_data=frame_snip)
+        v.render()
+        data=v.get()
+        delay=int((cur_timestamp-timestamp)*100)
+        diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
+        frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
+        g.add_frame(disposal_method=0,delay=delay, 
+                        transparent=None,
+                        left=diff['min_x'],top=diff['min_y'],
+                        width=diff['width'],height=diff['height'],
+                        palette=None,image_data=frame_snip)
         g.close()
         print("finished")
         

@@ -23,6 +23,7 @@ def cli_main():
     parser.add_argument('-l', '--loop',          help='number of times to loop animation, default 0= forever', default=0)
     parser.add_argument('-d', '--delay',         help='delay between loops in ms, default ', default=0)
     parser.add_argument('-f', '--frame-rate',    help='frame rate, default 8 FPS (1-25)', default=8)
+    parser.add_argument('-n', '--natural',       help='encode frames at timestamp intervals',  action='store_true')
     parser.add_argument('-c', '--show-commands', help='dump escape sequence command list and text', action='store_true')
 
     args = parser.parse_args()
@@ -48,7 +49,7 @@ def cli_main():
         if frame_rate>25:
            frame_rate=25
             
-        cast2gif(args.input,args.output,loop_count=args.loop,debug=args.debug,frame_rate=frame_rate)
+        cast2gif(args.input,args.output,loop_count=args.loop,debug=args.debug,frame_rate=frame_rate,natural=args.natural)
     else:
         print("usage: ttygif -i input.cast -o output.gif -l 1")
                     
