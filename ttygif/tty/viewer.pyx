@@ -572,7 +572,6 @@ cdef class viewer:
     
     cdef stream_2_sequence(self,text):
         ANSI_OSC_RE = re.compile('\001?\033\\]((?:.|;)*?)(\x07)\002?')        # Operating System Command
-
         # stripping OS Commands
         replacment_text=""
         self.clear_sequence()
@@ -608,6 +607,7 @@ cdef class viewer:
         ANSI=re.compile(ANSI_REGEX)
         cursor=0
         for match in ANSI.finditer(text):
+        name=""
             start, end = match.span()
             self.add_text_sequence(text[cursor:start])
             cursor = end
@@ -696,7 +696,7 @@ cdef class viewer:
                     elif command==ord('K'): # erase line
                         name="Erase Line"
                 self.add_command_sequence(esc_type,command,params,groups,name)
-    
+        self.add_text_sequence(text[cursor:])
     def clear_sequence(self):
         self.sequence=[]
 
