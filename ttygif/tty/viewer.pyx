@@ -605,9 +605,9 @@ cdef class viewer:
         
         ANSI=re.compile(ANSI_REGEX)
         cursor=0
-        for match in ANSI.finditer(self.stream):
+        for match in ANSI.finditer(text):
             start, end = match.span()
-            self.add_text_sequence(event[cursor:start])
+            self.add_text_sequence(text[cursor:start])
             cursor = end
             command=None
             params=None
