@@ -498,8 +498,8 @@ cdef class viewer:
                         x=params[0]
                     elif command==ord('H') or command==ord('f'): # move cursor to x,y pos
                         self.info("Cursor Pos:{0},{1}".format(params[1],params[0]))
-                        x=params[1]
-                        y=params[0]
+                        x=params[1]-1
+                        y=params[0]-1
                         if y>=self.viewport_char_height:
                             y=self.viewport_char_height-1
 
