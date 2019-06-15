@@ -107,7 +107,7 @@ class cast2gif:
                     frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
 
                     
-                    #delay=int((cur_timestamp-timestamp)*100)
+                    delay=int((cur_timestamp-timestamp)*100)
                     #print delay,cur_timestamp-timestamp
                     while delay!=0:
                         if delay>0xFFFF:
