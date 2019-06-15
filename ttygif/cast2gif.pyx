@@ -89,7 +89,10 @@ class cast2gif:
             old_percent=percent
             percent=int((index*100)/strlen)
             if percent!=old_percent:
-                sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)    \r".format(timestamp,last_timestamp,percent,frame_rate,interval))
+                if natural:
+                    sys.stdout.write("Seconds: {0} of {1} {2}%    \r".format(timestamp,last_timestamp,percent))                
+                else:
+                    sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)    \r".format(timestamp,last_timestamp,percent,frame_rate,interval))
                 sys.stdout.flush()
             cur_timestamp=float(event[0])
             #print cur_timestamp,cur_timestamp-timestamp,interval
