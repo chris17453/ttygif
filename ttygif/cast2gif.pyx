@@ -92,7 +92,7 @@ class cast2gif:
                 sys.stdout.flush()
             cur_timestamp=float(event[0])
             print cur_timestamp,cur_timestamp-timestamp,interval
-            if cur_timestamp-timestamp<interval:
+            if cur_timestamp-timestamp>interval:
                 timestamp=cur_timestamp
                 print ("New Frame")
                 frame+=1
