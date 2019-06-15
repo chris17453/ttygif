@@ -623,7 +623,7 @@ cdef class viewer:
         for match in ANSI.finditer(text):
             name=""
             start, end = match.span()
-            self.add_text_sequence(text[cursor:start,timestamp])
+            self.add_text_sequence(text[cursor:start],timestamp)
             cursor = end
             command=None
             params=None
