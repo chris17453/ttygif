@@ -711,7 +711,7 @@ cdef class viewer:
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp)
         
         
-        self.add_text_sequence(text[cursor:])
+        self.add_text_sequence(text[cursor:],timestamp)
 
     def clear_sequence(self):
         self.sequence=[]
