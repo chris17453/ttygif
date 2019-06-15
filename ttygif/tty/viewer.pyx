@@ -703,7 +703,7 @@ cdef class viewer:
     def add_text_sequence(self,text):
         self.sequence.append({'type':'text','data':text})
 
-    def add_text_sequence(self,esc_type,command,params,groups,name):
+    def add_command_sequence(self,esc_type,command,params,groups,name):
         self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name})
 
     def debug_sequence(self):
