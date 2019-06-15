@@ -85,14 +85,14 @@ class cast2gif:
 
         for event in stream['events']:
             index+=1
+            old_percent=percent
+            percent=int((index*100)/strlen)
+            if percent!=old_percent:
+                sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS or {4}ms    \r".format(timestamp,last_timestamp,percent,frame_rate,interval))
+                sys.stdout.flush()
             cur_timestamp=float(event[0])
             if cur_timestamp-timestamp<interval:
                 timestamp=cur_timestamp
-                old_percent=percent
-                percent=int((index*100)/strlen)
-                if percent!=old_percent:
-                    sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS or {4}ms    \r".format(timestamp,last_timestamp,percent,frame_rate,interval))
-                    sys.stdout.flush()
                 
                 frame+=1
                 #if frame>max_frames:
