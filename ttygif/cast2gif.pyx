@@ -107,10 +107,10 @@ class cast2gif:
                 if diff:
                     frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
 
-                    delay=int(interval*100)
+                    delay=int(interval*1000)
                     while delay!=0:
-                        if delay>255:
-                            partial_delay=255
+                        if delay>0xFFFF:
+                            partial_delay=0xFFFF
                         else:
                             partial_delay=delay
                         delay-=partial_delay
