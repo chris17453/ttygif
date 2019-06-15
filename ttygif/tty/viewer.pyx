@@ -429,8 +429,11 @@ cdef class viewer:
                                 bold=True
                                 self.info("Set BOLD:{0}".format(params))
                             elif cmd==7:
-                                self.info("Reverse Video:{0}".format(params))
+                                self.info("Reverse Video On:{0}".format(params))
                                 reverse_video=True
+                            elif cmd==27:
+                                self.info("Reverse Video Off:{0}".format(params))
+                                reverse_video=None
                             elif cmd>=30 and cmd<=37:
                                 fg=cmd-30
                                 if bold:
@@ -682,8 +685,9 @@ cdef class viewer:
                             elif cmd==1:
                                 name="Set BOLD"
                             elif cmd==7:
-                                name="Reverse Video"
-                                reverse_video=True
+                                name="Reverse Video On"
+                            elif cmd==27:
+                                name="Reverse Video Off"
                             elif cmd>=30 and cmd<=37:
                                 name="Set FG"
                             elif cmd==39:
