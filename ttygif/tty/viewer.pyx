@@ -576,6 +576,7 @@ cdef class viewer:
         # stripping OS Commands
         replacment_text=""
         self.clear_sequence()
+        cdef cursor=0
         for match in ANSI_OSC_RE.finditer(text):
             start, end = match.span()
             replacment_text+=text[cursor:start]

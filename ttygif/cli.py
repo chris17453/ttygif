@@ -36,8 +36,9 @@ def cli_main():
         cast=asciicast_reader(debug=args.debug)
         stream=cast.load(args.input)
         v=viewer()
-        for event in stream:
+        for event in stream['events']:
             v.add_event(event)
+
         v.debug_sequence()
 
     elif args.input and args.output:
