@@ -108,7 +108,7 @@ class cast2gif:
                     frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
 
                     
-                    delay=int((last_frame_timestamp-cur_timestamp)*100)
+                    delay=int((cur_timestamp-timestamp)*100)
                     while delay!=0:
                         if delay>0xFFFF:
                             partial_delay=0xFFFF
@@ -122,7 +122,7 @@ class cast2gif:
                                         left=diff['min_x'],top=diff['min_y'],
                                         width=diff['width'],height=diff['height'],
                                         palette=None,image_data=frame_snip)
-                    last_frame_timestamp=cur_timestamp
+                
 
 
             v.add_event(event)
