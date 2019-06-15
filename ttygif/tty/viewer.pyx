@@ -576,11 +576,13 @@ cdef class viewer:
 
         # stripping OS Commands
         replacment_text=""
+        self.clear_sequence()
         for match in ANSI_OSC_RE.finditer(text):
             start, end = match.span()
             replacment_text+=text[cursor:start]
             cursor=end
-            paramstring, command
+            self.sequence.append({'type':'command','esc_type':'OSC','command':command,'params':paramstring})
+
             #paramstring, command = match.groups()
             #if command in '\x07':       # \x07 = BEL
             #    params = paramstring.split(";")
