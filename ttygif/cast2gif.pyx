@@ -91,7 +91,7 @@ class cast2gif:
                 sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS or {4}ms    \r\n".format(timestamp,last_timestamp,percent,frame_rate,interval))
                 sys.stdout.flush()
             cur_timestamp=float(event[0])
-            print cur_timestamp,cur_timestamp-timestamp,interval:
+            print cur_timestamp,cur_timestamp-timestamp,interval
             if cur_timestamp-timestamp<interval:
                 timestamp=cur_timestamp
                 print ("New Frame")
