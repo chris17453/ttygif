@@ -27,14 +27,12 @@ cdef class viewer:
     cdef        object      buffer
     cdef public int         buffer_rows
     cdef        object      debug_mode
+    cdef public object      sequence
     
     cdef info(self,text):
         if self.debug_mode:
             print(text)
 
-    cdef init_video(self):
-        self.video                =[0]*self.viewport_px_width*self.viewport_px_height
-        
     def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
         self.debug_mode                =debug
         self.viewport_px_width    =width
@@ -51,7 +49,9 @@ cdef class viewer:
             self.viewport_px_width    = width
             self.viewport_px_height   = height
 
+        self.sequence             =[]
         self.init_video()
+        self.video                =[0]*self.viewport_px_width*self.viewport_px_height
         self.video_length         =len(self.video)
         self.background_color     =0
         self.foreground_color     =3
@@ -556,6 +556,7 @@ cdef class viewer:
         event_type=event[1]
         event_io=event[2]
         if event_type=='o':
+            self.stream_2_sequence(event_io)
             self.stream+=event_io
 
         #udata=event_io.decode("utf-8")
@@ -569,3 +570,149 @@ cdef class viewer:
 
 
 
+    
+    cdef stream_2_sequence(self,text):
+        ANSI_OSC_RE = re.compile('\001?\033\\]((?:.|;)*?)(\x07)\002?')        # Operating System Command
+
+        # stripping OS Commands
+        replacment_text=""
+        for match in ANSI_OSC_RE.finditer(text):
+            start, end = match.span()
+            replacment_text+=text[cursor:start]
+            cursor=end
+            paramstring, command
+            #paramstring, command = match.groups()
+            #if command in '\x07':       # \x07 = BEL
+            #    params = paramstring.split(";")
+                # 0 - change title and icon (we will only change title)
+                # 1 - change icon (we don't support this)
+                # 2 - change title
+                #if params[0] in '02':
+                #    winterm.set_title(params[1])
+        replacment_text+=text[cursor:]
+        text=replacment_text
+
+        
+        ANSI_SINGLE='[\001b|\033]([cDEHMZ78>=])'
+        ANSI_CHAR_SET = '[\001b|\033]\\%([@G*])'
+        ANSI_G0 = '[\001b|\033]\\(([B0UK])'
+        ANSI_G1 = '[\001b|\033]\\)([B0UK])'
+        ANSI_CSI_RE = '[\001b|\033]\\[((?:\\d|;|<|>|=|\?)*)([a-zA-Z])\002?'
+        
+        ANSI_REGEX=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE]
+        ANSI_REGEX="("+")|(".join(ANSI_REGEX)+")"
+        
+        
+        ANSI=re.compile(ANSI_REGEX)
+        cursor=0
+        for match in ANSI.finditer(self.stream):
+            start, end = match.span()
+            self.add_text_sequence(event[cursor:start])
+            cursor = end
+            command=None
+            params=None
+            esc_type=None
+            groups=match.groups()
+            if groups[0]:
+                esc_type='SINGLE'
+                command=groups[1]
+            if groups[2]:
+                esc_type='CHAR_SET'
+                command=groups[3]
+            if groups[4]:
+                esc_type='G0'
+                command=groups[5]
+            if groups[6]:
+                esc_type='G1'
+                command=groups[7]
+            if groups[8]:
+                esc_type='CSI'
+                paramstring=groups[9]
+                command=groups[10]
+                if command in 'Hf':
+                    params = tuple(int(p) if len(p) != 0 else 1 for p in paramstring.split(';'))
+                    while len(params) < 2:
+                        params = params + (1,)
+                #        DEC Private Mode (DECSET/DECRST) sequences
+                elif paramstring and len(paramstring)>0 and paramstring[0]=='?':
+                    params=['?',paramstring[1:-1],paramstring[-1]]
+                else:
+                    
+                    params = tuple(int(p) for p in paramstring.split(';') if len(p) != 0)
+                    if len(params) == 0:
+                        if command in 'JKm':
+                            params = (0,)
+                        elif command in 'ABCD':
+                            params = (1,)
+                command=ord(command)
+                
+                if command==109:
+                    if 38 in params:
+                        name="Set FG"
+                    elif 48 in params:
+                        name="Set BG"
+                    else:
+                        for cmd in params:
+                            if cmd==0:
+                                name="RESET All"
+                            elif cmd==1:
+                                name="Set BOLD"
+                            elif cmd>=30 and cmd<=37:
+                                name="Set FG"
+                            elif cmd==39:
+                                name="Set Default FG"
+                            elif cmd>=40 and cmd<=47:
+                                name="Set BG"
+                            elif cmd==49:
+                                name="Set Default BG"
+                            elif cmd>=90 and cmd<=97:
+                                name="Set High INTENSITY FG"
+                            elif cmd>=100 and cmd<=107:
+                                name="Set High INTENSITY BG"
+                            self.add_command_sequence(esc_type,command,cmd,groups,name)
+                        continue
+
+                else:
+                    if command==ord('A'): # move cursor up
+                        name="Cursor Up"
+                    elif command==ord('B'): # move cursor down
+                        name="Cursor Down"
+                    elif command==ord('C'): # move cursor back
+                        name="Cursor Left"
+                    elif command==ord('D'): # move cursor right
+                        name="Cursor Right"
+                    elif command==ord('E'): # move cursor next line
+                        name="Cursor Next Line"
+                    elif command==ord('F'): # move cursor previous  line
+                        name"Cursor Previous Line"
+                    elif command==ord('G'): # move cursor to HORIZONTAL pos X
+                        name="Cursor X"
+                    elif command==ord('H') or command==ord('f'): # move cursor to x,y pos
+                        name="Cursor Pos"
+                    elif command==ord('J'): # erase display
+                        name="Erase Display"
+                    elif command==ord('K'): # erase line
+                        name="Erase Line"
+                self.add_command_sequence(esc_type,command,params,groups,name)
+    
+    def clear_sequence(self):
+        self.sequence=[]
+
+    def add_text_sequence(self,text):
+        self.sequence.append({'type':'text','data':text})
+
+    def add_text_sequence(self,esc_type,command,params,groups,name):
+        self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name})
+
+    def debug_sequence(self):
+        print ("============")
+        print ("Sequence List")
+        for item in self.sequence:
+            if item['type']==text:
+                print("Text: '{0}' Length:{1}".format(item['data'],len(item['data']))
+            else
+                print("CMD:  '{0}' Type:{1}, Name:{4}, Command:{1}, Params:{2}, Gropps: {3} ".format(item['esc_type'],
+                                                    item['command'],
+                                                    item['params'],
+                                                    item['groups'],
+                                                    item['name'))

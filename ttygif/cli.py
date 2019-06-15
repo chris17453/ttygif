@@ -15,14 +15,16 @@ def cli_main():
 
     parser = argparse.ArgumentParser("ttygif", usage='%(prog)s [options]', description="""tty output to gif""", epilog="Dont yaknow?")
     # actions
-    parser.add_argument('-v', '--debug',      help='show debuging statistics', action='store_true')
-    parser.add_argument('-i', '--input',      help='source file', default= None)
-    parser.add_argument('-o', '--output',     help='destination file', default= None)
-    parser.add_argument('-x', '--extract',    help='Extract data from gif as json', action='store_true')
-    parser.add_argument('-w', '--html',       help='Convert a gif to a html canvas web page.', action='store_true')
-    parser.add_argument('-l', '--loop',       help='number of times to loop animation, default 0= forever', default=0)
-    parser.add_argument('-f', '--frame-rate', help='frame rate, default 8 FPS (1-25)', default=8)
-    
+    parser.add_argument('-v', '--debug',         help='show debuging statistics', action='store_true')
+    parser.add_argument('-i', '--input',         help='source file', default= None)
+    parser.add_argument('-o', '--output',        help='destination file', default= None)
+    parser.add_argument('-x', '--extract',       help='Extract data from gif as json', action='store_true')
+    parser.add_argument('-w', '--html',          help='Convert a gif to a html canvas web page.', action='store_true')
+    parser.add_argument('-l', '--loop',          help='number of times to loop animation, default 0= forever', default=0)
+    parser.add_argument('-d', '--delay',         help='delay between loops in ms, default ', default=0)
+    parser.add_argument('-f', '--frame-rate',    help='frame rate, default 8 FPS (1-25)', default=8)
+    parser.add_argument('-c', '--show-commands', help='dump escape sequence command list and text', action='store_true')
+    debug_sequence
 
     args = parser.parse_args()
     if args.html:
@@ -31,6 +33,13 @@ def cli_main():
     elif args.extract:
         gif(debug=None).extract(args.input,args.output)
 
+    elif  args.show_commands and args.input:
+        cast=asciicast_reader(debug=debug)
+        stream=cast.load(args.input)
+        v=viewer()
+        for event in stream:
+            v.add_event(event)
+        v.debug_sequence()
 
     elif args.input and args.output:
         frame_rate=int(args.frame_rate)

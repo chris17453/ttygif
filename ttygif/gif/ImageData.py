@@ -314,7 +314,7 @@ class LZWDecompressionTable(object):
         """Re-initialize the code table.
         Should only be called (again) when you encounter a CLEAR CODE.
         """
-        next_code = 2 ** self.lzw_min
+        cdef int next_code = 2 ** self.lzw_min
         self.codes = self._make_codes(next_code)
         self.clear_code = self.codes[next_code] = next_code
         self.end_code = self.codes[next_code + 1] = next_code + 1
