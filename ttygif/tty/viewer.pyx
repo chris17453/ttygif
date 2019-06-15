@@ -29,9 +29,12 @@ cdef class viewer:
     cdef        object      debug_mode
     cdef public object      sequence
     
+    cdef ascii_safe(self,text):
+        return ''.join([i if ord(i) < 128 else '*' for i in text])
+
     cdef info(self,text):
         if self.debug_mode:
-            print(text)
+            print(self.ascii_safe(text))
 
     def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
         self.debug_mode                =debug
@@ -571,7 +574,6 @@ cdef class viewer:
 
     
     cdef stream_2_sequence(self,text):
-        print ("Processing")
         ANSI_OSC_RE = re.compile('\001?\033\\]((?:.|;)*?)(\x07)\002?')        # Operating System Command
         # stripping OS Commands
         replacment_text=""
@@ -710,7 +712,7 @@ cdef class viewer:
         print ("Count:{0}".format(len(self.sequence)))
         for item in self.sequence:
             if item['type']=='text':
-                print("Text: '{0}' Length:{1}".format(item['data'],len(item['data'])))
+                print("Text: '{0}' Length:{1}".format(self.ascii_safe(text),len(item['data'])))
             else:
                 print("CMD:  '{0}' Type:{1}, Name:{4}, Command:{1}, Params:{2}, Groups: {3} ".format(item['esc_type'],
                                                     item['command'],
