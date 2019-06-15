@@ -486,8 +486,8 @@ cdef class viewer:
                         x=params[0]
                     elif command==ord('H') or command==ord('f'): # move cursor to x,y pos
                         self.info("Cursor Pos:{0},{1}".format(params[0],params[1]))
-                        x=params[0]
-                        y=params[1]
+                        x=params[1]
+                        y=params[0]
                         if y>=self.viewport_char_height:
                             y=self.viewport_char_height-1
 
@@ -641,9 +641,8 @@ cdef class viewer:
                             params = (0,)
                         elif command in 'ABCD':
                             params = (1,)
-                command=ord(command)
                 
-                if command==109:
+                if command=='m':
                     if 38 in params:
                         name="Set FG"
                     elif 48 in params:
@@ -670,25 +669,25 @@ cdef class viewer:
                         continue
 
                 else:
-                    if command==ord('A'): # move cursor up
+                    if command=='A': # move cursor up
                         name="Cursor Up"
-                    elif command==ord('B'): # move cursor down
+                    elif command=='B': # move cursor down
                         name="Cursor Down"
-                    elif command==ord('C'): # move cursor back
+                    elif command=='C': # move cursor back
                         name="Cursor Left"
-                    elif command==ord('D'): # move cursor right
+                    elif command=='D': # move cursor right
                         name="Cursor Right"
-                    elif command==ord('E'): # move cursor next line
+                    elif command=='E': # move cursor next line
                         name="Cursor Next Line"
-                    elif command==ord('F'): # move cursor previous  line
+                    elif command=='F': # move cursor previous  line
                         name="Cursor Previous Line"
-                    elif command==ord('G'): # move cursor to HORIZONTAL pos X
+                    elif command=='G': # move cursor to HORIZONTAL pos X
                         name="Cursor X"
-                    elif command==ord('H') or command==ord('f'): # move cursor to x,y pos
+                    elif command=='H' or command=='f': # move cursor to x,y pos
                         name="Cursor Pos"
-                    elif command==ord('J'): # erase display
+                    elif command=='J': # erase display
                         name="Erase Display"
-                    elif command==ord('K'): # erase line
+                    elif command=='K': # erase line
                         name="Erase Line"
                 self.add_command_sequence(esc_type,command,params,groups,name)
         
