@@ -715,4 +715,4 @@ cdef class viewer:
                                                     item['command'],
                                                     item['params'],
                                                     item['groups'],
-                                                    item['name'))
+                                                    item['name']))
