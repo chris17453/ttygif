@@ -24,7 +24,6 @@ def cli_main():
     parser.add_argument('-d', '--delay',         help='delay between loops in ms, default ', default=0)
     parser.add_argument('-f', '--frame-rate',    help='frame rate, default 8 FPS (1-25)', default=8)
     parser.add_argument('-c', '--show-commands', help='dump escape sequence command list and text', action='store_true')
-    debug_sequence
 
     args = parser.parse_args()
     if args.html:

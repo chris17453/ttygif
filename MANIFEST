@@ -28,7 +28,6 @@ ttygif/asciicast/__init__.py
 ttygif/asciicast/reader.py
 ttygif/gif/CommentExtension.py
 ttygif/gif/Decoder.py
-ttygif/gif/ImageData.py
 ttygif/gif/ImageDescriptor.py
 ttygif/gif/PlainTextExtension.py
 ttygif/gif/__init__.py
