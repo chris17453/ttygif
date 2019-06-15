@@ -699,6 +699,8 @@ cdef class viewer:
         self.sequence=[]
 
     def add_text_sequence(self,text):
+        if len(text)==0:
+            return
         self.info ("Add Sequence Text")
         self.sequence.append({'type':'text','data':text})
 
@@ -714,7 +716,7 @@ cdef class viewer:
             if item['type']=='text':
                 print("Text: '{0}' Length:{1}".format(self.ascii_safe(item['data']),len(item['data'])))
             else:
-                print("CMD:  '{0}' Type:{1}, Name:{3}, Command:{1}, Params:{2} ".format(item['esc_type'],
+                print("CMD:  '{0}', Name:{3}, Command:{1}, Params:{2} ".format(item['esc_type'],
                                                     item['command'],
                                                     item['params'],
                                                     item['name']))
