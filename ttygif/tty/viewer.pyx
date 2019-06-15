@@ -684,7 +684,7 @@ cdef class viewer:
                     elif command==ord('E'): # move cursor next line
                         name="Cursor Next Line"
                     elif command==ord('F'): # move cursor previous  line
-                        name"Cursor Previous Line"
+                        name="Cursor Previous Line"
                     elif command==ord('G'): # move cursor to HORIZONTAL pos X
                         name="Cursor X"
                     elif command==ord('H') or command==ord('f'): # move cursor to x,y pos
