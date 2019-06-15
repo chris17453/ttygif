@@ -712,7 +712,7 @@ cdef class viewer:
         print ("Count:{0}".format(len(self.sequence)))
         for item in self.sequence:
             if item['type']=='text':
-                print("Text: '{0}' Length:{1}".format(self.ascii_safe(text),len(item['data'])))
+                print("Text: '{0}' Length:{1}".format(self.ascii_safe(item['data']),len(item['data'])))
             else:
                 print("CMD:  '{0}' Type:{1}, Name:{4}, Command:{1}, Params:{2}, Groups: {3} ".format(item['esc_type'],
                                                     item['command'],
