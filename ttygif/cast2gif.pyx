@@ -81,7 +81,7 @@ class cast2gif:
             exit(0)
 
         last_timestamp=float(stream['events'][strlen-1][0])
-        timestamp=0
+        timestamp=float(stream['events'][0][0])
         #print timestamp
         new_frame=None
         for event in stream['events']:
@@ -94,8 +94,8 @@ class cast2gif:
             cur_timestamp=float(event[0])
             #print cur_timestamp,cur_timestamp-timestamp,interval
             
-            if natural:
-                new_frame=True
+            if natural and cur_timestamp-timestamp!=0:
+                #new_frame=True
             elif cur_timestamp-timestamp>interval:
                 new_frame=True
 
@@ -117,19 +117,27 @@ class cast2gif:
                     
                     delay=int((cur_timestamp-timestamp)*100)
                     #print delay,cur_timestamp-timestamp
-                    while delay!=0:
-                        if delay>0xFFFF:
-                            partial_delay=0xFFFF
-                        else:
-                            partial_delay=delay
-                        delay-=partial_delay
-                        #print diff
-                        #print (len(frame_snip))
-                        g.add_frame(disposal_method=0,delay=partial_delay, 
+                    
+                    if delay==0:
+                        g.add_frame(disposal_method=0,delay=0, 
                                         transparent=None,
                                         left=diff['min_x'],top=diff['min_y'],
                                         width=diff['width'],height=diff['height'],
                                         palette=None,image_data=frame_snip)
+                    else:
+                        while delay!=0:
+                            if delay>0xFFFF:
+                                partial_delay=0xFFFF
+                            else:
+                                partial_delay=delay
+                            delay-=partial_delay
+                            #print diff
+                            #print (len(frame_snip))
+                            g.add_frame(disposal_method=0,delay=partial_delay, 
+                                            transparent=None,
+                                            left=diff['min_x'],top=diff['min_y'],
+                                            width=diff['width'],height=diff['height'],
+                                            palette=None,image_data=frame_snip)
                 timestamp=cur_timestamp
                 
 
