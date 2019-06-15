@@ -14,7 +14,7 @@ git_username="Charles Watkins"
 git_email="chris17453@gmail.com"
  
 .DEFAULT: help
-.PHONY: test
+.PHONY: test examples
 help:
 	@echo "make build          | build bython files and make pypi package(runs unittest and standalone)"
 	@echo "make bump           | bump the package version"
@@ -75,4 +75,8 @@ test-cast-2-gif:
 	@python -m ttygif.cli -t -i data/174524.cast -o examples/encode/174524.gif
 	#@python -m ttygif.cli -v -w -i examples/encode/234628.gif -o examples/encode/234628.html
 
-	
+examples:
+	@python -m ttygif.cli -i data/234628.cast -o examples/encode/234628.gif
+	@python -m ttygif.cli -i data/236096.cast -o examples/encode/236096.gif
+	@python -m ttygif.cli -i data/232377.cast -o examples/encode/232377.gif
+	@python -m ttygif.cli -i data/174524.cast -o examples/encode/174524.gif

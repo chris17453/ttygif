@@ -22,6 +22,7 @@ class graphics_control_extension:
         self.stream.write_byte(self.Label)
         self.stream.write_byte(self.BlockSize)
         self.stream.write_byte(self.Packed)
+        print ("THE DEALY:{0}".format(self.DelayTime))
         self.stream.write_word(self.DelayTime)
         self.stream.write_byte(self.ColorIndex)
         self.stream.write_byte(self.Terminator)
