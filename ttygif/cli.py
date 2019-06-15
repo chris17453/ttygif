@@ -33,7 +33,7 @@ def cli_main():
         gif(debug=None).extract(args.input,args.output)
 
     elif  args.show_commands and args.input:
-        cast=asciicast_reader(debug=debug)
+        cast=asciicast_reader(debug=args.debug)
         stream=cast.load(args.input)
         v=viewer()
         for event in stream:

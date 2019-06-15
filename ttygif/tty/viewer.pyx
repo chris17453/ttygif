@@ -50,7 +50,6 @@ cdef class viewer:
             self.viewport_px_height   = height
 
         self.sequence             =[]
-        self.init_video()
         self.video                =[0]*self.viewport_px_width*self.viewport_px_height
         self.video_length         =len(self.video)
         self.background_color     =0
