@@ -581,9 +581,9 @@ cdef class viewer:
             start, end = match.span()
             replacment_text+=text[cursor:start]
             cursor=end
+            paramstring, command = match.groups()
             self.sequence.append({'type':'command','esc_type':'OSC','command':command,'params':paramstring})
 
-            #paramstring, command = match.groups()
             #if command in '\x07':       # \x07 = BEL
             #    params = paramstring.split(";")
                 # 0 - change title and icon (we will only change title)
