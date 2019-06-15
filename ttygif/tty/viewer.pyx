@@ -592,7 +592,7 @@ cdef class viewer:
                 #    winterm.set_title(params[1])
         replacment_text+=text[cursor:]
         text=replacment_text
-
+        print text
         
         ANSI_SINGLE='[\001b|\033]([cDEHMZ78>=])'
         ANSI_CHAR_SET = '[\001b|\033]\\%([@G*])'
