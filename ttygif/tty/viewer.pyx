@@ -705,14 +705,18 @@ cdef class viewer:
         self.sequence=[]
 
     def add_text_sequence(self,text):
+        print ("Add Text")
+
         self.sequence.append({'type':'text','data':text})
 
     def add_command_sequence(self,esc_type,command,params,groups,name):
+        print ("Add Cmd")
         self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name})
 
     def debug_sequence(self):
         print ("============")
         print ("Sequence List")
+        print ("Count:{0}".format(len(self.sequence)))
         for item in self.sequence:
             if item['type']=='text':
                 print("Text: '{0}' Length:{1}".format(item['data'],len(item['data'])))
