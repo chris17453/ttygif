@@ -424,6 +424,7 @@ cdef class viewer:
                                 fg=def_fg
                                 bg=def_bg
                                 bold=None
+                                reverse_video=None
                                 self.info("RESET All:{0}".format(params))
                             elif cmd==1:
                                 bold=True
