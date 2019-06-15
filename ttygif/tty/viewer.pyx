@@ -492,13 +492,31 @@ cdef class viewer:
                             y=self.viewport_char_height-1
 
                     elif command==ord('J'): # erase display
-                        self.info("Erase Display")
-                        x=0
-                        y=0
-                        pos=0
-                        buffer=[[0,0],0]*self.viewport_char_width*self.viewport_char_height
-                        buffer_len=len(buffer)
-                        self.info("buffer_len: {0}".format(buffer_len))
+                        if params[0]==1:
+                            self.info("Erase Display to cursor")
+                            x=0
+                            y=0
+                            pos=0
+                            buffer=[[0,0],0]*self.viewport_char_width*self.viewport_char_height
+                            buffer_len=len(buffer)
+                            self.info("buffer_len: {0}".format(buffer_len))
+                        if params[0]==2:
+                            self.info("Erase Display")
+                            x=0
+                            y=0
+                            pos=0
+                            buffer=[[0,0],0]*self.viewport_char_width*self.viewport_char_height
+                            buffer_len=len(buffer)
+                            self.info("buffer_len: {0}".format(buffer_len))
+                        if params[0]==3:
+                            self.info("Erase Display and buffer")
+                            x=0
+                            y=0
+                            pos=0
+                            buffer=[[0,0],0]*self.viewport_char_width*self.viewport_char_height
+                            buffer_len=len(buffer)
+                            self.info("buffer_len: {0}".format(buffer_len))
+
                     elif command==ord('K'): # erase line
                         self.info("Erase Line: {0}".format(params[0]))
                         if params[0]==0:
@@ -574,7 +592,7 @@ cdef class viewer:
 
 
     
-    cdef stream_2_sequence(self,text):
+    cdef stream_2_sequence(self,text,timestamp):
         ANSI_OSC_RE = re.compile('\001?\033\\]((?:.|;)*?)(\x07)\002?')        # Operating System Command
         # stripping OS Commands
         replacment_text=""
@@ -585,7 +603,7 @@ cdef class viewer:
             cursor=end
             groups= match.groups()
             paramstring, command = match.groups()
-            self.sequence.append({'type':'command','esc_type':'OSC','command':command,'params':paramstring,'groups':groups,'name':""})
+            self.sequence.append({'type':'command','timestamp':timestamp,'esc_type':'OSC','command':command,'params':paramstring,'groups':groups,'name':""})
         replacment_text+=text[cursor:]
         text=replacment_text
         
@@ -666,7 +684,7 @@ cdef class viewer:
                                 name="Set High INTENSITY FG"
                             elif cmd>=100 and cmd<=107:
                                 name="Set High INTENSITY BG"
-                            self.add_command_sequence(esc_type,command,cmd,groups,name)
+                            self.add_command_sequence(esc_type,command,cmd,groups,name,timestamp)
                         continue
 
                 else:
@@ -690,7 +708,7 @@ cdef class viewer:
                         name="Erase Display"
                     elif command=='K': # erase line
                         name="Erase Line"
-                self.add_command_sequence(esc_type,command,params,groups,name)
+                self.add_command_sequence(esc_type,command,params,groups,name,timestamp)
         
         
         self.add_text_sequence(text[cursor:])
@@ -698,15 +716,15 @@ cdef class viewer:
     def clear_sequence(self):
         self.sequence=[]
 
-    def add_text_sequence(self,text):
+    def add_text_sequence(self,text,timestamp):
         if len(text)==0:
             return
         self.info ("Add Sequence Text")
-        self.sequence.append({'type':'text','data':text})
+        self.sequence.append({'type':'text','data':text,'timestamp':timestamp})
 
-    def add_command_sequence(self,esc_type,command,params,groups,name):
+    def add_command_sequence(self,esc_type,command,params,groups,name,timestamp):
         self.info ("Add Sequence Cmd")
-        self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name})
+        self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name,'timestamp':timestamp})
 
     def debug_sequence(self):
         print ("============")
@@ -714,9 +732,10 @@ cdef class viewer:
         print ("Count:{0}".format(len(self.sequence)))
         for item in self.sequence:
             if item['type']=='text':
-                print("Text: '{0}' Length:{1}".format(self.ascii_safe(item['data']),len(item['data'])))
+                print("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(item['data']),len(item['data']),item['timestamp']))
             else:
-                print("CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2} ".format(item['esc_type'],
+                print("CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(item['esc_type'],
                                                     item['command'],
                                                     item['params'],
-                                                    item['name']))
+                                                    item['name'],
+                                                    item['timestamp']))
