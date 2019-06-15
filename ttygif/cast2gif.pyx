@@ -81,7 +81,7 @@ class cast2gif:
             exit(0)
 
         last_timestamp=float(stream['events'][strlen-1][0])
-        timestamp=float(stream['events'][0][0])
+        timestamp=0
         #print timestamp
         new_frame=None
         for event in stream['events']:
