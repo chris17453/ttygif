@@ -582,15 +582,7 @@ cdef class viewer:
             cursor=end
             groups= match.groups()
             paramstring, command = match.groups()
-            self.sequence.append({'type':'command','esc_type':'OSC','command':command,'params':paramstring,'groups':groups})
-
-            #if command in '\x07':       # \x07 = BEL
-            #    params = paramstring.split(";")
-                # 0 - change title and icon (we will only change title)
-                # 1 - change icon (we don't support this)
-                # 2 - change title
-                #if params[0] in '02':
-                #    winterm.set_title(params[1])
+            self.sequence.append({'type':'command','esc_type':'OSC','command':command,'params':paramstring,'groups':groups,'name':""})
         replacment_text+=text[cursor:]
         text=replacment_text
         
