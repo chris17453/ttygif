@@ -109,7 +109,7 @@ class cast2gif:
 
                     
                     delay=int((cur_timestamp-timestamp)*100)
-                    print delay
+                    print delay,cur_timestamp-timestamp
                     while delay!=0:
                         if delay>0xFFFF:
                             partial_delay=0xFFFF
