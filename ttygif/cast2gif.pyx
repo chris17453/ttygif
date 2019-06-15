@@ -82,7 +82,7 @@ class cast2gif:
 
         last_timestamp=float(stream['events'][strlen-1][0])
         timestamp=float(stream['events'][0][0])
-
+        print timestamp
         for event in stream['events']:
             index+=1
             old_percent=percent
