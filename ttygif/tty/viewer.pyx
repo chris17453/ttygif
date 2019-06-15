@@ -498,6 +498,7 @@ cdef class viewer:
                         pos=0
                         buffer=[[0,0],0]*self.viewport_char_width*self.viewport_char_height
                         buffer_len=len(buffer)
+                        self.info("buffer_len: {0}".format(buffer_len))
                     elif command==ord('K'): # erase line
                         self.info("Erase Line: {0}".format(params[0]))
                         if params[0]==0:
