@@ -49,7 +49,7 @@ cdef class viewer:
             self.viewport_px_width    = width
             self.viewport_px_height   = height
 
-        self.sequence             =[]
+        self.clear_sequence()
         self.video                =[0]*self.viewport_px_width*self.viewport_px_height
         self.video_length         =len(self.video)
         self.background_color     =0
@@ -575,7 +575,6 @@ cdef class viewer:
         ANSI_OSC_RE = re.compile('\001?\033\\]((?:.|;)*?)(\x07)\002?')        # Operating System Command
         # stripping OS Commands
         replacment_text=""
-        self.clear_sequence()
         cdef cursor=0
         for match in ANSI_OSC_RE.finditer(text):
             start, end = match.span()
@@ -705,12 +704,11 @@ cdef class viewer:
         self.sequence=[]
 
     def add_text_sequence(self,text):
-        print ("Add Text")
-
+        self.info ("Add Sequence Text")
         self.sequence.append({'type':'text','data':text})
 
     def add_command_sequence(self,esc_type,command,params,groups,name):
-        print ("Add Cmd")
+        self.info ("Add Sequence Cmd")
         self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name})
 
     def debug_sequence(self):
