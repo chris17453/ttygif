@@ -258,11 +258,14 @@ cdef class viewer:
         buffer+=[[0,0],0]*self.viewport_char_width
 
 
-    cdef write_buffer(self,x,y,c,buffer,fg,bg):
+    cdef write_buffer(self,x,y,c,buffer,fg,bg,reverse):
         cdef int pos=x*2+y*self.viewport_char_width*2
         #if pos>= len(buffer):
         #print (pos,x,y,len(buffer),self.viewport_char_width,self.viewport_char_height)
-        buffer[pos]=[fg,bg]
+        if reverse:
+            buffer[pos]=[bg,fg]
+        else:
+            buffer[pos]=[fg,bg]
         buffer[pos+1]=c
 
 
@@ -315,6 +318,8 @@ cdef class viewer:
         def_bg=0
         fg=def_fg
         bg=def_bg
+        reverse_video=None
+
         ANSI_REGEX="("+")|(".join(ANSI_REGEX)+")"
         #print ANSI_REGEX.replace("\001b","^").replace("\033","^")
         
@@ -357,7 +362,7 @@ cdef class viewer:
                         self.shift_buffer(buffer)
                     #print x,y,character,fg,bg
                 # print the space...
-                self.write_buffer(x,y,char_ord,buffer,fg,bg)
+                self.write_buffer(x,y,char_ord,buffer,fg,bg,reverse_video)
                 x+=1            
 
 
@@ -423,6 +428,9 @@ cdef class viewer:
                             elif cmd==1:
                                 bold=True
                                 self.info("Set BOLD:{0}".format(params))
+                            elif cmd==7:
+                                self.info("Reverse Video:{0}".format(params))
+                                reverse_video=True
                             elif cmd>=30 and cmd<=37:
                                 fg=cmd-30
                                 if bold:
@@ -521,13 +529,13 @@ cdef class viewer:
                         self.info("Erase Line: {0}".format(params[0]))
                         if params[0]==0:
                             for x2 in range(x,self.viewport_char_width):
-                                self.write_buffer(x2,y,32,buffer,fg,bg)
+                                self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
                         elif params[0]==1:
                             for x2 in range(0,x):
-                                self.write_buffer(x2,y,32,buffer,fg,bg)
+                                self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
                         elif params[0]==2:
                             for x2 in range(0,self.viewport_char_width):
-                                self.write_buffer(x2,y,32,buffer,fg,bg)
+                                self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
                     else:
                         self.info("Impliment: Start: {5} pos x:{3},Y:{4} - {0}-{1}-{2}".format(command,params,paramstring,x,y,start))
 #            print( esc_type,command,params)
@@ -560,7 +568,7 @@ cdef class viewer:
                 if y>=self.viewport_char_height:
                     y-=1
                     self.shift_buffer(buffer)
-            self.write_buffer(x,y,char_ord,buffer,fg,bg)
+            self.write_buffer(x,y,char_ord,buffer,fg,bg,reverse_video)
             x+=1        
         
         
@@ -670,8 +678,12 @@ cdef class viewer:
                         for cmd in params:
                             if cmd==0:
                                 name="RESET All"
+                                reverse_video=None
                             elif cmd==1:
                                 name="Set BOLD"
+                            elif cmd==7:
+                                name="Reverse Video"
+                                reverse_video=True
                             elif cmd>=30 and cmd<=37:
                                 name="Set FG"
                             elif cmd==39:
