@@ -154,6 +154,7 @@ cdef class viewer:
 
     cdef remap_character(self,character):
       #print character
+        print character
         cdef int c=ord(character)
         if c>255:
             if c==8216:
@@ -711,7 +712,7 @@ cdef class viewer:
         
         remapped=[' ']*len(text)
         for i in range(0,len(text)):
-            remapped[i]=self.remap_character(i)
+            remapped[i]=self.remap_character(text[i])
         text="".join(remapped)
         
         self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
