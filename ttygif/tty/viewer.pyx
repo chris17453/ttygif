@@ -47,7 +47,7 @@ cdef class viewer:
         return ''.join([i if ord(i) < 128 else '*' for i in text])
 
     cdef info(self,text):
-        if self.debug_mode:
+        if self.debug_mode_mode:
             print(self.ascii_safe(text))
     
     cdef new_char_buffer(self):
@@ -394,7 +394,7 @@ cdef class viewer:
         for event in self.sequence[self.sequence_pos:]:
             new_sequence_pos+=1
             if event['type']=='text':
-                if self.debug:
+                if self.debug_mode:
                     self.info(u"X:{0:<2} {1:<2},FG:{2:<2},BG:{3},Text: {3}".format(x,y,fg,bg,event['data']))
                 for character in event['data']:
                     # new line or wrap
@@ -454,14 +454,14 @@ cdef class viewer:
                             fg=params[2] # rgb
                         if params[1]==5:
                             fg=params[2]
-                        if self.debug:
+                        if self.debug_mode:
                             self.info("Set FG:{0}".format(params))
                     elif 48 in params:
                             if params[1]==2:
                                 bg=params[2] #rgb
                             if params[1]==5:
                                 bg=params[2]
-                            if self.debug:
+                            if self.debug_mode:
                                 self.info("Set BG:{0}".format(params))
                     else:
                         for cmd in params:
@@ -470,75 +470,75 @@ cdef class viewer:
                                 bg=def_bg
                                 bold=None
                                 reverse_video=None
-                                if self.debug:
+                                if self.debug_mode:
                                     self.info("RESET All:{0}".format(params))
                             elif cmd==1:
                                 bold=True
-                                if self.debug:
+                                if self.debug_mode:
                                     self.info("Set BOLD:{0}".format(params))
                             elif cmd==7:
-                                if self.debug:
+                                if self.debug_mode:
                                     self.info("Reverse Video On:{0}".format(params))
                                 reverse_video=True
                             elif cmd==27:
-                                if self.debug:
+                                if self.debug_mode:
                                     self.info("Reverse Video Off:{0}".format(params))
                                 reverse_video=None
                             elif cmd>=30 and cmd<=37:
                                 fg=cmd-30
                                 if bold:
                                     fg+=8
-                                if self.debug:
+                                if self.debug_mode:
                                     self.info("Set FG:{0}".format(params))
                             elif cmd==39:
                                 fg=def_fg
-                                if self.debug:
+                                if self.debug_mode:
                                     self.info("Set Default FG:{0}".format(params))
                             elif cmd>=40 and cmd<=47:
                                 bg=cmd-40
                                 if bold:
                                     fg+=8
-                                if self.debug:
+                                if self.debug_mode:
                                     self.info("Set BG:{0}".format(params))
                             elif cmd==49:
                                 bg=def_bg
-                                if self.debug:
+                                if self.debug_mode:
                                     self.info("Set Default BG:{0}".format(params))
                             elif cmd>=90 and cmd<=97:
                                 fg=cmd-90+8
-                                if self.debug:
+                                if self.debug_mode:
                                     self.info("Set High INTENSITY FG:{0}".format(params))
                             elif cmd>=100 and cmd<=107:
                                 bg=cmd-100+8
-                                if self.debug:
+                                if self.debug_mode:
                                     self.info("Set High INTENSITY BG:{0}".format(params))
                 else:
                     if command=='A': # move cursor up
-                        if self.debug:
+                        if self.debug_mode:
                             self.info("Cursor Up:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         y-=params[0]
                         if y<0:
                             y=0
                     elif command=='B': # move cursor down
-                        if self.debug:
+                        if self.debug_mode:
                             self.info("Cursor Down:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         y+=params[0]
                         #if y<0:
                         #    y=0
                     elif command=='C': # move cursor back
-                        if self.debug:
+                        if self.debug_mode:
                             self.info("Cursor Right:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x+=params[0]
                         if x<0:
                             x==0
                     elif command=='D': # move cursor right
-                        if self.debug:
+                        if self.debug_mode:
                             self.info("Cursor Left:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x-=params[0]
                         if x>=self.viewport_char_width:
                             x=self.viewport_char_width-1
                     elif command=='E': # move cursor next line
-                        if self.debug:
+                        if self.debug_mode:
                             self.info("Cursor Next Line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=0
                         y+=params[0]
@@ -548,18 +548,18 @@ cdef class viewer:
                                 self.shift_buffer(buffer)
 
                     elif command=='F': # move cursor previous  line
-                        if self.debug:
+                        if self.debug_mode:
                             self.info("Cursor Previous Line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=0
                         y-=params[0]
                         if y<0:
                             y=0
                     elif command=='G': # move cursor to HORIZONTAL pos X
-                        if self.debug:
+                        if self.debug_mode:
                             self.info("Cursor X:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=params[0]
                     elif command=='H' or command==ord('f'): # move cursor to x,y pos
-                        if self.debug:
+                        if self.debug_mode:
                             self.info("Cursor Pos:{0},{1}".format(params[1],params[0]))
                         x=params[1]-1
                         y=params[0]-1
@@ -568,21 +568,21 @@ cdef class viewer:
 
                     elif command=='J': # erase display
                         if params[0]==1:
-                            if self.debug:
+                            if self.debug_mode:
                                 self.info("Erase Display to cursor")
                             x=0
                             y=0
                             pos=0
                             buffer=self.new_char_buffer()
                         if params[0]==2:
-                            if self.debug:
+                            if self.debug_mode:
                                 self.info("Erase Display")
                             x=0
                             y=0
                             pos=0
                             buffer=self.new_char_buffer()
                         if params[0]==3:
-                            if self.debug:
+                            if self.debug_mode:
                                 self.info("Erase Display and buffer")
                             x=0
                             y=0
@@ -590,7 +590,7 @@ cdef class viewer:
                             buffer=self.new_char_buffer()
 
                     elif command=='K': # erase line
-                        if self.debug:
+                        if self.debug_mode:
                             self.info("Erase Line: {0}".format(params[0]))
                         if params[0]==0:
                             for x2 in range(x,self.viewport_char_width):
@@ -602,7 +602,7 @@ cdef class viewer:
                             for x2 in range(0,self.viewport_char_width):
                                 self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
                     else:
-                        if self.debug:
+                        if self.debug_mode:
                             self.info("Impliment: pos x:{2},Y:{3} - {0}-{1}".format(command,params,x,y))
             
         
@@ -773,12 +773,12 @@ cdef class viewer:
         #    remapped[i]=r
         text="".join(unichr(self.remap_character(i)) for i in text)
         
-        if self.debug:
+        if self.debug_mode:
             self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp})
 
     def add_command_sequence(self,esc_type,command,params,groups,name,timestamp):
-        if self.debug:
+        if self.debug_mode:
             self.info("CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(
                                                 esc_type,
                                                 command,
