@@ -787,7 +787,7 @@ cdef class viewer:
     cdef remap_character(self,character):
       #print character
         #print character
-        cdef int c=ord(character)
+        cdef int c=character
         if c>127:
          c=32
         if c>255:
