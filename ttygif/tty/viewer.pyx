@@ -780,6 +780,7 @@ cdef class viewer:
       #print character
         #print character
         cdef int c=ord(character)
+        if c>127 c=32
         if c>255:
             if c==8216:
                 c=39
@@ -823,11 +824,11 @@ cdef class viewer:
     def add_text_sequence(self,text,timestamp):
         if len(text)==0:
             return
-        
+        print "1",text
         remapped=[u' ']*len(text)
         for i in range(0,len(text)):
             c=text[i]
-            r=unichr(self.remap_character(c))
+            r=chr(self.remap_character(c))
             remapped[i]=r
         text="".join(remapped)
         #unichr(self.remap_character(i)) for i in text)
