@@ -152,49 +152,6 @@ cdef class viewer:
 
 
 
-    cdef remap_character(self,character):
-      #print character
-        #print character
-        cdef int c=ord(character)
-        if c>255:
-            if c==8216:
-                c=39
-            elif c==8217:
-                c=39
-            elif c==9472:
-                c=196
-            elif c==9474:
-                c=179
-            elif c==9484:
-                c=218
-            elif c==9488:
-                c=191
-            elif c==9492:
-                c=192
-            elif c==9496:
-                c=217
-            elif c==9600:
-                c=223
-            elif c==9604:
-                c=220
-            elif c==9608:
-                c=219
-            elif c==9612:
-                c=221
-            elif c==9616:
-                c=222
-            elif c==9617:
-                c=176
-            elif c==9618:
-                c=177
-            elif c==10140:
-                c=26
-            else:
-                print ("Missing character: {0}".format(c))
-                return 32
-        else:
-            return c
-        return c
     # only level 1 optomised for reduced calculations in inner loops
     # TODO: runtime calculation
     cdef draw_character(self,character,x,y,offset,foreground_color,background_color):
@@ -819,6 +776,50 @@ cdef class viewer:
     def clear_sequence(self):
         self.sequence=[]
 
+    cdef remap_character(self,character):
+      #print character
+        #print character
+        cdef int c=ord(character)
+        if c>255:
+            if c==8216:
+                c=39
+            elif c==8217:
+                c=39
+            elif c==9472:
+                c=196
+            elif c==9474:
+                c=179
+            elif c==9484:
+                c=218
+            elif c==9488:
+                c=191
+            elif c==9492:
+                c=192
+            elif c==9496:
+                c=217
+            elif c==9600:
+                c=223
+            elif c==9604:
+                c=220
+            elif c==9608:
+                c=219
+            elif c==9612:
+                c=221
+            elif c==9616:
+                c=222
+            elif c==9617:
+                c=176
+            elif c==9618:
+                c=177
+            elif c==10140:
+                c=26
+            else:
+                print ("Missing character: {0}".format(c))
+                return 32
+        else:
+            return c
+        return c
+
     def add_text_sequence(self,text,timestamp):
         if len(text)==0:
             return
@@ -829,7 +830,7 @@ cdef class viewer:
         #    r=unichr(self.remap_character(c))
         #    remapped[i]=r
         text="".join(unichr(self.remap_character(i)) for i in text)
-        
+        print text
         if self.debug_mode:
             self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp})
