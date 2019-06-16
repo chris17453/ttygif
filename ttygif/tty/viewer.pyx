@@ -28,6 +28,7 @@ cdef class viewer:
     cdef public int         buffer_rows
     cdef        object      debug_mode
     cdef public object      sequence
+    cdef public object      sequence_pos
     
     cdef ascii_safe(self,text):
         return ''.join([i if ord(i) < 128 else '*' for i in text])
@@ -54,6 +55,8 @@ cdef class viewer:
 
         self.clear_sequence()
         self.video                =[0]*self.viewport_px_width*self.viewport_px_height
+        self.buffer               =[[0,0],0]*self.viewport_char_width*self.viewport_char_height
+        self.sequence_pos         =0
         self.video_length         =len(self.video)
         self.background_color     =0
         self.foreground_color     =3
@@ -277,7 +280,7 @@ cdef class viewer:
         cdef int pos=0
         cdef int cursor = 0
         # pre buffer
-        buffer=[[0,0],0]*self.viewport_char_width*self.viewport_char_height
+        buffer=self.buffer
         overflow=None
 
         
@@ -292,7 +295,9 @@ cdef class viewer:
 
 
         cursor=0
-        for event in self.sequence:
+        new_sequence_pos=self.sequence_pos
+        for event in self.sequence[self.sequence_pos:]:
+            new_sequence_pos+=1
             if event['type']=='text':
                 self.info(u"{0},{1}:{2}".format(fg,bg,event['data']))
                 for character in event['data']:
@@ -508,6 +513,8 @@ cdef class viewer:
 
         self.buffer_rows=self.viewport_char_height
         self.buffer=buffer
+        self.sequence_pos=new_sequence_pos
+
    
 
     def get(self):
