@@ -794,7 +794,7 @@ cdef class viewer:
       #print character
         #print character
         cdef int c=ord(character)
-        cdef int repacment_char=ord('*')
+        cdef int replacment_char=ord('*')
         if c>255:
             if c==8216:
                 c=39
@@ -832,8 +832,8 @@ cdef class viewer:
                 print ("Missing character: {0}".format(c))
                 return unichr(replacment_char)
         else:
-            return unichr(repacment_char)
-        return unichr(repacment_char)
+            return unichr(replacment_char)
+        return unichr(replacment_char)
 
     def add_text_sequence(self,text,timestamp):
         if len(text)==0:
