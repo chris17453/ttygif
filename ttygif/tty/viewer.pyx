@@ -713,7 +713,7 @@ cdef class viewer:
         remapped=[u' ']*len(text)
         for i in range(0,len(text)):
             c=text[i]
-            r=self.remap_character(c).encode('utf-8')
+            r=unicode(self.remap_character(c))
             remapped[i]=r
         text="".join(remapped)
         
