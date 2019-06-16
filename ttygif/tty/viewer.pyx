@@ -67,7 +67,7 @@ cdef class viewer:
         self.viewport_char_stride     =self.viewport_char_width*3  
         self.clear_sequence()
         self.video                =[0]*self.viewport_px_width*self.viewport_px_height
-        self.buffer               =[0,0,0]*self.viewport_char_stride*self.viewport_char_height
+        self.buffer               =[0,0,0]*self.viewport_char_width*self.viewport_char_height
         #self.buffer_length        =self.viewport_char_width*self.viewport_char_height
 
         self.sequence_pos         =0
@@ -274,7 +274,7 @@ cdef class viewer:
                 if pos>=buffer_len:
                     loop=None
         except Exception as ex:
-            print ex,pos,pos+2,buffer_len
+            print x,y,ex,pos,pos+2,buffer_len
   
     # convert the text stream to a text formated grid
     cdef debug(self): 
@@ -494,7 +494,7 @@ cdef class viewer:
                             x=0
                             y=0
                             pos=0
-                            buffer=[0,0,0]*self.viewport_char_stride*self.viewport_char_height
+                            buffer=[0,0,0]*self.viewport_char_width*self.viewport_char_height
                             buffer_len=len(buffer)
                             self.info("buffer_len: {0}".format(buffer_len))
                         if params[0]==2:
@@ -502,7 +502,7 @@ cdef class viewer:
                             x=0
                             y=0
                             pos=0
-                            buffer=[0,0,0]*self.viewport_char_stride*self.viewport_char_height
+                            buffer=[0,0,0]*self.viewport_char_width*self.viewport_char_height
                             buffer_len=len(buffer)
                             self.info("buffer_len: {0}".format(buffer_len))
                         if params[0]==3:
@@ -510,7 +510,7 @@ cdef class viewer:
                             x=0
                             y=0
                             pos=0
-                            buffer=[0,0,0]*self.viewport_char_stride*self.viewport_char_height
+                            buffer=[0,0,0]*self.viewport_char_width*self.viewport_char_height
                             buffer_len=len(buffer)
                             self.info("buffer_len: {0}".format(buffer_len))
 
