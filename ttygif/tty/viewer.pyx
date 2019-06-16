@@ -881,7 +881,7 @@ cdef class viewer:
    
 
     def get(self):
-        return {'width':self.viewport_px_width,'height':self.viewport_px_height,'data':self.video,'color_table':self.color_table}
+        return {'width':self.viewport_px_width,'height':self.viewport_px_height,'data':array.copy(self.video),'color_table':self.color_table}
 
     def add_event(self,event):
         timestamp=event[0]
