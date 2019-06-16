@@ -68,7 +68,7 @@ cdef class viewer:
         self.clear_sequence()
         self.video                =[0]*self.viewport_px_width*self.viewport_px_height
         self.buffer               =[0,0,0]*self.viewport_char_stride*self.viewport_char_height
-        self.buffer_length        =self.viewport_char_width*self.viewport_char_height
+        #self.buffer_length        =self.viewport_char_width*self.viewport_char_height
 
         self.sequence_pos         =0
         self.video_length         =len(self.video)
