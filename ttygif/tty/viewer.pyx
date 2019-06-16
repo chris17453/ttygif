@@ -712,7 +712,7 @@ cdef class viewer:
         
         remapped=[' ']*len(text)
         for i in range(0,len(text)):
-            remapped[i]=self.remap_character(text[i])
+            remapped[i]=self.remap_character(text[i]).encode('utf-8')
         text="".join(remapped)
         
         self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
