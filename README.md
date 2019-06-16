@@ -1,4 +1,4 @@
-#ttygif
+# ttygif
 
 A asciicast data file to gif conversion utility
 
