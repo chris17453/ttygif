@@ -210,33 +210,64 @@ cdef class viewer:
         cdef int cx=int(character%font.chars_per_line)
         cdef int cy=int(character/font.chars_per_line)
         cdef int pre_x=fox+cx*fw
-        cdef int pre_y=(foy+cy*fh)*fs
+        cdef int pre_y=foy+cy*fh*fs
         cdef int pre=pre_x+pre_y
-        cdef int pre_y2=0
         cdef int screen_pos
-        cdef int screen_pos2
-        cdef int pos
-        cdef int pos2
         if y<0 or x<0:
          return
-        for fy in range(0,fh): 
-            sy=fy+(y*(fh+fsy))
-            sx=(x*(fw+fsx))
-            screen_pos=sx+(sy-offset)*self.viewport_px_width
-            if screen_pos>=self.video_length:
-                continue
-            pos=pre+pre_y2
-            for fx in range(0,fw):
-                screen_pos2=screen_pos+fx
-                if screen_pos2<0 or screen_pos2>=self.video_length:
-                    continue
-                pos2=pos+fx
-                pixel=font.graphic[pos2]
-                if pixel!=transparent:
-                    self.video[screen_pos2]=foreground_color
-                else:
-                    self.video[screen_pos2]=background_color
-            pre_y2+=fs
+
+        cdef int char_pos=0
+        cdef int char_len=fh*fw
+        cdef int fx=0
+        cdef int fy=0
+
+        loop=True
+
+        cdef int sy=fy+(y*(fh+fsy))
+        cdef int sx=(x*(fw+fsx))
+        cdef int new_line_stride=self.viewport_px_width-(fw+fsx)
+        cdef int new_char_line_stride=pre_x-(fw+fsx)
+        screen_pos=sx+(sy-offset)*self.viewport_px_width
+        
+        char_pos=pre
+        
+        while loop:
+            pixel=font.graphic[char_pos]
+            if pixel!=transparent:
+                self.video[screen_pos]=foreground_color
+            else:
+                self.video[screen_pos]=background_color
+        
+            char_pos+=1
+            fx+=1
+            screen_pos+=1
+            if fx==fw:
+                fx=0
+                char_pos+=new_char_line_stride
+                screen_pos+=new_line_stride
+            if char_pos==char_len:
+                loop=None
+
+
+
+        #for fy in range(0,fh): 
+        #    sy=fy+(y*(fh+fsy))
+        #    sx=(x*(fw+fsx))
+        #    screen_pos=sx+(sy-offset)*self.viewport_px_width
+        #    if screen_pos>=self.video_length:
+        #        continue
+        #    pos=pre+pre_y2
+        #    for fx in range(0,fw):
+        #        screen_pos2=screen_pos+fx
+        #        if screen_pos2<0 or screen_pos2>=self.video_length:
+        #            continue
+        #        pos2=pos+fx
+        #        pixel=font.graphic[pos2]
+        #        if pixel!=transparent:
+        #            self.video[screen_pos2]=foreground_color
+        #        else:
+        #            self.video[screen_pos2]=background_color
+        #    pre_y2+=fs
             
 
     cdef get_buffer_height(self):
@@ -363,7 +394,8 @@ cdef class viewer:
         for event in self.sequence[self.sequence_pos:]:
             new_sequence_pos+=1
             if event['type']=='text':
-                self.info(u"X:{0:<2} {1:<2},FG:{2:<2},BG:{3},Text: {3}".format(x,y,fg,bg,event['data']))
+                if self.debug:
+                    self.info(u"X:{0:<2} {1:<2},FG:{2:<2},BG:{3},Text: {3}".format(x,y,fg,bg,event['data']))
                 for character in event['data']:
                     # new line or wrap
                     char_ord=ord(character)
@@ -406,7 +438,6 @@ cdef class viewer:
             groups   =event['groups']
 
             if esc_type=='OSC':
-                self.info("OSC")
                 continue
             elif esc_type=='SINGLE':
                 command=groups[1]
@@ -423,13 +454,15 @@ cdef class viewer:
                             fg=params[2] # rgb
                         if params[1]==5:
                             fg=params[2]
-                        self.info("Set FG:{0}".format(params))
+                        if self.debug:
+                            self.info("Set FG:{0}".format(params))
                     elif 48 in params:
                             if params[1]==2:
                                 bg=params[2] #rgb
                             if params[1]==5:
                                 bg=params[2]
-                            self.info("Set BG:{0}".format(params))
+                            if self.debug:
+                                self.info("Set BG:{0}".format(params))
                     else:
                         for cmd in params:
                             if cmd==0:
@@ -437,61 +470,76 @@ cdef class viewer:
                                 bg=def_bg
                                 bold=None
                                 reverse_video=None
-                                self.info("RESET All:{0}".format(params))
+                                if self.debug:
+                                    self.info("RESET All:{0}".format(params))
                             elif cmd==1:
                                 bold=True
-                                self.info("Set BOLD:{0}".format(params))
+                                if self.debug:
+                                    self.info("Set BOLD:{0}".format(params))
                             elif cmd==7:
-                                self.info("Reverse Video On:{0}".format(params))
+                                if self.debug:
+                                    self.info("Reverse Video On:{0}".format(params))
                                 reverse_video=True
                             elif cmd==27:
-                                self.info("Reverse Video Off:{0}".format(params))
+                                if self.debug:
+                                    self.info("Reverse Video Off:{0}".format(params))
                                 reverse_video=None
                             elif cmd>=30 and cmd<=37:
                                 fg=cmd-30
                                 if bold:
                                     fg+=8
-                                self.info("Set FG:{0}".format(params))
+                                if self.debug:
+                                    self.info("Set FG:{0}".format(params))
                             elif cmd==39:
                                 fg=def_fg
-                                self.info("Set Default FG:{0}".format(params))
+                                if self.debug:
+                                    self.info("Set Default FG:{0}".format(params))
                             elif cmd>=40 and cmd<=47:
                                 bg=cmd-40
                                 if bold:
                                     fg+=8
-                                self.info("Set BG:{0}".format(params))
+                                if self.debug:
+                                    self.info("Set BG:{0}".format(params))
                             elif cmd==49:
                                 bg=def_bg
-                                self.info("Set Default BG:{0}".format(params))
+                                if self.debug:
+                                    self.info("Set Default BG:{0}".format(params))
                             elif cmd>=90 and cmd<=97:
                                 fg=cmd-90+8
-                                self.info("Set High INTENSITY FG:{0}".format(params))
+                                if self.debug:
+                                    self.info("Set High INTENSITY FG:{0}".format(params))
                             elif cmd>=100 and cmd<=107:
                                 bg=cmd-100+8
-                                self.info("Set High INTENSITY BG:{0}".format(params))
+                                if self.debug:
+                                    self.info("Set High INTENSITY BG:{0}".format(params))
                 else:
                     if command=='A': # move cursor up
-                        self.info("Cursor Up:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                        if self.debug:
+                            self.info("Cursor Up:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         y-=params[0]
                         if y<0:
                             y=0
                     elif command=='B': # move cursor down
-                        self.info("Cursor Down:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                        if self.debug:
+                            self.info("Cursor Down:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         y+=params[0]
                         #if y<0:
                         #    y=0
                     elif command=='C': # move cursor back
-                        self.info("Cursor Right:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                        if self.debug:
+                            self.info("Cursor Right:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x+=params[0]
                         if x<0:
                             x==0
                     elif command=='D': # move cursor right
-                        self.info("Cursor Left:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                        if self.debug:
+                            self.info("Cursor Left:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x-=params[0]
                         if x>=self.viewport_char_width:
                             x=self.viewport_char_width-1
                     elif command=='E': # move cursor next line
-                        self.info("Cursor Next Line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                        if self.debug:
+                            self.info("Cursor Next Line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=0
                         y+=params[0]
                         if y>=self.viewport_char_height:
@@ -500,16 +548,19 @@ cdef class viewer:
                                 self.shift_buffer(buffer)
 
                     elif command=='F': # move cursor previous  line
-                        self.info("Cursor Previous Line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                        if self.debug:
+                            self.info("Cursor Previous Line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=0
                         y-=params[0]
                         if y<0:
                             y=0
                     elif command=='G': # move cursor to HORIZONTAL pos X
-                        self.info("Cursor X:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                        if self.debug:
+                            self.info("Cursor X:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=params[0]
                     elif command=='H' or command==ord('f'): # move cursor to x,y pos
-                        self.info("Cursor Pos:{0},{1}".format(params[1],params[0]))
+                        if self.debug:
+                            self.info("Cursor Pos:{0},{1}".format(params[1],params[0]))
                         x=params[1]-1
                         y=params[0]-1
                         if y>=self.viewport_char_height:
@@ -517,26 +568,30 @@ cdef class viewer:
 
                     elif command=='J': # erase display
                         if params[0]==1:
-                            self.info("Erase Display to cursor")
+                            if self.debug:
+                                self.info("Erase Display to cursor")
                             x=0
                             y=0
                             pos=0
                             buffer=self.new_char_buffer()
                         if params[0]==2:
-                            self.info("Erase Display")
+                            if self.debug:
+                                self.info("Erase Display")
                             x=0
                             y=0
                             pos=0
                             buffer=self.new_char_buffer()
                         if params[0]==3:
-                            self.info("Erase Display and buffer")
+                            if self.debug:
+                                self.info("Erase Display and buffer")
                             x=0
                             y=0
                             pos=0
                             buffer=self.new_char_buffer()
 
                     elif command=='K': # erase line
-                        self.info("Erase Line: {0}".format(params[0]))
+                       if self.debug:
+                            self.info("Erase Line: {0}".format(params[0]))
                         if params[0]==0:
                             for x2 in range(x,self.viewport_char_width):
                                 self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
@@ -547,7 +602,8 @@ cdef class viewer:
                             for x2 in range(0,self.viewport_char_width):
                                 self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
                     else:
-                        self.info("Impliment: pos x:{2},Y:{3} - {0}-{1}".format(command,params,x,y))
+                        if self.debug:
+                            self.info("Impliment: pos x:{2},Y:{3} - {0}-{1}".format(command,params,x,y))
             
         
         
@@ -716,12 +772,14 @@ cdef class viewer:
         #    r=unichr(self.remap_character(c))
         #    remapped[i]=r
         text="".join(unichr(self.remap_character(i)) for i in text)
-        print text
-        self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
+        
+        if self.debug:
+            self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp})
 
     def add_command_sequence(self,esc_type,command,params,groups,name,timestamp):
-        self.info("CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(
+        if self.debug:
+            self.info("CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(
                                                 esc_type,
                                                 command,
                                                 params,
