@@ -76,7 +76,12 @@ test-cast-2-gif:
 	#@python -m ttygif.cli -v -w -i examples/encode/234628.gif -o examples/encode/234628.html
 
 examples:
-	@python -m ttygif.cli -i data/234628.cast -o examples/encode/234628.gif
-	@python -m ttygif.cli -i data/236096.cast -o examples/encode/236096.gif
+	# tetris
 	@python -m ttygif.cli -i data/232377.cast -o examples/encode/232377.gif
+    # 
 	@python -m ttygif.cli -i data/174524.cast -o examples/encode/174524.gif
+	# 
+	@python -m ttygif.cli -i data/236096.cast -o examples/encode/236096.gif
+	# compile very long
+	@python -m ttygif.cli -i data/234628.cast -o examples/encode/234628.gif
+	@python -m ttygif.cli -i data/687.cast -o examples/encode/687.gif

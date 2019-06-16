@@ -13,45 +13,59 @@ import time
 def cli_main():
     print("ttygif version {0}".format( __version__))
 
-    parser = argparse.ArgumentParser("ttygif", usage='%(prog)s [options]', description="""tty output to gif""", epilog="Dont yaknow?")
+    parser = argparse.ArgumentParser(
+        prog='ttygif',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        description="""tty output to gif""")
     # actions
-    parser.add_argument('-v', '--debug',         help='show debuging statistics', action='store_true')
-    parser.add_argument('-i', '--input',         help='source file', default= None)
-    parser.add_argument('-o', '--output',        help='destination file', default= None)
-    parser.add_argument('-x', '--extract',       help='gif to json', action='store_true')
-    parser.add_argument('-w', '--html',          help='gif to html', action='store_true')
-    parser.add_argument('-l', '--loop',          help='number of loops, default 0/forever', default=0)
-    parser.add_argument('-d', '--delay',         help='delay between loops in ms ', default=0)
-    parser.add_argument('-f', '--frame-rate',    help='encode at FPS, (1-25)', default=8)
-    parser.add_argument('-n', '--natural',       help='encode at timestamp, default',  action='store_true',default=True)
-    parser.add_argument('-c', '--show-commands', help='dump interpreted cast data ', action='store_true')
+
+    parser.add_argument('--input',   help='asciinema .cast file', default= None,metavar='FILE')
+    parser.add_argument('--output',  help='gif output file', default= None,metavar='FILE')
+    parser.add_argument('--loop',    help='number of loops to play, 0=unlimited', default=0,metavar='COUNT')
+    parser.add_argument('--delay',   help='delay before restarting gif in milliseconds', default=1000,metavar='MS')
+    parser.add_argument('--fps',     help='encode at (n) frames per second (0-25) 0=speed of cast file', default=8,metavar='FPS')
+    
+    
+    
+    #debug = parser.add_argument_group('Debug')
+    #debug.add_argument('-v', '--debug',         help='show debuging statistics', action='store_true')
+    #debug.add_argument('-c', '--show-commands', help='dump interpreted cast data ', action='store_true')
+    
+    # dev options
+    #tools = parser.add_argument_group('Tools')
+    #tools.add_argument('-x', '--extract',       help='gif data to json', action='store_true')
+    #tools.add_argument('-w', '--html',          help='gif to html', action='store_true')
 
     args = parser.parse_args()
-    if args.html:
-        gif().canvas_it(args.input,args.output)
+    #if args.html:
+    #    gif().canvas_it(args.input,args.output)
     
-    elif args.extract:
-        gif(debug=None).extract(args.input,args.output)
+    #elif args.extract:
+    #    gif(debug=None).extract(args.input,args.output)
 
-    elif  args.show_commands and args.input:
-        cast=asciicast_reader(debug=args.debug)
-        stream=cast.load(args.input)
-        v=viewer()
-        for event in stream['events']:
-            v.add_event(event)
+    #elif  args.show_commands and args.input:
+    #    cast=asciicast_reader(debug=args.debug)
+    #    stream=cast.load(args.input)
+    #    v=viewer()
+    #    for event in stream['events']:
+    #        v.add_event(event)
+#
+    #    v.debug_sequence()
 
-        v.debug_sequence()
-
-    elif args.input and args.output:
-        frame_rate=int(args.frame_rate)
+    if args.input and args.output:
+        frame_rate=int(args.fps)
         if frame_rate<0:
             frame_rate=1
         if frame_rate>25:
            frame_rate=25
             
-        cast2gif(args.input,args.output,loop_count=args.loop,debug=args.debug,frame_rate=frame_rate,natural=args.natural)
+        natural=None
+        if args.fps==0:
+            natural=True
+        debug=None
+        cast2gif(args.input,args.output,loop_count=args.loop,debug=debug,frame_rate=frame_rate,natural=natural)
     else:
-        print("usage: ttygif -i input.cast -o output.gif -l 1")
+        parser.print_help()
                     
 
 if __name__=='__main__':

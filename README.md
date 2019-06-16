@@ -9,9 +9,25 @@ pip install ttygif --user
 ```
 
 ## usage
-
 ```bash
-ttygif -i ascii.cast -o output.gif -f 10
+ttygif version 1.0.287
+usage: ttygif [-h] [--input FILE] [--output FILE] [--loop COUNT] [--delay MS]
+              [--fps FPS]
+
+tty output to gif
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --input FILE   asciinema .cast file (default: None)
+  --output FILE  gif output file (default: None)
+  --loop COUNT   number of loops to play, 0=unlimited (default: 0)
+  --delay MS     delay before restarting gif in milliseconds (default: 1000)
+  --fps FPS      encode at (n) frames per second (0-25) 0=speed of cast file
+                 (default: 8)
+
+# Example
+#ttygif --input data/232377.cast --output 232377.gif --fps=10
+
 ```
 
 ### status
