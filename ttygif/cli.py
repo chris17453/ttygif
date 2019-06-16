@@ -9,6 +9,7 @@ from .cast2gif import cast2gif
 from .version import __version__
 import pprint
 import time
+import sys
 
 def cli_main():
     print("ttygif version {0}".format( __version__))
@@ -66,7 +67,7 @@ def cli_main():
         try:
             cast2gif(args.input,args.output,loop_count=args.loop,debug=debug,frame_rate=frame_rate,natural=natural)
         except KeyboardInterrupt:
-            print("Processing Aborted...")
+            print("\nProcessing Aborted...")
             sys.exit()
     else:
         parser.print_help()
