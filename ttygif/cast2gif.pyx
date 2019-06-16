@@ -146,8 +146,6 @@ class cast2gif:
 
 
             v.add_event(event)
-        sys.stdout.write("\033[2J".format(index,strlen,percent))
-        sys.stdout.flush()
 
         # need to close the gif
         # last frame    
@@ -162,5 +160,5 @@ class cast2gif:
                         width=diff['width'],height=diff['height'],
                         palette=None,image_data=frame_snip)
         g.close()
-        print("finished")
+        print("\nfinished")
         
