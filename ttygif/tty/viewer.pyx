@@ -3,6 +3,8 @@
 from cpython cimport array
 import array
 import re
+from libc.string cimport memset
+
 
 from .font cimport font_map
 from .fonts cimport font
@@ -47,7 +49,10 @@ cdef class viewer:
     cdef info(self,text):
         if self.debug_mode:
             print(self.ascii_safe(text))
-
+    
+    cdef new_char_buffer(self):
+        return array.array('B',self.viewport_char_stride*self.viewport_char_height)
+        
     def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
         self.debug_mode                =debug
         self.viewport_px_width    =width
@@ -66,8 +71,8 @@ cdef class viewer:
         #fg,bg,char
         self.viewport_char_stride     =self.viewport_char_width*3  
         self.clear_sequence()
-        self.video                =[0]*self.viewport_px_width*self.viewport_px_height
-        self.buffer               =[0,0,0]*self.viewport_char_width*self.viewport_char_height
+        self.video                =array.array('B',self.viewport_px_width*self.viewport_px_height)
+        self.buffer               =self.new_char_buffer()
         #self.buffer_length        =self.viewport_char_width*self.viewport_char_height
 
         self.sequence_pos         =0
@@ -232,8 +237,10 @@ cdef class viewer:
     def render(self):
         self.sequence_to_buffer()
         #self.clear_screen(self.bg,255) x
-        self.video=[self.background_color]*(self.viewport_px_width*self.viewport_px_height)
-        self.video_length=len(self.video)
+from libc.string cimport memset
+
+        memset(self.video.data.as_voidptr, self.background_color, len(a) * sizeof(char))        
+        #byteelf.video.[self.background_color]*(self.viewport_px_width*self.viewport_px_height)
 
         
         #buffer_height=self.get_buffer_height()
@@ -297,7 +304,11 @@ cdef class viewer:
         for i in range(0,index):
             buffer.pop(0)
             buffer.pop(0)
-        buffer+=[self.fg,self.bg,0]*self.viewport_char_width
+            buffer.pop(0)
+        #buffer+=[self.fg,self.bg,0]*self.viewport_char_width
+        #cdef array.array new_buffer=array.array('B',self.viewport_char_stride*self.viewport_char_height)
+        
+        array.resize(buffer,self.viewport_char_stride)
 
 
     cdef write_buffer(self,x,y,c,buffer,fg,bg,reverse):
@@ -341,7 +352,7 @@ cdef class viewer:
                     # new line or wrap
                     char_ord=ord(character)
                     # handle non printable codes here
-                    #print char_ord
+                    #prinset char_ord
                     if char_ord<32:
                         if char_ord==0x08:
                             x-=1
@@ -494,24 +505,21 @@ cdef class viewer:
                             x=0
                             y=0
                             pos=0
-                            buffer=[0,0,0]*self.viewport_char_width*self.viewport_char_height
-                            buffer_len=len(buffer)
+                            buffer=self.new_char_buffer()
                             self.info("buffer_len: {0}".format(buffer_len))
                         if params[0]==2:
                             self.info("Erase Display")
                             x=0
                             y=0
                             pos=0
-                            buffer=[0,0,0]*self.viewport_char_width*self.viewport_char_height
-                            buffer_len=len(buffer)
+                            buffer=self.new_char_buffer()
                             self.info("buffer_len: {0}".format(buffer_len))
                         if params[0]==3:
                             self.info("Erase Display and buffer")
                             x=0
                             y=0
                             pos=0
-                            buffer=[0,0,0]*self.viewport_char_width*self.viewport_char_height
-                            buffer_len=len(buffer)
+                            buffer=self.new_char_buffer()
                             self.info("buffer_len: {0}".format(buffer_len))
 
                     elif command=='K': # erase line
