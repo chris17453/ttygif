@@ -713,9 +713,9 @@ cdef class viewer:
         remapped=[u' ']*len(text)
         for i in range(0,len(text)):
             c=text[i]
-            r=self.remap_character(c)
+            r=self.remap_character(c).encode('utf-8')
             remapped[i]=r
-        text=u"".join(remapped)
+        text=u"".event('utf-8').join(remapped)
         
         self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp})
