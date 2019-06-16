@@ -273,7 +273,7 @@ cdef class viewer:
                 pos+=3
                 if pos>=buffer_len:
                     loop=None
-        except Exception ex:
+        except Exception as ex:
             print ex,pos,pos+2,buffer_len
   
     # convert the text stream to a text formated grid
