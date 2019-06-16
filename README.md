@@ -1,6 +1,6 @@
 # ttygif
 
-A asciicast data file to gif conversion utility
+An asciicast data file to gif conversion utility
 
 ## install
 
@@ -58,6 +58,8 @@ Normal/colorized output work fine.
 - palette flags, monochrome,  grayscale, system, custom, count [n]<256
 - font generation app
 - font mapping for utf 8,16,13 characters to base 256 map
+- add progress bar to top/bottom of gif with n of y H:M:I:S
+- gif color consoladataion, for lower bit count (<8) compression 
 
 ### Profile Times
 
