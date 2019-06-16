@@ -83,7 +83,6 @@ setup(
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-    long_description_content_type="text/markdown",
     author='Charles Watkins',
     author_email='chris17453@gmail.com',
     description='A asciicast to gif utility',
