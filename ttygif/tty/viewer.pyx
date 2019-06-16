@@ -780,7 +780,8 @@ cdef class viewer:
       #print character
         #print character
         cdef int c=ord(character)
-        if c>127 c=32
+        if c>127:
+         c=32
         if c>255:
             if c==8216:
                 c=39
