@@ -271,6 +271,7 @@ cdef class viewer:
 
 
 
+    # commands pre parsed on add_event
     cdef stream_to_buffer(self):
         
         cdef int pos=0
