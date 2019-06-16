@@ -824,12 +824,13 @@ cdef class viewer:
         if len(text)==0:
             return
         
-        #remapped=[u' ']*len(text)
-        #for i in range(0,len(text)):
-        #    c=text[i]
-        #    r=unichr(self.remap_character(c))
-        #    remapped[i]=r
-        text="".join(unichr(self.remap_character(i)) for i in text)
+        remapped=[u' ']*len(text)
+        for i in range(0,len(text)):
+            c=text[i]
+            r=unichr(self.remap_character(c))
+            remapped[i]=r
+        text="".join(remapped)
+        #unichr(self.remap_character(i)) for i in text)
         print text
         if self.debug_mode:
             self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
