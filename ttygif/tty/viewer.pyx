@@ -25,9 +25,9 @@ cdef class viewer:
     cdef public object          window_style
     cdef public object          stream
     cdef public int             video_length
-    cdef        arrayt.array    video
+    cdef        array.array     video
     cdef        object          color_table
-    cdef        arrayt.array    buffer
+    cdef        array.array     buffer
     cdef public int             buffer_rows
     cdef        object          debug_mode
     cdef public object          sequence
