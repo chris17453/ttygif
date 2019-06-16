@@ -710,7 +710,7 @@ cdef class viewer:
         if len(text)==0:
             return
         
-        remapped=[' ']*len(text)
+        remapped=[u' ']*len(text)
         for i in range(0,len(text)):
             remapped[i]=self.remap_character(text[i]).encode('utf-8')
         text="".join(remapped)
