@@ -232,9 +232,9 @@ cdef class viewer:
         char_pos=pre
         
         while loop:
-            char_pos=fx+fh*fs
+            char_pos=fx+cx*fw+(fy+cy*fh)*fs
             pixel=font.graphic[char_pos]
-            screen_pos=fx+x*fx +(fy+y*fh)*self.viewport_px_width
+            screen_pos=fx+x*sx +(fy+y*sy)*self.viewport_px_width
             if pixel!=transparent:
                 self.video[screen_pos]=foreground_color
             else:
@@ -251,7 +251,6 @@ cdef class viewer:
             #if char_pos==char_len:
                 if fy==sy:
                     loop=None
-
 
 
         #for fy in range(0,fh): 
