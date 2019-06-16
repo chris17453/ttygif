@@ -279,38 +279,7 @@ cdef class viewer:
         buffer=[[0,0],0]*self.viewport_char_width*self.viewport_char_height
         overflow=None
 
-
         
-        ANSI_OSC_RE = re.compile('\001?\033\\]((?:.|;)*?)(\x07)\002?')        # Operating System Command
-        text=""
-        for match in ANSI_OSC_RE.finditer(self.stream):
-            start, end = match.span()
-            text+=self.stream[cursor:start]
-            cursor=end
-            #text = text[:start] + text[end:]
-            #print "--"
-            #text=self.stream[start:end]
-            #text=text.replace(u"\001b]",'BAR').replace("\x07",'BELL')
-            #print("=="+text+"==")
-            #paramstring, command = match.groups()
-            #if command in '\x07':       # \x07 = BEL
-            #    params = paramstring.split(";")
-                # 0 - change title and icon (we will only change title)
-                # 1 - change icon (we don't support this)
-                # 2 - change title
-                #if params[0] in '02':
-                #    winterm.set_title(params[1])
-        text+=self.stream[cursor:]
-        self.stream=text
-
-        ANSI_SINGLE='[\001b|\033]([cDEHMZ78>=])'
-        ANSI_CHAR_SET = '[\001b|\033]\\%([@G*])'
-        ANSI_G0 = '[\001b|\033]\\(([B0UK])'
-        ANSI_G1 = '[\001b|\033]\\)([B0UK])'
-        ANSI_CSI_RE = '[\001b|\033]\\[((?:\\d|;|<|>|=|\?)*)([a-zA-Z])\002?'
-        
-        ANSI_REGEX=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE]
-
         buffer_len=0
         x=0
         y=0
@@ -320,32 +289,32 @@ cdef class viewer:
         bg=def_bg
         reverse_video=None
 
-        ANSI_REGEX="("+")|(".join(ANSI_REGEX)+")"
-        #print ANSI_REGEX.replace("\001b","^").replace("\033","^")
-        
-        
-        ANSI=re.compile(ANSI_REGEX)
-        #print("-----")
-        cursor=0
-        for match in ANSI.finditer(self.stream):
-            start, end = match.span()
 
-            self.info(u"{0},{1}:{2}".format(fg,bg,self.stream[cursor:start]))
-            for i in range(cursor,start):
-                # new line or wrap
-                character=self.stream[i]
-                char_ord=ord(character)
-                # handle non printable codes here
-                #print char_ord
-                if char_ord<32:
-                    if char_ord==0x08:
-                        x-=1
-                    if char_ord==0x0A:
-                        x=0
-                        y+=1
-                        if y>=self.viewport_char_height:
-                            y-=1
-                            self.shift_buffer(buffer)
+        cursor=0
+        for event in self.sequence:
+            if event['type']=='text'
+                self.info(u"{0},{1}:{2}".format(fg,bg,event['data'])
+                for character in event['data']:
+                    # new line or wrap
+                    char_ord=ord(character)
+                    # handle non printable codes here
+                    #print char_ord
+                    if char_ord<32:
+                        if char_ord==0x08:
+                            x-=1
+                        if char_ord==0x0A:
+                            x=0
+                            y+=1
+                            if y>=self.viewport_char_height:
+                                y-=1
+                                self.shift_buffer(buffer)
+                            continue
+                        if x>=self.viewport_char_width:
+                            x=0
+                            y+=1
+                            if y>=self.viewport_char_height:
+                                y-=1
+                                self.shift_buffer(buffer)
                         continue
                     if x>=self.viewport_char_width:
                         x=0
@@ -353,39 +322,29 @@ cdef class viewer:
                         if y>=self.viewport_char_height:
                             y-=1
                             self.shift_buffer(buffer)
-                    continue
-                if x>=self.viewport_char_width:
-                    x=0
-                    y+=1
-                    if y>=self.viewport_char_height:
-                        y-=1
-                        self.shift_buffer(buffer)
-                    #print x,y,character,fg,bg
-                # print the space...
-                self.write_buffer(x,y,char_ord,buffer,fg,bg,reverse_video)
-                x+=1            
+                    self.write_buffer(x,y,char_ord,buffer,fg,bg,reverse_video)
+                    x+=1
+                continue
 
 
             #print cursor,start, end
-            cursor = end
             command=None
             params=None
-            esc_type=None
-            groups=match.groups()
-            if groups[0]:
-                esc_type='SINGLE'
+            esc_type=event['esc_type']
+            groups=event['groups']
+
+            if esc_type=='OSC':
+                self.info("OSC")
+                continue
+            elif esc_type=='SINGLE':
                 command=groups[1]
-            if groups[2]:
-                esc_type='CHAR_SET'
+            elif esc_type=='CHAR_SET':
                 command=groups[3]
-            if groups[4]:
-                esc_type='G0'
+            elif esc_type=='G0':
                 command=groups[5]
-            if groups[6]:
-                esc_type='G1'
+            elif esc_type=='G1':
                 command=groups[7]
-            if groups[8]:
-                esc_type='CSI'
+            elif esc_type='CSI':
                 paramstring=groups[9]
                 command=groups[10]
                 if command in 'Hf':
@@ -542,38 +501,7 @@ cdef class viewer:
                                 self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
                     else:
                         self.info("Impliment: Start: {5} pos x:{3},Y:{4} - {0}-{1}-{2}".format(command,params,paramstring,x,y,start))
-#            print( esc_type,command,params)
             
-        for i in range(cursor,len(self.stream)):
-            character=self.stream[i]
-            char_ord=ord(character)
-            # handle non printable codes here
-            #print char_ord
-            if char_ord<32:
-                if char_ord==0x08:
-                    x-=1
-                if char_ord==0x0A:
-                    x=0
-                    y+=1
-                    if y>=self.viewport_char_height:
-                        y-=1
-                        self.shift_buffer(buffer)
-
-                if x>=self.viewport_char_width:
-                    x=0
-                    y+=1
-                    if y>=self.viewport_char_height:
-                        y-=1
-                        self.shift_buffer(buffer)
-                continue
-            if x>=self.viewport_char_width:
-                x=0
-                y+=1
-                if y>=self.viewport_char_height:
-                    y-=1
-                    self.shift_buffer(buffer)
-            self.write_buffer(x,y,char_ord,buffer,fg,bg,reverse_video)
-            x+=1        
         
         
 
