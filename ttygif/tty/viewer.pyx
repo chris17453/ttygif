@@ -197,49 +197,36 @@ cdef class viewer:
   
         
     cdef draw_character3(self,int character,int x,int y,int offset,int foreground_color,int background_color):
+        cdef int fs            = font.width
+        cdef int fw            = font.font_width
+        cdef int fh            = font.font_height
+        cdef int fox           = font.offset_x
+        cdef int foy           = font.offset_y
+        cdef int fsx           = font.spacing_x
+        cdef int fsy           = font.spacing_y
+        cdef int transparent   = font.transparent
+        cdef int cx            = int(character%font.chars_per_line)
+        cdef int cy            = int(character/font.chars_per_line)
+        cdef int pre_x         = fox+cx*fw
+        cdef int pre_y         = foy+cy*fh*fs
+        cdef int pre           = pre_x+pre_y
+        cdef int sy            = fh+fsy
+        cdef int sx            = fw+fsx
+        cdef int screen_pos    = sx*x+sy*y*self.viewport_px_width
+        cdef int char_pos      = pre
+        cdef int fx            = 0
+        cdef int fy            = 0
+        cdef int new_line_stride      =self.viewport_px_width-(fw+fsx)
+        cdef int new_char_line_stride =fs-(fw+fsx)
         
-        if y<0 or x<0:
-         return
-        
-        
-        #print "FOUND"
-        cdef int fs= font.width
-        cdef int fw= font.font_width
-        cdef int fh= font.font_height
-        cdef int fox=font.offset_x
-        cdef int foy=font.offset_y
-        cdef int fsx=font.spacing_x
-        cdef int fsy=font.spacing_y
-        cdef int transparent=font.transparent
-        cdef int cx=int(character%font.chars_per_line)
-        cdef int cy=int(character/font.chars_per_line)
-        cdef int pre_x=fox+cx*fw
-        cdef int pre_y=foy+cy*fh*fs
-        cdef int pre=pre_x+pre_y
-        cdef int screen_pos
-        cdef int char_pos=0
-        cdef int fx=0
-        cdef int fy=0
-
         loop=True
-
-        cdef int sy=fh+fsy
-        cdef int sx=fw+fsx
-       
-        cdef int new_line_stride=self.viewport_px_width-(fw+fsx)
-        cdef int new_char_line_stride=fs-(fw+fsx)
-        screen_pos=sx*x+sy*y*self.viewport_px_width
-        char_pos=pre
         
         while loop:
-            #char_pos=fx+cx*fw+(fy+cy*fh)*fs
             pixel=font.graphic[char_pos]
-            #screen_pos=fx+x*sx +(fy+y*sy)*self.viewport_px_width
             if pixel!=transparent:
                 self.video[screen_pos]=foreground_color
             else:
                 self.video[screen_pos]=background_color
-        
             char_pos+=1
             fx+=1
             screen_pos+=1
