@@ -15,33 +15,33 @@ from .fonts cimport font
 
 
 cdef class viewer:
-    cdef public int         viewport_px_width
-    cdef public int         viewport_px_height
-    cdef public int         viewport_char_height
-    cdef public int         viewport_char_width
-    cdef public int         viewport_char_stride
-    cdef public int         background_color
-    cdef public int         foreground_color
-    cdef public object      window_style
-    cdef public object      stream
-    cdef public int         video_length
-    cdef        object      video
-    cdef        object      color_table
-    cdef        object      buffer
-    cdef public int         buffer_rows
-    cdef        object      debug_mode
-    cdef public object      sequence
-    cdef public object      sequence_pos
+    cdef public int             viewport_px_width
+    cdef public int             viewport_px_height
+    cdef public int             viewport_char_height
+    cdef public int             viewport_char_width
+    cdef public int             viewport_char_stride
+    cdef public int             background_color
+    cdef public int             foreground_color
+    cdef public object          window_style
+    cdef public object          stream
+    cdef public int             video_length
+    cdef        arrayt.array    video
+    cdef        object          color_table
+    cdef        arrayt.array    buffer
+    cdef public int             buffer_rows
+    cdef        object          debug_mode
+    cdef public object          sequence
+    cdef public object          sequence_pos
 
-    cdef public object      x
-    cdef public object      y
-    cdef public object      def_fg
-    cdef public object      def_bg
-    cdef public object      fg
-    cdef public object      bg
-    cdef public object      reverse_video
-    cdef public object      bold
-    cdef public object      extra_text
+    cdef public object          x
+    cdef public object          y
+    cdef public object          def_fg
+    cdef public object          def_bg
+    cdef public object          fg
+    cdef public object          bg
+    cdef public object          reverse_video
+    cdef public object          bold
+    cdef public object          extra_text
     
     cdef ascii_safe(self,text):
         return ''.join([i if ord(i) < 128 else '*' for i in text])
