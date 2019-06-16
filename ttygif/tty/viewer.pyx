@@ -369,7 +369,7 @@ cdef class viewer:
             elif esc_type=='G1':
                 command=groups[7]
             elif esc_type=='CSI':
-                if command==109:
+                if command=='m':
                     if 38 in params:
                         if params[1]==2:
                             fg=params[2] # rgb
@@ -422,27 +422,27 @@ cdef class viewer:
                                 bg=cmd-100+8
                                 self.info("Set High INTENSITY BG:{0}".format(params))
                 else:
-                    if command==ord('A'): # move cursor up
+                    if command=='A': # move cursor up
                         self.info("Cursor Up:{0}".format(params[0]))
                         y=-params[0]
                         if y<0:
                             y=0
-                    elif command==ord('B'): # move cursor down
+                    elif command=='B': # move cursor down
                         self.info("Cursor Down:{0}".format(params[0]))
                         y=+params[0]
                         #if y<0:
                         #    y=0
-                    elif command==ord('C'): # move cursor back
+                    elif command=='C': # move cursor back
                         self.info("Cursor Left:{0}".format(params[0]))
                         x=-params[0]
                         if x<0:
                             x+=self.viewport_char_width
-                    elif command==ord('D'): # move cursor right
+                    elif command=='D': # move cursor right
                         self.info("Cursor Right:{0}".format(params[0]))
                         x=+params[0]
                         if x>=self.viewport_char_width:
                             x-=self.viewport_char_width
-                    elif command==ord('E'): # move cursor next line
+                    elif command=='E': # move cursor next line
                         self.info("Cursor Next Line:{0}".format(params[0]))
                         x=0
                         y+=params[0]
@@ -451,23 +451,23 @@ cdef class viewer:
                                 y-=1
                                 self.shift_buffer(buffer)
 
-                    elif command==ord('F'): # move cursor previous  line
+                    elif command=='F': # move cursor previous  line
                         self.info("Cursor Previous Line:{0}".format(params[0]))
                         x=0
                         y-=params[0]
                         if y<0:
                             y=0
-                    elif command==ord('G'): # move cursor to HORIZONTAL pos X
+                    elif command=='G': # move cursor to HORIZONTAL pos X
                         self.info("Cursor X:{0}".format(params[0]))
                         x=params[0]
-                    elif command==ord('H') or command==ord('f'): # move cursor to x,y pos
+                    elif command=='H' or command==ord('f'): # move cursor to x,y pos
                         self.info("Cursor Pos:{0},{1}".format(params[1],params[0]))
                         x=params[1]-1
                         y=params[0]-1
                         if y>=self.viewport_char_height:
                             y=self.viewport_char_height-1
 
-                    elif command==ord('J'): # erase display
+                    elif command=='J': # erase display
                         if params[0]==1:
                             self.info("Erase Display to cursor")
                             x=0
@@ -493,7 +493,7 @@ cdef class viewer:
                             buffer_len=len(buffer)
                             self.info("buffer_len: {0}".format(buffer_len))
 
-                    elif command==ord('K'): # erase line
+                    elif command=='K': # erase line
                         self.info("Erase Line: {0}".format(params[0]))
                         if params[0]==0:
                             for x2 in range(x,self.viewport_char_width):
@@ -505,7 +505,7 @@ cdef class viewer:
                             for x2 in range(0,self.viewport_char_width):
                                 self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
                     else:
-                        self.info("Impliment: pos x:{3},Y:{4} - {0}-{1}-{2}".format(command,params,paramstring,x,y))
+                        self.info("Impliment: pos x:{2},Y:{3} - {0}-{1}".format(command,params,x,y))
             
         
         
