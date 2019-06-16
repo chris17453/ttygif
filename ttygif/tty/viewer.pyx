@@ -376,6 +376,9 @@ cdef class viewer:
 
 
     cdef write_buffer(self,x,y,c,buffer,fg,bg,reverse):
+        if c>255:
+            err_msg="Charactrer out of range -{0}".format(c)
+            raise Exception(err_msg)
         cdef int pos=x*3+y*self.viewport_char_stride
         try:
 
