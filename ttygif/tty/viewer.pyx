@@ -328,25 +328,27 @@ cdef class viewer:
                     if char_ord<32:
                         if char_ord==0x08:
                             x-=1
+                            if x<0: 
+                                x=0
                         if char_ord==0x0A:
                             x=0
                             y+=1
                             if y>=self.viewport_char_height:
-                                y-=1
+                                y=self.viewport_char_height-1
                                 self.shift_buffer(buffer)
                             continue
                         if x>=self.viewport_char_width:
                             x=0
                             y+=1
                             if y>=self.viewport_char_height:
-                                y-=1
+                                y=self.viewport_char_height-1
                                 self.shift_buffer(buffer)
                         continue
                     if x>=self.viewport_char_width:
                         x=0
                         y+=1
                         if y>=self.viewport_char_height:
-                            y-=1
+                            y=self.viewport_char_height-1
                             self.shift_buffer(buffer)
                     self.write_buffer(x,y,char_ord,buffer,fg,bg,reverse_video)
                     x+=1
@@ -536,7 +538,7 @@ cdef class viewer:
         event_type=event[1]
         event_io=event[2]
         if event_type=='o':
-            print (self.extra_text)
+            print (self.ascii_save(self.extra_text))
             self.stream_2_sequence(self.extra_text+event_io,timestamp)
             #self.stream+=event_io
 

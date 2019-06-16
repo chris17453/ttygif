@@ -93,3 +93,11 @@ some random pics from the asciinema.org website
 
 ## [CACA_DRIVER=ncurses cacademo](https://asciinema.org/a/687)
 ![asciicast-687](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/687.gif)
+
+
+### Notes
+
+asciicast creates an array of timestamped events. These events are snapshots.
+The actual text from each event may span events. Such as a color code being 
+split in half. Therefore any text thats left at the end of any event is pre 
+appended to the next. No text should ever ne left out at the final event.
