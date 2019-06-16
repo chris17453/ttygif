@@ -29,7 +29,7 @@ def cli_main():
     
     
     #debug = parser.add_argument_group('Debug')
-    #debug.add_argument('-v', '--debug',         help='show debuging statistics', action='store_true')
+    debug.add_argument('-v', '--debug',         help='show debuging statistics', action='store_true')
     #debug.add_argument('-c', '--show-commands', help='dump interpreted cast data ', action='store_true')
     
     # dev options
@@ -63,7 +63,7 @@ def cli_main():
         natural=None
         if args.fps==0:
             natural=True
-        debug=None
+        debug=args.debug
         try:
             cast2gif(args.input,args.output,loop_count=args.loop,debug=debug,frame_rate=frame_rate,natural=natural)
         except KeyboardInterrupt:
