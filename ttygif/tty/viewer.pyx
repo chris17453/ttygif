@@ -51,7 +51,14 @@ cdef class viewer:
             print(self.ascii_safe(text))
     
     cdef new_char_buffer(self):
-        return array.array('B',self.viewport_char_stride*self.viewport_char_height)
+        cdef array.array buffer=array.array('B')
+        buffer.extend(self.viewport_char_stride*self.viewport_char_height)
+        return buffer
+
+    cdef new_video_buffer(self):
+        cdef array.array buffer=array.array('B')
+        buffer.extend(self.viewport_char_stride*self.viewport_char_height)
+        return buffer
         
     def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
         self.debug_mode                =debug
@@ -71,7 +78,7 @@ cdef class viewer:
         #fg,bg,char
         self.viewport_char_stride     =self.viewport_char_width*3  
         self.clear_sequence()
-        self.video                =array.array('B',self.viewport_px_width*self.viewport_px_height)
+        self.video                =self.new_video_buffer()
         self.buffer               =self.new_char_buffer()
         #self.buffer_length        =self.viewport_char_width*self.viewport_char_height
 
