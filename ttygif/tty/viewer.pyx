@@ -154,7 +154,7 @@ cdef class viewer:
 
     # only level 1 optomised for reduced calculations in inner loops
     # TODO: runtime calculation
-    cdef draw_character(self,character,x,y,offset,foreground_color,background_color):
+    cdef draw_character(self,int character,int x,int y,int offset,int foreground_color,int background_color):
         #print "FOUND"
         cdef int fs= font.width
         cdef int fw= font.font_width
@@ -322,31 +322,34 @@ cdef class viewer:
         #cdef int y=0
         cdef int pos=0
         cdef int buffer_len=len(self.buffer)
+        cdef int fg=0
+        cdef int bg=0
+        cdef int character=0
         #self.debug()
-        for y in range(0,self.viewport_char_height):
-            for x in range(0,self.viewport_char_width):
-                pos=x*3+y*self.viewport_char_stride
-                fg=self.buffer[pos]
-                bg=self.buffer[pos+1]
-                character=self.buffer[pos+2]
-                self.draw_character(character,x,y,0,fg,bg)
-        # 
-        #self.debug()        
-        #try:
-        #    while loop:
+        #for y in range(0,self.viewport_char_height):
+        #    for x in range(0,self.viewport_char_width):
+        #        pos=x*3+y*self.viewport_char_stride
         #        fg=self.buffer[pos]
         #        bg=self.buffer[pos+1]
         #        character=self.buffer[pos+2]
         #        self.draw_character(character,x,y,0,fg,bg)
-        #        x+=1
-        #        if x>=self.viewport_char_width:
-        #            x=0
-        #            y+=1
-        #        pos+=3
-        #        if pos>=buffer_len:
-        #            loop=None
-        #except Exception as ex:
-        #    print x,y,ex,pos,pos+2,buffer_len
+        # 
+        #self.debug()        
+        try:
+            while loop:
+                fg=self.buffer[pos]
+                bg=self.buffer[pos+1]
+                character=self.buffer[pos+2]
+                self.draw_character(character,x,y,0,fg,bg)
+                x+=1
+                if x>=self.viewport_char_width:
+                    x=0
+                    y+=1
+                pos+=3
+                if pos>=buffer_len:
+                    loop=None
+        except Exception as ex:
+            print x,y,ex,pos,pos+2,buffer_len
   
     # convert the text stream to a text formated grid
     cdef debug(self): 
