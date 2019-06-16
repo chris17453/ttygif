@@ -330,7 +330,7 @@ cdef class viewer:
                 buffer[pos+1]=bg
                 buffer[pos+2]=c
         except Exception as ex:
-            print x,y,pos,len(buffer),ex
+            print x,y,pos,len(buffer),ex,c
             raise Exception (":NO!")
 
 
