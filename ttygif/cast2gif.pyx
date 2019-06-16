@@ -59,7 +59,8 @@ class cast2gif:
 
     def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,natural=None,debug=None):
         self.debug=debug
-
+        print ("input : {0}".format(cast_file))
+        print ("output: {0}".format(gif_file))
         cast=asciicast_reader(debug=debug)
         stream=cast.load(cast_file)
 
