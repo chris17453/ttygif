@@ -1,0 +1,4 @@
+
+        [console_scripts]
+        ttygif = ttygif.cli:cli_main
+        

@@ -8,3 +8,4 @@ build
 *.o
 *.c
 profile
+*.egg-info
