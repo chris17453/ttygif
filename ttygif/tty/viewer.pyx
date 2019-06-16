@@ -57,7 +57,7 @@ cdef class viewer:
 
     cdef new_video_buffer(self):
         cdef array.array buffer=array.array('B')
-        array.resize(buffer,self.viewport_char_stride*self.viewport_char_height)
+        array.resize(buffer,self.viewport_px_width*self.viewport_px_height)
         return buffer
         
     def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
