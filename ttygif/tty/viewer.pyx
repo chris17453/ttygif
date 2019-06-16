@@ -288,7 +288,7 @@ cdef class viewer:
         for i in range(0,index):
             buffer.pop(0)
             buffer.pop(0)
-        buffer+=[self.fg,self.bg,c]*self.viewport_char_stride
+        buffer+=[self.fg,self.bg,0]*self.viewport_char_stride
 
 
     cdef write_buffer(self,x,y,c,buffer,fg,bg,reverse):
