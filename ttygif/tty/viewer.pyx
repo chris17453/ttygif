@@ -435,15 +435,15 @@ cdef class viewer:
                         #if y<0:
                         #    y=0
                     elif command=='C': # move cursor back
-                        self.info("Cursor Left:{0}".format(params[0]))
-                        x=-params[0]
-                        if x<0:
-                            x+=self.viewport_char_width
-                    elif command=='D': # move cursor right
                         self.info("Cursor Right:{0}".format(params[0]))
                         x=+params[0]
+                        if x<0:
+                            x==0
+                    elif command=='D': # move cursor right
+                        self.info("Cursor Left:{0}".format(params[0]))
+                        x=-params[0]
                         if x>=self.viewport_char_width:
-                            x-=self.viewport_char_width
+                            x=self.viewport_char_width-1
                     elif command=='E': # move cursor next line
                         self.info("Cursor Next Line:{0}".format(params[0]))
                         x=0
@@ -659,9 +659,9 @@ cdef class viewer:
                     elif command=='B': # move cursor down
                         name="Cursor Down"
                     elif command=='C': # move cursor back
-                        name="Cursor Left"
-                    elif command=='D': # move cursor right
                         name="Cursor Right"
+                    elif command=='D': # move cursor right
+                        name="Cursor Left"
                     elif command=='E': # move cursor next line
                         name="Cursor Next Line"
                     elif command=='F': # move cursor previous  line
