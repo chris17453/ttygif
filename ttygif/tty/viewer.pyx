@@ -219,9 +219,9 @@ cdef class viewer:
         cdef int transparent=font.transparent
         cdef int cx=int(character%font.chars_per_line)
         cdef int cy=int(character/font.chars_per_line)
-        #cdef int pre_x=fox+cx*fw
-        #cdef int pre_y=foy+cy*fh*fs
-        #cdef int pre=pre_x+pre_y
+        cdef int pre_x=fox+cx*fw
+        cdef int pre_y=foy+cy*fh*fs
+        cdef int pre=pre_x+pre_y
         cdef int screen_pos
         if y<0 or x<0:
          return
@@ -236,30 +236,28 @@ cdef class viewer:
         cdef int sy=fh+fsy
         cdef int sx=fw+fsx
        
-        #cdef int new_line_stride=self.viewport_px_width-(fw+fsx)
-        #cdef int new_char_line_stride=pre_x-(fw+fsx)
-        #screen_pos=sx+(sy-offset)*self.viewport_px_width
-        
-        #char_pos=pre
+        cdef int new_line_stride=self.viewport_px_width-(fw+fsx)
+        cdef int new_char_line_stride=pre_x-(fw+fsx)
+        screen_pos=sx+(sy-offset)*self.viewport_px_width
+        char_pos=pre
         
         while loop:
-            char_pos=fx+cx*fw+(fy+cy*fh)*fs
+            #char_pos=fx+cx*fw+(fy+cy*fh)*fs
             pixel=font.graphic[char_pos]
-            screen_pos=fx+x*sx +(fy+y*sy)*self.viewport_px_width
+            #screen_pos=fx+x*sx +(fy+y*sy)*self.viewport_px_width
             if pixel!=transparent:
                 self.video[screen_pos]=foreground_color
             else:
                 self.video[screen_pos]=background_color
         
-            #char_pos+=1
+            char_pos+=1
             fx+=1
-            #screen_pos+=1
+            screen_pos+=1
             if fx==sx:
                 fx=0
                 fy+=1
-                #char_pos+=new_char_line_stride
-                #screen_pos+=new_line_stride
-            #if char_pos==char_len:
+                char_pos+=new_char_line_stride
+                screen_pos+=new_line_stride
                 if fy==sy:
                     loop=None
 
