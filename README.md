@@ -97,7 +97,5 @@ some random pics from the asciinema.org website
 
 ### Notes
 
-asciicast creates an array of timestamped events. These events are snapshots.
-The actual text from each event may span events. Such as a color code being 
-split in half. Therefore any text thats left at the end of any event is pre 
-appended to the next. No text should ever ne left out at the final event.
+asciicast may split data between events, causing escape codes not to be recognised.
+ttygif moves all trailing unformed escape codes to the next event.

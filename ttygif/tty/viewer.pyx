@@ -62,10 +62,13 @@ cdef class viewer:
             self.viewport_char_width  = self.viewport_px_width/font.font_height
             self.viewport_px_width    = width
             self.viewport_px_height   = height
-
+        #fg,bg,char
+        self.viewport_char_stride     =self.viewport_px_width*3  
         self.clear_sequence()
         self.video                =[0]*self.viewport_px_width*self.viewport_px_height
-        self.buffer               =[[0,0],0]*self.viewport_char_width*self.viewport_char_height
+        self.buffer               =[0,0,0]*self.viewport_char_stride*self.viewport_char_height
+        self.buffer_length        =self.viewport_char_width*self.viewport_char_height
+
         self.sequence_pos         =0
         self.video_length         =len(self.video)
         self.background_color     =0
@@ -138,7 +141,7 @@ cdef class viewer:
    
     # only level 1 optomised for reduced calculations in inner loops
     # TODO: runtime calculation
-    cdef draw_character(self,character,x,y,offset,color):
+    cdef draw_character(self,character,x,y,offset,foreground_color,background_color):
         #print character
         if character>255:
             if character==8216:
@@ -212,9 +215,9 @@ cdef class viewer:
                 pos2=pos+fx
                 pixel=font.graphic[pos2]
                 if pixel!=transparent:
-                    self.video[screen_pos2]=color[0]
+                    self.video[screen_pos2]=foreground_color
                 else:
-                    self.video[screen_pos2]=color[1]
+                    self.video[screen_pos2]=background_color
             pre_y2+=fs
             
 
@@ -243,22 +246,28 @@ cdef class viewer:
         #    offset=0
 
         #print offset,buffer_height
-        buffer_len=len(self.buffer)
-        buffer_size_needed=self.viewport_char_width*self.viewport_char_height*2
-        #print("Buffer - Have:{0}, Need: {1}".format(buffer_len,buffer_size_needed))
-        if buffer_len<self.viewport_char_width*self.viewport_char_height*2:
-            err_msg="Buffer underflow: buffersize to small Have:{0}, Need: {1}".format(buffer_len,buffer_size_needed)
-            raise Exception(err_msg)
+        #buffer_len=len(self.buffer)
+        #buffer_size_needed=self.viewport_char_width*self.viewport_char_height*2
+        ##print("Buffer - Have:{0}, Need: {1}".format(buffer_len,buffer_size_needed))
+        #if buffer_len<self.viewport_char_width*self.viewport_char_height*2:
+        #    err_msg="Buffer underflow: buffersize to small Have:{0}, Need: {1}".format(buffer_len,buffer_size_needed)
+        #    raise Exception(err_msg)
         
-        index=0
-        for y in range(0,self.viewport_char_height):
-            for x in range(0,self.viewport_char_width):
-                #if y<offset:
-                #    continue
-                color=self.buffer[index]
-                character=self.buffer[index+1]
-                self.draw_character(character,x,y,0,color)
-                index+=2
+        loop=True
+        cdef int x=0
+        cdef int y=0
+        cdef int pos=0
+
+        while loop:
+            fg=self.buffer[pos]
+            bg=self.buffer[pos+1]
+            character=self.buffer[pos+2]
+            self.draw_character(character,x,y,0,fg,bg)
+            x+=1
+            if x>=self.viewport_char_width:
+                x=0
+                y+=1
+            pos+=3
   
     # convert the text stream to a text formated grid
     cdef debug(self): 
@@ -279,20 +288,19 @@ cdef class viewer:
         for i in range(0,index):
             buffer.pop(0)
             buffer.pop(0)
-        buffer+=[[0,0],0]*self.viewport_char_width
+        buffer+=[self.fg,self.bg,c]*self.viewport_char_stride
 
 
     cdef write_buffer(self,x,y,c,buffer,fg,bg,reverse):
-        cdef int pos=x*2+y*self.viewport_char_width*2
-        #if pos>= len(buffer):
-        #print (pos,x,y,len(buffer),self.viewport_char_width,self.viewport_char_height)
+        cdef int pos=x*3+y*self.viewport_char_stride
         if reverse:
-            buffer[pos]=[bg,fg]
+            buffer[pos]=bg
+            buffer[pos+1]=fg
+            buffer[pos+2]=c
         else:
-            buffer[pos]=[fg,bg]
-        buffer[pos+1]=c
-
-
+            buffer[pos]=fg
+            buffer[pos+1]=bg
+            buffer[pos+2]=c
 
 
     # commands pre parsed on add_event
@@ -477,7 +485,7 @@ cdef class viewer:
                             x=0
                             y=0
                             pos=0
-                            buffer=[[0,0],0]*self.viewport_char_width*self.viewport_char_height
+                            buffer=[0,0,0]*self.viewport_char_stride*self.viewport_char_height
                             buffer_len=len(buffer)
                             self.info("buffer_len: {0}".format(buffer_len))
                         if params[0]==2:
@@ -485,7 +493,7 @@ cdef class viewer:
                             x=0
                             y=0
                             pos=0
-                            buffer=[[0,0],0]*self.viewport_char_width*self.viewport_char_height
+                            buffer=[0,0,0]*self.viewport_char_stride*self.viewport_char_height
                             buffer_len=len(buffer)
                             self.info("buffer_len: {0}".format(buffer_len))
                         if params[0]==3:
@@ -493,7 +501,7 @@ cdef class viewer:
                             x=0
                             y=0
                             pos=0
-                            buffer=[[0,0],0]*self.viewport_char_width*self.viewport_char_height
+                            buffer=[0,0,0]*self.viewport_char_stride*self.viewport_char_height
                             buffer_len=len(buffer)
                             self.info("buffer_len: {0}".format(buffer_len))
 
