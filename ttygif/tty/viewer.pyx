@@ -198,6 +198,8 @@ cdef class viewer:
         
     cdef draw_character3(self,int character,int x,int y,int offset,int foreground_color,int background_color):
         
+        if y<0 or x<0:
+         return
         
         
         #print "FOUND"
@@ -215,11 +217,7 @@ cdef class viewer:
         cdef int pre_y=foy+cy*fh*fs
         cdef int pre=pre_x+pre_y
         cdef int screen_pos
-        if y<0 or x<0:
-         return
-
         cdef int char_pos=0
-        #cdef int char_len=pre+fh*fw
         cdef int fx=0
         cdef int fy=0
 
@@ -230,7 +228,7 @@ cdef class viewer:
        
         cdef int new_line_stride=self.viewport_px_width-(fw+fsx)
         cdef int new_char_line_stride=fs-(fw+fsx)
-        screen_pos=sx+(sy-offset)*self.viewport_px_width
+        screen_pos=sx*x+sy*y*self.viewport_px_width
         char_pos=pre
         
         while loop:
