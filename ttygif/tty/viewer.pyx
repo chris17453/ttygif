@@ -62,7 +62,7 @@ cdef class viewer:
         array.resize(buffer,self.viewport_px_width*self.viewport_px_height)
         return buffer
         
-    def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
+    def __init__(self,width=640,height=480,char_width=None,char_height=None,debug=None):
         self.debug_mode                =debug
         self.viewport_px_width    =width
         self.viewport_px_height   =height
@@ -89,7 +89,6 @@ cdef class viewer:
         self.background_color     =0
         self.foreground_color     =3
         self.window_style         ="BOTTOM"
-        self.stream               =stream
         self.extra_text           =""
 
         self.x=0

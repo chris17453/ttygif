@@ -65,7 +65,7 @@ class cast2gif:
         stream=cast.load(cast_file)
 
         g=encode_gif(loop_count,debug=debug)
-        v=viewer(char_width=stream['width'],char_height=stream['height'],stream="",debug=debug)
+        v=viewer(char_width=stream['width'],char_height=stream['height'],debug=debug)
         g.create(width=v.viewport_px_width,height=v.viewport_px_height,filename=gif_file,default_palette=True)
 
         percent=-1
