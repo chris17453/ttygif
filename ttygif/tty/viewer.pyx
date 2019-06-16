@@ -327,7 +327,7 @@ cdef class viewer:
                 pos=x+y*self.viewport_char_stride
                 fg=self.buffer[pos]
                 bg=self.buffer[pos+1]
-                character=self.remap_character(self.buffer[pos+2])
+                character=self.buffer[pos+2]
                 self.draw_character(character,x,y,0,fg,bg)
         # 
         #self.debug()        
@@ -790,7 +790,7 @@ cdef class viewer:
     cdef remap_character(self,character):
       #print character
         #print character
-        cdef int c=character
+        cdef int c=ord(character)
         if c>127:
          c=32
         if c>255:
@@ -828,10 +828,10 @@ cdef class viewer:
                 c=26
             else:
                 print ("Missing character: {0}".format(c))
-                return 32
+                return unichr(c)
         else:
-            return c
-        return c
+            return unichr(c)
+        return unichr(c)
 
     def add_text_sequence(self,text,timestamp):
         if len(text)==0:
@@ -843,7 +843,7 @@ cdef class viewer:
         #    r=chr(self.remap_character(c))
         #    remapped[i]=r
         #text="".join(remapped)
-        text=[unichr(self.remap_character(i)) for i in text]
+        text=[self.remap_character(i) for i in text]
         if self.debug_mode:
             self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp})
