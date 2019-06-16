@@ -771,11 +771,11 @@ cdef class viewer:
                         name="Erase Line"
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp)
         
-        if self.has_escape(text[cursor:]):
-            self.extra_text=text[cursor:]
-        else:
-            self.extra_text=""
-            self.add_text_sequence(text[cursor:],timestamp)
+        #if self.has_escape(text[cursor:]):
+        self.extra_text=text[cursor:]
+        #else:
+        #    self.extra_text=""
+            #self.add_text_sequence(text[cursor:],timestamp)
                         
 
     def has_escape(self,text):
