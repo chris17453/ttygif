@@ -344,7 +344,7 @@ cdef class viewer:
                 command=groups[5]
             elif esc_type=='G1':
                 command=groups[7]
-            elif esc_type='CSI':
+            elif esc_type=='CSI':
                 paramstring=groups[9]
                 command=groups[10]
                 if command in 'Hf':
