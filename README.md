@@ -43,9 +43,15 @@ Normal/colorized output work fine.
 
 ### Features still left to handle
 
+- documentation
+- time period ( capture partial recording based on time stamps x-y)
+- add progress bar to top/bottom of gif with n of y H:M:I:S
+- font generation app
+- font mapping for utf 8,16,13 characters to base 256 map
+- palette flags, monochrome,  grayscale, system, custom, count [n]<256
+- gif color consoladataion, for lower bit count (<8) compression 
 - piped stdout with auto cast generation/emulated timestamps
 - asciicast v1 support
-- documentation
 - gif error handeling
 - file io error handeling
 - cursor position saving
@@ -55,11 +61,6 @@ Normal/colorized output work fine.
 - cythonic definitions for speed improvment
 - image underlay (branding)
 - image overlay (branding)
-- palette flags, monochrome,  grayscale, system, custom, count [n]<256
-- font generation app
-- font mapping for utf 8,16,13 characters to base 256 map
-- add progress bar to top/bottom of gif with n of y H:M:I:S
-- gif color consoladataion, for lower bit count (<8) compression 
 
 ### Profile Times
 
