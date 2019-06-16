@@ -189,7 +189,7 @@ cdef class viewer:
                 character=26
             else:
                 print ("Missing character: {0}".format(character))
-                return
+                return 32
         return character
     # only level 1 optomised for reduced calculations in inner loops
     # TODO: runtime calculation
