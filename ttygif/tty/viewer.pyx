@@ -194,17 +194,9 @@ cdef class viewer:
                 else:
                     self.video[screen_pos2]=background_color
             pre_y2+=fs
-
+  
         
-        
-        
-        
-        
-        
-        
-        
-        
-    cdef draw_character3(self,character,x,y,offset,foreground_color,background_color):
+    cdef draw_character3(self,int character,int x,int y,int offset,int foreground_color,int background_color):
         
         
         
@@ -237,7 +229,7 @@ cdef class viewer:
         cdef int sx=fw+fsx
        
         cdef int new_line_stride=self.viewport_px_width-(fw+fsx)
-        cdef int new_char_line_stride=pre_x-(fw+fsx)
+        cdef int new_char_line_stride=fs-(fw+fsx)
         screen_pos=sx+(sy-offset)*self.viewport_px_width
         char_pos=pre
         
