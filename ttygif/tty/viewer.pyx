@@ -64,7 +64,7 @@ cdef class viewer:
             self.viewport_px_width    = width
             self.viewport_px_height   = height
         #fg,bg,char
-        self.viewport_char_stride     =self.viewport_px_width*3  
+        self.viewport_char_stride     =self.viewport_char_width*3  
         self.clear_sequence()
         self.video                =[0]*self.viewport_px_width*self.viewport_px_height
         self.buffer               =[0,0,0]*self.viewport_char_stride*self.viewport_char_height
@@ -276,16 +276,16 @@ cdef class viewer:
     # convert the text stream to a text formated grid
     cdef debug(self): 
         print("VIEWPORT:")
-        print("  px height:      {0}".format(self.viewport_px_height))
-        print("  px width:       {0}".format(self.viewport_px_width))
-        print("  char height:    {0}".format(self.viewport_char_height))
-        print("  char width:     {0}".format(self.viewport_char_width))
-        print("  char stride:    {0}".format(self.viewport_char_stride))
-        print("  char buffer size:    {0}".format(len(self.buffer)))
-        print("  video buffer size:    {0}".format(len(self.video)))
+        print("  px height:          {0}".format(self.viewport_px_height))
+        print("  px width:           {0}".format(self.viewport_px_width))
+        print("  video buffer size:  {0}".format(len(self.video)))
 
         print("Buffer:")
-        print("buffer char height: {0}".format(self.buffer_rows))
+        print("  char height:        {0}".format(self.viewport_char_height))
+        print("  char width:         {0}".format(self.viewport_char_width))
+        print("  char stride:        {0}".format(self.viewport_char_stride))
+        print("  char buffer size:   {0}".format(len(self.buffer)))
+        print("  buffer char height: {0}".format(self.buffer_rows))
 
     
         
