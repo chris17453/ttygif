@@ -258,7 +258,7 @@ cdef class viewer:
         cdef int x=0
         cdef int y=0
         cdef int pos=0
-        cdef int buffer_len=len(buffer)
+        cdef int buffer_len=len(self.buffer)
         while loop:
             fg=self.buffer[pos]
             bg=self.buffer[pos+1]
