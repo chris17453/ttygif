@@ -771,11 +771,11 @@ cdef class viewer:
                         name="Erase Line"
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp)
         
-        #if self.has_escape(text[cursor:]):
-        self.extra_text=text[cursor:]
-        #else:
-        #    self.extra_text=""
-            #self.add_text_sequence(text[cursor:],timestamp)
+        if self.has_escape(text[cursor:]):
+            self.extra_text=text[cursor:]
+        else:
+            self.extra_text=""
+            self.add_text_sequence(text[cursor:],timestamp)
                         
 
     def has_escape(self,text):
@@ -791,8 +791,6 @@ cdef class viewer:
       #print character
         #print character
         cdef int c=ord(character)
-        if c>127:
-         c=32
         if c>255:
             if c==8216:
                 c=39
@@ -828,7 +826,7 @@ cdef class viewer:
                 c=26
             else:
                 print ("Missing character: {0}".format(c))
-                return unichr(c)
+                return unichr(32)
         else:
             return unichr(c)
         return unichr(c)
@@ -881,13 +879,7 @@ cdef class viewer:
         event_type=event[1]
         event_io=event[2]
         if event_type=='o':
-            #print (self.ascii_safe(self.extra_text))
             self.stream_2_sequence(self.extra_text+event_io,timestamp)
-            #self.stream+=event_io
-
-        #udata=event_io.decode("utf-8")
-        #asciidata=udata.encode("ascii","ignore")
-        #self.stream+=asciidata
 
     cdef save_screen(self):
         # todo save as gif..
