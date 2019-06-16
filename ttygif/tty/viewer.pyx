@@ -383,7 +383,8 @@ cdef class viewer:
             raise Exception(err_msg)
         cdef int pos=x*3+y*self.viewport_char_stride
         try:
-
+            print x,y,pos,len(buffer),ex,c
+            
             if reverse:
                 buffer[pos]=bg
                 buffer[pos+1]=fg
@@ -831,8 +832,8 @@ cdef class viewer:
                 print ("Missing character: {0}".format(c))
                 return unichr(replacment_char)
         else:
-            return unichr(replacment_char)
-        return unichr(replacment_char)
+            return character
+        return unichr(c)
 
     def add_text_sequence(self,text,timestamp):
         if len(text)==0:
