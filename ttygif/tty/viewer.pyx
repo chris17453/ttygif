@@ -226,7 +226,7 @@ cdef class viewer:
     # todo save as gif..
     # pre test with canvas extension    
     def render(self):
-        self.stream_to_buffer()
+        self.sequence_to_buffer()
         #self.clear_screen(self.bg,255) x
         self.video=[self.background_color]*(self.viewport_px_width*self.viewport_px_height)
         self.video_length=len(self.video)
@@ -296,7 +296,7 @@ cdef class viewer:
 
 
     # commands pre parsed on add_event
-    cdef stream_to_buffer(self):
+    cdef sequence_to_buffer(self):
         
         cdef int pos=0
         cdef int cursor = 0
@@ -427,27 +427,27 @@ cdef class viewer:
                                 self.info("Set High INTENSITY BG:{0}".format(params))
                 else:
                     if command=='A': # move cursor up
-                        self.info("Cursor Up:{0}".format(params[0]))
+                        self.info("Cursor Up:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         y=-params[0]
                         if y<0:
                             y=0
                     elif command=='B': # move cursor down
-                        self.info("Cursor Down:{0}".format(params[0]))
+                        self.info("Cursor Down:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         y=+params[0]
                         #if y<0:
                         #    y=0
                     elif command=='C': # move cursor back
-                        self.info("Cursor Right:{0}".format(params[0]))
+                        self.info("Cursor Right:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=+params[0]
                         if x<0:
                             x==0
                     elif command=='D': # move cursor right
-                        self.info("Cursor Left:{0}".format(params[0]))
+                        self.info("Cursor Left:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=-params[0]
                         if x>=self.viewport_char_width:
                             x=self.viewport_char_width-1
                     elif command=='E': # move cursor next line
-                        self.info("Cursor Next Line:{0}".format(params[0]))
+                        self.info("Cursor Next Line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=0
                         y+=params[0]
                         if y>=self.viewport_char_height:
@@ -456,13 +456,13 @@ cdef class viewer:
                                 self.shift_buffer(buffer)
 
                     elif command=='F': # move cursor previous  line
-                        self.info("Cursor Previous Line:{0}".format(params[0]))
+                        self.info("Cursor Previous Line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=0
                         y-=params[0]
                         if y<0:
                             y=0
                     elif command=='G': # move cursor to HORIZONTAL pos X
-                        self.info("Cursor X:{0}".format(params[0]))
+                        self.info("Cursor X:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=params[0]
                     elif command=='H' or command==ord('f'): # move cursor to x,y pos
                         self.info("Cursor Pos:{0},{1}".format(params[1],params[0]))
@@ -526,32 +526,6 @@ cdef class viewer:
         self.bg=bg
         self.reverse_video=reverse_video
         self.bold=bold
-
-
-   
-
-    def get(self):
-        return {'width':self.viewport_px_width,'height':self.viewport_px_height,'data':self.video,'color_table':self.color_table}
-
-    def add_event(self,event):
-        timestamp=event[0]
-        event_type=event[1]
-        event_io=event[2]
-        if event_type=='o':
-            print (self.ascii_safe(self.extra_text))
-            self.stream_2_sequence(self.extra_text+event_io,timestamp)
-            #self.stream+=event_io
-
-        #udata=event_io.decode("utf-8")
-        #asciidata=udata.encode("ascii","ignore")
-        #self.stream+=asciidata
-
-    cdef save_screen(self):
-        # todo save as gif..
-        # pre test with canvas extension
-        x=1
-
-
 
     
     cdef stream_2_sequence(self,text,timestamp):
@@ -712,3 +686,25 @@ cdef class viewer:
                                                     item['params'],
                                                     item['name'],
                                                     item['timestamp']))
+   
+
+    def get(self):
+        return {'width':self.viewport_px_width,'height':self.viewport_px_height,'data':self.video,'color_table':self.color_table}
+
+    def add_event(self,event):
+        timestamp=event[0]
+        event_type=event[1]
+        event_io=event[2]
+        if event_type=='o':
+            print (self.ascii_safe(self.extra_text))
+            self.stream_2_sequence(self.extra_text+event_io,timestamp)
+            #self.stream+=event_io
+
+        #udata=event_io.decode("utf-8")
+        #asciidata=udata.encode("ascii","ignore")
+        #self.stream+=asciidata
+
+    cdef save_screen(self):
+        # todo save as gif..
+        # pre test with canvas extension
+        x=1
