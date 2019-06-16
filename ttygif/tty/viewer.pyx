@@ -151,11 +151,8 @@ cdef class viewer:
 
 
 
-   
-    # only level 1 optomised for reduced calculations in inner loops
-    # TODO: runtime calculation
-    cdef draw_character(self,character,x,y,offset,foreground_color,background_color):
-        #print character
+    cdef remap_characters(self,character):
+      #print character
         if character>255:
             if character==8216:
                 character=39
@@ -192,7 +189,10 @@ cdef class viewer:
             else:
                 print ("Missing character: {0}".format(character))
                 return
-
+        return character
+    # only level 1 optomised for reduced calculations in inner loops
+    # TODO: runtime calculation
+    cdef draw_character(self,character,x,y,offset,foreground_color,background_color):
         #print "FOUND"
         cdef int fs= font.width
         cdef int fw= font.font_width
@@ -277,7 +277,7 @@ cdef class viewer:
             while loop:
                 fg=self.buffer[pos]
                 bg=self.buffer[pos+1]
-                character=self.buffer[pos+2]
+                character=remap_characters(self.buffer[pos+2])
                 self.draw_character(character,x,y,0,fg,bg)
                 x+=1
                 if x>=self.viewport_char_width:
