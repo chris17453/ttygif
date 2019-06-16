@@ -154,7 +154,7 @@ cdef class viewer:
 
     cdef remap_character(self,character):
       #print character
-        cdef int c=character
+        cdef int c=ord(character)
         if c>255:
             if c==8216:
                 c=39
@@ -190,10 +190,10 @@ cdef class viewer:
                 c=26
             else:
                 print ("Missing character: {0}".format(c))
-                return 32
+                return ' '
         else:
             return character
-        return c
+        return chr(c)
     # only level 1 optomised for reduced calculations in inner loops
     # TODO: runtime calculation
     cdef draw_character(self,character,x,y,offset,foreground_color,background_color):
