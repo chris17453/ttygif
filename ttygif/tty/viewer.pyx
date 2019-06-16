@@ -682,15 +682,16 @@ cdef class viewer:
     def add_text_sequence(self,text,timestamp):
         if len(text)==0:
             return
-        self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(item['data']),len(item['data']),item['timestamp']))
+        self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp})
 
     def add_command_sequence(self,esc_type,command,params,groups,name,timestamp):
-        self.info("CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(item['esc_type'],
-                                                item['command'],
-                                                item['params'],
-                                                item['name'],
-                                                item['timestamp']))
+        self.info("CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(
+                                                esc_type,
+                                                command,
+                                                params,
+                                                name,
+                                                timestamp))
         self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name,'timestamp':timestamp})
 
     def debug_sequence(self):
