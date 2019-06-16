@@ -538,7 +538,7 @@ cdef class viewer:
         event_type=event[1]
         event_io=event[2]
         if event_type=='o':
-            print (self.ascii_save(self.extra_text))
+            print (self.ascii_safe(self.extra_text))
             self.stream_2_sequence(self.extra_text+event_io,timestamp)
             #self.stream+=event_io
 
