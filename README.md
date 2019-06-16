@@ -71,18 +71,19 @@ Normal/colorized output work fine.
 
 
 ### Examples
+some random pics from the asciinema.org website
 
-- [Terminal ray tracing](https://asciinema.org/a/174524)
-![asciicast-174524](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/174524.gif)
+## [Terminal ray tracing](https://asciinema.org/a/174524)
+- ![asciicast-174524](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/174524.gif)
 
-- [term-tris dt cannon](https://asciinema.org/a/232377)
-![asciicast-232377](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/232377-natural.gif)
+## [term-tris dt cannon](https://asciinema.org/a/232377)
+- ![asciicast-232377](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/232377-natural.gif)
 
-- [Denariusd compile on 30 cores!](https://asciinema.org/a/234628)
-![asciicast-234628](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/234628.gif)
+## [Denariusd compile on 30 cores!](https://asciinema.org/a/234628)
+- ![asciicast-234628](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/234628.gif)
 
-- [surpirsed Pikachu](https://asciinema.org/a/236096)
-![asciicast-236096](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/236096.gif)
+## [surpirsed Pikachu](https://asciinema.org/a/236096)
+- ![asciicast-236096](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/236096.gif)
 
-- [CACA_DRIVER=ncurses cacademo](https://asciinema.org/a/687)
+## [CACA_DRIVER=ncurses cacademo](https://asciinema.org/a/687)
 ![asciicast-687](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/687.gif)
