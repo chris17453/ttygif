@@ -319,7 +319,7 @@ cdef class viewer:
         for event in self.sequence[self.sequence_pos:]:
             new_sequence_pos+=1
             if event['type']=='text':
-                self.info(u"{0},{1}:{2}".format(fg,bg,event['data']))
+                self.info(u"X:{0:<2} {1:<2},FG:{2:<2},BG:{3},Text: {3}".format(x,y,fg,bg,event['data']))
                 for character in event['data']:
                     # new line or wrap
                     char_ord=ord(character)
