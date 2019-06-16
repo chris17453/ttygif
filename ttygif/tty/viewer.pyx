@@ -708,7 +708,12 @@ cdef class viewer:
     def add_text_sequence(self,text,timestamp):
         if len(text)==0:
             return
-        text=u''.join([self.remap_character(i) for i in text])
+        
+        remapped=[' ']*len(text)
+        for i in range(0,len(text)):
+            remapped[i]=self.remap_character(i)
+        text="".join(remapped)
+        
         self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp})
 
