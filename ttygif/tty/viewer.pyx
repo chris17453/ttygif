@@ -319,14 +319,19 @@ cdef class viewer:
 
     cdef write_buffer(self,x,y,c,buffer,fg,bg,reverse):
         cdef int pos=x*3+y*self.viewport_char_stride
-        if reverse:
-            buffer[pos]=bg
-            buffer[pos+1]=fg
-            buffer[pos+2]=c
-        else:
-            buffer[pos]=fg
-            buffer[pos+1]=bg
-            buffer[pos+2]=c
+        try:
+
+            if reverse:
+                buffer[pos]=bg
+                buffer[pos+1]=fg
+                buffer[pos+2]=c
+            else:
+                buffer[pos]=fg
+                buffer[pos+1]=bg
+                buffer[pos+2]=c
+        except Exception as ex:
+            print x,y,pos,len(buffer)
+            sys.exit(0)
 
 
     # commands pre parsed on add_event
