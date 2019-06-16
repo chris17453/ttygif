@@ -715,7 +715,7 @@ cdef class viewer:
             c=text[i]
             r=self.remap_character(c)
             remapped[i]=r
-        text="".join(remapped)
+        text=u"".join(remapped)
         
         self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp})
