@@ -52,12 +52,12 @@ cdef class viewer:
     
     cdef new_char_buffer(self):
         cdef array.array buffer=array.array('B')
-        buffer.extend(self.viewport_char_stride*self.viewport_char_height)
+        array.extend(buffer,self.viewport_char_stride*self.viewport_char_height)
         return buffer
 
     cdef new_video_buffer(self):
         cdef array.array buffer=array.array('B')
-        buffer.extend(self.viewport_char_stride*self.viewport_char_height)
+        array.extend(buffer,self.viewport_char_stride*self.viewport_char_height)
         return buffer
         
     def __init__(self,width=640,height=480,char_width=None,char_height=None,stream='',debug=None):
