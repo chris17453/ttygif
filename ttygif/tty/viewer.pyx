@@ -191,10 +191,10 @@ cdef class viewer:
                 c=26
             else:
                 print ("Missing character: {0}".format(c))
-                return ' '
+                return 32
         else:
-            return character
-        return chr(c)
+            return c
+        return c
     # only level 1 optomised for reduced calculations in inner loops
     # TODO: runtime calculation
     cdef draw_character(self,character,x,y,offset,foreground_color,background_color):
