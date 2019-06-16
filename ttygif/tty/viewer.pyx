@@ -277,7 +277,7 @@ cdef class viewer:
             while loop:
                 fg=self.buffer[pos]
                 bg=self.buffer[pos+1]
-                character=remap_characters(self.buffer[pos+2])
+                character=self.remap_characters(self.buffer[pos+2])
                 self.draw_character(character,x,y,0,fg,bg)
                 x+=1
                 if x>=self.viewport_char_width:
