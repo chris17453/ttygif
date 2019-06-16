@@ -292,7 +292,7 @@ cdef class viewer:
 
         cursor=0
         for event in self.sequence:
-            if event['type']=='text'
+            if event['type']=='text':
                 self.info(u"{0},{1}:{2}".format(fg,bg,event['data'])
                 for character in event['data']:
                     # new line or wrap
