@@ -258,7 +258,7 @@ cdef class viewer:
         cdef int x=0
         cdef int y=0
         cdef int pos=0
-
+        cdef int buffer_len=len(buffer)
         while loop:
             fg=self.buffer[pos]
             bg=self.buffer[pos+1]
@@ -269,6 +269,8 @@ cdef class viewer:
                 x=0
                 y+=1
             pos+=3
+            if pos>=buffer_len:
+                loop=None
   
     # convert the text stream to a text formated grid
     cdef debug(self): 
