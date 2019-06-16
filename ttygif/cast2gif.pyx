@@ -146,7 +146,7 @@ class cast2gif:
 
 
             v.add_event(event)
-        sys.stdout.write("\x001b\033[2k".format(index,strlen,percent))
+        sys.stdout.write("\033[2J".format(index,strlen,percent))
         sys.stdout.flush()
 
         # need to close the gif
