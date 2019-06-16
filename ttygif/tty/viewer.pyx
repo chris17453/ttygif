@@ -233,9 +233,9 @@ cdef class viewer:
                 pos2=pos+fx
                 pixel=font.graphic[pos2]
                 if pixel!=transparent:
-                    self.video[screen_pos2]=color[0]
+                    self.video[screen_pos2]=foreground_color
                 else:
-                    self.video[screen_pos2]=color[1]
+                    self.video[screen_pos2]=background_color
             pre_y2+=fs
 
         
