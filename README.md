@@ -71,6 +71,9 @@ Normal/colorized output work fine.
 - 14% compressing image frames
 - 07% other
 
+### Term Font 
+
+![DOS VGA FONT](https://raw.githubusercontent.com/chris17453/ttygif/master/data/VGA_8x19font.gif)
 
 ### Examples
 some random pics from the asciinema.org website
