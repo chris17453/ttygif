@@ -590,7 +590,7 @@ cdef class viewer:
                             buffer=self.new_char_buffer()
 
                     elif command=='K': # erase line
-                       if self.debug:
+                        if self.debug:
                             self.info("Erase Line: {0}".format(params[0]))
                         if params[0]==0:
                             for x2 in range(x,self.viewport_char_width):
