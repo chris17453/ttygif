@@ -260,18 +260,21 @@ cdef class viewer:
         cdef int pos=0
         cdef int buffer_len=len(self.buffer)
         self.debug()        
-        while loop:
-            fg=self.buffer[pos]
-            bg=self.buffer[pos+1]
-            character=self.buffer[pos+2]
-            self.draw_character(character,x,y,0,fg,bg)
-            x+=1
-            if x>=self.viewport_char_width:
-                x=0
-                y+=1
-            pos+=3
-            if pos>=buffer_len:
-                loop=None
+        try:
+            while loop:
+                fg=self.buffer[pos]
+                bg=self.buffer[pos+1]
+                character=self.buffer[pos+2]
+                self.draw_character(character,x,y,0,fg,bg)
+                x+=1
+                if x>=self.viewport_char_width:
+                    x=0
+                    y+=1
+                pos+=3
+                if pos>=buffer_len:
+                    loop=None
+        except Exception ex:
+            print ex,pos,pos+2,buffer_len
   
     # convert the text stream to a text formated grid
     cdef debug(self): 
