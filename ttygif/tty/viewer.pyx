@@ -263,25 +263,6 @@ cdef class viewer:
                 if fy==sy:
                     loop=None
 
-
-        #for fy in range(0,fh): 
-        #    sy=fy+(y*(fh+fsy))
-        #    sx=(x*(fw+fsx))
-        #    screen_pos=sx+(sy-offset)*self.viewport_px_width
-        #    if screen_pos>=self.video_length:
-        #        continue
-        #    pos=pre+pre_y2
-        #    for fx in range(0,fw):
-        #        screen_pos2=screen_pos+fx
-        #        if screen_pos2<0 or screen_pos2>=self.video_length:
-        #            continue
-        #        pos2=pos+fx
-        #        pixel=font.graphic[pos2]
-        #        if pixel!=transparent:
-        #            self.video[screen_pos2]=foreground_color
-        #        else:
-        #            self.video[screen_pos2]=background_color
-        #    pre_y2+=fs
             
 
     cdef get_buffer_height(self):
@@ -293,33 +274,9 @@ cdef class viewer:
     # pre test with canvas extension    
     def render(self):
         self.sequence_to_buffer()
-        #self.clear_screen(self.bg,255) x
-
         memset(self.video.data.as_voidptr, self.background_color, self.video_length * sizeof(char))
-        #byteelf.video.[self.background_color]*(self.viewport_px_width*self.viewport_px_height)
-
-        
-        #buffer_height=self.get_buffer_height()
-        #if self.window=="BOTTOM":
-        #   if  self.buffer_rows<=self.viewport_char_height:
-        #       offset=0
-        #   else:
-        #       offset=buffer_height-self.viewport_px_height
-
-        #if self.window=="TOP":
-        #    offset=0
-
-        #print offset,buffer_height
-        #buffer_len=len(self.buffer)
-        #buffer_size_needed=self.viewport_char_width*self.viewport_char_height*2
-        ##print("Buffer - Have:{0}, Need: {1}".format(buffer_len,buffer_size_needed))
-        #if buffer_len<self.viewport_char_width*self.viewport_char_height*2:
-        #    err_msg="Buffer underflow: buffersize to small Have:{0}, Need: {1}".format(buffer_len,buffer_size_needed)
-        #    raise Exception(err_msg)
         
         loop=True
-        #cdef int x=0
-        #cdef int y=0
         cdef int pos=0
         cdef int buffer_len=len(self.buffer)
         cdef int fg=0
@@ -327,22 +284,12 @@ cdef class viewer:
         cdef int x=0
         cdef int y=0
         cdef int character=0
-        #self.debug()
-        #for y in range(0,self.viewport_char_height):
-        #    for x in range(0,self.viewport_char_width):
-        #        pos=x*3+y*self.viewport_char_stride
-        #        fg=self.buffer[pos]
-        #        bg=self.buffer[pos+1]
-        #        character=self.buffer[pos+2]
-        #        self.draw_character(character,x,y,0,fg,bg)
-        # 
-        #self.debug()        
-        #try:
+
         while loop:
             fg=self.buffer[pos]
             bg=self.buffer[pos+1]
             character=self.buffer[pos+2]
-            self.draw_character(character,x,y,0,fg,bg)
+            self.draw_character3(character,x,y,0,fg,bg)
             x+=1
             if x>=self.viewport_char_width:
                 x=0
@@ -350,8 +297,6 @@ cdef class viewer:
             pos+=3
             if pos>=buffer_len:
                 loop=None
-        #except Exception as ex:
-        #    print x,y,ex,pos,pos+2,buffer_len
   
     # convert the text stream to a text formated grid
     cdef debug(self): 
