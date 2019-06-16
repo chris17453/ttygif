@@ -233,6 +233,7 @@ cdef class viewer:
         
         while loop:
             pixel=font.graphic[char_pos]
+            screen_pos=fx+x +(fy+y)*self.viewport_px_width
             if pixel!=transparent:
                 self.video[screen_pos]=foreground_color
             else:
@@ -243,6 +244,7 @@ cdef class viewer:
             screen_pos+=1
             if fx==fw:
                 fx=0
+                fy+=1
                 char_pos+=new_char_line_stride
                 screen_pos+=new_line_stride
             if char_pos==char_len:
