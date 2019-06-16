@@ -331,7 +331,7 @@ cdef class viewer:
                 buffer[pos+2]=c
         except Exception as ex:
             print x,y,pos,len(buffer)
-            sys.exit(0)
+            raise Exception (":NO!")
 
 
     # commands pre parsed on add_event
