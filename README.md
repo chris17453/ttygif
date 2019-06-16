@@ -62,14 +62,15 @@ Normal/colorized output work fine.
 ### Profile Times
 
 - minimal speed gains have been put into place about 40% original speed increase
-- I percieve an additional 20-30% boost once I update to cythonic variables
+- an additional 20-30% boost once I update to cythonic variables
 - 38% drawing characters
 - 23% converting stream text to bufer
 - 18% frame bounding for giff diff's
 - 14% compressing image frames
 - 07% other
 
-### Examples, including failures
+
+### Examples
 
 - [Terminal ray tracing]: https://asciinema.org/a/174524
 ![asciicast-174524](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/174524.gif)
