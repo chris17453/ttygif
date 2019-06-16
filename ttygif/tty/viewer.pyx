@@ -318,8 +318,8 @@ cdef class viewer:
         #    raise Exception(err_msg)
         
         loop=True
-        cdef int x=0
-        cdef int y=0
+        #cdef int x=0
+        #cdef int y=0
         cdef int pos=0
         cdef int buffer_len=len(self.buffer)
         for y in range(0,self.viewport_char_height):
@@ -833,13 +833,13 @@ cdef class viewer:
     def add_text_sequence(self,text,timestamp):
         if len(text)==0:
             return
-        print "1",text
-        remapped=[u' ']*len(text)
-        for i in range(0,len(text)):
-            c=text[i]
-            r=chr(self.remap_character(c))
-            remapped[i]=r
-        text="".join(remapped)
+        #print "1",text
+        #remapped=[u' ']*len(text)
+        #for i in range(0,len(text)):
+        #    c=text[i]
+        #    r=chr(self.remap_character(c))
+        #    remapped[i]=r
+        #text="".join(remapped)
         #unichr(self.remap_character(i)) for i in text)
         print text
         if self.debug_mode:
