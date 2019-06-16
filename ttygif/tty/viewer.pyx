@@ -324,6 +324,8 @@ cdef class viewer:
         cdef int buffer_len=len(self.buffer)
         cdef int fg=0
         cdef int bg=0
+        cdef int x=0
+        cdef int y=0
         cdef int character=0
         #self.debug()
         #for y in range(0,self.viewport_char_height):
