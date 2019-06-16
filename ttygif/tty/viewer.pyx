@@ -327,7 +327,7 @@ cdef class viewer:
                 pos=x+y*self.viewport_char_stride
                 fg=self.buffer[pos]
                 bg=self.buffer[pos+1]
-                character=self.buffer[pos+2]
+                character=self.remap_character(self.buffer[pos+2])
                 self.draw_character(character,x,y,0,fg,bg)
         # 
         #self.debug()        
