@@ -259,6 +259,7 @@ cdef class viewer:
         cdef int y=0
         cdef int pos=0
         cdef int buffer_len=len(self.buffer)
+        self.debug()        
         while loop:
             fg=self.buffer[pos]
             bg=self.buffer[pos+1]
@@ -279,7 +280,9 @@ cdef class viewer:
         print("  px width:       {0}".format(self.viewport_px_width))
         print("  char height:    {0}".format(self.viewport_char_height))
         print("  char width:     {0}".format(self.viewport_char_width))
-        print("  buffer size:    {0}".format(self.viewport_char_width*self.viewport_char_height*2))
+        print("  char stride:    {0}".format(self.viewport_char_stride))
+        print("  char buffer size:    {0}".format(len(self.buffer)))
+        print("  video buffer size:    {0}".format(len(self.video)))
 
         print("Buffer:")
         print("buffer char height: {0}".format(self.buffer_rows))
