@@ -154,43 +154,46 @@ cdef class viewer:
 
     cdef remap_character(self,character):
       #print character
-        if character>255:
-            if character==8216:
-                character=39
-            elif character==8217:
-                character=39
-            elif character==9472:
-                character=196
-            elif character==9474:
-                character=179
-            elif character==9484:
-                character=218
-            elif character==9488:
-                character=191
-            elif character==9492:
-                character=192
-            elif character==9496:
-                character=217
-            elif character==9600:
-                character=223
-            elif character==9604:
-                character=220
-            elif character==9608:
-                character=219
-            elif character==9612:
-                character=221
-            elif character==9616:
-                character=222
-            elif character==9617:
-                character=176
-            elif character==9618:
-                character=177
-            elif character==10140:
-                character=26
+        cdef int c=ord(character)
+        if c>255:
+            if c==8216:
+                c=39
+            elif c==8217:
+                c=39
+            elif c==9472:
+                c=196
+            elif c==9474:
+                c=179
+            elif c==9484:
+                c=218
+            elif c==9488:
+                c=191
+            elif c==9492:
+                c=192
+            elif c==9496:
+                c=217
+            elif c==9600:
+                c=223
+            elif c==9604:
+                c=220
+            elif c==9608:
+                c=219
+            elif c==9612:
+                c=221
+            elif c==9616:
+                c=222
+            elif c==9617:
+                c=176
+            elif c==9618:
+                c=177
+            elif c==10140:
+                c=26
             else:
-                print ("Missing character: {0}".format(character))
-                return 32
-        return character
+                print ("Missing character: {0}".format(c))
+                return ' '
+        else:
+            return character
+        return chr(c)
     # only level 1 optomised for reduced calculations in inner loops
     # TODO: runtime calculation
     cdef draw_character(self,character,x,y,offset,foreground_color,background_color):
