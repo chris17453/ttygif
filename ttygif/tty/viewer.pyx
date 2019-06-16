@@ -500,7 +500,7 @@ cdef class viewer:
                             for x2 in range(0,self.viewport_char_width):
                                 self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
                     else:
-                        self.info("Impliment: Start: {5} pos x:{3},Y:{4} - {0}-{1}-{2}".format(command,params,paramstring,x,y,start))
+                        self.info("Impliment: pos x:{3},Y:{4} - {0}-{1}-{2}".format(command,params,paramstring,x,y))
             
         
         
