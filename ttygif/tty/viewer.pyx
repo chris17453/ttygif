@@ -383,7 +383,7 @@ cdef class viewer:
             raise Exception(err_msg)
         cdef int pos=x*3+y*self.viewport_char_stride
         try:
-            print x,y,pos,len(buffer),ex,c
+            #print x,y,pos,len(buffer),c
             
             if reverse:
                 buffer[pos]=bg
