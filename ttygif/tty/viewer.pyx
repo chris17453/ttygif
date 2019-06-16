@@ -217,7 +217,7 @@ cdef class viewer:
          return
 
         cdef int char_pos=0
-        cdef int char_len=fh*fw
+        cdef int char_len=pre+fh*fw
         cdef int fx=0
         cdef int fy=0
 
