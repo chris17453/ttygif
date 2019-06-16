@@ -29,7 +29,7 @@ def cli_main():
     
     
     #debug = parser.add_argument_group('Debug')
-    debug.add_argument('-v', '--debug',         help='show debuging statistics', action='store_true')
+    debug.add_argument('-v', '--debug',         help='show debuging statistics', action='store_true',default=None)
     #debug.add_argument('-c', '--show-commands', help='dump interpreted cast data ', action='store_true')
     
     # dev options
