@@ -53,6 +53,7 @@ cdef class viewer:
     cdef new_char_buffer(self):
         cdef array.array buffer=array.array('B')
         array.resize(buffer,self.viewport_char_stride*self.viewport_char_height)
+        
         return buffer
 
     cdef new_video_buffer(self):
@@ -151,7 +152,7 @@ cdef class viewer:
 
 
 
-    cdef remap_characters(self,character):
+    cdef remap_character(self,character):
       #print character
         if character>255:
             if character==8216:
@@ -277,7 +278,7 @@ cdef class viewer:
             while loop:
                 fg=self.buffer[pos]
                 bg=self.buffer[pos+1]
-                character=self.remap_characters(self.buffer[pos+2])
+                characterself.buffer[pos+2]
                 self.draw_character(character,x,y,0,fg,bg)
                 x+=1
                 if x>=self.viewport_char_width:
@@ -704,6 +705,7 @@ cdef class viewer:
     def add_text_sequence(self,text,timestamp):
         if len(text)==0:
             return
+        text=[self.remap_character(i) for i in text]
         self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp})
 
