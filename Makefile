@@ -57,30 +57,12 @@ install:
 uninstall:
 	pip uninstall ttygif
 
- 
-test-cast-2-canvas:
-#Pikachu
-#	@python -m ttygif.cli -t -i data/236096.cast -o examples/encode/test_cast.html
-#Nyan
-#	@python -m ttygif.cli -t -i data/3.cast -o examples/encode/test_cast.html
-#Compile
-	@python -m ttygif.cli -t -i data/234628.cast -o examples/encode/test_cast.html
-	
-test-cast-2-gif:
-	#@python -m ttygif.cli -t -i data/234628.cast -o examples/encode/234628.gif
-	#@python -m ttygif.cli -t -i data/236096.cast -o examples/encode/236096.gif
-	# tetris with screen to large
-	#@python -m ttygif.cli -t -i data/232377.cast -o examples/encode/232377.gif
-	
-	@python -m ttygif.cli -t -i data/174524.cast -o examples/encode/174524.gif
-	#@python -m ttygif.cli -v -w -i examples/encode/234628.gif -o examples/encode/234628.html
-
 examples:
 	# tetris
 	@python -m ttygif.cli --input data/232377.cast --output examples/encode/232377.gif --fps 12
     # 
 	@python -m ttygif.cli --input data/174524.cast --output examples/encode/174524.gif --fps 12
-	# 
+	# Pikachu
 	@python -m ttygif.cli --input data/236096.cast --output examples/encode/236096.gif --fps 12
 	# compile very long
 	@python -m ttygif.cli --input data/234628.cast --output examples/encode/234628.gif --fps 12

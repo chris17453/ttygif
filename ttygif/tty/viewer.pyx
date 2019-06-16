@@ -38,6 +38,7 @@ cdef class viewer:
     cdef public object      bg
     cdef public object      reverse_video
     cdef public object      bold
+    cdef public object      extra_text
     
     cdef ascii_safe(self,text):
         return ''.join([i if ord(i) < 128 else '*' for i in text])
@@ -71,6 +72,7 @@ cdef class viewer:
         self.foreground_color     =3
         self.window_style         ="BOTTOM"
         self.stream               =stream
+        self.extra_text           =""
 
         self.x=0
         self.y=0
@@ -534,7 +536,7 @@ cdef class viewer:
         event_type=event[1]
         event_io=event[2]
         if event_type=='o':
-            self.stream_2_sequence(event_io,timestamp)
+            self.stream_2_sequence(self.extra_text+event_io,timestamp)
             self.stream+=event_io
 
         #udata=event_io.decode("utf-8")
@@ -674,7 +676,7 @@ cdef class viewer:
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp)
         
         
-        self.add_text_sequence(text[cursor:],timestamp)
+        self.extra_text=text[cursor:]
 
     def clear_sequence(self):
         self.sequence=[]
