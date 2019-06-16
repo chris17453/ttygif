@@ -234,7 +234,7 @@ cdef class viewer:
         while loop:
             char_pos=fx+fh*fs
             pixel=font.graphic[char_pos]
-            screen_pos=fx+x +(fy+y)*self.viewport_px_width
+            screen_pos=fx+x*fx +(fy+y*fh)*self.viewport_px_width
             if pixel!=transparent:
                 self.video[screen_pos]=foreground_color
             else:
