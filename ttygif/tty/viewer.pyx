@@ -843,7 +843,7 @@ cdef class viewer:
         #    r=chr(self.remap_character(c))
         #    remapped[i]=r
         #text="".join(remapped)
-        unichr(self.remap_character(i)) for i in text)
+        text=[unichr(self.remap_character(i)) for i in text]
         if self.debug_mode:
             self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp})
