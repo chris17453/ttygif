@@ -238,7 +238,7 @@ cdef class viewer:
         self.sequence_to_buffer()
         #self.clear_screen(self.bg,255) x
 
-        memset(self.video.data.as_voidptr, self.background_color, len(a) * sizeof(char))        
+        memset(self.video.data.as_voidptr, self.background_color, self.video_length * sizeof(char))        
         #byteelf.video.[self.background_color]*(self.viewport_px_width*self.viewport_px_height)
 
         
