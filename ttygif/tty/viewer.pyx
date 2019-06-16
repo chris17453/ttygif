@@ -29,6 +29,15 @@ cdef class viewer:
     cdef        object      debug_mode
     cdef public object      sequence
     cdef public object      sequence_pos
+
+    cdef public object      x
+    cdef public object      y
+    cdef public object      def_fg
+    cdef public object      def_bg
+    cdef public object      fg
+    cdef public object      bg
+    cdef public object      reverse_video
+    cdef public object      bold
     
     cdef ascii_safe(self,text):
         return ''.join([i if ord(i) < 128 else '*' for i in text])
@@ -62,6 +71,17 @@ cdef class viewer:
         self.foreground_color     =3
         self.window_style         ="BOTTOM"
         self.stream               =stream
+
+        self.x=0
+        self.y=0
+        self.def_fg=15
+        self.def_bg=0
+        self.fg=self.def_fg
+        self.bg=self.def_bg
+        self.reverse_video=None
+        self.bold=None
+
+
         self.color_table=[  # 16 System Colors
                             [0,0,0],[128,0,0],[0,128,0],[128,128,0],
                             [0,0,128],[128,0,128],[0,128,128],[192,192,192],
@@ -284,15 +304,14 @@ cdef class viewer:
         overflow=None
 
         
-        buffer_len=0
-        x=0
-        y=0
-        def_fg=15
-        def_bg=0
-        fg=def_fg
-        bg=def_bg
-        reverse_video=None
-
+        x=self.x
+        y=self.y
+        def_fg=self.def_fg
+        def_bg=self.def_bg
+        fg=self.fg
+        bg=self.bg
+        reverse_video=self.reverse_video
+        bold=self.bold
 
         cursor=0
         new_sequence_pos=self.sequence_pos
@@ -514,6 +533,16 @@ cdef class viewer:
         self.buffer_rows=self.viewport_char_height
         self.buffer=buffer
         self.sequence_pos=new_sequence_pos
+
+        self.x=x
+        self.y=y
+        self.def_fg=def_fg
+        self.def_bg=def_bg
+        self.fg=fg
+        self.bg=bg
+        self.reverse_video=reverse_video
+        self.bold=bold
+
 
    
 
