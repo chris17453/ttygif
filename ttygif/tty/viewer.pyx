@@ -428,22 +428,22 @@ cdef class viewer:
                 else:
                     if command=='A': # move cursor up
                         self.info("Cursor Up:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
-                        y=-params[0]
+                        y-=params[0]
                         if y<0:
                             y=0
                     elif command=='B': # move cursor down
                         self.info("Cursor Down:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
-                        y=+params[0]
+                        y+=params[0]
                         #if y<0:
                         #    y=0
                     elif command=='C': # move cursor back
                         self.info("Cursor Right:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
-                        x=+params[0]
+                        x+=params[0]
                         if x<0:
                             x==0
                     elif command=='D': # move cursor right
                         self.info("Cursor Left:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
-                        x=-params[0]
+                        x-=params[0]
                         if x>=self.viewport_char_width:
                             x=self.viewport_char_width-1
                     elif command=='E': # move cursor next line
