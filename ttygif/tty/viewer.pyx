@@ -328,28 +328,28 @@ cdef class viewer:
         cdef int y=0
         cdef int character=0
         #self.debug()
-        for y in range(0,self.viewport_char_height):
-            for x in range(0,self.viewport_char_width):
-                pos=x*3+y*self.viewport_char_stride
-                fg=self.buffer[pos]
-                bg=self.buffer[pos+1]
-                character=self.buffer[pos+2]
-                self.draw_character(character,x,y,0,fg,bg)
-         
-        #self.debug()        
-        #try:
-        #    while loop:
+        #for y in range(0,self.viewport_char_height):
+        #    for x in range(0,self.viewport_char_width):
+        #        pos=x*3+y*self.viewport_char_stride
         #        fg=self.buffer[pos]
         #        bg=self.buffer[pos+1]
         #        character=self.buffer[pos+2]
         #        self.draw_character(character,x,y,0,fg,bg)
-        #        x+=1
-        #        if x>=self.viewport_char_width:
-        #            x=0
-        #            y+=1
-        #        pos+=3
-        #        if pos>=buffer_len:
-        #            loop=None
+        # 
+        #self.debug()        
+        #try:
+        while loop:
+            fg=self.buffer[pos]
+            bg=self.buffer[pos+1]
+            character=self.buffer[pos+2]
+            self.draw_character(character,x,y,0,fg,bg)
+            x+=1
+            if x>=self.viewport_char_width:
+                x=0
+                y+=1
+            pos+=3
+            if pos>=buffer_len:
+                loop=None
         #except Exception as ex:
         #    print x,y,ex,pos,pos+2,buffer_len
   
