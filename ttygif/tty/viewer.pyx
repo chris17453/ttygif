@@ -269,7 +269,6 @@ cdef class viewer:
 
         print("Buffer:")
         print("buffer char height: {0}".format(self.buffer_rows))
-        print("buffer_len:     {0}".format(len(self.buffer)))
 
     
         
@@ -353,10 +352,10 @@ cdef class viewer:
 
 
             #print cursor,start, end
-            command=None
-            params=None
-            esc_type=event['esc_type']
-            groups=event['groups']
+            params   =event['params']
+            command  =event['command']
+            esc_type =event['esc_type']
+            groups   =event['groups']
 
             if esc_type=='OSC':
                 self.info("OSC")
@@ -370,25 +369,6 @@ cdef class viewer:
             elif esc_type=='G1':
                 command=groups[7]
             elif esc_type=='CSI':
-                paramstring=groups[9]
-                command=groups[10]
-                if command in 'Hf':
-                    params = tuple(int(p) if len(p) != 0 else 1 for p in paramstring.split(';'))
-                    while len(params) < 2:
-                        params = params + (1,)
-                #        DEC Private Mode (DECSET/DECRST) sequences
-                elif paramstring and len(paramstring)>0 and paramstring[0]=='?':
-                    params=['?',paramstring[1:-1],paramstring[-1]]
-                else:
-                    
-                    params = tuple(int(p) for p in paramstring.split(';') if len(p) != 0)
-                    if len(params) == 0:
-                        if command in 'JKm':
-                            params = (0,)
-                        elif command in 'ABCD':
-                            params = (1,)
-                command=ord(command)
-                
                 if command==109:
                     if 38 in params:
                         if params[1]==2:
@@ -584,15 +564,16 @@ cdef class viewer:
         replacment_text+=text[cursor:]
         text=replacment_text
         
-        
-        ANSI_SINGLE='[\001b|\033]([cDEHMZ78>=])'
+        # patterns for filtering out commands from the stream
+        ANSI_SINGLE   ='[\001b|\033]([cDEHMZ78>=])'
         ANSI_CHAR_SET = '[\001b|\033]\\%([@G*])'
-        ANSI_G0 = '[\001b|\033]\\(([B0UK])'
-        ANSI_G1 = '[\001b|\033]\\)([B0UK])'
-        ANSI_CSI_RE = '[\001b|\033]\\[((?:\\d|;|<|>|=|\?)*)([a-zA-Z])\002?'
+        ANSI_G0       = '[\001b|\033]\\(([B0UK])'
+        ANSI_G1       = '[\001b|\033]\\)([B0UK])'
+        ANSI_CSI_RE   = '[\001b|\033]\\[((?:\\d|;|<|>|=|\?)*)([a-zA-Z])\002?'
         
-        ANSI_REGEX=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE]
-        ANSI_REGEX="("+")|(".join(ANSI_REGEX)+")"
+        ESC_SEQUENCES=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE]
+        
+        ANSI_REGEX="("+")|(".join(ESC_SEQUENCES)+")"
         
         
         ANSI=re.compile(ANSI_REGEX)
@@ -666,8 +647,8 @@ cdef class viewer:
                                 name="Set High INTENSITY FG"
                             elif cmd>=100 and cmd<=107:
                                 name="Set High INTENSITY BG"
-                            self.add_command_sequence(esc_type,command,cmd,groups,name,timestamp)
-                        continue
+                            #self.add_command_sequence(esc_type,command,cmd,groups,name,timestamp)
+                        #continue
 
                 else:
                     if command=='A': # move cursor up

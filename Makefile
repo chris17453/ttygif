@@ -77,11 +77,11 @@ test-cast-2-gif:
 
 examples:
 	# tetris
-	@python -m ttygif.cli -i data/232377.cast -o examples/encode/232377.gif
+	@python -m ttygif.cli --input data/232377.cast --output examples/encode/232377.gif
     # 
-	@python -m ttygif.cli -i data/174524.cast -o examples/encode/174524.gif
+	@python -m ttygif.cli --input data/174524.cast --output examples/encode/174524.gif
 	# 
-	@python -m ttygif.cli -i data/236096.cast -o examples/encode/236096.gif
+	@python -m ttygif.cli --input data/236096.cast --output examples/encode/236096.gif
 	# compile very long
-	@python -m ttygif.cli -i data/234628.cast -o examples/encode/234628.gif
-	@python -m ttygif.cli -i data/687.cast -o examples/encode/687.gif
+	@python -m ttygif.cli --input data/234628.cast --output examples/encode/234628.gif
+	@python -m ttygif.cli --input data/687.cast --output examples/encode/687.gif
