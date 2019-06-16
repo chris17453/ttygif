@@ -366,6 +366,7 @@ cdef class viewer:
     
         
     cdef shift_buffer(self,buffer):
+        cdef int buffer_length=len(buffer)
         cdef int index=self.viewport_char_width
         for i in range(0,index):
             buffer.pop(0)
@@ -374,7 +375,7 @@ cdef class viewer:
         #buffer+=[self.fg,self.bg,0]*self.viewport_char_width
         #cdef array.array new_buffer=array.array('B',self.viewport_char_stride*self.viewport_char_height)
         
-        array.resize(buffer,self.viewport_char_stride)
+        array.resize(buffer,buffer_length)
 
 
     cdef write_buffer(self,x,y,c,buffer,fg,bg,reverse):
