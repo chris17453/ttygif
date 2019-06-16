@@ -1,8 +1,11 @@
 # cython: language_level=2
 import os
 import sys
-from distutils.core import setup, Command
-from distutils.extension import Extension
+#from distutils.core import setup, Command
+#from distutils.extension import Extension
+from setuptools import setup, find_packages
+from setuptools.extension import Extension
+from Cython.Build import cythonize
 
 
 if '--build-cython' in sys.argv:
@@ -79,6 +82,7 @@ setup(
     url='https://github.com/chris17453/ttygif/',
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
     long_description=open('README.md').read(),
+    long_description_content_type="text/markdown",
     long_description_content_type="text/markdown",
     author='Charles Watkins',
     author_email='chris17453@gmail.com',
