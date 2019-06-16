@@ -324,7 +324,7 @@ cdef class viewer:
         cdef int buffer_len=len(self.buffer)
         for y in range(0,self.viewport_char_height):
             for x in range(0,self.viewport_char_width):
-                pos=x+y*self.viewport_char_stride
+                pos=x*3+y*self.viewport_char_stride
                 fg=self.buffer[pos]
                 bg=self.buffer[pos+1]
                 character=self.buffer[pos+2]
