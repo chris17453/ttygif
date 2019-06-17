@@ -149,53 +149,6 @@ cdef class viewer:
                             [198,198,198],[208,208,208],[218,218,218],[228,228,228],[238,238,238]
         ]
 
-
-
-
-    # only level 1 optomised for reduced calculations in inner loops
-    # TODO: runtime calculation
-    cdef draw_character(self,int character,int x,int y,int offset,int foreground_color,int background_color):
-        #print "FOUND"
-        cdef int fs= font.width
-        cdef int fw= font.font_width
-        cdef int fh= font.font_height
-        cdef int fox=font.offset_x
-        cdef int foy=font.offset_y
-        cdef int fsx=font.spacing_x
-        cdef int fsy=font.spacing_y
-        cdef int transparent=font.transparent
-        cdef int cx=int(character%font.chars_per_line)
-        cdef int cy=int(character/font.chars_per_line)
-        cdef int pre_x=fox+cx*fw
-        cdef int pre_y=(foy+cy*fh)*fs
-        cdef int pre=pre_x+pre_y
-        cdef int pre_y2=0
-        cdef int screen_pos
-        cdef int screen_pos2
-        cdef int pos
-        cdef int pos2
-        if y<0 or x<0:
-         return
-        for fy in range(0,fh): 
-            sy=fy+(y*(fh+fsy))
-            sx=(x*(fw+fsx))
-            screen_pos=sx+(sy-offset)*self.viewport_px_width
-            if screen_pos>=self.video_length:
-                continue
-            pos=pre+pre_y2
-            for fx in range(0,fw):
-                screen_pos2=screen_pos+fx
-                if screen_pos2<0 or screen_pos2>=self.video_length:
-                    continue
-                pos2=pos+fx
-                pixel=font.graphic[pos2]
-                if pixel!=transparent:
-                    self.video[screen_pos2]=foreground_color
-                else:
-                    self.video[screen_pos2]=background_color
-            pre_y2+=fs
-  
-        
     cdef draw_character3(self,int character,int x,int y,int offset,int foreground_color,int background_color):
         cdef int fs            = font.width
         cdef int fw            = font.font_width
@@ -299,7 +252,7 @@ cdef class viewer:
         #buffer+=[self.fg,self.bg,0]*self.viewport_char_width
         #cdef array.array new_buffer=array.array('B',self.viewport_char_stride*self.viewport_char_height)
         
-        array.resize(buffer,buffer_length)
+        array.resize(buffer,buffer_length,zero=True)
 
 
     cdef write_buffer(self,int x,int y,int c,array.array buffer,int fg,int bg,reverse):
