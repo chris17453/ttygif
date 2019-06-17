@@ -374,7 +374,7 @@ cdef compress(data, lzw_min, max_code_size=12):
     """Return compressed data using LZW."""
     table = LZWCompressionTable(lzw_min)
 
-    cdef _compress():
+    cdef _compress:
         # Always emit a CLEAR CODE first
         yield table.get(table.clear_code)
 
