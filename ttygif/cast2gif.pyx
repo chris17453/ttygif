@@ -50,7 +50,7 @@ cdef class cast2gif:
         cdef int y_offset
        
        #  print new_data_len
-        cdef array.array new_data=array.aray('B')
+        cdef array.array new_data=array.array('B')
         array.resize(new_data,new_data_len)
 
         for y in range(diff['min_y'],diff['max_y']+1):
