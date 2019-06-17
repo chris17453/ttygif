@@ -180,7 +180,7 @@ cdef class cast2gif:
             # just seems wrong...
             memcpy( &data.data.as_voidptr[data_pos],
                     &dest_frame.data.as_voidptr[dest_frame_pos], 
-                    sizeof(char)*width)
+                    dest['width'])
            #r#es.data.as_longlongs[n]=x
 
             #y_offset=y*width
