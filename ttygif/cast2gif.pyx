@@ -8,7 +8,7 @@ from .asciicast.reader import asciicast_reader
 from .tty.viewer import viewer
 
 
-class cast2gif:
+cdef class cast2gif:
     def get_frame_bounding_diff(self,frame1,frame2,int width,int height):
         if frame1==None or frame2==None:
             return {'min_x':0,'min_y':0,'max_x':width-1,'max_y':height-1,'width':width,'height':height}
@@ -44,7 +44,7 @@ class cast2gif:
         cdef int bound_width =max_x-min_x+1
         return {'min_x':min_x,'min_y':min_y,'max_x':max_x,'max_y':max_y,'width':bound_width,'height':bound_height}
 
-    def copy_area(self,data,diff,int width,int height):
+    cdef copy_area(self,array.array:data,diff,int width,int height):
         cdef int pos=0
         cdef int new_data_len=diff['width']*diff['height']
         cdef int y_offset
