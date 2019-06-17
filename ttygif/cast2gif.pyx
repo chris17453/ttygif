@@ -49,7 +49,7 @@ class cast2gif:
        
        #  print new_data_len
         cdef array.array new_data=array.aray('B')
-        new_data.resize(new_data_len)
+        array.resize(new_data,new_data_len)
 
         for y in range(diff['min_y'],diff['max_y']+1):
             data_pos=y*width
