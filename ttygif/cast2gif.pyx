@@ -6,7 +6,7 @@ from .tty.viewer import viewer
 
 
 class cast2gif:
-    cdef get_frame_bounding_diff(self,frame1,frame2,int width,int height):
+    def get_frame_bounding_diff(self,frame1,frame2,int width,int height):
         if frame1==None or frame2==None:
             return {'min_x':0,'min_y':0,'max_x':width-1,'max_y':height-1,'width':width,'height':height}
         cdef int pos=0
