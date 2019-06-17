@@ -174,7 +174,7 @@ cdef class cast2gif:
    #        return res
         cdef int data_pos
         cdef int dest_frame_po
-        #cdef void *src
+        cdef void *src=data.data.as_voidptr
         for y in range(diff['min_y'],diff['max_y']+1):
             data_pos=y*width+diff['min_y']
             dest_frame_pos=y*diff['width']
@@ -184,7 +184,7 @@ cdef class cast2gif:
             #[data_pos]#
             memcpy(
                     dest_frame.data.as_voidptr, 
-                    *data.data.as_voidptr[dest_frame],
+                    src,
                     diff['width'])
            #r#es.data.as_longlongs[n]=x
 
