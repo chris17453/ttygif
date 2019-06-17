@@ -175,8 +175,8 @@ cdef class cast2gif:
             data_pos=y*width
             dest_frame_pos=y*diff['width']
             #self.ptype.offset2Address(targetOffset)
-            memcpy( &data[data_pos],
-                    &dest_frame[dest_frame_pos], 
+            memcpy( &data.data.as_voidptr[data_pos],
+                    dest_frame.data.as_voidptr, 
                     sizeof(char)*width)
            #r#es.data.as_longlongs[n]=x
 
