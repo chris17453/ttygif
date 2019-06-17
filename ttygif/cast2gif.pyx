@@ -1,6 +1,7 @@
 # cython: linetrace=True
 import sys
-from libc.string cimport  memcpy
+from cpython cimport array
+import arrayfrom libc.string cimport  memcpy
 from .gif.encode import encode_gif
 from .asciicast.reader import asciicast_reader
 from .tty.viewer import viewer
@@ -55,7 +56,10 @@ class cast2gif:
             data_pos=y*width
             new_data_pos=y*diff['width']
             self.ptype.offset2Address(targetOffset)
-            memcpy(data.data.as_voidptr,new_data.data.as_voidptr, sizeof(char)*width)#that is pretty sloppy..
+            memcpy( data.data.as_voidptr,
+            
+                    new_data.data.as_voidptr, 
+                    sizeof(char)*width)
            #r#es.data.as_longlongs[n]=x
 
             #y_offset=y*width
