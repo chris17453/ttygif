@@ -251,7 +251,7 @@ cdef class viewer:
             buffer.pop(0)
         cdef int row_pos=buffer_length-self.viewport_char_stride
         array.resize(buffer,buffer_length,Zero=True)
-        memset(&buffer.data.as_uchars[row_pos],self.viewport_char_stride)
+        memset(&buffer.data.as_uchars[row_pos],0,self.viewport_char_stride)
 
     cdef write_buffer(self,int x,int y,int c,array.array buffer,int fg,int bg,reverse):
         if c>255:
