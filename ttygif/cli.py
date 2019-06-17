@@ -64,7 +64,7 @@ def cli_main():
             natural=True
         debug=args.debug
         try:
-            cast2gif(args.input,args.output,loop_count=args.loop,debug=debug,frame_rate=frame_rate,natural=natural)
+            cast2gif(args.input,args.output,loop_count=args.loop,loop_delay=args.delay,debug=debug,frame_rate=frame_rate,natural=natural)
         except KeyboardInterrupt:
             print("\nProcessing Aborted...")
             sys.exit()

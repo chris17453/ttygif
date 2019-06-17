@@ -47,7 +47,7 @@ cdef class cast2gif:
         return {'min_x':min_x,'min_y':min_y,'max_x':max_x,'max_y':max_y,'width':bound_width,'height':bound_height}
 
 
-    def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,natural=None,debug=None):
+    def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None):
         self.debug=debug
         print ("input : {0}".format(cast_file))
         print ("output: {0}".format(gif_file))
@@ -78,6 +78,7 @@ cdef class cast2gif:
         timestamp=float(stream['events'][0][0])
         #print timestamp
         new_frame=None
+        
         for event in stream['events']:
             index+=1
             old_percent=percent
@@ -115,7 +116,11 @@ cdef class cast2gif:
                     if frame==1:
                         delay=0;
                     else:
-                        delay=int((cur_timestamp-timestamp)*100)
+                        if frame_rate!=0:
+                            delay=int(interval*100)
+                        else:
+                            delay=event['delay']
+                        
                     #print delay,cur_timestamp-timestamp
                     
                     if delay==0:
@@ -145,10 +150,9 @@ cdef class cast2gif:
         # last frame    
         v.render()
         data=v.get()
-        delay=int((cur_timestamp-timestamp)*100)
         diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
         frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
-        g.add_frame(disposal_method=0,delay=delay, 
+        g.add_frame(disposal_method=0,delay=loop_delay, 
                         transparent=None,
                         left=diff['min_x'],top=diff['min_y'],
                         width=diff['width'],height=diff['height'],

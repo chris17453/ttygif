@@ -15,6 +15,7 @@ from .fonts cimport font
 
 
 cdef class viewer:
+    cdef public object          last_timestamp
     cdef public int             viewport_px_width
     cdef public int             viewport_px_height
     cdef public int             viewport_char_height
@@ -90,7 +91,7 @@ cdef class viewer:
         self.foreground_color     =3
         self.window_style         ="BOTTOM"
         self.extra_text           =""
-
+        self.last_timestamp       =0
         self.x=0
         self.y=0
         self.def_fg=15
@@ -526,7 +527,7 @@ cdef class viewer:
         self.bold=bold
 
     
-    cdef stream_2_sequence(self,text,timestamp):
+    cdef stream_2_sequence(self,text,timestamp,delay):
         ANSI_OSC_RE = re.compile('\001?\033\\]((?:.|;)*?)(\x07)\002?')        # Operating System Command
         # stripping OS Commands
         replacment_text=""
@@ -537,7 +538,7 @@ cdef class viewer:
             cursor=end
             groups= match.groups()
             paramstring, command = match.groups()
-            self.sequence.append({'type':'command','timestamp':timestamp,'esc_type':'OSC','command':command,'params':paramstring,'groups':groups,'name':""})
+            self.sequence.append({'type':'command','timestamp':timestamp,'esc_type':'OSC','command':command,'params':paramstring,'groups':groups,'name':"",'delay':delay})
         replacment_text+=text[cursor:]
         text=replacment_text
         
@@ -547,6 +548,7 @@ cdef class viewer:
         ANSI_G0       = '[\001b|\033]\\(([B0UK])'
         ANSI_G1       = '[\001b|\033]\\)([B0UK])'
         ANSI_CSI_RE   = '[\001b|\033]\\[((?:\\d|;|<|>|=|\?)*)([a-zA-Z])\002?'
+        # guessed on this one
         ANSI_OSC_777_REGEX='[\0x1b|\033]\]777[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)'
 
         ESC_SEQUENCES=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE,ANSI_OSC_777_REGEX]
@@ -559,7 +561,7 @@ cdef class viewer:
         for match in ANSI.finditer(text):
             name=""
             start, end = match.span()
-            self.add_text_sequence(text[cursor:start],timestamp)
+            self.add_text_sequence(text[cursor:start],timestamp,delay)
             cursor = end
             command=None
             params=None
@@ -654,13 +656,13 @@ cdef class viewer:
                         name="Erase Display"
                     elif command=='K': # erase line
                         name="Erase Line"
-                self.add_command_sequence(esc_type,command,params,groups,name,timestamp)
+                self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay)
         
         if self.has_escape(text[cursor:]):
             self.extra_text=text[cursor:]
         else:
             self.extra_text=""
-            self.add_text_sequence(text[cursor:],timestamp)
+            self.add_text_sequence(text[cursor:],timestamp,delay)
                         
 
     def has_escape(self,text):
@@ -717,7 +719,7 @@ cdef class viewer:
             return character
         return unichr(c)
 
-    def add_text_sequence(self,text,timestamp):
+    def add_text_sequence(self,text,timestamp,delay):
         if len(text)==0:
             return
         #print "1",text
@@ -730,9 +732,9 @@ cdef class viewer:
         text=[self.remap_character(i) for i in text]
         if self.debug_mode:
             self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
-        self.sequence.append({'type':'text','data':text,'timestamp':timestamp})
+        self.sequence.append({'type':'text','data':text,'timestamp':timestamp,'delay':delay})
 
-    def add_command_sequence(self,esc_type,command,params,groups,name,timestamp):
+    def add_command_sequence(self,esc_type,command,params,groups,name,timestamp,delay):
         if self.debug_mode:
             self.info("CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(
                                                 esc_type,
@@ -740,7 +742,7 @@ cdef class viewer:
                                                 params,
                                                 name,
                                                 timestamp))
-        self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name,'timestamp':timestamp})
+        self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name,'timestamp':timestamp,'delay':delay})
 
     def debug_sequence(self):
         print ("============")
@@ -761,12 +763,21 @@ cdef class viewer:
         return {'width':self.viewport_px_width,'height':self.viewport_px_height,'data':array.copy(self.video),'color_table':self.color_table}
 
     def add_event(self,event):
-        timestamp=event[0]
+        timestamp=float(event[0])
         event_type=event[1]
         event_io=event[2]
+        if self.last_timestamp==0:
+            delay=0
+        else:
+            length=len(self.sequence)-1
+            if len>0:
+                self.sequence[length]['delay']=timestamp-self.last_timestamp
+            else:
+                delay=0
         if event_type=='o':
-            self.stream_2_sequence(self.extra_text+event_io,timestamp)
-
+            self.stream_2_sequence(self.extra_text+event_io,timestamp,0)
+            self.last_timestamp=timestamp
+        
     cdef save_screen(self):
         # todo save as gif..
         # pre test with canvas extension
