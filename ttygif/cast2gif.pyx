@@ -105,14 +105,17 @@ cdef class cast2gif:
                 v.render()
                 old_data=data
                 data=v.get()
-                old_data=None
+                #old_data=None
                 diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
                 
                 if diff:
                     frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
 
                     
-                    delay=int((cur_timestamp-timestamp)*100)
+                    if frame==1:
+                        delay=0;
+                    else:
+                        delay=int((cur_timestamp-timestamp)*100)
                     #print delay,cur_timestamp-timestamp
                     
                     if delay==0:
@@ -136,9 +139,6 @@ cdef class cast2gif:
                                             width=diff['width'],height=diff['height'],
                                             palette=None,image_data=frame_snip)
                 timestamp=cur_timestamp
-                
-
-
             v.add_event(event)
 
         # need to close the gif
