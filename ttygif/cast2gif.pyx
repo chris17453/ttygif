@@ -156,12 +156,20 @@ cdef class cast2gif:
         
 
 
-    cdef copy_area(self,array.array:data,diff,int width,int height):
+    cdef copy_area(self,array.array data,diff,int width,int height):
         cdef int pos=0
         cdef int new_data_len=diff['width']*diff['height']
         cdef int y_offset
         cdef array.array dest_frame=array.array('B')
         array.resize(dest_frame,new_data_len)
+
+
+   # def cyappend3(array.array arr, long long int x):
+   #        cdef Py_ssize_t n=len(arr)
+   #        cdef array.array res = array.clone(arr,n+1,False)
+   #        memcpy(res.data.as_voidptr, arr.data.as_voidptr, 8*n)#that is pretty sloppy..
+   #        res.data.as_longlongs[n]=x
+   #        return res
 
         for y in range(diff['min_y'],diff['max_y']+1):
             data_pos=y*width
