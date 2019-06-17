@@ -303,11 +303,11 @@ class Encode:
 
 cdef class LZWDecompressionTable(object):
     """LZW Decompression Code Table"""
-    cpdef int lzw_min
-    cpdef object codes
-    cpdef int clear_code
-    cpdef int end_code
-    cpdef int next_code
+    cdef int lzw_min
+    cdef object codes
+    cdef int clear_code
+    cdef int end_code
+    cdef int next_code
     
     def __init__(self, int lzw_min):
         self.lzw_min = lzw_min
@@ -358,7 +358,7 @@ cdef class LZWDecompressionTable(object):
         self.next_code += 1
 
 
-class LZWCompressionTable(LZWDecompressionTable):
+cdef class LZWCompressionTable(LZWDecompressionTable):
     """LZW Compression Code Table"""
 
     def _make_codes(self,int next_code):
