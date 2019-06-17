@@ -1,3 +1,5 @@
+# cython: linetrace=True
+
 import bitarray
 
 # TODO block size -> self

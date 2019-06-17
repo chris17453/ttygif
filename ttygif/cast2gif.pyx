@@ -166,12 +166,6 @@ cdef class cast2gif:
         array.resize(dest_frame,new_data_len)
 
 
-   # def cyappend3(array.array arr, long long int x):
-   #        cdef Py_ssize_t n=len(arr)
-   #        cdef array.array res = array.clone(arr,n+1,False)
-   #        memcpy(res.data.as_voidptr, arr.data.as_voidptr, 8*n)#that is pretty sloppy..
-   #        res.data.as_longlongs[n]=x
-   #        return res
         cdef int data_pos
         cdef int dest_frame_po
         cdef void *src=data.data.as_voidptr

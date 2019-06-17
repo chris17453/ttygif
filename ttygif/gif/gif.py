@@ -1,3 +1,4 @@
+# cython: linetrace=True
 
 from .Decoder import Decoder
 from .canvas import canvas
