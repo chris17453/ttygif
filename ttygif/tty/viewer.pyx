@@ -666,11 +666,11 @@ cdef class viewer:
             print ("NO EXTRA")
             print text[cursor:]
             self.extra_text=""
-            self.add_text_sequence(text[cursor:],timestamp,delay)
+            self.add_text_sequence(text[cursor:],timestamp,0)
     
     def last_frame(self):
         self.extra_text=""
-        self.add_text_sequence(text[cursor:],timestamp,delay)
+        self.add_text_sequence(text[cursor:],timestamp,0)
     
     def has_escape(self,text):
         for i in text:
