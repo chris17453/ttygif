@@ -304,7 +304,7 @@ class Encode:
 cdef class LZWDecompressionTable(object):
     """LZW Decompression Code Table"""
     cdef int lzw_min
-    cdef int codes
+    cdef object codes
     cdef int clear_code
     cdef int end_code
     cdef int next_code
