@@ -358,7 +358,7 @@ cdef class LZWDecompressionTable(object):
         self.next_code += 1
 
 
-class LZWCompressionTable(LZWDecompressionTable):
+cclass LZWCompressionTable(LZWDecompressionTable):
     """LZW Compression Code Table"""
 
     def _make_codes(self, next_code):
@@ -370,11 +370,11 @@ class LZWCompressionTable(LZWDecompressionTable):
         self.next_code += 1
 
 
-def compress(data, lzw_min, max_code_size=12):
+cdef compress(data, lzw_min, max_code_size=12):
     """Return compressed data using LZW."""
     table = LZWCompressionTable(lzw_min)
 
-    def _compress():
+    cdef _compress():
         # Always emit a CLEAR CODE first
         yield table.get(table.clear_code)
 
