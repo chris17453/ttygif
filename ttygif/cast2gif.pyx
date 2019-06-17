@@ -182,6 +182,7 @@ cdef class cast2gif:
             # just seems wrong...
             #[dest_frame_pos]
             #[data_pos]#
+            print diff['width']
             memcpy(
                     &dest_frame.data.as_uchars[dest_frame_pos], 
                     &data.data.as_uchars[data_pos],
