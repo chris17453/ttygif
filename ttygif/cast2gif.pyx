@@ -1,6 +1,6 @@
 # cython: linetrace=True
 import sys
-from libc.string cimport  memcpp
+from libc.string cimport  memcpy
 from .gif.encode import encode_gif
 from .asciicast.reader import asciicast_reader
 from .tty.viewer import viewer
