@@ -1,7 +1,8 @@
 # cython: linetrace=True
 import sys
 from cpython cimport array
-import arrayfrom libc.string cimport  memcpy
+import array
+from libc.string cimport  memcpy
 from .gif.encode import encode_gif
 from .asciicast.reader import asciicast_reader
 from .tty.viewer import viewer
