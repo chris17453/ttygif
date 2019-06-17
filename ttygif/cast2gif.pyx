@@ -124,17 +124,6 @@ cdef class cast2gif:
                 
                 if diff:
                     frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
-
-                    
-                    if frame==1:
-                        delay=0;
-                    else:
-                        if frame_rate!=0:
-                            delay=int(interval*100)
-                        else:
-                            delay=event['delay']
-                        
-                    #print delay,cur_timestamp-timestamp
                     
                     if delay==0:
                         g.add_frame(disposal_method=0,delay=0, 
