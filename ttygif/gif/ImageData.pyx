@@ -358,10 +358,10 @@ cdef class LZWDecompressionTable(object):
         self.next_code += 1
 
 
-cdef class LZWCompressionTable(LZWDecompressionTable):
+class LZWCompressionTable(LZWDecompressionTable):
     """LZW Compression Code Table"""
 
-    def _make_codes(self, next_code):
+    def _make_codes(self,int next_code):
         return {chr(i): i for i in xrange(next_code)}
 
     def add(self, key):
@@ -370,38 +370,33 @@ cdef class LZWCompressionTable(LZWDecompressionTable):
         self.next_code += 1
 
 
-cdef _compress(table,max_code_size):
-    # Always emit a CLEAR CODE first
-    yield table.get(table.clear_code)
-
-    prev = ''
-    for char in data:
-        c=chr(char)
-        if prev + c in table:
-            prev += c
-        else:
-            yield table.get(prev)
-            table.add(prev + c)
-            prev = c
-
-            if table.next_code_size > max_code_size:
-                yield table.get(table.clear_code)
-                table.reinitialize()
-
-    if prev:
-        yield table.get(prev)
-
-    # Always emit an END OF INFORMATION CODE last
-    yield table.get(table.end_code)
-
-
-cdef compress(data, lzw_min, max_code_size=12):
+cdef compress(data,int  lzw_min,int  max_code_size=12):
     """Return compressed data using LZW."""
     table = LZWCompressionTable(lzw_min)
+    def _compress():
+        # Always emit a CLEAR CODE first
+        yield table.get(table.clear_code)
+        prev = ''
+        for char in data:
+            c=chr(char)
+            if prev + c in table:
+                prev += c
+            else:
+                yield table.get(prev)
+                table.add(prev + c)
+                prev = c
+                if table.next_code_size > max_code_size:
+                    yield table.get(table.clear_code)
+                    table.reinitialize()
+        if prev:
+            yield table.get(prev)
+
+        # Always emit an END OF INFORMATION CODE last
+        yield table.get(table.end_code)
 
     # Pack variably-sized codes into bytes
     codes = bitarray.bitarray(endian='little')
-    for code in _compress(table,max_code_size):
+    for code in _compress():
         # Convert code to bits, and append it
         #print code,table.code_size
         codes.extend(            bin(code)
