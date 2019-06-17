@@ -85,6 +85,7 @@ cdef class cast2gif:
             if event_index==len(stream['events'])-1:
                 delay=loop_delay 
                 new_frame=True
+                print("last frame")
             else:
                 if frame_rate!=0:
                     delay=int(float(stream['events'][event_index+1][0])-float(stream['events'][event_index][0]))*100
@@ -111,6 +112,7 @@ cdef class cast2gif:
                 new_frame=True
 
             if new_frame:
+                print("frame {0}".format(frame))
                 new_frame=None
                 #print ("New Frame")
                 frame+=1
@@ -120,7 +122,7 @@ cdef class cast2gif:
                 old_data=data
                 data=v.get()
                 #old_data=None
-                self.info("New Frame")
+                
                 diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
                 
                 if diff:
