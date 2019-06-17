@@ -568,21 +568,21 @@ cdef class viewer:
             if groups[0]:
                 esc_type='SINGLE'
                 command=groups[1]
-            if groups[2]:
+            elif groups[2]:
                 esc_type='CHAR_SET'
                 command=groups[3]
-            if groups[4]:
+            elif groups[4]:
                 esc_type='G0'
                 command=groups[5]
-            if groups[6]:
+            elif groups[6]:
                 esc_type='G1'
                 command=groups[7]
-            if groups[11]:
+            elif groups[11]:
                 esc_type='OSC'
-                    command=groups[12]
-                    params=[groups[13],groups[14]]
+                command=groups[12]
+                params=[groups[13],groups[14]]
             
-            if groups[8]:
+            elif groups[8]:
                 esc_type='CSI'
                 paramstring=groups[9]
                 command=groups[10]
