@@ -44,29 +44,6 @@ cdef class cast2gif:
         cdef int bound_width =max_x-min_x+1
         return {'min_x':min_x,'min_y':min_y,'max_x':max_x,'max_y':max_y,'width':bound_width,'height':bound_height}
 
-    cdef copy_area(self,array.array:data,diff,int width,int height):
-        cdef int pos=0
-        cdef int new_data_len=diff['width']*diff['height']
-        cdef int y_offset
-        cdef array.array dest_frame=array.array('B')
-        array.resize(dest_frame,new_data_len)
-
-        for y in range(diff['min_y'],diff['max_y']+1):
-            data_pos=y*width
-            new_data_pos=y*diff['width']
-            #self.ptype.offset2Address(targetOffset)
-            memcpy( data.data.as_voidptr,
-                    dest_frame.data.as_voidptr, 
-                    sizeof(char)*width)
-           #r#es.data.as_longlongs[n]=x
-
-            #y_offset=y*width
-            #for x in range(diff['min_x'],diff['max_x']+1):
-             #   new_data[pos]=data[x+y_offset]
-             #   pos+=1
-                
-        
-        return dest_frame
 
     def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,natural=None,debug=None):
         self.debug=debug
@@ -177,3 +154,28 @@ cdef class cast2gif:
         g.close()
         print("\nfinished")
         
+
+
+    cdef copy_area(self,array.array:data,diff,int width,int height):
+        cdef int pos=0
+        cdef int new_data_len=diff['width']*diff['height']
+        cdef int y_offset
+        cdef array.array dest_frame=array.array('B')
+        array.resize(dest_frame,new_data_len)
+
+        for y in range(diff['min_y'],diff['max_y']+1):
+            data_pos=y*width
+            new_data_pos=y*diff['width']
+            #self.ptype.offset2Address(targetOffset)
+            memcpy( data.data.as_voidptr,
+                    dest_frame, 
+                    sizeof(char)*width)
+           #r#es.data.as_longlongs[n]=x
+
+            #y_offset=y*width
+            #for x in range(diff['min_x'],diff['max_x']+1):
+             #   new_data[pos]=data[x+y_offset]
+             #   pos+=1
+                
+        
+        return dest_frame
