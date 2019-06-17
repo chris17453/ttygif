@@ -242,7 +242,7 @@ cdef class viewer:
 
     
         
-    cdef shift_buffer(self,buffer):
+    cdef shift_buffer(self,array.array buffer):
         cdef int buffer_length=len(buffer)
         cdef int index=self.viewport_char_width
         for i in range(0,index):
