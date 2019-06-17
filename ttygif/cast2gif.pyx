@@ -184,7 +184,7 @@ cdef class cast2gif:
             #[data_pos]#
             memcpy(
                     dest_frame.data.as_voidptr, 
-                    &data.data.as.uchars[data_pos],
+                    data.data.as.uchars[data_pos],
                     diff['width'])
            #r#es.data.as_longlongs[n]=x
 
