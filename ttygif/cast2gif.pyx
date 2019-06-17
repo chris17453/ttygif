@@ -177,12 +177,12 @@ cdef class cast2gif:
         cdef void *src=data.data.as_voidptr
         for y in range(diff['min_y'],diff['max_y']+1):
             data_pos=y*width+diff['min_y']
-            dest_frame_pos=y*diff['width']
+            dest_frame_pos=(y-diff['min_y'])*diff['width']
             #self.ptype.offset2Address(targetOffset)
             # just seems wrong...
             #[dest_frame_pos]
             #[data_pos]#
-            print diff['width']
+            #print diff['width']
             memcpy(
                     &dest_frame.data.as_uchars[dest_frame_pos], 
                     &data.data.as_uchars[data_pos],
