@@ -79,7 +79,20 @@ cdef class cast2gif:
         #print timestamp
         new_frame=None
         
-        for event in stream['events']:
+        
+        for event_index in range(0,len(stream['events'])):
+            event=stream['events'][event_index]
+            if event_index==len(stream['events'])-1:
+                delay=loop_delay 
+                new_frame=True
+            else:
+                if frame_rate!=0:
+                    delay=int(float(stream['events'][event_index+1][0])-float(stream['events'][event_index][0]))*100
+                else:
+                    delay=int(interval*100)
+
+            v.add_event(event)
+
             index+=1
             old_percent=percent
             percent=int((index*100)/strlen)
@@ -144,19 +157,8 @@ cdef class cast2gif:
                                             width=diff['width'],height=diff['height'],
                                             palette=None,image_data=frame_snip)
                 timestamp=cur_timestamp
-            v.add_event(event)
 
-        # need to close the gif
-        # last frame    
-        v.render()
-        data=v.get()
-        diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
-        frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
-        g.add_frame(disposal_method=0,delay=loop_delay, 
-                        transparent=None,
-                        left=diff['min_x'],top=diff['min_y'],
-                        width=diff['width'],height=diff['height'],
-                        palette=None,image_data=frame_snip)
+
         g.close()
         print("\nfinished")
         
