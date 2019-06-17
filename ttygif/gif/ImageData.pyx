@@ -309,12 +309,12 @@ cdef class LZWDecompressionTable(object):
     cdef int end_code
     cdef int next_code
     
-    def __init__(self, lzw_min):
+    def __init__(self, int lzw_min):
         self.lzw_min = lzw_min
         self.codes = None
-        self.clear_code = None
-        self.end_code = None
-        self.next_code = None
+        self.clear_code = 0
+        self.end_code = 0
+        self.next_code = 0
         self.reinitialize()
 
     def reinitialize(self):
