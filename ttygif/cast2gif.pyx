@@ -174,7 +174,7 @@ cdef class cast2gif:
    #        return res
 
         for y in range(diff['min_y'],diff['max_y']+1):
-            data_pos=y*width+x
+            data_pos=y*width+diff['min_y']
             dest_frame_pos=y*diff['width']
             #self.ptype.offset2Address(targetOffset)
             # just seems wrong...
