@@ -1,4 +1,4 @@
-zimport bitarray
+import bitarray
 
 # TODO block size -> self
 
