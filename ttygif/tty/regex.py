@@ -41,10 +41,28 @@ ANSI_G0           = '[\001b|\033]\\(([B0UK])'
 ANSI_G1           = '[\001b|\033]\\)([B0UK])'
 ANSI_CSI_RE       = '[\001b|\033]\\[((?:\\d|;|<|>|=|\?)*)([a-zA-Z])\002?'
 ANSI_OSC_777_REGEX='[\001b|\033]\\]777[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)\001?\\\\'
-ANSI_OS           ='[\001b|\033]\\]((?:.|;)*?)\001?[7]'
+#ANSI_OS           ='[\001b|\033]\\]((?:.|;)*?)\001?[7]'
+ANSI_OS ='(?:\001?\\]|\x9d).*?(?:\001?\\\\|[\a\x9c])'
 
+#while (<>) {
+#    s/ \e[ #%()*+\-.\/]. |
+#       \e\[ [ -?]* [@-~] | # CSI ... Cmd
+#       \e\] .*? (?:\e\\|[\a\x9c]) | # OSC ... (ST|BEL)
+#       \e[P^_] .*? (?:\e\\|\x9c) | # (DCS|PM|APC) ... ST
+#       \e. //xg;
+#    print;
+#}
+#while (<>) {
+#    s/ \e[ #%()*+\-.\/]. |
+#       (?:\e\[|\x9b) [ -?]* [@-~] | # CSI ... Cmd
+#       (?:\e\]|\x9d) .*? (?:\e\\|[\a\x9c]) | # OSC ... (ST|BEL)
+#       (?:\e[P^_]|[\x90\x9e\x9f]) .*? (?:\e\\|\x9c) | # (DCS|PM|APC) ... ST
+#       \e.|[\x80-\x9f] //xg;
+#    print;
+#}
 
-ESC_SEQUENCES=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE,ANSI_OSC_777_REGEX,ANSI_OS]
+#ANSI_OSC_777_REGEX
+ESC_SEQUENCES=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE,ANSI_OS]
 
 #ANSI_OS           ='[\0x1b|\033]\\]((?:.|;)*?)\002?'
 #ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE,
