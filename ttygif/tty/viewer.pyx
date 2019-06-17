@@ -302,7 +302,7 @@ cdef class viewer:
         array.resize(buffer,buffer_length)
 
 
-    cdef write_buffer(self,x,y,c,buffer,fg,bg,reverse):
+    cdef write_buffer(self,int x,int y,int c,array.array buffer,int fg,int bg,reverse):
         if c>255:
             err_msg="Charactrer out of range -{0}".format(c)
             raise Exception(err_msg)
