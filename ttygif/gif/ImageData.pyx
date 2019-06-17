@@ -358,7 +358,7 @@ cdef class LZWDecompressionTable(object):
         self.next_code += 1
 
 
-cclass LZWCompressionTable(LZWDecompressionTable):
+cdef class LZWCompressionTable(LZWDecompressionTable):
     """LZW Compression Code Table"""
 
     def _make_codes(self, next_code):
