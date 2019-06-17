@@ -82,17 +82,18 @@ cdef class cast2gif:
         
         for event_index in range(0,len(stream['events'])):
             event=stream['events'][event_index]
+            v.add_event(event)
             if event_index==len(stream['events'])-1:
                 delay=loop_delay 
                 new_frame=True
-                print("last frame")
+                #print("last frame")
+                v.last_frame()
             else:
                 if frame_rate!=0:
                     delay=int(float(stream['events'][event_index+1][0])-float(stream['events'][event_index][0]))*100
                 else:
                     delay=int(interval*100)
 
-            v.add_event(event)
 
             index+=1
             old_percent=percent
