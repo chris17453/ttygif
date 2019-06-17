@@ -770,7 +770,7 @@ cdef class viewer:
             delay=0
         else:
             length=len(self.sequence)-1
-            if len>0:
+            if length>0:
                 self.sequence[length]['delay']=timestamp-self.last_timestamp
             else:
                 delay=0
