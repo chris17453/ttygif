@@ -6,7 +6,7 @@ from .tty.viewer import viewer
 
 
 class cast2gif:
-    def get_frame_bounding_diff(self,frame1,frame2,width,height):
+    cdef get_frame_bounding_diff(self,frame1,frame2,int width,int height):
         if frame1==None or frame2==None:
             return {'min_x':0,'min_y':0,'max_x':width-1,'max_y':height-1,'width':width,'height':height}
         cdef int pos=0
@@ -41,18 +41,25 @@ class cast2gif:
         cdef int bound_width =max_x-min_x+1
         return {'min_x':min_x,'min_y':min_y,'max_x':max_x,'max_y':max_y,'width':bound_width,'height':bound_height}
 
-    def copy_area(self,data,diff,width,height):
+    def copy_area(self,data,diff,int width,int height):
         cdef int pos=0
         cdef int new_data_len=diff['width']*diff['height']
         cdef int y_offset
        
        #  print new_data_len
-        new_data=[0]*new_data_len
+        cdef array.array new_data=array.aray('B')
+        new_data.resize(new_data_len)
+
         for y in range(diff['min_y'],diff['max_y']+1):
-            y_offset=y*width
-            for x in range(diff['min_x'],diff['max_x']+1):
-                new_data[pos]=data[x+y_offset]
-                pos+=1
+            data_pos=y*width
+            new_data_pos=y*diff['width']
+            memcpy(data.data.as_voidptr[data_pos], new_data.data.as_voidptr[new_data_pos], sizeof(char)*bound_width)#that is pretty sloppy..
+           #r#es.data.as_longlongs[n]=x
+
+            #y_offset=y*width
+            #for x in range(diff['min_x'],diff['max_x']+1):
+             #   new_data[pos]=data[x+y_offset]
+             #   pos+=1
                 
         
         return new_data

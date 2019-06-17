@@ -14,7 +14,7 @@ git_username="Charles Watkins"
 git_email="chris17453@gmail.com"
  
 .DEFAULT: help
-.PHONY: test examples
+.PHONY: test examples profile
 help:
 	@echo "make build          | build bython files and make pypi package(runs unittest and standalone)"
 	@echo "make bump           | bump the package version"
@@ -38,6 +38,9 @@ bump:
 
 unittest:
 	@python -m test.unittest
+
+profile:
+	@python -m test.profile
 	
 build: bump 
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
