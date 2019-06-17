@@ -48,16 +48,15 @@ cdef class cast2gif:
         cdef int pos=0
         cdef int new_data_len=diff['width']*diff['height']
         cdef int y_offset
-        cdef array.array new_data=array.array('B')
-        array.resize(new_data,new_data_len)
+        cdef array.array dest_frame=array.array('B')
+        array.resize(dest_frame,new_data_len)
 
         for y in range(diff['min_y'],diff['max_y']+1):
             data_pos=y*width
             new_data_pos=y*diff['width']
             #self.ptype.offset2Address(targetOffset)
             memcpy( data.data.as_voidptr,
-            
-                    new_data.data.as_voidptr, 
+                    dest_frame.data.as_voidptr, 
                     sizeof(char)*width)
            #r#es.data.as_longlongs[n]=x
 
@@ -67,7 +66,7 @@ cdef class cast2gif:
              #   pos+=1
                 
         
-        return new_data
+        return dest_frame
 
     def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,natural=None,debug=None):
         self.debug=debug
