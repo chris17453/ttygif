@@ -146,8 +146,8 @@ cdef class cast2gif:
                                             width=diff['width'],height=diff['height'],
                                             palette=None,image_data=frame_snip)
                 timestamp=cur_timestamp
-
-
+        if self.debug:
+            v.debug_sequence()
         g.close()
         print("\nfinished")
         
