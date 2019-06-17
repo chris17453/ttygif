@@ -252,7 +252,7 @@ cdef class viewer:
         #buffer+=[self.fg,self.bg,0]*self.viewport_char_width
         #cdef array.array new_buffer=array.array('B',self.viewport_char_stride*self.viewport_char_height)
         
-        array.resize(buffer,buffer_length,zero=True)
+        array.resize(buffer,buffer_length,Zero=True)
 
 
     cdef write_buffer(self,int x,int y,int c,array.array buffer,int fg,int bg,reverse):
