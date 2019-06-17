@@ -528,20 +528,7 @@ cdef class viewer:
 
     
     cdef stream_2_sequence(self,text,timestamp,delay):
-        ANSI_OSC_RE = re.compile('\001?\033\\]((?:.|;)*?)(\x07)\002?')        # Operating System Command
-        # stripping OS Commands
-        replacment_text=""
-        cdef cursor=0
-        for match in ANSI_OSC_RE.finditer(text):
-            start, end = match.span()
-            replacment_text+=text[cursor:start]
-            cursor=end
-            groups= match.groups()
-            paramstring, command = match.groups()
-            self.sequence.append({'type':'command','timestamp':timestamp,'esc_type':'OSC','command':command,'params':paramstring,'groups':groups,'name':"",'delay':delay})
-        replacment_text+=text[cursor:]
-        text=replacment_text
-        
+         
         # patterns for filtering out commands from the stream
         ANSI_SINGLE   ='[\001b|\033]([cDEHMZ78>=])'
         ANSI_CHAR_SET = '[\001b|\033]\\%([@G*])'
