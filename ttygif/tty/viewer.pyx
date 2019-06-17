@@ -549,9 +549,12 @@ cdef class viewer:
         ANSI_G1       = '[\001b|\033]\\)([B0UK])'
         ANSI_CSI_RE   = '[\001b|\033]\\[((?:\\d|;|<|>|=|\?)*)([a-zA-Z])\002?'
         # guessed on this one
-        ANSI_OSC_777_REGEX='[\0x1b|\033]\]777[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)'
+        #ANSI_OSC_777_REGEX='[\0x1b|\033]\]777[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)'
+        ANSI_OSC_777_REGEX='[\001b|\033]\\]777[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)\001?\\\\'
+        ANSI_OS           ='[\001b|\033]\\]((?:.|;)*?)\001?[7]'
 
-        ESC_SEQUENCES=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE,ANSI_OSC_777_REGEX]
+
+        ESC_SEQUENCES=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE,ANSI_OSC_777_REGEX,ANSI_OS]
         
         ANSI_REGEX="("+")|(".join(ESC_SEQUENCES)+")"
         
