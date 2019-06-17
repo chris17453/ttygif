@@ -53,7 +53,7 @@ class cast2gif:
         for y in range(diff['min_y'],diff['max_y']+1):
             data_pos=y*width
             new_data_pos=y*diff['width']
-            memcpy(data.data.as_voidptr[data_pos], new_data.data.as_voidptr[new_data_pos], sizeof(char)*bound_width)#that is pretty sloppy..
+            memcpy(data.data.as_voidptr[data_pos], new_data.data.as_voidptr[new_data_pos], sizeof(char)*width)#that is pretty sloppy..
            #r#es.data.as_longlongs[n]=x
 
             #y_offset=y*width
