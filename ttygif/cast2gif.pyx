@@ -56,7 +56,7 @@ class cast2gif:
         for y in range(diff['min_y'],diff['max_y']+1):
             data_pos=y*width
             new_data_pos=y*diff['width']
-            self.ptype.offset2Address(targetOffset)
+            #self.ptype.offset2Address(targetOffset)
             memcpy( data.data.as_voidptr,
             
                     new_data.data.as_voidptr, 
