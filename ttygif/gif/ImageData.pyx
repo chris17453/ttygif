@@ -370,7 +370,7 @@ cdef class LZWCompressionTable(LZWDecompressionTable):
         self.next_code += 1
 
 
-cdef _compress(table):
+cdef _compress(table,max_code_size):
     # Always emit a CLEAR CODE first
     yield table.get(table.clear_code)
 
@@ -401,7 +401,7 @@ cdef compress(data, lzw_min, max_code_size=12):
 
     # Pack variably-sized codes into bytes
     codes = bitarray.bitarray(endian='little')
-    for code in _compress(table):
+    for code in _compress(table,max_code_size):
         # Convert code to bits, and append it
         #print code,table.code_size
         codes.extend(            bin(code)
