@@ -1,6 +1,4 @@
-# cython: linetrace=True
-
-import bitarray
+zimport bitarray
 
 # TODO block size -> self
 
@@ -301,20 +299,15 @@ class Encode:
 
 
 
-cdef class LZWDecompressionTable(object):
+class LZWDecompressionTable(object):
     """LZW Decompression Code Table"""
-    cdef int lzw_min
-    cdef object codes
-    cdef int clear_code
-    cdef int end_code
-    cdef int next_code
-    
-    def __init__(self, int lzw_min):
+
+    def __init__(self, lzw_min):
         self.lzw_min = lzw_min
         self.codes = None
-        self.clear_code = 0
-        self.end_code = 0
-        self.next_code = 0
+        self.clear_code = None
+        self.end_code = None
+        self.next_code = None
         self.reinitialize()
 
     def reinitialize(self):
@@ -358,10 +351,10 @@ cdef class LZWDecompressionTable(object):
         self.next_code += 1
 
 
-cdef class LZWCompressionTable(LZWDecompressionTable):
+class LZWCompressionTable(LZWDecompressionTable):
     """LZW Compression Code Table"""
 
-    def _make_codes(self,int next_code):
+    def _make_codes(self, next_code):
         return {chr(i): i for i in xrange(next_code)}
 
     def add(self, key):
@@ -370,12 +363,14 @@ cdef class LZWCompressionTable(LZWDecompressionTable):
         self.next_code += 1
 
 
-cdef compress(data,int  lzw_min,int  max_code_size=12):
+def compress(data, lzw_min, max_code_size=12):
     """Return compressed data using LZW."""
     table = LZWCompressionTable(lzw_min)
+
     def _compress():
         # Always emit a CLEAR CODE first
         yield table.get(table.clear_code)
+
         prev = ''
         for char in data:
             c=chr(char)
@@ -385,9 +380,11 @@ cdef compress(data,int  lzw_min,int  max_code_size=12):
                 yield table.get(prev)
                 table.add(prev + c)
                 prev = c
+
                 if table.next_code_size > max_code_size:
                     yield table.get(table.clear_code)
                     table.reinitialize()
+
         if prev:
             yield table.get(prev)
 
