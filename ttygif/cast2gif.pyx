@@ -48,8 +48,6 @@ cdef class cast2gif:
         cdef int pos=0
         cdef int new_data_len=diff['width']*diff['height']
         cdef int y_offset
-       
-       #  print new_data_len
         cdef array.array new_data=array.array('B')
         array.resize(new_data,new_data_len)
 
