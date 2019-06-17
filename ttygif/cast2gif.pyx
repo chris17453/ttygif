@@ -9,6 +9,8 @@ from .tty.viewer import viewer
 
 
 cdef class cast2gif:
+    cdef int object debug
+    
     def get_frame_bounding_diff(self,frame1,frame2,int width,int height):
         if frame1==None or frame2==None:
             return {'min_x':0,'min_y':0,'max_x':width-1,'max_y':height-1,'width':width,'height':height}
@@ -175,6 +177,7 @@ cdef class cast2gif:
             data_pos=y*width
             dest_frame_pos=y*diff['width']
             #self.ptype.offset2Address(targetOffset)
+            # just seems wrong...
             memcpy( &data.data.as_voidptr[data_pos],
                     &dest_frame.data.as_voidptr[dest_frame_pos], 
                     sizeof(char)*width)
