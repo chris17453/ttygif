@@ -122,13 +122,13 @@ cdef class DataStream:
         self.file_object.write(ba)
         self.pos+=1
 
-    def write_bytes(self,bytes):
+    def write_bytes(self,byte_data):
         #print ("'{0}'".format(byte))
         ba=bytearray()
-        for byte in bytes:
+        for byte in byte_data:
             ba.append(byte)
             self.pos+=1
-        self.file_object.write(ba)
+        self.file_object.write(byte_data)
 
     def write_word(self,word):
         ba=bytearray()
