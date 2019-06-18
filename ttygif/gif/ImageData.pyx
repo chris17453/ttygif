@@ -35,7 +35,7 @@ class ImageData:
             else:
                  length=byte_data_length
             self.stream.write_byte(length)
-            self.stream.write_bytes(byte_Data[index:index+length)
+            self.stream.write_bytes(byte_Data[index:index+length])
             byte_data_length-=length
         
         #for byte in byte_data:
