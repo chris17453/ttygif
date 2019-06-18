@@ -648,12 +648,12 @@ cdef class viewer:
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay)
         
         if self.has_escape(text[cursor:]):
-            print ("EXTRA")
-            print text[cursor:]
+            #print ("EXTRA")
+            #print text[cursor:]
             self.extra_text=text[cursor:]
         else:
-            print ("NO EXTRA")
-            print text[cursor:]
+            #print ("NO EXTRA")
+            #print text[cursor:]
             self.extra_text=""
             self.add_text_sequence(text[cursor:],timestamp,0)
     
