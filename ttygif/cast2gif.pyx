@@ -134,7 +134,7 @@ cdef class cast2gif:
                 v.render()
                 old_data=data
                 data=v.get()
-                #old_data=None
+                old_data=None
                 
                 diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
                 
