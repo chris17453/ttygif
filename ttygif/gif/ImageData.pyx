@@ -26,17 +26,27 @@ class ImageData:
 
 
         
-        index=0
         byte_data_length=len(byte_data)
-        for byte in byte_data:
-            if index%255==0:
-                if byte_data_length-index>=255:
-                    length=255
-                else:
-                    length=byte_data_length-index
-                self.stream.write_byte(length)    
-            self.stream.write_byte(byte)
-            index+=1
+        
+        index=0
+        while byte_data_length>0:
+            if byte_data_length>0xFF:
+                length=255
+            else:
+                 length=byte_data_length
+            self.stream.write_byte(length)
+            self.stream.write_bytes(byte_Data[index:index+length)
+            byte_data_length-=length
+        
+        #for byte in byte_data:
+        #    if index%255==0:
+        #        if byte_data_length-index>=255:
+        #            length=255
+        #        else:
+        #            length=byte_data_length-index
+        #        self.stream.write_byte(length)    
+        #    self.stream.write_byte(byte)
+        #    index+=1
         self.stream.write_byte(0)
     
         
