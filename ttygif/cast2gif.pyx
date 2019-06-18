@@ -100,6 +100,7 @@ cdef class cast2gif:
                 v.last_frame()
             else:
                 if frame_rate!=0:
+                    print stream['events'][event_index+1][0],stream['events'][event_index][0]
                     delay=int(float(stream['events'][event_index+1][0])-float(stream['events'][event_index][0]))*100
                 else:
                     delay=int(interval*100)
