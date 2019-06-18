@@ -103,7 +103,7 @@ cdef class cast2gif:
                     delay=int(float(stream['events'][event_index+1][0])-float(stream['events'][event_index][0]))*100
                 else:
                     delay=int(interval*100)
-            
+            print("Delay:{0}".format(delay))
 
             index+=1
             old_percent=percent
