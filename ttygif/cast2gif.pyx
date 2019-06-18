@@ -64,6 +64,9 @@ cdef class cast2gif:
         else:
             height=25
 
+        print ("dimensions: {0}x{1}".format(width,height))
+        
+
         v=viewer(char_width=width,char_height=height,debug=debug)
         g.create(width=v.viewport_px_width,height=v.viewport_px_height,filename=gif_file,default_palette=True)
 
