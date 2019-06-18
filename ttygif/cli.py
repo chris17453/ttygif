@@ -66,7 +66,6 @@ def cli_main():
             natural=True
         debug=args.debug
         try:
-            print  args.height,args.width
             cast2gif(args.input,args.output,
                     loop_count=args.loop,
                     loop_delay=args.delay,
