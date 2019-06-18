@@ -311,7 +311,7 @@ class Encode:
 
 
 
-cdef class LZWDecompressionTable(object):
+def class LZWDecompressionTable(object):
     """LZW Decompression Code Table"""
 
     def __init__(self, lzw_min):
@@ -335,8 +335,13 @@ cdef class LZWDecompressionTable(object):
     def _make_codes(self, next_code):
         return {i: chr(i) for i in xrange(next_code)}
 
-    cdef __contains__(self, key):
-        return key in self.codes
+    def __contains__(self, key):
+        try:
+            if self.codes[key]:
+                return True
+        except:
+            return None
+        #return key in self.codes
 
     def show(self):
         """Print the code table."""
