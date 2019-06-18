@@ -363,13 +363,13 @@ class LZWDecompressionTable(object):
         self.next_code += 1
 
 
-cdef class LZWCompressionTable(LZWDecompressionTable):
+class LZWCompressionTable(LZWDecompressionTable):
     """LZW Compression Code Table"""
 
-    def _make_codes(self, next_code):
+    cdef _make_codes(self, next_code):
         return {chr(i): i for i in xrange(next_code)}
 
-    def add(self, key):
+    cdef add(self, key):
         """Maps key to the next largest code."""
         self.codes[key] = self.next_code
         self.next_code += 1
