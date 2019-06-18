@@ -1,3 +1,5 @@
+# cython: linetrace=True
+# cython: language_level=2
 import bitarray
 
 # TODO block size -> self
@@ -35,7 +37,7 @@ class ImageData:
             else:
                  length=byte_data_length
             self.stream.write_byte(length)
-            self.stream.write_bytes(byte_Data[index:index+length])
+            self.stream.write_bytes(byte_data[index:index+length])
             byte_data_length-=length
         
         #for byte in byte_data:
