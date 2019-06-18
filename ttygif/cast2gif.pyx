@@ -92,6 +92,8 @@ cdef class cast2gif:
             event=stream['events'][event_index]
             v.add_event(event)
             if event_index==len(stream['events'])-1:
+                if loop_count==None:
+                    loop_delay=1000
                 delay=loop_delay 
                 new_frame=True
                 #print("last frame")
