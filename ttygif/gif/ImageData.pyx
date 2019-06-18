@@ -335,7 +335,7 @@ class LZWDecompressionTable(object):
     def _make_codes(self, next_code):
         return {i: chr(i) for i in xrange(next_code)}
 
-    def __contains__(self, key):
+    cdef __contains__(self, key):
         return key in self.codes
 
     def show(self):
@@ -366,10 +366,10 @@ class LZWDecompressionTable(object):
 class LZWCompressionTable(LZWDecompressionTable):
     """LZW Compression Code Table"""
 
-    cdef _make_codes(self, next_code):
+    def _make_codes(self, next_code):
         return {chr(i): i for i in xrange(next_code)}
 
-    cdef add(self, key):
+    def add(self, key):
         """Maps key to the next largest code."""
         self.codes[key] = self.next_code
         self.next_code += 1
