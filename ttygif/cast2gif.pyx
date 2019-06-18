@@ -47,7 +47,7 @@ cdef class cast2gif:
         return {'min_x':min_x,'min_y':min_y,'max_x':max_x,'max_y':max_y,'width':bound_width,'height':bound_height}
 
 
-    def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None):
+    def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None):
         self.debug=debug
         print ("input : {0}".format(cast_file))
         print ("output: {0}".format(gif_file))
@@ -55,7 +55,16 @@ cdef class cast2gif:
         stream=cast.load(cast_file)
 
         g=encode_gif(loop_count,debug=debug)
-        v=viewer(char_width=stream['width'],char_height=stream['height'],debug=debug)
+        if width=None:
+            width=stream['width']
+        else:
+            width=80
+        if height:
+            height=stream['height']
+        else:
+            height=25
+
+        v=viewer(char_width=width,char_height=height,debug=debug)
         g.create(width=v.viewport_px_width,height=v.viewport_px_height,filename=gif_file,default_palette=True)
 
         percent=-1
