@@ -86,7 +86,7 @@ cdef class cast2gif:
         timestamp=float(stream['events'][0][0])
         #print timestamp
         new_frame=None
-        
+        print "FR",frame_rate
         
         for event_index in range(0,len(stream['events'])):
             event=stream['events'][event_index]
