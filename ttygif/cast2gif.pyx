@@ -55,11 +55,11 @@ cdef class cast2gif:
         stream=cast.load(cast_file)
 
         g=encode_gif(loop_count,debug=debug)
-        if width=None:
+        if width==None:
             width=stream['width']
         else:
             width=80
-        if height:
+        if height==None:
             height=stream['height']
         else:
             height=25
