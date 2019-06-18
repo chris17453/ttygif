@@ -340,7 +340,7 @@ class LZWDecompressionTable(object):
             if self.codes[key]:
                 return True
         except:
-            return None
+            return False
         #return key in self.codes
 
     def show(self):
