@@ -127,6 +127,8 @@ cdef class cast2gif:
                 new_frame=None
                 #print ("New Frame")
                 frame+=1
+                if frame>2: 
+                    break
                 #if frame>max_frames:
                  #   break
                 v.render()
