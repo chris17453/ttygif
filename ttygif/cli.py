@@ -55,7 +55,7 @@ def cli_main():
     #    v.debug_sequence()
 
     if args.input and args.output:
-        frame_rate=int(args.fps)
+        frame_rate=args.fps
         if frame_rate<0:
             frame_rate=1
         if frame_rate>25:

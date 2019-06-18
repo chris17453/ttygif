@@ -86,13 +86,13 @@ cdef class cast2gif:
         timestamp=float(stream['events'][0][0])
         #print timestamp
         new_frame=None
-        print "FR",frame_rate
+       # print "FR",frame_rate
         
         for event_index in range(0,len(stream['events'])):
             event=stream['events'][event_index]
             v.add_event(event)
             if event_index==len(stream['events'])-1:
-                print loop_delay,1
+                #print loop_delay,1
                 if loop_delay==None:
                     loop_delay=1000
                 delay=loop_delay 
@@ -100,13 +100,13 @@ cdef class cast2gif:
                 #print("last frame")
                 v.last_frame()
             else:
-                print 2
-                if frame_rate!=0:
-                    print 3
+                #print 2
+                if frame_rate==0:
+                    #print 3
                     print stream['events'][event_index+1][0],stream['events'][event_index][0]
                     delay=int(float(stream['events'][event_index+1][0])-float(stream['events'][event_index][0]))*100
                 else:
-                    print 4
+                    #print 4
 
                     delay=int(interval*100)
             print("Delay:{0}".format(delay))
