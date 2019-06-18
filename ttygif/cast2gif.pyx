@@ -104,7 +104,7 @@ cdef class cast2gif:
                 if frame_rate==0:
                     #print 3
                     print stream['events'][event_index+1][0],stream['events'][event_index][0]
-                    delay=int(float(stream['events'][event_index+1][0])-float(stream['events'][event_index][0]))*100
+                    delay=float(stream['events'][event_index+1][0])-float(stream['events'][event_index][0])
                 else:
                     #print 4
 
