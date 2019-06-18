@@ -53,17 +53,12 @@ cdef class cast2gif:
         print ("output: {0}".format(gif_file))
         cast=asciicast_reader(debug=debug)
         stream=cast.load(cast_file)
-        print ("dimensions: {0}x{1}".format(width,height))
         
         g=encode_gif(loop_count,debug=debug)
         if width==None:
             width=stream['width']
-        else:
-            width=80
         if height==None:
             height=stream['height']
-        else:
-            height=25
 
         print ("dimensions: {0}x{1}".format(width,height))
         
