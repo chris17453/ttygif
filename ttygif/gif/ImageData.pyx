@@ -311,7 +311,7 @@ class Encode:
 
 
 
-def class LZWDecompressionTable(object):
+class LZWDecompressionTable(object):
     """LZW Decompression Code Table"""
 
     def __init__(self, lzw_min):
