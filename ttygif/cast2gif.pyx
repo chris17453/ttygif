@@ -121,7 +121,7 @@ cdef class cast2gif:
                 new_frame=True
 
             if new_frame:
-                print("frame {0}".format(frame))
+                #print("frame {0}".format(frame))
                 new_frame=None
                 #print ("New Frame")
                 frame+=1
