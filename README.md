@@ -58,9 +58,15 @@ Normal/colorized output work fine.
 - cursor emulation
 - erase screen with default bg color
 - overflow on cursor position out of bounds
-- cythonic definitions for speed improvment
+- cythonic definitions for speed improvment - Mostly Done
 - image underlay (branding)
 - image overlay (branding)
+- cliping
+- origin x,y
+- logging with ansi stripping
+- split every n seconds or size
+- export as frames
+- theme/solarized/bright/microsoft
 
 ### Profile Times
 

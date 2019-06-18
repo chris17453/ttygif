@@ -80,7 +80,7 @@ cdef class cast2gif:
         strlen=len(stream['events'])
         if strlen<1:
             print("Empty stream")
-            exit(0)
+            exit(0) 
 
         last_timestamp=float(stream['events'][strlen-1][0])
         timestamp=float(stream['events'][0][0])
@@ -121,7 +121,8 @@ cdef class cast2gif:
             #print cur_timestamp,cur_timestamp-timestamp,interval
             
             if natural :
-                new_frame=True
+                if cur_timestamp-timestamp>.001:
+                    new_frame=True
             elif cur_timestamp-timestamp>interval:
                 new_frame=True
 
