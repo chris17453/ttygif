@@ -26,6 +26,8 @@ cdef class cast2gif:
     cdef double timestamp 
     # last timestamp in file
     cdef double last_timestamp 
+    # where we are in TOTAL with delays
+    cdef double aggregate_timestamp
     cdef object stream 
 
     def get_frame_bounding_diff(self,frame1,frame2,int width,int height):
@@ -101,6 +103,7 @@ cdef class cast2gif:
         self.height= height
         self.percent=-1
         self.timestamp=0
+        self.aggregate_timestamp=0
 
 
         print ("input : {0}".format(cast_file))
@@ -122,8 +125,8 @@ cdef class cast2gif:
         
         self.encode_stream()
 
+    
     def encode_stream(self):
-        
         g=encode_gif(self.loop_count,debug=self.debug)
         print ("dimensions: {0}x{1}".format(self.width,self.height))
         
@@ -140,7 +143,7 @@ cdef class cast2gif:
         data=None
         old_data=None
         new_frame=None
-
+        aggregate_timestamp=0
         for event_index in range(0,self.event_length):
             self.show_percent(index)
             event=self.stream['events'][event_index]
@@ -171,24 +174,31 @@ cdef class cast2gif:
                 diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
                 if diff:
                     frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
-                    if delay==0:
-                        g.add_frame(disposal_method=0,delay=0, 
+
+                    # loop the frames if the delay is bigger than 65.535 seconds =0xFFFF
+                    add_frames=True
+                    while add_frames:
+                        if delay>0xFFFF:
+                            partial_delay=0xFFFF
+                        else:
+                            partial_delay=delay
+                        delay-=partial_delay
+                        if delay==0:
+                            add_frames=None
+                        
+                        # add the freame to the gif
+                        g.add_frame(    disposal_method=0,
+                                        delay=partial_delay, 
                                         transparent=None,
-                                        left=diff['min_x'],top=diff['min_y'],
-                                        width=diff['width'],height=diff['height'],
-                                        palette=None,image_data=frame_snip)
-                    else:
-                        while delay!=0:
-                            if delay>0xFFFF:
-                                partial_delay=0xFFFF
-                            else:
-                                partial_delay=delay
-                            delay-=partial_delay
-                            g.add_frame(disposal_method=0,delay=partial_delay, 
-                                            transparent=None,
-                                            left=diff['min_x'],top=diff['min_y'],
-                                            width=diff['width'],height=diff['height'],
-                                            palette=None,image_data=frame_snip)
+                                        left=diff['min_x'],
+                                        top=diff['min_y'],
+                                        width=diff['width'],
+                                        height=diff['height'],
+                                        palette=None,
+                                        image_data=frame_snip)
+
+
+
                 self.timestamp=cur_timestamp
         if self.debug:
             v.debug_sequence()
