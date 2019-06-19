@@ -46,9 +46,46 @@ cdef class cast2gif:
         cdef int bound_width =max_x-min_x+1
         return {'min_x':min_x,'min_y':min_y,'max_x':max_x,'max_y':max_y,'width':bound_width,'height':bound_height}
 
+    def get_delay(self,event_index,stream):
+        delay=0
+        if event_index==len(stream['events'])-1:
+            #print loop_delay,1
+            if self.loop_delay==None:
+                self.loop_delay=1000
+            delay=self.loop_delay 
+            new_frame=True
+        else:
+            if self.frame_rate==0:
+                print stream['events'][event_index+1][0],stream['events'][event_index][0]
+                delay=int((stream['events'][event_index+1][0]-stream['events'][event_index][0])*100)
+            else:
+                delay=int(interval*100)
+        return delay
+
+    def show_percent(self,index,interva):
+        strlen=len(stream['events'])
+
+        self.old_percent=self.percent
+        self.percent=int((index*100)/strlen)
+        if self.percent!=self.old_percent:
+        if self.natural:
+            sys.stdout.write("Seconds: {0} of {1} {2}%    \r".format(self.timestamp,self.last_timestamp,self.percent))                
+        else:
+            sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)    \r".format(self.timestamp,self.last_timestamp,self.percent,self.frame_rate,interval))
+        sys.stdout.flush()    
 
     def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None):
-        self.debug=debug
+        self.cast_file= cast_file
+        self.gif_file= gif_file
+        self.loop_count= loop_count
+        self.frame_rate= frame_rate
+        self.loop_delay= loop_delay
+        self.natural= natural
+        self.debug= debug
+        self.width= width
+        self.height= height
+
+
         print ("input : {0}".format(cast_file))
         print ("output: {0}".format(gif_file))
         cast=asciicast_reader(debug=debug)
@@ -77,7 +114,6 @@ cdef class cast2gif:
         max_frames=50
         data=None
         old_data=None
-        strlen=len(stream['events'])
         if strlen<1:
             print("Empty stream")
             exit(0) 
@@ -87,64 +123,39 @@ cdef class cast2gif:
         #print timestamp
         new_frame=None
        # print "FR",frame_rate
+        #delay=self.get_delay(event_index,stream)
         
         for event_index in range(0,len(stream['events'])):
+            self.show_percent(index,interval)
             event=stream['events'][event_index]
             v.add_event(event)
+            
             if event_index==len(stream['events'])-1:
-                #print loop_delay,1
-                if loop_delay==None:
-                    loop_delay=1000
-                delay=loop_delay 
-                new_frame=True
-                #print("last frame")
                 v.last_frame()
-            else:
-                #print 2
-                if frame_rate==0:
-                    print stream['events'][event_index+1][0],stream['events'][event_index][0]
-                    delay=int((stream['events'][event_index+1][0]-stream['events'][event_index][0])*100)
-                else:
-                    delay=int(interval*100)
+
+            delay=self.get_delay(event_index,stream)
             print("Delay:{0}".format(delay))
 
             index+=1
-            old_percent=percent
-            percent=int((index*100)/strlen)
-            if percent!=old_percent:
-                if natural:
-                    sys.stdout.write("Seconds: {0} of {1} {2}%    \r".format(timestamp,last_timestamp,percent))                
-                else:
-                    sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)    \r".format(timestamp,last_timestamp,percent,frame_rate,interval))
-                sys.stdout.flush()
             cur_timestamp=float(event[0])
-            #print cur_timestamp,cur_timestamp-timestamp,interval
-            
-            if natural :
+
+            if self.natural :
                 if cur_timestamp-timestamp>.001:
                     new_frame=True
             elif cur_timestamp-timestamp>interval:
                 new_frame=True
 
             if new_frame:
-                #print("frame {0}".format(frame))
                 new_frame=None
-                #print ("New Frame")
                 frame+=1
-                #if frame>2: 
-                #    break
-                #if frame>max_frames:
-                 #   break
                 v.render()
                 old_data=data
                 data=v.get()
                 old_data=None
                 
                 diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
-                
                 if diff:
                     frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
-                    
                     if delay==0:
                         g.add_frame(disposal_method=0,delay=0, 
                                         transparent=None,
@@ -158,8 +169,6 @@ cdef class cast2gif:
                             else:
                                 partial_delay=delay
                             delay-=partial_delay
-                            #print diff
-                            #print (len(frame_snip))
                             g.add_frame(disposal_method=0,delay=partial_delay, 
                                             transparent=None,
                                             left=diff['min_x'],top=diff['min_y'],
