@@ -125,7 +125,7 @@ cdef class cast2gif:
     def encode_stream(self):
         
         g=encode_gif(self.loop_count,debug=self.debug)
-        print ("dimensions: {0}x{1}".format(width,height))
+        print ("dimensions: {0}x{1}".format(self.width,self.height))
         
 
         v=viewer(char_width=self.width,char_height=self.height,debug=self.debug)
