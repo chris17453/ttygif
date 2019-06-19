@@ -59,17 +59,17 @@ cdef class cast2gif:
                 print stream['events'][event_index+1][0],stream['events'][event_index][0]
                 delay=int((stream['events'][event_index+1][0]-stream['events'][event_index][0])*100)
             else:
-                delay=int(interval*100)
+                delay=int(self.interval*100)
         return delay
 
-    def show_percent(self,index,interva):
+    def show_percent(self,index):
         self.old_percent=self.percent
         self.percent=int((index*100)/self.self.event_length)
         if self.percent!=self.old_percent:
             if self.natural:
                 sys.stdout.write("Seconds: {0} of {1} {2}%    \r".format(self.timestamp,self.last_timestamp,self.percent))                
             else:
-                sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)    \r".format(self.timestamp,self.last_timestamp,self.percent,self.frame_rate,interval))
+                sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)    \r".format(self.timestamp,self.last_timestamp,self.percent,self.frame_rate,self.interval))
         sys.stdout.flush()    
 
     def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None):
@@ -107,9 +107,9 @@ cdef class cast2gif:
         index=0
         timestamp=0
         if frame_rate!=0:
-            interval=float(1)/float(frame_rate)
+            self.interval=float(1)/float(frame_rate)
         else:
-            interval=0
+            self.interval=0
         frame=0
         max_frames=50
         data=None
@@ -126,7 +126,7 @@ cdef class cast2gif:
         #delay=self.get_delay(event_index,stream)
         
         for event_index in range(0,len(stream['events'])):
-            self.show_percent(index,interval)
+            self.show_percent(index)
             event=stream['events'][event_index]
             v.add_event(event)
             
@@ -141,7 +141,7 @@ cdef class cast2gif:
 
             if self.natural and delay!=0:
                 new_frame=True
-            elif cur_timestamp-timestamp>interval:
+            elif cur_timestamp-timestamp>self.interval:
                 new_frame=True
 
             if new_frame:
