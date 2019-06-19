@@ -63,10 +63,8 @@ cdef class cast2gif:
         return delay
 
     def show_percent(self,index,interva):
-        strlen=len(stream['events'])
-
         self.old_percent=self.percent
-        self.percent=int((index*100)/strlen)
+        self.percent=int((index*100)/self.self.event_length)
         if self.percent!=self.old_percent:
             if self.natural:
                 sys.stdout.write("Seconds: {0} of {1} {2}%    \r".format(self.timestamp,self.last_timestamp,self.percent))                
@@ -90,6 +88,8 @@ cdef class cast2gif:
         print ("output: {0}".format(gif_file))
         cast=asciicast_reader(debug=debug)
         stream=cast.load(cast_file)
+
+        self.self.event_length=len(stream['events'])
         
         g=encode_gif(loop_count,debug=debug)
         if width==None:
@@ -114,11 +114,11 @@ cdef class cast2gif:
         max_frames=50
         data=None
         old_data=None
-        if len(stream['events'])<1:
+        if self.event_length<1:
             print("Empty stream")
             exit(0) 
 
-        last_timestamp=float(stream['events'][strlen-1][0])
+        last_timestamp=float(stream['events'][self.event_length-1][0])
         timestamp=float(stream['events'][0][0])
         #print timestamp
         new_frame=None
