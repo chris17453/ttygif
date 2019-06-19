@@ -58,8 +58,8 @@ def cli_main():
         frame_rate=args.fps
         if frame_rate<0:
             frame_rate=1
-        if frame_rate>25:
-           frame_rate=25
+        if frame_rate>100:
+           frame_rate=100
             
         natural=None
         if args.fps==0:
