@@ -10,6 +10,15 @@ from .tty.viewer import viewer
 
 cdef class cast2gif:
     cdef object debug
+    cdef object cast_file
+    cdef object gif_file
+    cdef int    loop_count
+    cdef int    frame_rate
+    cdef int    loop_delay
+    cdef int    natural
+    cdef int    debug
+    cdef int    width
+    cdef int    height
 
     def get_frame_bounding_diff(self,frame1,frame2,int width,int height):
         if frame1==None or frame2==None:
@@ -180,7 +189,7 @@ cdef class cast2gif:
         print("\nfinished")
         
 
-
+    # super fast memory copy
     cdef copy_area(self,array.array data,diff,int width,int height):
         cdef int pos=0
         cdef int new_data_len=diff['width']*diff['height']

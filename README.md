@@ -1,12 +1,18 @@
 # ttygif
 
-An asciicast data file to gif conversion utility
+A self contained asciicast data file to gif conversion utility
 
 ## install
 
 ```bash
 pip install ttygif --user
 ```
+
+## It's portable
+ttygif is self contained with no dependencys other than python. GIF encoding 
+and termal emulation are both implimented with internal cython code. The 
+terminal font is embeded within the code. All you need to get ttygif to work
+is a c compiler, python and its development libs. ttygif is a cython project.
 
 ## usage
 ```bash
