@@ -254,6 +254,29 @@ cdef class viewer:
         array.resize(buffer,buffer_length)
         memset(&buffer.data.as_uchars[row_pos],0,self.viewport_char_stride)
 
+
+    def get_text(self):
+        loop=True
+        cdef int pos=0
+
+        text=""        
+        while loop:
+            character=self.buffer[pos+2]
+            text+=unichr(character)
+            x+=1
+            if x>=self.viewport_char_width:
+                text+="\n"
+                x=0
+                y+=1
+            pos+=3
+            if pos>=self.buffer_length:
+                loop=None
+        text+="\n"
+        return text
+
+        
+
+
     cdef write_buffer(self,int x,int y,int c,array.array buffer,int fg,int bg,reverse):
         if c>255:
             err_msg="Charactrer out of range -{0}".format(c)
