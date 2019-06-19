@@ -15,7 +15,7 @@ cdef class cast2gif:
     cdef int    loop_count
     cdef int    frame_rate
     cdef int    loop_delay
-    cdef int    natural
+    cdef object natural
     cdef int    width
     cdef int    height
 
