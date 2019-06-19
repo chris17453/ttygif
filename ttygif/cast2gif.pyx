@@ -12,12 +12,13 @@ cdef class cast2gif:
     cdef object debug
     cdef object cast_file
     cdef object gif_file
-    cdef int    loop_count
-    cdef int    frame_rate
-    cdef int    loop_delay
     cdef object natural
+    cdef int    loop_count
+    cdef int    loop_delay
+    cdef int    frame_rate
     cdef int    width
     cdef int    height
+    cdef int    interval
 
     def get_frame_bounding_diff(self,frame1,frame2,int width,int height):
         if frame1==None or frame2==None:
