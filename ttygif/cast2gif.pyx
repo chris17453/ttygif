@@ -166,6 +166,7 @@ cdef class cast2gif:
                 delay=int((cur_timestamp-self.timestamp)*100)
 
             if new_frame:
+                print frame
                 new_frame=None
                 frame+=1
                 v.render()
