@@ -22,6 +22,10 @@ cdef class cast2gif:
     cdef object event_length
     cdef double percent
     cdef double old_percent
+    # last frame created timestamp
+    cdef double timestamp 
+    # last timestamp in file
+    cdef double last_timestamp 
 
     def get_frame_bounding_diff(self,frame1,frame2,int width,int height):
         if frame1==None or frame2==None:
@@ -94,6 +98,8 @@ cdef class cast2gif:
         self.debug= debug
         self.width= width
         self.height= height
+        self.percent=-1
+        self.timestamp=0
 
 
         print ("input : {0}".format(cast_file))
@@ -101,7 +107,13 @@ cdef class cast2gif:
         cast=asciicast_reader(debug=debug)
         stream=cast.load(cast_file)
 
+        if self.event_length<1:
+            print("Empty stream")
+            exit(0) 
+
         self.event_length=len(stream['events'])
+        self.last_timestamp=float(stream['events'][self.event_length-1][0])
+        self.timestamp=float(stream['events'][0][0])
         
         g=encode_gif(loop_count,debug=debug)
         if width==None:
@@ -115,9 +127,7 @@ cdef class cast2gif:
         v=viewer(char_width=width,char_height=height,debug=debug)
         g.create(width=v.viewport_px_width,height=v.viewport_px_height,filename=gif_file,default_palette=True)
 
-        percent=-1
         index=0
-        timestamp=0
         if frame_rate!=0:
             self.interval=float(1)/float(frame_rate)
         else:
@@ -126,17 +136,8 @@ cdef class cast2gif:
         max_frames=50
         data=None
         old_data=None
-        if self.event_length<1:
-            print("Empty stream")
-            exit(0) 
-
-        last_timestamp=float(stream['events'][self.event_length-1][0])
-        timestamp=float(stream['events'][0][0])
-        #print timestamp
         new_frame=None
-       # print "FR",frame_rate
-        #delay=self.get_delay(event_index,stream)
-        
+
         for event_index in range(0,len(stream['events'])):
             self.show_percent(index)
             event=stream['events'][event_index]
@@ -153,7 +154,7 @@ cdef class cast2gif:
 
             if self.natural and delay!=0:
                 new_frame=True
-            elif cur_timestamp-timestamp>self.interval:
+            elif cur_timestamp-self.timestamp>self.interval:
                 new_frame=True
 
             if new_frame:
@@ -185,7 +186,7 @@ cdef class cast2gif:
                                             left=diff['min_x'],top=diff['min_y'],
                                             width=diff['width'],height=diff['height'],
                                             palette=None,image_data=frame_snip)
-                timestamp=cur_timestamp
+                self.timestamp=cur_timestamp
         if self.debug:
             v.debug_sequence()
         g.close()
