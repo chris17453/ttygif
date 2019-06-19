@@ -27,7 +27,7 @@ def cli_main():
     parser.add_argument('--fps',     help='encode at (n) frames per second (0-25) 0=speed of cast file', default=8,metavar='FPS', type=int)
     parser.add_argument('--width',   help='change character width of gif, default is 80 or what is in the cast file',metavar='WIDTH', type=int)
     parser.add_argument('--height',  help='change character height of gif, default is 25 or what is in the cast file',metavar='HEIGHT', type=int)
-    
+    #parser.add_argument('--text-at'  help='print the text screen buffer at TIME',metavar='TIME', type=int)
     
     
     parser.add_argument('--debug',   help='show debuging statistics', action='store_true',default=None)
@@ -66,6 +66,9 @@ def cli_main():
             natural=True
         debug=args.debug
         try:
+#            if args.time_at:
+                
+
             cast2gif(args.input,args.output,
                     loop_count=args.loop,
                     loop_delay=args.delay,

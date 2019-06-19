@@ -187,7 +187,7 @@ cdef class cast2gif:
                         delay-=partial_delay
                         if delay==0:
                             add_frames=None
-                        text+=v.get_text()
+                        #text+=v.get_text()
                         # add the freame to the gif
                         g.add_frame(    disposal_method=0,
                                         delay=partial_delay, 
@@ -205,7 +205,7 @@ cdef class cast2gif:
         if self.debug:
             v.debug_sequence()
         g.close()
-        print text
+        #print text
         print("\nfinished")
         
 
