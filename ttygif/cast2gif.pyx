@@ -73,7 +73,7 @@ cdef class cast2gif:
 
     def show_percent(self,index):
         self.old_percent=self.percent
-        self.percent=int((index*100)/self.self.event_length)
+        self.percent=int((index*100)/self.event_length)
         if self.percent!=self.old_percent:
             if self.natural:
                 sys.stdout.write("Seconds: {0} of {1} {2}%    \r".format(self.timestamp,self.last_timestamp,self.percent))                
@@ -98,7 +98,7 @@ cdef class cast2gif:
         cast=asciicast_reader(debug=debug)
         stream=cast.load(cast_file)
 
-        self.self.event_length=len(stream['events'])
+        self.event_length=len(stream['events'])
         
         g=encode_gif(loop_count,debug=debug)
         if width==None:
