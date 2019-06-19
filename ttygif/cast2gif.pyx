@@ -139,9 +139,8 @@ cdef class cast2gif:
             index+=1
             cur_timestamp=float(event[0])
 
-            if self.natural :
-                if cur_timestamp-timestamp>.001:
-                    new_frame=True
+            if self.natural and delay!=0:
+                new_frame=True
             elif cur_timestamp-timestamp>interval:
                 new_frame=True
 
