@@ -258,7 +258,8 @@ cdef class viewer:
     def get_text(self):
         loop=True
         cdef int pos=0
-
+        x=0
+        y=0
         text=""        
         while loop:
             character=self.buffer[pos+2]
