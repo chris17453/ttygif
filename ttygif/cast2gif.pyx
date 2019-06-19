@@ -26,6 +26,7 @@ cdef class cast2gif:
     cdef double timestamp 
     # last timestamp in file
     cdef double last_timestamp 
+    cdef object stream 
 
     def get_frame_bounding_diff(self,frame1,frame2,int width,int height):
         if frame1==None or frame2==None:
@@ -62,9 +63,9 @@ cdef class cast2gif:
         cdef int bound_width =max_x-min_x+1
         return {'min_x':min_x,'min_y':min_y,'max_x':max_x,'max_y':max_y,'width':bound_width,'height':bound_height}
 
-    def get_delay(self,event_index,stream):
+    def get_delay(self,event_index):
         delay=0
-        if event_index==len(stream['events'])-1:
+        if event_index==len(self.stream['events'])-1:
             #print loop_delay,1
             if self.loop_delay==None:
                 self.loop_delay=1000
@@ -72,8 +73,8 @@ cdef class cast2gif:
             new_frame=True
         else:
             if self.frame_rate==0:
-                print stream['events'][event_index+1][0],stream['events'][event_index][0]
-                delay=int((stream['events'][event_index+1][0]-stream['events'][event_index][0])*100)
+                print self.stream['events'][event_index+1][0],self.stream['events'][event_index][0]
+                delay=int((self.stream['events'][event_index+1][0]-self.stream['events'][event_index][0])*100)
             else:
                 delay=int(self.interval*100)
         return delay
@@ -105,27 +106,30 @@ cdef class cast2gif:
         print ("input : {0}".format(cast_file))
         print ("output: {0}".format(gif_file))
         cast=asciicast_reader(debug=debug)
-        stream=cast.load(cast_file)
+        self.stream=cast.load(cast_file)
+        self.event_length=len(self.stream['events'])
 
         if self.event_length<1:
             print("Empty stream")
             exit(0) 
 
-        self.event_length=len(stream['events'])
-        self.last_timestamp=float(stream['events'][self.event_length-1][0])
-        self.timestamp=float(stream['events'][0][0])
+        self.last_timestamp=float(self.stream['events'][self.event_length-1][0])
+        self.timestamp=float(self.stream['events'][0][0])
+        if self.width==None:
+            self.width=self.stream['width']
+        if self.height==None:
+            self.height=self.stream['height']
         
-        g=encode_gif(loop_count,debug=debug)
-        if width==None:
-            width=stream['width']
-        if height==None:
-            height=stream['height']
+        self.encode_stream()
 
+    def encode_stream(self):
+        
+        g=encode_gif(self.loop_count,debug=self.debug)
         print ("dimensions: {0}x{1}".format(width,height))
         
 
-        v=viewer(char_width=width,char_height=height,debug=debug)
-        g.create(width=v.viewport_px_width,height=v.viewport_px_height,filename=gif_file,default_palette=True)
+        v=viewer(char_width=self.width,char_height=self.height,debug=self.debug)
+        g.create(width=v.viewport_px_width,height=v.viewport_px_height,filename=self.gif_file,default_palette=True)
 
         index=0
         if frame_rate!=0:
@@ -133,20 +137,19 @@ cdef class cast2gif:
         else:
             self.interval=0
         frame=0
-        max_frames=50
         data=None
         old_data=None
         new_frame=None
 
         for event_index in range(0,len(stream['events'])):
             self.show_percent(index)
-            event=stream['events'][event_index]
+            event=self.stream['events'][event_index]
             v.add_event(event)
             
-            if event_index==len(stream['events'])-1:
+            if event_index==len(self.stream['events'])-1:
                 v.last_frame()
 
-            delay=self.get_delay(event_index,stream)
+            delay=self.get_delay(event_index)
             print("Delay:{0}".format(delay))
 
             index+=1
