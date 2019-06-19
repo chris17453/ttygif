@@ -20,6 +20,8 @@ cdef class cast2gif:
     cdef object height
     cdef double interval
     cdef object event_length
+    cdef double percent
+    cdef double old_percent
 
     def get_frame_bounding_diff(self,frame1,frame2,int width,int height):
         if frame1==None or frame2==None:
