@@ -132,8 +132,8 @@ cdef class cast2gif:
         g.create(width=v.viewport_px_width,height=v.viewport_px_height,filename=self.gif_file,default_palette=True)
 
         index=0
-        if frame_rate!=0:
-            self.interval=float(1)/float(frame_rate)
+        if self.frame_rate!=0:
+            self.interval=float(1)/float(self.frame_rate)
         else:
             self.interval=0
         frame=0
