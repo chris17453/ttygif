@@ -162,6 +162,7 @@ cdef class cast2gif:
                 new_frame=True
             elif cur_timestamp-self.timestamp>self.interval:
                 new_frame=True
+                delay=int((cur_timestamp-self.timestamp)*100)
 
             if new_frame:
                 new_frame=None
@@ -196,7 +197,7 @@ cdef class cast2gif:
                                         height=diff['height'],
                                         palette=None,
                                         image_data=frame_snip)
-
+                        self.aggregate_timestamp+=float(delay)/100
 
 
                 self.timestamp=cur_timestamp
