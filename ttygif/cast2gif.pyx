@@ -114,7 +114,7 @@ cdef class cast2gif:
         max_frames=50
         data=None
         old_data=None
-        if strlen<1:
+        if len(stream['events'])<1:
             print("Empty stream")
             exit(0) 
 
