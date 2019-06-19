@@ -124,7 +124,7 @@ cdef class cast2gif:
             self.height=self.stream['height']
         
         self.encode_stream()
-
+    
     
     def encode_stream(self):
         g=encode_gif(self.loop_count,debug=self.debug)
@@ -144,6 +144,7 @@ cdef class cast2gif:
         old_data=None
         new_frame=None
         aggregate_timestamp=0
+        text=""
         for event_index in range(0,self.event_length):
             self.show_percent(index)
             event=self.stream['events'][event_index]
@@ -186,7 +187,7 @@ cdef class cast2gif:
                         delay-=partial_delay
                         if delay==0:
                             add_frames=None
-                        
+                        text+=v.get_text()
                         # add the freame to the gif
                         g.add_frame(    disposal_method=0,
                                         delay=partial_delay, 
@@ -204,6 +205,7 @@ cdef class cast2gif:
         if self.debug:
             v.debug_sequence()
         g.close()
+        print text
         print("\nfinished")
         
 
