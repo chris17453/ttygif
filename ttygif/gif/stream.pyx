@@ -43,7 +43,7 @@ cdef class DataStream:
             self.file_object=open(self.file, "rb")
         if self.mode=='w':
             #print ("W")
-            self.file_object=open(self.file, "wb")
+            self.file_object=open(self.file, "wb+")
         #print ("OUT OPEN")
 
     def close(self):
