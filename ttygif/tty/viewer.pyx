@@ -261,6 +261,7 @@ cdef class viewer:
         x=0
         y=0
         text=""        
+        buffer_length=len.(self.buffer)
         while loop:
             character=self.buffer[pos+2]
             text+=unichr(character)
@@ -270,7 +271,7 @@ cdef class viewer:
                 x=0
                 y+=1
             pos+=3
-            if pos>=self.buffer_length:
+            if pos>=buffer_length:
                 loop=None
         text+="\n"
         return text
