@@ -150,7 +150,7 @@ cdef class viewer:
                             [198,198,198],[208,208,208],[218,218,218],[228,228,228],[238,238,238]
         ]
 
-    def draw_string(x,y,data):
+    def draw_string(self,x,y,data):
         for i in data:
             self.draw_character3(ord(i),x,y,0,1,0)
             x+=1
