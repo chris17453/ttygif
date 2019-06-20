@@ -344,6 +344,7 @@ cdef class viewer:
                             if y>=self.viewport_char_height:
                                 y=self.viewport_char_height-1
                                 self.shift_buffer(buffer)
+                        continue
                     if x>=self.viewport_char_width:
                         x=0
                         y+=1
