@@ -138,7 +138,7 @@ cdef class cast2gif:
         if self.frame_rate!=0:
             self.interval=float(1)/float(self.frame_rate)
         else:
-            self.interval=.01
+            self.interval=.03
         frame=0
         data=None
         old_data=None
@@ -159,7 +159,7 @@ cdef class cast2gif:
             index+=1
             cur_timestamp=round(float(event[0]),3)
 
-            if self.natural and delay!=0:
+            if self.natural and delay!=0 and delay>self.interval:
                 new_frame=True
             elif cur_timestamp-self.timestamp>=self.interval:
                 print("interval_breach")
