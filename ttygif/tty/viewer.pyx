@@ -519,9 +519,6 @@ cdef class viewer:
                         if params[0]==2:
                             if self.debug_mode:
                                 self.info("Erase Display and buffer")
-                            #x=0
-                            #y=0
-                            pos=0
                             buffer=self.new_char_buffer()
 
                     elif command=='K': # erase line
@@ -531,7 +528,7 @@ cdef class viewer:
                             for x2 in range(x,self.viewport_char_width):
                                 self.write_buffer(x2,y,32,buffer)
                         elif params[0]==1:
-                            for x2 in range(0,x):
+                            for x2 in range(0,x+1):
                                 self.write_buffer(x2,y,32,buffer)
                         elif params[0]==2:
                             for x2 in range(0,self.viewport_char_width):
