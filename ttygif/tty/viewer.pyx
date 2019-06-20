@@ -308,6 +308,8 @@ cdef class viewer:
             raise Exception (err_msg)
 
     def set_mode(self,cmd):
+        dm=self.debug_mode
+        self.debug_mode=None
         if cmd==0:
             self.fg=self.def_fg
             self.bg=self.def_bg
@@ -355,6 +357,7 @@ cdef class viewer:
             self.bg=cmd-100+8
             if self.debug_mode:
                 self.info("Set High INTENSITY BG")
+        self.debug_mode=dm
 
     def reset_mode(self,cmd):
         if cmd==0:
