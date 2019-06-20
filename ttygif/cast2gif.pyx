@@ -70,7 +70,7 @@ cdef class cast2gif:
         if event_index==len(self.stream['events'])-1:
             #print loop_delay,1
             if self.loop_delay==None:
-                self.loop_delay=1000
+                self.loop_delay=100
             delay=self.loop_delay 
             new_frame=True
         else:
@@ -157,7 +157,7 @@ cdef class cast2gif:
             #print("Delay:{0}".format(delay))
 
             index+=1
-            cur_timestamp=round(float(event[0]),3)
+            cur_timestamp=round(float(event[0]),2)
 
             if self.natural and delay!=0 and delay>=self.interval:
                 new_frame=True
