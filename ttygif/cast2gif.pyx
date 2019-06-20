@@ -157,7 +157,7 @@ cdef class cast2gif:
             print("Delay:{0}".format(delay))
 
             index+=1
-            cur_timestamp=float(event[0])
+            cur_timestamp=round(float(event[0]),3)
 
             if self.natural and delay!=0:
                 new_frame=True
