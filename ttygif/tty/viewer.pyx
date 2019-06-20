@@ -152,7 +152,7 @@ cdef class viewer:
 
     def draw_string(self,x,y,data):
         for i in data:
-            self.draw_character3(ord(i),x,y,0,1,0)
+            self.draw_character3(ord(i),x,y,0,15,0)
             x+=1
 
     cdef draw_character3(self,int character,int x,int y,int offset,int foreground_color,int background_color):
