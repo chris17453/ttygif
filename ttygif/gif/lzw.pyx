@@ -93,4 +93,12 @@ void LzwEncoder::encode(uint32_t indices[], int width, int height, int size, cha
             current = *next
         indices+=1
     self.writeBits(current, codeSize)
-    self.write(content, getMinimumCodeSize(numColors))
+
+
+    size = 2
+    while numColors > 1 << size:
+        size+=1
+    
+    ba.append()
+
+    self.write(content,size)
