@@ -178,7 +178,7 @@ cdef class cast2gif:
                 self.info("Frame:{0}, Delay:{1}".format(frame,delay))
                 new_frame=None
                 frame+=1
-                if frame<470:
+                if frame<170:
                     self.timestamp=cur_timestamp
                     continue
                 v.render()
@@ -216,8 +216,8 @@ cdef class cast2gif:
 
 
                 self.timestamp=cur_timestamp
-        if self.debug:
-            v.debug_sequence()
+        #if self.debug:
+        #    v.debug_sequence()
         g.close()
         print ("Total:",self.aggregate_timestamp)
         print("\nfinished")
