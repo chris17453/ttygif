@@ -490,7 +490,7 @@ cdef class viewer:
                         y-=params[0]
                     elif command=='G' or command=='`': # move cursor to HORIZONTAL pos X
                         if self.debug_mode:
-                            self.info("Cursor X:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            self.info("Cursor X:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         x=params[0]-1
                     elif command=='H' or command=='f': # move cursor to x,y pos
                         if self.debug_mode:
