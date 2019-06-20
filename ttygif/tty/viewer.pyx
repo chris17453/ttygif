@@ -447,44 +447,30 @@ cdef class viewer:
                         if self.debug_mode:
                             self.info("Cursor Up:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         y-=params[0]
-                        if y<0:
-                            y=0
                     elif command=='B': # move cursor down
                         if self.debug_mode:
                             self.info("Cursor Down:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         y+=params[0]
-                        #if y<0:
-                        #    y=0
                     elif command=='C': # move cursor back
                         if self.debug_mode:
                             self.info("Cursor Right:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x+=params[0]
-                        if x<0:
-                            x==0
                     elif command=='D': # move cursor right
                         if self.debug_mode:
                             self.info("Cursor Left:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x-=params[0]
-                        if x>=self.viewport_char_width:
-                            x=self.viewport_char_width-1
                     elif command=='E': # move cursor next line
                         if self.debug_mode:
                             self.info("Cursor Next Line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=0
                         y+=params[0]
-                        if y>=self.viewport_char_height:
-                            while y>=self.viewport_char_height:
-                                y-=1
-                                self.shift_buffer(buffer)
 
                     elif command=='F': # move cursor previous  line
                         if self.debug_mode:
                             self.info("Cursor Previous Line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=0
                         y-=params[0]
-                        if y<0:
-                            y=0
-                    elif command=='G': # move cursor to HORIZONTAL pos X
+                    elif command=='G' or command=='`': # move cursor to HORIZONTAL pos X
                         if self.debug_mode:
                             self.info("Cursor X:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         x=params[0]-1
@@ -493,8 +479,6 @@ cdef class viewer:
                             self.info("Cursor Pos:{0},{1}".format(params[1],params[0]))
                         x=params[1]-1
                         y=params[0]-1
-                        if y>=self.viewport_char_height:
-                            y=self.viewport_char_height-1
 
                     elif command=='J': # erase display
                         if params[0]==1:
@@ -531,6 +515,37 @@ cdef class viewer:
                         elif params[0]==2:
                             for x2 in range(0,self.viewport_char_width):
                                 self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
+                    elif command=='d': # move cursor to HORIZONTAL pos X
+                        if self.debug_mode:
+                            self.info("Cursor Y{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                        y=params[0]-1
+                    elif command=='e': 
+                        if self.debug_mode:
+                            self.info("Cursor Down rows:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                        y+=params[0]
+                    elif command=='X': 
+                        if self.debug_mode:
+                            self.info("Erase number of charchters on line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            char_to_erase=params[0]
+                            stride=self.viewport_char_width-x
+                            temp=[0,0,0]*stride
+                            for x in range(x,stride-char_to_erase):
+                                temp[x+0]=buffer[char_to_erase*3+x  +y*self.viewport_char_stride]
+                                temp[x+1]=buffer[char_to_erase*3+x+1+y*self.viewport_char_stride]
+                                temp[x+2]=buffer[char_to_erase*3+x+2+y*self.viewport_char_stride]
+
+                            for x2 in range(x,stride):
+                                buffer[+x  +y*self.viewport_char_stride]=temp[x+0]
+                                buffer[+x+1+y*self.viewport_char_stride]=temp[x+1]
+                                buffer[+x+2+y*self.viewport_char_stride]=temp[x+2]
+                                
+
+                    elif command=='P': 
+                        if self.debug_mode:
+                            self.info("Delete number of charchters on line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            for x2 in range(x,x+params[0]):
+                                self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
+                        
                     else:
                         if self.debug_mode:
                             self.info("Impliment: pos x:{2},Y:{3} - {0}-{1}".format(command,params,x,y))
