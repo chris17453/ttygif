@@ -469,11 +469,11 @@ cdef class viewer:
                         if self.debug_mode:
                             self.info("Cursor Down:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         y+=params[0]
-                    elif command=='C': # move cursor back
+                    elif command=='C': # move cursor foreward
                         if self.debug_mode:
                             self.info("Cursor Right:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         x+=params[0]
-                    elif command=='D': # move cursor right
+                    elif command=='D': # move cursor back
                         if self.debug_mode:
                             self.info("Cursor Left:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         x-=params[0]
@@ -533,14 +533,14 @@ cdef class viewer:
                         elif params[0]==2:
                             for x2 in range(0,self.viewport_char_width):
                                 self.write_buffer(x2,y,32,buffer)
-                    elif command=='d': # move cursor to HORIZONTAL pos X
-                        if self.debug_mode:
-                            self.info("Cursor Y{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
-                        y=params[0]-1
-                    elif command=='e': 
-                        if self.debug_mode:
-                            self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
-                        y+=params[0]
+                    #elif command=='d': # move cursor to HORIZONTAL pos X
+                    #    if self.debug_mode:
+                    #        self.info("Cursor Y{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
+                    #    y=params[0]-1
+                    #elif command=='e': 
+                    #    if self.debug_mode:
+                    #        self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
+                    #    y+=params[0]
                     elif command=='h': 
                         if self.debug_mode:
                             self.info("Set mode:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
@@ -719,6 +719,7 @@ cdef class viewer:
             #print ("NO EXTRA")
             #print text[cursor:]
             self.extra_text=""
+            print("->",text[cursor:])
             self.add_text_sequence(text[cursor:],timestamp,0)
     
     def last_frame(self):
