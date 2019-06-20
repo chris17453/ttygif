@@ -172,13 +172,13 @@ cdef class cast2gif:
                 new_frame=None
                 frame+=1
                 v.render()
-                v.draw_string(0,0,"Frame::{0}".format(frame))
+                v.draw_string(0,0,"Frame:{0} ".format(frame))
                 old_data=data
                 data=v.get()
                 #old_data=None
                 
                 diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
-                if diff:
+                if frame>150 and diff:
                     frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
 
                     # loop the frames if the delay is bigger than 65.535 seconds =0xFFFF
