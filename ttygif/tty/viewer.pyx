@@ -355,7 +355,7 @@ cdef class viewer:
             if self.debug_mode:
                 self.info("Set High INTENSITY BG:{0}".format(params))
 
- def reset_mode(self,cmd):
+   def reset_mode(self,cmd):
         if cmd==0:
             self.fg=def_fg
             self.bg=def_bg
