@@ -175,7 +175,7 @@ cdef class cast2gif:
                 #print("Delay",delay,self.interval,cur_timestamp,self.timestamp)
 
             if new_frame:
-                self.info("New Frame",frame,delay)
+                self.info("Frame:{0}, Delay:{1}".format(frame,delay))
                 new_frame=None
                 frame+=1
                 if frame<470:
