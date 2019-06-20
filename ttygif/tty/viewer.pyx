@@ -338,7 +338,7 @@ cdef class viewer:
                 self.info("Set Default FG:{0}".format(params))
         elif cmd>=40 and cmd<=47:
             self.bg=cmd-40
-            if bold:
+            if self.bold:
                 self.fg+=8
             if self.debug_mode:
                 self.info("Set BG:{0}".format(params))
