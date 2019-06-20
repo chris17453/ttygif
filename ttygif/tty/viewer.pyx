@@ -308,8 +308,8 @@ cdef class viewer:
 
     def set_mode(self,cmd):
         if cmd==0:
-            self.fg=def_fg
-            self.bg=def_bg
+            self.fg=self.def_fg
+            self.bg=self.def_bg
             self.bold=None
             self.reverse_video=None
             if self.debug_mode:
