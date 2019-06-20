@@ -499,25 +499,28 @@ cdef class viewer:
                         y=params[0]-1
 
                     elif command=='J': # erase display
+                        if params[0]==0:
+                            if self.debug_mode:
+                                self.info("Erase Display cursor to end")
+                            pos=x*3+y*self.viewport_char_stride
+                            for x in range(pos,len(buffer):
+                                buffer[x*3+0]=self.fg
+                                buffer[x*3+1]=self.bg
+                                buffer[x*3+2]=32
                         if params[0]==1:
                             if self.debug_mode:
-                                self.info("Erase Display to cursor")
-                            x=0
-                            y=0
-                            pos=0
-                            buffer=self.new_char_buffer()
+                                self.info("Erase Display top til cursor")
+                            pos=x*3+y*self.viewport_char_stride
+                            for x in range(0,pos+1):
+                                buffer[x*3+0]=self.fg
+                                buffer[x*3+1]=self.bg
+                                buffer[x*3+2]=32
+
                         if params[0]==2:
                             if self.debug_mode:
-                                self.info("Erase Display")
-                            x=0
-                            y=0
-                            pos=0
-                            buffer=self.new_char_buffer()
-                        if params[0]==3:
-                            if self.debug_mode:
                                 self.info("Erase Display and buffer")
-                            x=0
-                            y=0
+                            #x=0
+                            #y=0
                             pos=0
                             buffer=self.new_char_buffer()
 
