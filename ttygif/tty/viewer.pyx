@@ -798,7 +798,7 @@ cdef class viewer:
             else:
                 delay=0
         if event_type=='o':
-            self.stream_2_sequence(self.extra_text+event_io,s,0)
+            self.stream_2_sequence(self.extra_text+event_io,timestamp,0)
             self.last_timestamp=timestamp
         
     cdef save_screen(self):
