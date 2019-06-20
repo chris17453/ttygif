@@ -34,12 +34,12 @@ cdef class viewer:
     cdef public object          sequence
     cdef public object          sequence_pos
 
-    cdef public object          x
-    cdef public object          y
-    cdef public object          def_fg
-    cdef public object          def_bg
-    cdef public object          fg
-    cdef public object          bg
+    cdef public int          x
+    cdef public int          y
+    cdef public int          def_fg
+    cdef public int          def_bg
+    cdef public int          fg
+    cdef public int          bg
     cdef public object          reverse_video
     cdef public object          bold
     cdef public object          extra_text
