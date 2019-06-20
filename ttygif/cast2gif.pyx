@@ -164,8 +164,13 @@ cdef class cast2gif:
             elif cur_timestamp-self.timestamp>=self.interval:
                 print("interval_breach")
                 new_frame=True
+                delay=cur_timestamp-self.timestamp
+                print delay
                 delay=(cur_timestamp-self.timestamp)*100
+                print delay
                 delay=int(delay)
+                delay=int((cur_timestamp-self.timestamp)*100)
+                print delay
                 print("Delay",delay,self.interval,cur_timestamp,self.timestamp)
 
             if new_frame:
