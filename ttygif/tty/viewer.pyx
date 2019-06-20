@@ -503,7 +503,7 @@ cdef class viewer:
                             if self.debug_mode:
                                 self.info("Erase Display cursor to end")
                             pos=x*3+y*self.viewport_char_stride
-                            for x in range(pos,len(buffer):
+                            for x in range(pos,len(buffer)):
                                 buffer[x*3+0]=self.fg
                                 buffer[x*3+1]=self.bg
                                 buffer[x*3+2]=32
