@@ -395,8 +395,8 @@ cdef class viewer:
         for event in self.sequence[self.sequence_pos:]:
             new_sequence_pos+=1
             if event['type']=='text':
-                if self.debug_mode:
-                    self.info(u"X:{0:<2} {1:<2},FG:{2:<2},BG:{3},Text: {3}".format(x,y,self.fg,self.bg,event['data']))
+                #if self.debug_mode:
+                #    self.info(u"X:{0:<2} {1:<2},FG:{2:<2},BG:{3},Text: {3}".format(x,y,self.fg,self.bg,event['data']))
                 for character in event['data']:
                     # new line or wrap
                     char_ord=ord(character)
@@ -448,15 +448,15 @@ cdef class viewer:
                             self.fg=params[2] # rgb
                         if params[1]==5:
                             self.fg=params[2]
-                        if self.debug_mode:
-                            self.info("Set FG:{0}".format(params))
+                        #if self.debug_mode:
+                            #self.info("Set FG:{0}".format(params))
                     elif 48 in params:
                             if params[1]==2:
                                 self.bg=params[2] #rgb
                             if params[1]==5:
                                 self.bg=params[2]
-                            if self.debug_mode:
-                                self.info("Set BG:{0}".format(params))
+                            #if self.debug_mode:
+                                #self.info("Set BG:{0}".format(params))
                     else:
                         for cmd in params:
                            self.set_mode(cmd)
