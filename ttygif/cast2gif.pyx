@@ -76,7 +76,7 @@ cdef class cast2gif:
         else:
             if self.frame_rate==0:
                 #print self.stream['events'][event_index+1][0],self.stream['events'][event_index][0]
-                delay=int((self.stream['events'][event_index+1][0]-self.stream['events'][event_index][0])*1000)
+                delay=int((self.stream['events'][event_index+1][0]-self.stream['events'][event_index][0])*10)
             else:
                 delay=0
         return delay
@@ -138,7 +138,7 @@ cdef class cast2gif:
         if self.frame_rate!=0:
             self.interval=float(1)/float(self.frame_rate)
         else:
-            self.interval=.001
+            self.interval= 1/100
         frame=0
         data=None
         old_data=None
@@ -164,7 +164,7 @@ cdef class cast2gif:
             elif cur_timestamp-self.timestamp>=self.interval:
                 print("interval_breach")
                 new_frame=True
-                delay=int((cur_timestamp-self.timestamp)*1000)
+                delay=int((cur_timestamp-self.timestamp))
                 print("Delay",delay,self.interval,cur_timestamp,self.timestamp)
 
             if new_frame:
