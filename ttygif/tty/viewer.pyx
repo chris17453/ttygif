@@ -313,47 +313,47 @@ cdef class viewer:
             self.bold=None
             self.reverse_video=None
             if self.debug_mode:
-                self.info("RESET All:{0}".format(params))
+                self.info("RESET All")
         elif cmd==1:
             self.bold=True
             if self.debug_mode:
-                self.info("Set BOLD:{0}".format(params))
+                self.info("Set BOLD")
         elif cmd==7:
             if self.debug_mode:
-                self.info("Reverse Video On:{0}".format(params))
+                self.info("Reverse Video On")
             self.reverse_video=True
         elif cmd==27:
             if self.debug_mode:
-                self.info("Reverse Video Off:{0}".format(params))
+                self.info("Reverse Video Off")
             self.reverse_video=None
         elif cmd>=30 and cmd<=37:
             self.fg=cmd-30
             if self.bold:
                 self.fg+=8
             if self.debug_mode:
-                self.info("Set FG:{0}".format(params))
+                self.info("Set FG")
         elif cmd==39:
             self.fg=self.def_fg
             if self.debug_mode:
-                self.info("Set Default FG:{0}".format(params))
+                self.info("Set Default FG")
         elif cmd>=40 and cmd<=47:
             self.bg=cmd-40
             if self.bold:
                 self.fg+=8
             if self.debug_mode:
-                self.info("Set BG:{0}".format(params))
+                self.info("Set BG")
         elif cmd==49:
             self.bg=self.def_bg
             if self.debug_mode:
-                self.info("Set Default BG:{0}".format(params))
+                self.info("Set Default BG")
         elif cmd>=90 and cmd<=97:
             self.fg=cmd-90+8
             if self.debug_mode:
-                self.info("Set High INTENSITY FG:{0}".format(params))
+                self.info("Set High INTENSITY FG")
         elif cmd>=100 and cmd<=107:
             self.bg=cmd-100+8
             if self.debug_mode:
-                self.info("Set High INTENSITY BG:{0}".format(params))
+                self.info("Set High INTENSITY BG")
 
     def reset_mode(self,cmd):
         if cmd==0:
@@ -362,11 +362,11 @@ cdef class viewer:
             self.bold=None
             self.reverse_video=None
             if self.debug_mode:
-                self.info("RESET All:{0}".format(params))
+                self.info("RESET All")
         elif cmd==1:
             self.bold=None
             if self.debug_mode:
-                self.info("Set BOLD:{0}".format(params))
+                self.info("Set BOLD")
         elif cmd==7:
             self.reverse_video=None
 
