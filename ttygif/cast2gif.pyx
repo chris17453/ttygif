@@ -78,7 +78,7 @@ cdef class cast2gif:
                 print self.stream['events'][event_index+1][0],self.stream['events'][event_index][0]
                 delay=int((self.stream['events'][event_index+1][0]-self.stream['events'][event_index][0])*100)
             else:
-                delay=int(self.interval*100)
+                delay=0
         return delay
 
     def show_percent(self,index):
@@ -154,7 +154,7 @@ cdef class cast2gif:
                 v.last_frame()
 
             delay=self.get_delay(event_index)
-            print("Delay:{0}".format(delay))
+            #print("Delay:{0}".format(delay))
 
             index+=1
             cur_timestamp=round(float(event[0]),3)
@@ -168,7 +168,7 @@ cdef class cast2gif:
                 print("Delay",delay,self.interval,cur_timestamp,self.timestamp)
 
             if new_frame:
-                print frame,delay
+                print("New Frame",frame,delay)
                 new_frame=None
                 frame+=1
                 v.render()
