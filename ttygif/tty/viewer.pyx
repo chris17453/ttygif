@@ -306,6 +306,71 @@ cdef class viewer:
             print x,y,pos,len(buffer),ex,c
             raise Exception (":NO!")
 
+    def set_mode(self,cmd):
+        if cmd==0:
+            self.fg=def_fg
+            self.bg=def_bg
+            self.bold=None
+            self.reverse_video=None
+            if self.debug_mode:
+                self.info("RESET All:{0}".format(params))
+        elif cmd==1:
+            self.bold=True
+            if self.debug_mode:
+                self.info("Set BOLD:{0}".format(params))
+        elif cmd==7:
+            if self.debug_mode:
+                self.info("Reverse Video On:{0}".format(params))
+            self.reverse_video=True
+        elif cmd==27:
+            if self.debug_mode:
+                self.info("Reverse Video Off:{0}".format(params))
+            self.reverse_video=None
+        elif cmd>=30 and cmd<=37:
+            self.fg=cmd-30
+            if self.bold:
+                self.fg+=8
+            if self.debug_mode:
+                self.info("Set FG:{0}".format(params))
+        elif cmd==39:
+            self.fg=self.def_fg
+            if self.debug_mode:
+                self.info("Set Default FG:{0}".format(params))
+        elif cmd>=40 and cmd<=47:
+            self.bg=cmd-40
+            if bold:
+                self.fg+=8
+            if self.debug_mode:
+                self.info("Set BG:{0}".format(params))
+        elif cmd==49:
+            self.bg=self.def_bg
+            if self.debug_mode:
+                self.info("Set Default BG:{0}".format(params))
+        elif cmd>=90 and cmd<=97:
+            self.fg=cmd-90+8
+            if self.debug_mode:
+                self.info("Set High INTENSITY FG:{0}".format(params))
+        elif cmd>=100 and cmd<=107:
+            self.bg=cmd-100+8
+            if self.debug_mode:
+                self.info("Set High INTENSITY BG:{0}".format(params))
+
+ def reset_mode(self,cmd):
+        if cmd==0:
+            self.fg=def_fg
+            self.bg=def_bg
+            self.bold=None
+            self.reverse_video=None
+            if self.debug_mode:
+                self.info("RESET All:{0}".format(params))
+        elif cmd==1:
+            self.bold=None
+            if self.debug_mode:
+                self.info("Set BOLD:{0}".format(params))
+        elif cmd==7:
+            self.reverse_video=None
+
+
 
     # commands pre parsed on add_event
     cdef sequence_to_buffer(self):
@@ -319,12 +384,7 @@ cdef class viewer:
         
         x=self.x
         y=self.y
-        def_fg=self.def_fg
-        def_bg=self.def_bg
-        fg=self.fg
-        bg=self.bg
-        reverse_video=self.reverse_video
-        bold=self.bold
+        
 
         cursor=0
         new_sequence_pos=self.sequence_pos
@@ -332,7 +392,7 @@ cdef class viewer:
             new_sequence_pos+=1
             if event['type']=='text':
                 if self.debug_mode:
-                    self.info(u"X:{0:<2} {1:<2},FG:{2:<2},BG:{3},Text: {3}".format(x,y,fg,bg,event['data']))
+                    self.info(u"X:{0:<2} {1:<2},FG:{2:<2},BG:{3},Text: {3}".format(x,y,self.fg,self.bg,event['data']))
                 for character in event['data']:
                     # new line or wrap
                     char_ord=ord(character)
@@ -381,67 +441,21 @@ cdef class viewer:
                 if command=='m':
                     if 38 in params:
                         if params[1]==2:
-                            fg=params[2] # rgb
+                            self.fg=params[2] # rgb
                         if params[1]==5:
-                            fg=params[2]
+                            self.fg=params[2]
                         if self.debug_mode:
                             self.info("Set FG:{0}".format(params))
                     elif 48 in params:
                             if params[1]==2:
-                                bg=params[2] #rgb
+                                self.bg=params[2] #rgb
                             if params[1]==5:
-                                bg=params[2]
+                                self.bg=params[2]
                             if self.debug_mode:
                                 self.info("Set BG:{0}".format(params))
                     else:
                         for cmd in params:
-                            if cmd==0:
-                                fg=def_fg
-                                bg=def_bg
-                                bold=None
-                                reverse_video=None
-                                if self.debug_mode:
-                                    self.info("RESET All:{0}".format(params))
-                            elif cmd==1:
-                                bold=True
-                                if self.debug_mode:
-                                    self.info("Set BOLD:{0}".format(params))
-                            elif cmd==7:
-                                if self.debug_mode:
-                                    self.info("Reverse Video On:{0}".format(params))
-                                reverse_video=True
-                            elif cmd==27:
-                                if self.debug_mode:
-                                    self.info("Reverse Video Off:{0}".format(params))
-                                reverse_video=None
-                            elif cmd>=30 and cmd<=37:
-                                fg=cmd-30
-                                if bold:
-                                    fg+=8
-                                if self.debug_mode:
-                                    self.info("Set FG:{0}".format(params))
-                            elif cmd==39:
-                                fg=def_fg
-                                if self.debug_mode:
-                                    self.info("Set Default FG:{0}".format(params))
-                            elif cmd>=40 and cmd<=47:
-                                bg=cmd-40
-                                if bold:
-                                    fg+=8
-                                if self.debug_mode:
-                                    self.info("Set BG:{0}".format(params))
-                            elif cmd==49:
-                                bg=def_bg
-                                if self.debug_mode:
-                                    self.info("Set Default BG:{0}".format(params))
-                            elif cmd>=90 and cmd<=97:
-                                fg=cmd-90+8
-                                if self.debug_mode:
-                                    self.info("Set High INTENSITY FG:{0}".format(params))
-                            elif cmd>=100 and cmd<=107:
-                                bg=cmd-100+8
-                                if self.debug_mode:
-                                    self.info("Set High INTENSITY BG:{0}".format(params))
+                           self.set_mode(cmd)
                 else:
                     if command=='A': # move cursor up
                         if self.debug_mode:
@@ -523,6 +537,14 @@ cdef class viewer:
                         if self.debug_mode:
                             self.info("Cursor Down rows:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                         y+=params[0]
+                    elif command=='h': 
+                        if self.debug_mode:
+                            self.info("Set mode:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            self.set_mode(params)
+                    elif command=='l': 
+                        if self.debug_mode:
+                            self.info("Set mode:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            self.reset_mode(params)
                     elif command=='X': 
                         if self.debug_mode:
                             self.info("Erase number of charchters on line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
@@ -559,13 +581,7 @@ cdef class viewer:
 
         self.x=x
         self.y=y
-        self.def_fg=def_fg
-        self.def_bg=def_bg
-        self.fg=fg
-        self.bg=bg
-        self.reverse_video=reverse_video
-        self.bold=bold
-
+   
     
     cdef stream_2_sequence(self,text,timestamp,delay):
          
