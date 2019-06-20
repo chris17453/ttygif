@@ -161,12 +161,12 @@ cdef class cast2gif:
 
             if self.natural and delay!=0:
                 new_frame=True
-            elif cur_timestamp-self.timestamp>self.interval:
+            elif cur_timestamp-self.timestamp>=self.interval:
                 new_frame=True
                 delay=int((cur_timestamp-self.timestamp)*100)
 
             if new_frame:
-                print frame
+                print frame,delay
                 new_frame=None
                 frame+=1
                 v.render()
