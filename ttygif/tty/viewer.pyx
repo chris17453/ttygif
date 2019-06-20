@@ -294,7 +294,7 @@ cdef class viewer:
         try:
             #print x,y,pos,len(buffer),c
             
-            if self.reverse:
+            if self.reverse_video:
                 buffer[pos]=self.bg
                 buffer[pos+1]=self.fg
                 buffer[pos+2]=c
