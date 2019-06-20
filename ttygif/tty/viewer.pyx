@@ -548,26 +548,26 @@ cdef class viewer:
                             self.reset_mode(params)
                     elif command=='X': 
                         if self.debug_mode:
-                            self.info("Erase number of charchters on line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
-                            char_to_erase=params[0]
-                            stride=self.viewport_char_width-x
-                            temp=[0,0,0]*stride
-                            for x in range(x,stride-char_to_erase):
-                                temp[x+0]=buffer[char_to_erase*3+x  +y*self.viewport_char_stride]
-                                temp[x+1]=buffer[char_to_erase*3+x+1+y*self.viewport_char_stride]
-                                temp[x+2]=buffer[char_to_erase*3+x+2+y*self.viewport_char_stride]
+                            self.info("Erase number of charchters on line:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
+                        char_to_erase=params[0]
+                        stride=self.viewport_char_width-x
+                        temp=[0,0,0]*stride
+                        for x in range(x,stride-char_to_erase):
+                            temp[x+0]=buffer[char_to_erase*3+x  +y*self.viewport_char_stride]
+                            temp[x+1]=buffer[char_to_erase*3+x+1+y*self.viewport_char_stride]
+                            temp[x+2]=buffer[char_to_erase*3+x+2+y*self.viewport_char_stride]
 
-                            for x2 in range(x,stride):
-                                buffer[+x  +y*self.viewport_char_stride]=temp[x+0]
-                                buffer[+x+1+y*self.viewport_char_stride]=temp[x+1]
-                                buffer[+x+2+y*self.viewport_char_stride]=temp[x+2]
+                        for x2 in range(x,stride):
+                            buffer[+x  +y*self.viewport_char_stride]=temp[x+0]
+                            buffer[+x+1+y*self.viewport_char_stride]=temp[x+1]
+                            buffer[+x+2+y*self.viewport_char_stride]=temp[x+2]
                                 
 
                     elif command=='P': 
                         if self.debug_mode:
-                            self.info("Delete number of charchters on line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
-                            for x2 in range(x,x+params[0]):
-                                self.write_buffer(x2,y,32,buffer)
+                            self.info("Delete number of charchters on line:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
+                        for x2 in range(x,x+params[0]):
+                            self.write_buffer(x2,y,32,buffer)
                         
                     else:
                         if self.debug_mode:
