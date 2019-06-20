@@ -208,7 +208,7 @@ cdef class cast2gif:
         if self.debug:
             v.debug_sequence()
         g.close()
-        print ("Total:".self.aggregate_timestamp)
+        print ("Total:",self.aggregate_timestamp)
         print("\nfinished")
         
 
