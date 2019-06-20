@@ -564,7 +564,7 @@ cdef class viewer:
                             b=x2*3+y*self.viewport_char_stride
                             buffer[b+0]=temp[t+0]
                             buffer[b+1]=temp[t+1]
-                            buffer[b+2]=#temp[t+2]
+                            buffer[b+2]=temp[t+2]
                                 
 
                     elif command=='P': 
