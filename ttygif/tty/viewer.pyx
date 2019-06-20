@@ -34,12 +34,12 @@ cdef class viewer:
     cdef public object          sequence
     cdef public object          sequence_pos
 
-    cdef public int          x
-    cdef public int          y
-    cdef public int          def_fg
-    cdef public int          def_bg
-    cdef public int          fg
-    cdef public int          bg
+    cdef public int             x
+    cdef public int             y
+    cdef public int             def_fg
+    cdef public int             def_bg
+    cdef public int             fg
+    cdef public int             bg
     cdef public object          reverse_video
     cdef public object          bold
     cdef public object          extra_text
@@ -303,8 +303,9 @@ cdef class viewer:
                 buffer[pos+1]=self.bg
                 buffer[pos+2]=c
         except Exception as ex:
-            print x,y,pos,len(buffer),ex,c
-            raise Exception (":NO!")
+            err_msg="Msg:{0} X:{1},Y:{2},C:{3},FG:{4},BG:{5},Buffer Len:{6}".format(ex,x,y,c,self.fg,self.bg,len(buffer))
+            
+            raise Exception (err_msg)
 
     def set_mode(self,cmd):
         if cmd==0:
