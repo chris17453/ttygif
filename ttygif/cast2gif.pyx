@@ -168,10 +168,11 @@ cdef class cast2gif:
                 #print("Delay",delay,self.interval,cur_timestamp,self.timestamp)
 
             if new_frame:
-                print("New Frame",frame,delay)
+                self.info("New Frame",frame,delay)
                 new_frame=None
                 frame+=1
                 if frame<470:
+                    self.timestamp=cur_timestamp
                     continue
                 v.render()
                 v.draw_string(0,0,"Frame:{0} ".format(frame))
