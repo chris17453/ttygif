@@ -286,7 +286,7 @@ cdef class viewer:
 
 
 
-    cdef write_buffer(self,int x,int y,int c,array.array buffer,int fg,int bg,reverse):
+    cdef write_buffer(self,int x,int y,int c,array.array buffer):
         if c>255:
             err_msg="Charactrer out of range -{0}".format(c)
             raise Exception(err_msg)
@@ -294,13 +294,13 @@ cdef class viewer:
         try:
             #print x,y,pos,len(buffer),c
             
-            if reverse:
-                buffer[pos]=bg
-                buffer[pos+1]=fg
+            if self.reverse:
+                buffer[pos]=self.bg
+                buffer[pos+1]=self.fg
                 buffer[pos+2]=c
             else:
-                buffer[pos]=fg
-                buffer[pos+1]=bg
+                buffer[pos]=self.fg
+                buffer[pos+1]=self.bg
                 buffer[pos+2]=c
         except Exception as ex:
             print x,y,pos,len(buffer),ex,c
@@ -416,7 +416,7 @@ cdef class viewer:
                         if y>=self.viewport_char_height:
                             y=self.viewport_char_height-1
                             self.shift_buffer(buffer)
-                    self.write_buffer(x,y,char_ord,buffer,fg,bg,reverse_video)
+                    self.write_buffer(x,y,char_ord,buffer)
                     x+=1
                 continue
 
@@ -522,13 +522,13 @@ cdef class viewer:
                             self.info("Erase Line: {0}".format(params[0]))
                         if params[0]==0:
                             for x2 in range(x,self.viewport_char_width):
-                                self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
+                                self.write_buffer(x2,y,32,buffer)
                         elif params[0]==1:
                             for x2 in range(0,x):
-                                self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
+                                self.write_buffer(x2,y,32,buffer)
                         elif params[0]==2:
                             for x2 in range(0,self.viewport_char_width):
-                                self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
+                                self.write_buffer(x2,y,32,buffer)
                     elif command=='d': # move cursor to HORIZONTAL pos X
                         if self.debug_mode:
                             self.info("Cursor Y{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
@@ -566,7 +566,7 @@ cdef class viewer:
                         if self.debug_mode:
                             self.info("Delete number of charchters on line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
                             for x2 in range(x,x+params[0]):
-                                self.write_buffer(x2,y,32,buffer,fg,bg,reverse_video)
+                                self.write_buffer(x2,y,32,buffer)
                         
                     else:
                         if self.debug_mode:
