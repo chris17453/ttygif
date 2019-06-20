@@ -143,7 +143,7 @@ cdef class cast2gif:
         data=None
         old_data=None
         new_frame=None
-        self.aggregate_t0imestamp=0
+        self.aggregate_timestamp=0
         text=""
         for event_index in range(0,self.event_length):
             self.show_percent(index)
