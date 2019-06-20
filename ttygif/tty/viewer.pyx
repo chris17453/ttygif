@@ -276,7 +276,9 @@ cdef class viewer:
         text+="\n"
         return text
 
-        
+    #4045017243 2
+
+
 
 
     cdef write_buffer(self,int x,int y,int c,array.array buffer,int fg,int bg,reverse):
@@ -784,7 +786,7 @@ cdef class viewer:
         return {'width':self.viewport_px_width,'height':self.viewport_px_height,'data':array.copy(self.video),'color_table':self.color_table}
 
     def add_event(self,event):
-        timestamp=float(event[0])
+        timestamp=round(float(event[0]),3)
         event_type=event[1]
         event_io=event[2]
         if self.last_timestamp==0:
