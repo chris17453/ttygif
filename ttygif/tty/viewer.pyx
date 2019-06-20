@@ -552,15 +552,19 @@ cdef class viewer:
                         char_to_erase=params[0]
                         stride=self.viewport_char_width-x
                         temp=[0,0,0]*stride
-                        for x in range(x,stride-char_to_erase):
-                            temp[x+0]=buffer[char_to_erase*3+x  +y*self.viewport_char_stride]
-                            temp[x+1]=buffer[char_to_erase*3+x+1+y*self.viewport_char_stride]
-                            temp[x+2]=buffer[char_to_erase*3+x+2+y*self.viewport_char_stride]
+                        for x2 in range(x,stride-char_to_erase):
+                            t=(x2-x)*3
+                            b=(char_to_erase+x2)*3  +y*self.viewport_char_stride
+                            temp[t+0]=buffer[b+0]
+                            temp[t+1]=buffer[b+1]
+                            temp[t+2]=buffer[b+2]
 
                         for x2 in range(x,stride):
-                            buffer[+x  +y*self.viewport_char_stride]=temp[x+0]
-                            buffer[+x+1+y*self.viewport_char_stride]=temp[x+1]
-                            buffer[+x+2+y*self.viewport_char_stride]=temp[x+2]
+                            t=(x2-x)*3
+                            b=x2*3+y*self.viewport_char_stride
+                            buffer[b+0]=temp[t+0]
+                            buffer[b+1]=temp[t+1]
+                            buffer[b+2]=temp[t+2]
                                 
 
                     elif command=='P': 
