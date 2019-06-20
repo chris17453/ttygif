@@ -463,29 +463,29 @@ cdef class viewer:
                 else:
                     if command=='A': # move cursor up
                         if self.debug_mode:
-                            self.info("Cursor Up:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            self.info("Cursor Up:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         y-=params[0]
                     elif command=='B': # move cursor down
                         if self.debug_mode:
-                            self.info("Cursor Down:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            self.info("Cursor Down:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         y+=params[0]
                     elif command=='C': # move cursor back
                         if self.debug_mode:
-                            self.info("Cursor Right:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            self.info("Cursor Right:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         x+=params[0]
                     elif command=='D': # move cursor right
                         if self.debug_mode:
-                            self.info("Cursor Left:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            self.info("Cursor Left:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         x-=params[0]
                     elif command=='E': # move cursor next line
                         if self.debug_mode:
-                            self.info("Cursor Next Line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            self.info("Cursor Next Line:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         x=0
                         y+=params[0]
 
                     elif command=='F': # move cursor previous  line
                         if self.debug_mode:
-                            self.info("Cursor Previous Line:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            self.info("Cursor Previous Line:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         x=0
                         y-=params[0]
                     elif command=='G' or command=='`': # move cursor to HORIZONTAL pos X
@@ -535,19 +535,19 @@ cdef class viewer:
                                 self.write_buffer(x2,y,32,buffer)
                     elif command=='d': # move cursor to HORIZONTAL pos X
                         if self.debug_mode:
-                            self.info("Cursor Y{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            self.info("Cursor Y{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         y=params[0]-1
                     elif command=='e': 
                         if self.debug_mode:
-                            self.info("Cursor Down rows:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         y+=params[0]
                     elif command=='h': 
                         if self.debug_mode:
-                            self.info("Set mode:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            self.info("Set mode:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                             self.set_mode(params)
                     elif command=='l': 
                         if self.debug_mode:
-                            self.info("Set mode:{0},x:{1:<2},y:{1:<2}".format(params[0],x,y))
+                            self.info("Set mode:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                             self.reset_mode(params)
                     elif command=='X': 
                         if self.debug_mode:
@@ -574,13 +574,7 @@ cdef class viewer:
                         if self.debug_mode:
                             self.info("Delete number of charchters on line:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         for x2 in range(x,x+params[0]):
-                            f=self.fg
-                            b=self.bg
-                            self.fg=1
-                            self.bg=1
-                            self.write_buffer(x2,y,ord('#'),buffer)
-                            self.fg=f
-                            self.bg=b
+                            self.write_buffer(x2,y,0,buffer)
                         
                     else:
                         if self.debug_mode:
