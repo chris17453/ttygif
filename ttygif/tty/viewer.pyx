@@ -251,7 +251,7 @@ cdef class viewer:
             buffer.pop(0)
             buffer.pop(0)
         cdef int row_pos=buffer_length-self.viewport_char_stride
-        array.resize(buffer,buffer_length)
+        array.resize(buffer,buffer_length)  
         memset(&buffer.data.as_uchars[row_pos],0,self.viewport_char_stride)
 
 
@@ -344,14 +344,6 @@ cdef class viewer:
                             if y>=self.viewport_char_height:
                                 y=self.viewport_char_height-1
                                 self.shift_buffer(buffer)
-                            continue
-                        if x>=self.viewport_char_width:
-                            x=0
-                            y+=1
-                            if y>=self.viewport_char_height:
-                                y=self.viewport_char_height-1
-                                self.shift_buffer(buffer)
-                        continue
                     if x>=self.viewport_char_width:
                         x=0
                         y+=1
