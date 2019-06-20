@@ -143,7 +143,7 @@ cdef class cast2gif:
         data=None
         old_data=None
         new_frame=None
-        aggregate_timestamp=0
+        self.aggregate_t0imestamp=0
         text=""
         for event_index in range(0,self.event_length):
             self.show_percent(index)
@@ -201,7 +201,7 @@ cdef class cast2gif:
                                         height=diff['height'],
                                         palette=None,
                                         image_data=frame_snip)
-                        self.aggregate_timestamp+=float(delay)/100
+                        self.aggregate_timestamp+=delay
 
 
                 self.timestamp=cur_timestamp
