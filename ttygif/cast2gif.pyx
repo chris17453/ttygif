@@ -171,7 +171,7 @@ cdef class cast2gif:
                 print("New Frame",frame,delay)
                 new_frame=None
                 frame+=1
-                if frame<290:
+                if frame<470:
                     continue
                 v.render()
                 v.draw_string(0,0,"Frame:{0} ".format(frame))
