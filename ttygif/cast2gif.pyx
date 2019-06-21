@@ -182,7 +182,7 @@ cdef class cast2gif:
                     self.timestamp=cur_timestamp
                     continue
                 v.sequence=[]
-                for event_index2 in range(0,self.event_length):
+                for event_index2 in range(0,event_index):
                     event3=self.stream['events'][event_index2]
                     v.add_event(event3)
 
