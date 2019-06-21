@@ -186,9 +186,9 @@ cdef class cast2gif:
                 for x in range(0,v.viewport_char_width):
                     v.draw_string(x,0,"{0} ".format(x%10))
                 for y in range(0,v.viewport_char_height):
-                    v.draw_string(0,y,"{0} ".format(y%10))
+                    v.draw_string(0,y,"{0}".format(y%10))
                 
-                v.draw_string(0,0,"Frame:{0} ".format(frame))
+                v.draw_string(0,0,"Frame:{0}".format(frame))
                 old_data=data
                 data=v.get()
                 #old_data=None
