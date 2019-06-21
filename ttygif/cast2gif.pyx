@@ -183,6 +183,7 @@ cdef class cast2gif:
                     continue
                 v.sequence=[]
                 text=""
+                print("Creating Stream ")
                 for event_index2 in range(0,event_index):
                     event3=self.stream['events'][event_index2]
                     text+=event3[2]
