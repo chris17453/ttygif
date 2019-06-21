@@ -388,7 +388,7 @@ cdef class viewer:
 
         x=self.x
         y=self.y
-        print("Start X:{0},Y:{1}".format(x,y))
+        #print("Start X:{0},Y:{1}".format(x,y))
         
 
         cursor=0
@@ -607,7 +607,7 @@ cdef class viewer:
         self.buffer=buffer
         self.sequence_pos=new_sequence_pos
 
-        print("END X:{0},Y:{1}".format(x,y))
+        #print("END X:{0},Y:{1}".format(x,y))
 
         self.x=x
         self.y=y
