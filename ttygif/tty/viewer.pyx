@@ -548,7 +548,7 @@ cdef class viewer:
                         if self.debug_mode:
                             self.info("Cursor (d) Y{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         y=params[0]-1
-                        
+                        x=0
                     #elif command=='e': 
                     #    if self.debug_mode:
                     #        self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
