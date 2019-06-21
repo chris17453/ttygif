@@ -16,7 +16,7 @@ is a c compiler, python and its development libs. ttygif is a cython project.
 
 ## usage
 ```bash
-ttygif version 1.0.287
+ttygif version 1.0.718
 usage: ttygif [-h] [--input FILE] [--output FILE] [--loop COUNT] [--delay MS]
               [--fps FPS]
 
