@@ -499,10 +499,15 @@ cdef class viewer:
                             self.info("Cursor Previous Line:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         x=0
                         y-=params[0]
-                    elif command=='G' or command=='`': # move cursor to HORIZONTAL pos X
+                    elif command=='G': # move cursor to HORIZONTAL pos X
                         if self.debug_mode:
                             self.info("Cursor X:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         x=params[0]-1
+                    elif command=='`': # move cursor to HORIZONTAL pos X
+                        if self.debug_mode:
+                            self.info("Cursor (~) X:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
+                        x=params[0]-1
+
                     elif command=='H' or command=='f': # move cursor to x,y pos
                         if self.debug_mode:
                             self.info("Cursor Pos:{0},{1}".format(params[1],params[0]))
@@ -602,8 +607,8 @@ cdef class viewer:
         self.buffer=buffer
         self.sequence_pos=new_sequence_pos
 
-        self.x=0
-        self.y=0
+        self.x=x
+        self.y=y
    
     
     cdef stream_2_sequence(self,text,timestamp,delay):
