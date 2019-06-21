@@ -186,9 +186,10 @@ cdef class cast2gif:
                 for event_index2 in range(0,event_index):
                     event3=self.stream['events'][event_index2]
                     text+=event3[2]
-                
+                print ("Adding Event")    
                 v.add_event([0,'o',text])
 
+                print ("Rendering")    
             
                 v.render()
                 v.draw_string(0,0,"Frame:{0} ".format(frame))
