@@ -723,18 +723,18 @@ cdef class viewer:
                         name="Erase Line"
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay)
         
-        self.extra_text=text[cursor:]
         
-        #if self.has_escape(text[cursor:]):
-        #    #print ("EXTRA")
-        #    #print text[cursor:]
-        #    
-        #else:
-        #    #print ("NO EXTRA")
-        #    #print text[cursor:]
-        #    self.extra_text=""
-        #    #print("->",text[cursor:])
-        #    self.add_text_sequence(text[cursor:],timestamp,0)
+        if self.has_escape(text[cursor:]):
+            #print ("EXTRA")
+            #print text[cursor:]
+            self.extra_text=text[cursor:]
+                
+        else:
+            #print ("NO EXTRA")
+            #print text[cursor:]
+            self.extra_text=""
+            #print("->",text[cursor:])
+            self.add_text_sequence(text[cursor:],timestamp,0)
     
     def last_frame(self):
         self.add_text_sequence(self.extra_text,self.last_timestamp,0)

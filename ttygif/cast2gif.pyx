@@ -178,20 +178,19 @@ cdef class cast2gif:
                 self.info("Frame:{0}, Delay:{1}".format(frame,delay))
                 new_frame=None
                 frame+=1
-                if frame<175 or frame> 176:
-                    self.timestamp=cur_timestamp
-                    continue
-                v.sequence=[]
-                text=""
-                print("Creating Stream ")
-                for event_index2 in range(0,event_index):
-                    event3=self.stream['events'][event_index2]
-                    print("adding {0} of {1}".format(event_index2,self.event_length))
-                    text+=event3[2]
-                print ("Adding Event")    
-                v.add_event([0,'o',text])
-
-                print ("Rendering")    
+                #if frame<175 or frame> 176:
+                 #   self.timestamp=cur_timestamp
+                 #   continue
+                #v.sequence=[]
+                #text=""
+                #print("Creating Stream ")
+                #for event_index2 in range(0,event_index):
+                #    event3=self.stream['events'][event_index2]
+                #    print("adding {0} of {1}".format(event_index2,self.event_length))
+                #    text+=event3[2]
+                #print ("Adding Event")    
+                #v.add_event([0,'o',text])
+                #print ("Rendering")    
             
                 v.render()
                 v.draw_string(0,0,"Frame:{0} ".format(frame))
