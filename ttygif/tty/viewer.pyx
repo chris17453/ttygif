@@ -583,18 +583,18 @@ cdef class viewer:
                             t=(x2-x)*3
                             b=x2*3+y*self.viewport_char_stride
                             buffer[b+0]=temp[t+0]
-                            buffer[b+1]=1#temp[t+1]
+                            buffer[b+1]=temp[t+1]
                             buffer[b+2]=temp[t+2]
                                 
 
                     elif command=='X': 
                         if self.debug_mode:
                             self.info("Delete number of charchters on line:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
-                        b=self.bg
-                        self.bg=14
+                        #b=self.bg
+                        #self.bg=14
                         for x2 in range(x,x+params[0]):
                             self.write_buffer(x2,y,0,buffer)
-                        self.bg=b
+                        #self.bg=b
                         
                     else:
                         if self.debug_mode:
