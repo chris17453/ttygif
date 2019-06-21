@@ -184,7 +184,8 @@ cdef class cast2gif:
                 v.sequence=[]
                 for event_index2 in range(0,event_index):
                     event3=self.stream['events'][event_index2]
-                    v.add_event(event3)
+                    text+=event3[2]
+                    v.add_event([0,'o',text])
 
             
                 v.render()
