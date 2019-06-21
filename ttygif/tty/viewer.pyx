@@ -221,7 +221,7 @@ cdef class viewer:
 
         while loop:
             fg=self.buffer[pos]
-            bg=1#self.buffer[pos+1]
+            bg=self.buffer[pos+1]
 
             character=self.buffer[pos+2]
             self.draw_character3(character,x,y,0,fg,bg)
@@ -723,16 +723,18 @@ cdef class viewer:
                         name="Erase Line"
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay)
         
-        if self.has_escape(text[cursor:]):
-            #print ("EXTRA")
-            #print text[cursor:]
-            self.extra_text=text[cursor:]
-        else:
-            #print ("NO EXTRA")
-            #print text[cursor:]
-            self.extra_text=""
-            #print("->",text[cursor:])
-            self.add_text_sequence(text[cursor:],timestamp,0)
+        self.extra_text=text[cursor:]
+        
+        #if self.has_escape(text[cursor:]):
+        #    #print ("EXTRA")
+        #    #print text[cursor:]
+        #    
+        #else:
+        #    #print ("NO EXTRA")
+        #    #print text[cursor:]
+        #    self.extra_text=""
+        #    #print("->",text[cursor:])
+        #    self.add_text_sequence(text[cursor:],timestamp,0)
     
     def last_frame(self):
         self.add_text_sequence(self.extra_text,self.last_timestamp,0)
