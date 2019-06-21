@@ -178,7 +178,7 @@ cdef class cast2gif:
                 self.info("Frame:{0}, Delay:{1}".format(frame,delay))
                 new_frame=None
                 frame+=1
-                if frame<173 or frame> 174:
+                if frame<175 or frame> 176:
                     self.timestamp=cur_timestamp
                     continue
                 v.render()
