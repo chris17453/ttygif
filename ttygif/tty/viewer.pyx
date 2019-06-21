@@ -566,7 +566,7 @@ cdef class viewer:
                         if self.debug_mode:
                             self.info("Set mode:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                             self.reset_mode(params)
-                    elif command=='X': 
+                    elif command=='P': 
                         if self.debug_mode:
                             self.info("Erase number of charchters on line:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         char_to_erase=params[0]
@@ -587,7 +587,7 @@ cdef class viewer:
                             buffer[b+2]=temp[t+2]
                                 
 
-                    elif command=='P': 
+                    elif command=='X': 
                         if self.debug_mode:
                             self.info("Delete number of charchters on line:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
                         b=self.bg
