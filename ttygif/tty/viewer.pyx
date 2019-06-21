@@ -599,8 +599,8 @@ cdef class viewer:
         self.buffer=buffer
         self.sequence_pos=new_sequence_pos
 
-        self.x=x
-        self.y=y
+        self.x=0
+        self.y=0
    
     
     cdef stream_2_sequence(self,text,timestamp,delay):
