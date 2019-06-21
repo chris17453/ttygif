@@ -181,6 +181,12 @@ cdef class cast2gif:
                 if frame<175 or frame> 176:
                     self.timestamp=cur_timestamp
                     continue
+                v.sequence=[]
+                for event_index2 in range(0,self.event_length):
+                    event3=self.stream['events'][event_index2]
+                    v.add_event(event3)
+
+            
                 v.render()
                 v.draw_string(0,0,"Frame:{0} ".format(frame))
                 for x in range(0,v.viewport_char_width):
