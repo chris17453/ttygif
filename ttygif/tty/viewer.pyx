@@ -397,7 +397,7 @@ cdef class viewer:
             new_sequence_pos+=1
             if event['type']=='text':
                 if self.debug_mode:
-                    self.info(u"X:{0:<2} {1:<2},FG:{2:<2},BG:{3},Text: {3}".format(x,y,self.fg,self.bg,event['data']))
+                    self.info(u"X:{0:<2} {1:<2},FG:{2:<2},BG:{3},Text: {4}".format(x,y,self.fg,self.bg,event['data']))
                 for character in event['data']:
                     # new line or wrap
                     char_ord=ord(character)
