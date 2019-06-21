@@ -186,6 +186,7 @@ cdef class cast2gif:
                 print("Creating Stream ")
                 for event_index2 in range(0,event_index):
                     event3=self.stream['events'][event_index2]
+                    print("adding {0}".format(event_index2))
                     text+=event3[2]
                 print ("Adding Event")    
                 v.add_event([0,'o',text])
