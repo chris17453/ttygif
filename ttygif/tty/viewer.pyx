@@ -393,7 +393,7 @@ cdef class viewer:
 
         cursor=0
         new_sequence_pos=self.sequence_pos
-        for event in self.sequence[self.sequence_pos:]:
+        for event in self.sequence:
             new_sequence_pos+=1
             if event['type']=='text':
                 #if self.debug_mode:
