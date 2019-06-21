@@ -50,7 +50,7 @@ class ImageData:
         #        self.stream.write_byte(length)    
         #    self.stream.write_byte(byte)
         #    index+=1
-        #self.stream.write_byte(0)
+        self.stream.write_byte(0)
     
         
 
