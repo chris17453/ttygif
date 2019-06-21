@@ -386,9 +386,9 @@ cdef class viewer:
         buffer=self.buffer
         overflow=None
 
-        
         x=self.x
         y=self.y
+        print("Start X:{0},Y:{1}".format(x,y))
         
 
         cursor=0
@@ -606,6 +606,8 @@ cdef class viewer:
         self.buffer_rows=self.viewport_char_height
         self.buffer=buffer
         self.sequence_pos=new_sequence_pos
+
+        print("END X:{0},Y:{1}".format(x,y))
 
         self.x=x
         self.y=y
