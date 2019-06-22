@@ -376,7 +376,7 @@ cdef class viewer:
             self.reverse_video=None
 
 
-    def rgb_to_palette(r,g,b):
+    def rgb_to_palette(self,r,g,b):
         last_distance=-1
         mappeded_color=-1
 
