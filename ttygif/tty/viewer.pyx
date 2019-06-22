@@ -382,7 +382,9 @@ cdef class viewer:
 
         for i in range(0,len(self.color_table)):
             color=self.color_table[i]
+            
             color_distance=(r-color[0])*(r-color[0])+(g-color[1])*(g-color[1])+(b-color[2])*(b-color[2])
+            print r,g,b,color_distance,color[0],color[1],color[2]
             if last_distance==-1 or color_distance<last_distance:
                 last_distance=color_distance
                 mappeded_color=i
