@@ -376,6 +376,19 @@ cdef class viewer:
             self.reverse_video=None
 
 
+    def rgb_to_palette(r,g,b):
+        last_distance=-1
+        mappeded_color=-1
+
+        for i in range(0,len(self.color_table)):
+            color=self.color_table[i]
+            color_distance=(r-color[0])*(r-color[0])+(g-color[1])*(g-color[1])+(b-color[2])*(b-color[2])
+            if last_distance==-1 or color_distance<last_distance:
+                last_distance=color_distance
+                mappeded_color=if
+        
+        return i
+
 
     # commands pre parsed on add_event
     cdef sequence_to_buffer(self):
@@ -446,14 +459,14 @@ cdef class viewer:
                 if command=='m':
                     if 38 in params:
                         if params[1]==2:
-                            self.fg=params[2] # rgb
+                              self.fg=self.rgb_to_palette(params[2],params[3],params[4])
                         if params[1]==5:
                             self.fg=params[2]
                         #if self.debug_mode:
                             #self.info("Set FG:{0}".format(params))
                     elif 48 in params:
                             if params[1]==2:
-                                self.bg=params[2] #rgb
+                                self.bg=self.rgb_to_palette(params[2],params[3],params[4])
                             if params[1]==5:
                                 self.bg=params[2]
                             #if self.debug_mode:

@@ -73,6 +73,7 @@ Normal/colorized output work fine.
 - split every n seconds or size
 - export as frames
 - theme/solarized/bright/microsoft
+frames, windows 95, x11, mac, fedora/gnome/cinnamon 
 
 ### Profile Times
 
