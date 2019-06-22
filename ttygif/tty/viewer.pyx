@@ -384,12 +384,12 @@ cdef class viewer:
             color=self.color_table[i]
             
             color_distance=(r-color[0])*(r-color[0])+(g-color[1])*(g-color[1])+(b-color[2])*(b-color[2])
-            print r,g,b,color_distance,color[0],color[1],color[2]
             if last_distance==-1 or color_distance<last_distance:
                 last_distance=color_distance
                 mappeded_color=i
         
-        return i
+        #print r,g,b,mappeded_color#color_distance,color[0],color[1],color[2]
+        return mappeded_color
 
 
     # commands pre parsed on add_event
