@@ -385,7 +385,7 @@ cdef class viewer:
             color_distance=(r-color[0])*(r-color[0])+(g-color[1])*(g-color[1])+(b-color[2])*(b-color[2])
             if last_distance==-1 or color_distance<last_distance:
                 last_distance=color_distance
-                mappeded_color=if
+                mappeded_color=i
         
         return i
 
