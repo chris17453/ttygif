@@ -17,7 +17,7 @@ def read_stdin():
     try:
         while has_stdin():
             #if sys.stdin.closed:
-            sys.stdout.flush()
+            sys.stdin.flush()
 
             o= sys.stdin.readline()
 
