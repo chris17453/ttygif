@@ -77,7 +77,7 @@ def cli_main():
         if has_stdin():
             events=read_stdin()
             ar=asciicast_reader()
-            ar.write(events,file)
+            ar.write(file,events)
             
         elif None==args.input:
             print "1"
