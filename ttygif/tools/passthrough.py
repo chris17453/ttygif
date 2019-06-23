@@ -16,10 +16,11 @@ def read_stdin():
     events=[]
     try:
         while has_stdin():
-            o= sys.stdin.readline()
-            print '1'
-            if ""==o: # empty line will be \n
+            if sys.stdin.closed:    
                 break
+            o= sys.stdin.readline()
+            if ""==o: # empty line will be \n
+                continue
             timestamp=round(time.time(),8)-ts
             #print timestamp
             events.append([timestamp,'o',o])
