@@ -85,6 +85,8 @@ ls -lhatsR | ttygif --output 232377.gif --fps=0 --dilate .5
 ### Features still left to handle
 
 - documentation
+- embed event stream in gif as control header data
+- output piped stream as cast file
 - time period ( capture partial recording based on time stamps x-y)
 - add progress bar to top/bottom of gif with n of y H:M:I:S
 - font generation app
