@@ -70,17 +70,17 @@ ls -lhatsR | ttygif --output 232377.gif --fps=0 --dilate .5
 ```
 
 
-### status
+### Finished Features
 
-- full output terminal emulation support not ready
+- ansi escape string parsing CSI, OSC and basic Control Characters
 - standard I/O -> Done
-- colors -> Done
+- colors, default term, and rgb -> Done
 - cursor positioning -> Done
 - erase line modes 1,2,3 -> Done
 - erase screen  -> Done
 - r,g,b palette mapping to curent palette -> done
+- piped stdout with auto cast generation/emulated timestamps
 
-Normal/colorized output work fine.
 
 ### Features still left to handle
 
@@ -91,7 +91,6 @@ Normal/colorized output work fine.
 - font mapping for utf 8,16,13 characters to base 256 map
 - palette flags, monochrome,  grayscale, system, custom, count [n]<256
 - gif color consoladataion, for lower bit count (<8) compression 
-- piped stdout with auto cast generation/emulated timestamps
 - asciicast v1 support
 - gif error handeling
 - file io error handeling
@@ -108,7 +107,7 @@ Normal/colorized output work fine.
 - split every n seconds or size
 - export as frames
 - theme/solarized/bright/microsoft
-- frames, windows 95, x11, mac, fedora/gnome/cinnamon 
+- frames, windows 95, x11, mac, fedora, gnome, cinnamon 
 - start and end frames, with delays
 
 ### Profile Times
