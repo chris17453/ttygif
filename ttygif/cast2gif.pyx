@@ -94,7 +94,7 @@ cdef class cast2gif:
         self.percent=int((index*100)/self.event_length)
         if self.percent!=self.old_percent:
             if self.natural:
-                sys.stdout.write("Seconds: {0} of {1} {2}%        \r".format(round(self.timestamp,3),round(self.last_timestamp,3),round(self.percent,3))
+                sys.stdout.write("Seconds: {0} of {1} {2}%        \r".format(round(self.timestamp,3),round(self.last_timestamp,3),round(self.percent,3)))
             else:
                 sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)       \r".format(round(self.timestamp,3),round(self.last_timestamp,3),round(self.percent,3),self.frame_rate,round(self.interval,3)))
         sys.stdout.flush()    
