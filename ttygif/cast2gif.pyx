@@ -148,7 +148,7 @@ cdef class cast2gif:
         if self.frame_rate!=0:
             self.interval=float(1)/float(self.frame_rate)
         else:
-            self.interval=.10
+            self.interval=.01
         frame=0
         data=None
         old_data=None
