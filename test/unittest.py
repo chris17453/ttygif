@@ -8,12 +8,12 @@ from .context import  ttygif
 class test_engine(unittest2.TestCase):
 
     def test_canvas_noninterlaced(self):
-        #try:
-          g=ttygif.gif.gif(debug=None)
-          g.canvas_it("assets/examples/src_gifs/VGA_8x19font.gif","assets/examples/decode/VGA_8x19font.html")
-        #except Exception as ex:
-        #    self.fail(ex)
-#
+        try:
+            g=ttygif.gif.gif(debug=None)
+            g.canvas_it("assets/examples/src_gifs/VGA_8x19font.gif","assets/examples/decode/VGA_8x19font.html")
+        except Exception as ex:
+            self.fail(ex)
+
   #  def test_canvas_interlaced(self):
   #      try:
   #          g=ttygif.gif(debug=None)

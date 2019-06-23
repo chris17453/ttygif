@@ -86,30 +86,34 @@ frames, windows 95, x11, mac, fedora/gnome/cinnamon
 - 14% compressing image frames
 - 07% other
 
+
+## ttygif-assets
+The following resources are located in the ![ttygif-assets](https://github.com/chris17453/ttygif-assets) repo
+
 ### Term Font
 
-![DOS VGA FONT](https://raw.githubusercontent.com/chris17453/ttygif/master/data/VGA_8x19font.gif)
+![DOS VGA FONT](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/examples/src_gifs/VGA_8x19font.gif)
 
 ### Examples
 some random pics from the asciinema.org website, and my computer
 
 ## htop
-![htop](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/test.gif)
+![htop](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/examples/encode/test.gif)
 
 ## [Terminal ray tracing](https://asciinema.org/a/174524)
-![asciicast-174524](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/174524.gif)
+![asciicast-174524](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/examples/encode/174524.gif)
 
 ## [term-tris dt cannon](https://asciinema.org/a/232377)
-![asciicast-232377](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/232377.gif)
+![asciicast-232377](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/examples/encode/232377.gif)
 
 ## [Denariusd compile on 30 cores!](https://asciinema.org/a/234628)
-![asciicast-234628](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/234628.gif)
+![asciicast-234628](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/examples/encode/234628.gif)
 
 ## [surpirsed Pikachu](https://asciinema.org/a/236096)
-![asciicast-236096](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/236096.gif)
+![asciicast-236096](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/examples/encode/236096.gif)
 
 ## [CACA_DRIVER=ncurses cacademo](https://asciinema.org/a/687)
-![asciicast-687](https://raw.githubusercontent.com/chris17453/ttygif/master/examples/encode/687.gif)
+![asciicast-687](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/examples/encode/687.gif)
 
 
 
