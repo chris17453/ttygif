@@ -16,7 +16,11 @@ def read_stdin():
     events=[]
     try:
         while has_stdin():
+            if sys.stdin.closed:
+                sys.stdout.flush()
+
             o= sys.stdin.readline()
+
             if ""==o: # empty line will be \n
                 break
             timestamp=round(time.time(),8)-ts
