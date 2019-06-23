@@ -22,7 +22,7 @@ cdef class cast2gif:
     cdef object event_length
     cdef double percent
     cdef double old_percent
-    cdef object dialation 
+    cdef object dilation 
     # last frame created timestamp
     cdef double timestamp 
     # last timestamp in file
