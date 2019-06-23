@@ -97,7 +97,7 @@ cdef class cast2gif:
                 sys.stdout.write("Seconds: {0} of {1} {2}%        \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2)))
             else:
                 sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)       \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2),self.frame_rate,round(self.interval,2)))
-        sys.stdout.flush()    
+            sys.stdout.flush()    
 
     def update_timestamps(self):
         for i in range(0,len(self.stream['events'])):
@@ -231,8 +231,8 @@ cdef class cast2gif:
                                         image_data=frame_snip)
                         self.aggregate_timestamp+=partial_delay
 
-
                 self.timestamp=cur_timestamp
+            self.show_percent(index)
         if self.debug:
             v.debug_sequence()
         g.close()

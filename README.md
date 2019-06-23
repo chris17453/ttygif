@@ -48,7 +48,7 @@ optional arguments:
 ## cast file to gif
 
 ```bash
-ttygif --input  232377.casr --output 232377.gif --fps=33
+ttygif --input  232377.cast --output 232377.gif --fps=33
 ```
 
 ## pipe to gif
