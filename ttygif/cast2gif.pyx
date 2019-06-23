@@ -179,7 +179,7 @@ cdef class cast2gif:
             elif cur_timestamp-self.timestamp>=self.interval:
                 #print("interval_breach")
                 new_frame=True
-                delay=int((cur_timestamp-self.timestamp)*dialation*100)
+                delay=int((cur_timestamp-self.timestamp)*self.dialation*100)
                 #print("Delay",delay,self.interval,cur_timestamp,self.timestamp)
 
             if new_frame:
