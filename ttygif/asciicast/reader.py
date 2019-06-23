@@ -36,11 +36,6 @@ class asciicast_reader:
             
             for event in stream['events']:
                 o=copy.deepcopy(event[2])
-                #o= o.replace("\n","\\n")
-                #o= o.replace("\r","\\r")
-                #o= o.replace("\t","\\t")
-                #o =o.replace("\b","\\b")
-                #o =o.replace("\0x01b","\\b")
                 o = re.escape(o)
 
                 outfile.write("[{0:.10f},'{1}','{2}']\n".format(event[0],event[1],repr(o)))
