@@ -136,6 +136,9 @@ some random pics from the asciinema.org website, and my computer
 ## htop
 ![htop](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/examples/encode/test.gif)
 
+## pipe
+![htop](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/examples/encode/pipe.gif)
+
 ## [Terminal ray tracing](https://asciinema.org/a/174524)
 ![asciicast-174524](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/examples/encode/174524.gif)
 
