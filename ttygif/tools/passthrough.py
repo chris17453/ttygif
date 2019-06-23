@@ -15,22 +15,18 @@ def read_stdin():
     ts = round(time.time(),8)
     events=[]
     try:
-        while has_stdin():
+        o="start"
+        sys.stdin.flush()
+        while o:
             #if sys.stdin.closed:
-            sys.stdin.flush()
 
             o= sys.stdin.readline()
-
-            if ""==o: # empty line will be \n
-                print ("BROKE")
-                print sys.stdin.tell()
-
-                break
             timestamp=round(time.time(),8)-ts
             #print timestamp
             events.append([timestamp,'o',o])
         print len(events)
     except KeyboardInterrupt:
+
         sys.stdout.flush()
         pass
 
