@@ -101,7 +101,7 @@ cdef class cast2gif:
 
     def update_timestamps(self):
         for i in range(0,len(self.stream['events'])):
-            self.stream['events'][i][0]=float(self.stream['events'][i])*self.dilation
+            self.stream['events'][i][0]=float(self.stream['events'][i][0])*self.dilation
 
     def __init__(self,cast_file,gif_file,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None):
         self.dilation=dilation
