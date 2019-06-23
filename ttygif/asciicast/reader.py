@@ -29,7 +29,7 @@ class asciicast_reader:
     def write(self,file,stream):
         
         with open(file,"w") as outfile:
-            header="{{'version':{0},'width':{1},'height':{2},'timestamp':{3},'title':{4},'env':{5}}}".format(stream['version'],stream['width'],stream['height'],stream['timestamp'],stream['title'],stream['env'])
+            header="{{'version':{0},'width':{1},'height':{2},'timestamp':{3},'title':{4},'env':{5}}}\n".format(stream['version'],stream['width'],stream['height'],stream['timestamp'],stream['title'],stream['env'])
             outfile.write(header)
             for event in stream['events']:
                 
