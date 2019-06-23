@@ -84,7 +84,7 @@ cdef class cast2gif:
         else:
             if self.frame_rate==0:
                 #print self.stream['events'][event_index+1][0],self.stream['events'][event_index][0]
-                delay=int((self.stream['events'][event_index+1][0]-self.stream['events'][event_index][0])*self.dialation*10)
+                delay=int((self.stream['events'][event_index+1][0]-self.stream['events'][event_index][0])*self.dilation*10)
             else:
                 delay=0
         return delay
@@ -99,8 +99,8 @@ cdef class cast2gif:
                 sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)    \r".format(self.timestamp,self.last_timestamp,self.percent,self.frame_rate,round(self.interval,3)))
         sys.stdout.flush()    
 
-    def __init__(self,cast_file,gif_file,events=None,dialation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None):
-        self.dialation=dialation
+    def __init__(self,cast_file,gif_file,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None):
+        self.dilation=dilation
         self.cast_file= cast_file
         self.gif_file= gif_file
         self.loop_count= loop_count
@@ -113,7 +113,7 @@ cdef class cast2gif:
         self.percent=-1
         self.timestamp=0
         self.aggregate_timestamp=0
-        print("dialation:{0}".format(self.dialation))
+        print("dilation:{0}".format(self.dilation))
         if None==events:
             print ("input: {0}".format(cast_file))
         else:
@@ -179,7 +179,7 @@ cdef class cast2gif:
             elif cur_timestamp-self.timestamp>=self.interval:
                 #print("interval_breach")
                 new_frame=True
-                delay=int((cur_timestamp-self.timestamp)*self.dialation*100)
+                delay=int((cur_timestamp-self.timestamp)*self.dilation*100)
                 #print("Delay",delay,self.interval,cur_timestamp,self.timestamp)
 
             if new_frame:
