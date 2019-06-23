@@ -39,11 +39,12 @@ optional arguments:
 ### status
 
 - full output terminal emulation support not ready
-- support for standard I/O -> Done
-- support for colors -> Done
-- support for cursor positioning -> Done
-- Support for erase line modes 1,2,3 -> Done
-- Support for erase screen  -> Done
+- standard I/O -> Done
+- colors -> Done
+- cursor positioning -> Done
+- erase line modes 1,2,3 -> Done
+- erase screen  -> Done
+- r,g,b palette mapping to curent palette -> done
 
 Normal/colorized output work fine.
 
