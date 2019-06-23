@@ -28,7 +28,7 @@ tty output to gif
 
 optional arguments:
   -h, --help            show this help message and exit
-  --input FILE          asciinema .cast file (default: None)
+    --input FILE          asciinema .cast file (default: None)
   --output FILE         gif output file (default: None)
   --loop COUNT          number of loops to play, 0=unlimited (default: 0)
   --delay MS            delay before restarting gif in milliseconds (default:

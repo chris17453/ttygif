@@ -80,7 +80,6 @@ def cli_main():
             ar.write(args.record,events)
             
         elif None==args.input:
-            print "1"
             parser.print_help()    
             events=None
             exit(0)
