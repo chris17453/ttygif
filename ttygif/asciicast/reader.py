@@ -27,6 +27,8 @@ class asciicast_reader:
         }
 
     def write(self,file,stream):
+        ostream=stream
+        del(stream['events'])
         with open(file,"w") as outfile:
             json.dump(stream, outfile)
 
