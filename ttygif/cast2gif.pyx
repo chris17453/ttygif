@@ -99,7 +99,7 @@ cdef class cast2gif:
                 sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)       \r".format(round(self.timestamp,3),round(self.last_timestamp,3),round(self.percent,3),self.frame_rate,round(self.interval,3)))
         sys.stdout.flush()    
 
-    def self.update_timestamps(self):
+    def update_timestamps(self):
         for i in range(0,len(self.stream['events'])):
             self.stream.events[i][0]=float(self.stream.events[i])*self.dilation
 
