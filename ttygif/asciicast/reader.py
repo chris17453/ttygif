@@ -31,5 +31,6 @@ class asciicast_reader:
         with open(file,"w") as outfile:
             header="{{'version':{0},'width':{1},'height':{2},'timestamp':{3},'title':{4},'env':{5}}}".format(stream['version'],stream['width'],stream['height'],stream['timestamp'],stream['title'],stream['env'])
             outfile.write(header)
-            for i in stream['events']:
+            for event in stream['events']:
+                
                 outfile.write("[{0},{1},'{2}']\n".format(event[0],event[1],event[1]))
