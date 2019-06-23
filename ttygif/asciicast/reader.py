@@ -32,7 +32,7 @@ class asciicast_reader:
             header="{{'version':{0},'width':{1},'height':{2},'timestamp':{3},'title':{4},'env':{5}}}\n".format(stream['version'],stream['width'],stream['height'],stream['timestamp'],stream['title'],stream['env'])
             outfile.write(header)
             for event in stream['events']:
-                o=event[2]
+                o=event[2].clone()
                 o= o.replace("\n","\\n")
                 o= o.replace("\r","\\r")
                 o= o.replace("\t","\\t")
