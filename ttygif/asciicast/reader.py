@@ -32,10 +32,11 @@ class asciicast_reader:
         with open(file,"w") as outfile:
             header="{{'version':{0},'width':{1},'height':{2},'timestamp':{3},'title':{4},'env':{5}}}\n".format(stream['version'],stream['width'],stream['height'],stream['timestamp'],stream['title'],stream['env'])
             outfile.write(header)
-            for event in stream['events']:
-                o=copy.deepcopy(event[2])
-                o= o.replace("\n","\\n")
-                o= o.replace("\r","\\r")
-                o= o.replace("\t","\\t")
-                o =o.replace("\b","\\b")
-                outfile.write("[{0:.10f},'{1}','{2}']\n".format(event[0],event[1],o))
+            
+            #for event in stream['events']:
+            #    o=copy.deepcopy(event[2])
+            #    o= o.replace("\n","\\n")
+            #    o= o.replace("\r","\\r")
+            #    o= o.replace("\t","\\t")
+            #    o =o.replace("\b","\\b")
+            #    outfile.write("[{0:.10f},'{1}','{2}']\n".format(event[0],event[1],o))
