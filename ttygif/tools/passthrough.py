@@ -12,15 +12,19 @@ def has_stdin():
     return None
 
 def read_stdin():
-    ts = time.time()
+    ts = round(time.time(),8)
     events=[]
     try:
         while has_stdin():
             sys.stdin.flush()
             o= sys.stdin.readline()
+            o= o.replace("\n","\\n")
+            o= o.replace("\r","\\r")
+            o= o.replace("\t","\\t")
+            o =o.replace("\b","\\b")
             if ""==o: # empyt line will be \n
                 break
-            timestamp=time.time()-ts
+            timestamp=round(time.time(),8)-ts
             #print timestamp
             events.append([timestamp,'o',o])
     except KeyboardInterrupt:

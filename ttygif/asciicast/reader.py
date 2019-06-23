@@ -33,4 +33,4 @@ class asciicast_reader:
             outfile.write(header)
             for event in stream['events']:
                 
-                outfile.write("[{0},'{1}','{2}']\n".format(event[0],event[1],event[2]))
+                outfile.write("[{0:.10f},'{1}','{2}']\n".format(event[0],event[1],event[2]))
