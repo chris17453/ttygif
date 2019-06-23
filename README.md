@@ -88,7 +88,7 @@ frames, windows 95, x11, mac, fedora/gnome/cinnamon
 
 
 ## ttygif-assets
-The following resources are located in the ![ttygif-assets](https://github.com/chris17453/ttygif-assets) repo
+The following resources are located in the [ttygif-assets](https://github.com/chris17453/ttygif-assets) repo
 
 ### Term Font
 
