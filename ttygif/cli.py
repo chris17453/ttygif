@@ -7,6 +7,7 @@ from .tty.viewer import viewer
 from .asciicast.reader import asciicast_reader
 from .cast2gif import cast2gif
 from .version import __version__
+from .tools.passthrough import has_stdin, read_stdin
 import pprint
 import time
 import sys
@@ -64,7 +65,15 @@ def cli_main():
 #
     #    v.debug_sequence()
 
-    if args.input and args.output:
+    
+    
+    if  args.output:
+        if has_stdin:
+            events=read_stdin()
+        elif None==args.input:
+            parser.print_help()    
+            events=None
+
         frame_rate=args.fps
         if frame_rate<0:
             frame_rate=1
@@ -76,10 +85,9 @@ def cli_main():
             natural=True
         debug=args.debug
         try:
-#            if args.time_at:
-                
-
+            
             cast2gif(args.input,args.output,
+                    events=events,
                     loop_count=args.loop,
                     loop_delay=args.delay,
                     debug=debug,

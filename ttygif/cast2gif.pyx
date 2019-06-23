@@ -98,7 +98,7 @@ cdef class cast2gif:
                 sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)    \r".format(self.timestamp,self.last_timestamp,self.percent,self.frame_rate,round(self.interval,3)))
         sys.stdout.flush()    
 
-    def __init__(self,cast_file,gif_file,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None):
+    def __init__(self,cast_file,gif_file,events=None,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None):
         self.cast_file= cast_file
         self.gif_file= gif_file
         self.loop_count= loop_count
@@ -116,7 +116,10 @@ cdef class cast2gif:
         print ("input : {0}".format(cast_file))
         print ("output: {0}".format(gif_file))
         cast=asciicast_reader(debug=debug)
-        self.stream=cast.load(cast_file)
+        if events:
+            self.stream=events
+        else:
+            self.stream=cast.load(cast_file)
         self.event_length=len(self.stream['events'])
 
         if self.event_length<1:
