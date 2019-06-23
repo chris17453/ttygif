@@ -16,7 +16,6 @@ def read_stdin():
     events=[]
     try:
         while has_stdin():
-            sys.stdin.flush()
             o= sys.stdin.readline()
             #print o
             if ""==o: # empyt line will be \n
