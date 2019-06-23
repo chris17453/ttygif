@@ -17,8 +17,8 @@ def read_stdin():
     try:
         while has_stdin():
             o= sys.stdin.readline()
-            #print o
-            if ""==o: # empyt line will be \n
+            print o
+            if ""==o: # empty line will be \n
                 break
             timestamp=round(time.time(),8)-ts
             #print timestamp
