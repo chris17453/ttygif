@@ -1,5 +1,6 @@
 import json 
 import copy
+import re
 
 class asciicast_reader:
     def __init__(self,debug=None):
