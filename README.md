@@ -5,36 +5,70 @@ A self contained asciicast data file to gif conversion utility
 ## install
 
 ```bash
+## requirements gcc and python development libs
 pip install ttygif --user
 ```
 
 ## It's portable
+
 ttygif is self contained with no dependencys other than python. GIF encoding 
 and termal emulation are both implimented with internal cython code. The 
 terminal font is embeded within the code. All you need to get ttygif to work
 is a c compiler, python and its development libs. ttygif is a cython project.
 
 ## usage
+
 ```bash
-ttygif version 1.0.718
+ttygif version 1.0.752
 usage: ttygif [-h] [--input FILE] [--output FILE] [--loop COUNT] [--delay MS]
-              [--fps FPS]
+              [--dilation RATE] [--fps FPS] [--width WIDTH] [--height HEIGHT]
+              [--debug]
 
 tty output to gif
 
 optional arguments:
-  -h, --help     show this help message and exit
-  --input FILE   asciinema .cast file (default: None)
-  --output FILE  gif output file (default: None)
-  --loop COUNT   number of loops to play, 0=unlimited (default: 0)
-  --delay MS     delay before restarting gif in milliseconds (default: 1000)
-  --fps FPS      encode at (n) frames per second (0-25) 0=speed of cast file
-                 (default: 8)
-
-# Example
-#ttygif --input data/232377.cast --output 232377.gif --fps=10
+  -h, --help            show this help message and exit
+  --input FILE          asciinema .cast file (default: None)
+  --output FILE         gif output file (default: None)
+  --loop COUNT          number of loops to play, 0=unlimited (default: 0)
+  --delay MS            delay before restarting gif in milliseconds (default:
+                        100)
+  --dilation RATE       process events at a faster or slower rate of time
+                        (default: 1)
+  --fps FPS             encode at (n) frames per second (0-25) 0=speed of cast
+                        file, min 1ms (default: 0)
+  --width WIDTH         change character width of gif, default is 80 or what
+                        is in the cast file (default: None)
+  --height HEIGHT       change character height of gif, default is 25 or what
+                        is in the cast file (default: None)
+--debug               show debuging statistics (default: None)
 
 ```
+
+## cast file to gif
+
+```bash
+ttygif --input  232377.casr --output 232377.gif --fps=33
+```
+
+## pipe to gif
+
+```bash
+ls -lhatsR | ttygif --output 232377.gif --fps=0
+```
+
+## slow down gif
+
+```bash
+ls -lhatsR | ttygif --output 232377.gif --fps=0 --dilate 10
+```
+
+## speed up gif
+
+```bash
+ls -lhatsR | ttygif --output 232377.gif --fps=0 --dilate .5
+```
+
 
 ### status
 
@@ -89,6 +123,7 @@ Normal/colorized output work fine.
 
 
 ## ttygif-assets
+
 The following resources are located in the [ttygif-assets](https://github.com/chris17453/ttygif-assets) repo
 
 ### Term Font
@@ -117,8 +152,7 @@ some random pics from the asciinema.org website, and my computer
 ![asciicast-687](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/examples/encode/687.gif)
 
 
-
-### Notes
+## Notes
 
 asciicast may split data between events, causing escape codes not to be recognised.
 ttygif moves all trailing unformed escape codes to the next event.
