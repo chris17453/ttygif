@@ -50,8 +50,8 @@ def cli_main():
     #tools.add_argument('-w', '--html',          help='gif to html', action='store_true')
 
     args = parser.parse_args()
-    if args.html:
-        gif().canvas_it(args.input,args.output)
+    #if args.html:
+    #    gif().canvas_it(args.input,args.output)
     
     #elif args.extract:
     #    gif(debug=None).extract(args.input,args.output)
@@ -68,11 +68,13 @@ def cli_main():
     
     
     if  args.output:
-        if has_stdin:
+        if has_stdin():
             events=read_stdin()
         elif None==args.input:
+            print "1"
             parser.print_help()    
             events=None
+            exit(0)
 
         frame_rate=args.fps
         if frame_rate<0:

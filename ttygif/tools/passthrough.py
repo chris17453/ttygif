@@ -4,12 +4,10 @@ import select
 
 
 def has_stdin():
-    mode=1
-    if mode==1:
-        if sys.stdin.isatty():
-            return True
-    else:
-        if select.select([sys.stdin,],[],[],0.0)[0]:
+    if select.select([sys.stdin,],[],[],0.0)[0]:
+        if sys.stdin.isatty()==True:
+            return None
+        else:
             return True
     return None
 
@@ -17,8 +15,11 @@ def read_stdin():
     ts = time.time()
     events=[]
     try:
-        while True:
-            o= sys.stdin.read(1)
+        while has_stdin():
+            sys.stdin.flush()
+            o= sys.stdin.readline()
+            if ""==o: # empyt line will be \n
+                break
             timestamp=time.time()-ts
             events.append([timestamp,'o',o])
     except KeyboardInterrupt:
