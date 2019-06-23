@@ -162,6 +162,7 @@ cdef class cast2gif:
             
             if event_index==self.event_length-1:
                 v.last_frame()
+                new_frame=True
 
             delay=self.get_delay(event_index)
             #print("Delay:{0}".format(delay))
