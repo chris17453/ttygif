@@ -23,6 +23,7 @@ cdef class cast2gif:
     cdef double percent
     cdef double old_percent
     cdef object dilation 
+    cdef object minimal_interval
     # last frame created timestamp
     cdef double timestamp 
     # last timestamp in file
@@ -117,6 +118,7 @@ cdef class cast2gif:
         self.percent=-1
         self.timestamp=0
         self.aggregate_timestamp=0
+        self.minimal_interval=.03
         print("dilation:{0}".format(self.dilation))
         if None==events:
             print ("input: {0}".format(cast_file))
@@ -161,10 +163,10 @@ cdef class cast2gif:
         if self.frame_rate!=0:
             self.interval=float(1)/float(self.frame_rate)
         else:
-            self.interval=.01
+            self.interval=self.minimal_interval
         # default lowest setting
-        if self.interval<.01:
-            self.interval=.01
+        if self.interval<self.minimal_interval:
+            self.interval=self.minimal_interval
         frame=0
         data=None
         old_data=None
