@@ -96,7 +96,7 @@ def cli_main():
                     loop_count=args.loop,
                     loop_delay=args.delay,
                     debug=debug,
-                    dilation=args.time_rate
+                    dilation=args.time_rate,
                     frame_rate=frame_rate,
                     natural=natural,
                     height=args.height,
