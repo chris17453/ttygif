@@ -94,9 +94,9 @@ cdef class cast2gif:
         self.percent=int((index*100)/self.event_length)
         if self.percent!=self.old_percent:
             if self.natural:
-                sys.stdout.write("Seconds: {0} of {1} {2}%        \r".format(round(self.timestamp,3),round(self.last_timestamp,3),round(self.percent,3)))
+                sys.stdout.write("Seconds: {0} of {1} {2}%        \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2)))
             else:
-                sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)       \r".format(round(self.timestamp,3),round(self.last_timestamp,3),round(self.percent,3),self.frame_rate,round(self.interval,3)))
+                sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)       \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2),self.frame_rate,round(self.interval,2)))
         sys.stdout.flush()    
 
     def update_timestamps(self):
@@ -160,6 +160,9 @@ cdef class cast2gif:
             self.interval=float(1)/float(self.frame_rate)
         else:
             self.interval=.01
+        # default lowest setting
+        if self.interval<.01:
+            self.interval=..01
         frame=0
         data=None
         old_data=None
@@ -186,39 +189,21 @@ cdef class cast2gif:
             elif cur_timestamp-self.timestamp>=self.interval:
                 #print("interval_breach")
                 new_frame=True
-                delay=int((cur_timestamp-self.timestamp))
+                delay=int((cur_timestamp-self.timestamp)*100)
                 #print("Delay",delay,self.interval,cur_timestamp,self.timestamp)
 
             if new_frame:
                 self.info("Frame:{0}, Delay:{1}".format(frame,delay))
                 new_frame=None
                 frame+=1
-                #if frame<175 or frame> 176:
-                 #   self.timestamp=cur_timestamp
-                 #   continue
-                #v.sequence=[]
-                #text=""
-                #print("Creating Stream ")
-                #for event_index2 in range(0,event_index):
-                #    event3=self.stream['events'][event_index2]
-                #    print("adding {0} of {1}".format(event_index2,self.event_length))
-                #    text+=event3[2]
-                #print ("Adding Event")    
-                #v.add_event([0,'o',text])
-                #print ("Rendering")    
+               
             
                 v.render()
-                #v.draw_string(0,0,"Frame:{0} ".format(frame))
-                #for x in range(0,v.viewport_char_width):
-                #    v.draw_string(x,0,"{0} ".format(x%10))
-                #for y in range(0,v.viewport_char_height):
-                #    v.draw_string(0,y,"{0}".format(y%10))
-                
-                #v.draw_string(0,0,"Frame:{0}".format(frame))
+               
                 old_data=data
                 data=v.get()
-                #old_data=None
-                
+
+
                 diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
                 if diff:
                     frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
@@ -233,7 +218,7 @@ cdef class cast2gif:
                         delay-=partial_delay
                         if delay==0:
                             add_frames=None
-                        #text+=v.get_text()
+               
                         # add the freame to the gif
                         g.add_frame(    disposal_method=0,
                                         delay=partial_delay, 

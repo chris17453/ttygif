@@ -71,6 +71,7 @@ def cli_main():
     
     
     if  args.output:
+        events=None
         if has_stdin():
             events=read_stdin()
         elif None==args.input:
