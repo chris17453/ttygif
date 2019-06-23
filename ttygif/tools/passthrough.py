@@ -16,8 +16,8 @@ def read_stdin():
     events=[]
     try:
         while has_stdin():
-            if sys.stdin.closed:
-                sys.stdout.flush()
+            #if sys.stdin.closed:
+            sys.stdout.flush()
 
             o= sys.stdin.readline()
 
