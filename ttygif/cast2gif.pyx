@@ -84,7 +84,7 @@ cdef class cast2gif:
         else:
             if self.frame_rate==0:
                 #print self.stream['events'][event_index+1][0],self.stream['events'][event_index][0]
-                delay=int((self.stream['events'][event_index+1][0]-self.stream['events'][event_index][0])*self.dilation*10)
+                delay=int((self.stream['events'][event_index+1][0]-self.stream['events'][event_index][0])*100)
             else:
                 delay=0
         return delay
