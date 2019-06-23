@@ -99,6 +99,10 @@ cdef class cast2gif:
                 sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)       \r".format(round(self.timestamp,3),round(self.last_timestamp,3),round(self.percent,3),self.frame_rate,round(self.interval,3)))
         sys.stdout.flush()    
 
+    def self.update_timestamps(self):
+        for i in range(0,len(self.stream['events'])):
+            self.stream.events[i][0]=float(self.stream.events[i])*self.dilation
+
     def __init__(self,cast_file,gif_file,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None):
         self.dilation=dilation
         self.cast_file= cast_file
@@ -124,6 +128,9 @@ cdef class cast2gif:
             self.stream=events
         else:
             self.stream=cast.load(cast_file)
+
+
+        self.update_timestamps()
         self.event_length=len(self.stream['events'])
 
         if self.event_length<1:
@@ -150,9 +157,9 @@ cdef class cast2gif:
 
         index=0
         if self.frame_rate!=0:
-            self.interval=float(self.dilation)/float(self.frame_rate)
+            self.interval=float(1)/float(self.frame_rate)
         else:
-            self.interval=.01*self.dilation
+            self.interval=.01
         frame=0
         data=None
         old_data=None
