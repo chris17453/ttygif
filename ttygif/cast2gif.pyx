@@ -162,7 +162,7 @@ cdef class cast2gif:
             self.interval=.01
         # default lowest setting
         if self.interval<.01:
-            self.interval=..01
+            self.interval=.01
         frame=0
         data=None
         old_data=None
