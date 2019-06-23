@@ -76,8 +76,9 @@ def cli_main():
         events=None
         if has_stdin():
             events=read_stdin()
-            ar=asciicast_reader()
-            ar.write(args.record,events)
+            if args.record:
+                ar=asciicast_reader()
+                ar.write(args.record,events)
             
         elif None==args.input:
             parser.print_help()    

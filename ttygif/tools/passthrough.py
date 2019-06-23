@@ -18,10 +18,7 @@ def read_stdin():
         while has_stdin():
             sys.stdin.flush()
             o= sys.stdin.readline()
-            o= o.replace("\n","\\n")
-            o= o.replace("\r","\\r")
-            o= o.replace("\t","\\t")
-            o =o.replace("\b","\\b")
+           
             if ""==o: # empyt line will be \n
                 break
             timestamp=round(time.time(),8)-ts
