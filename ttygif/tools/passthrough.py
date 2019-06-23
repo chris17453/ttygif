@@ -21,7 +21,7 @@ def read_stdin():
             if ""==o: # empyt line will be \n
                 break
             timestamp=time.time()-ts
-            print timestamp
+            #print timestamp
             events.append([timestamp,'o',o])
     except KeyboardInterrupt:
         sys.stdout.flush()
