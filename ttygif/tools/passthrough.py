@@ -22,6 +22,9 @@ def read_stdin():
             o= sys.stdin.readline()
 
             if ""==o: # empty line will be \n
+                print ("BROKE")
+                print sys.stdin.tell()
+
                 break
             timestamp=round(time.time(),8)-ts
             #print timestamp
