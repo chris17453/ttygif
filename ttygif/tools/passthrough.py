@@ -17,9 +17,8 @@ def read_stdin():
     try:
         while has_stdin():
             o= sys.stdin.readline()
-            if sys.stdin.closed:
-                if ""==o: # empty line will be \n
-                    break
+            if ""==o: # empty line will be \n
+                break
             timestamp=round(time.time(),8)-ts
             #print timestamp
             events.append([timestamp,'o',o])

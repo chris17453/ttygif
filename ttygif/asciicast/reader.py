@@ -38,4 +38,4 @@ class asciicast_reader:
                 o=copy.deepcopy(event[2])
                 o = re.escape(o)
 
-                outfile.write("[{0:.10f},'{1}','{2}']\n".format(event[0],event[1],repr(o)))
+                outfile.write("[{0:.10f},'{1}',{2}]\n".format(event[0],event[1],repr(o)))
