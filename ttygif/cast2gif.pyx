@@ -94,9 +94,9 @@ cdef class cast2gif:
         self.percent=int((index*100)/self.event_length)
         if self.percent!=self.old_percent:
             if self.natural:
-                sys.stdout.write("Seconds: {0} of {1} {2}%    \r".format(self.timestamp,self.last_timestamp,self.percent))                
+                sys.stdout.write("Seconds: {0} of {1} {2}%        \r".format(round(self.timestamp,3),round(self.last_timestamp,3),round(self.percent,3))
             else:
-                sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)    \r".format(self.timestamp,self.last_timestamp,self.percent,self.frame_rate,round(self.interval,3)))
+                sys.stdout.write("Seconds: {0} of {1} {2}% {3} FPS ({4}ms)       \r".format(round(self.timestamp,3),round(self.last_timestamp,3),round(self.percent,3),self.frame_rate,round(self.interval,3)))
         sys.stdout.flush()    
 
     def __init__(self,cast_file,gif_file,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None):
@@ -152,7 +152,7 @@ cdef class cast2gif:
         if self.frame_rate!=0:
             self.interval=float(self.dilation)/float(self.frame_rate)
         else:
-            self.interval=.01
+            self.interval=.01*self.dilation
         frame=0
         data=None
         old_data=None
@@ -179,7 +179,7 @@ cdef class cast2gif:
             elif cur_timestamp-self.timestamp>=self.interval:
                 #print("interval_breach")
                 new_frame=True
-                delay=int((cur_timestamp-self.timestamp)*self.dilation*100)
+                delay=int((cur_timestamp-self.timestamp))
                 #print("Delay",delay,self.interval,cur_timestamp,self.timestamp)
 
             if new_frame:
