@@ -39,4 +39,4 @@ class asciicast_reader:
                 o= o.replace("\r","\\r")
                 o= o.replace("\t","\\t")
                 o =o.replace("\b","\\b")
-                outfile.write("[{0:.10f},'{1}','{2}']\n".format(event[0],event[1],o))
+                outfile.write("[{0:.10f},'{1}','{2}']\n".format(event[0],event[1],repr(o)))
