@@ -1,5 +1,5 @@
 # cython: linetrace=True
-
+from .stream cimport DataStream
 from .stream import DataStream
 from .header import gif_header
 from .ImageDescriptor import ImageDescriptor
@@ -48,7 +48,7 @@ cdef class decode:
         self.decode_gif()
     
     cdef decode_gif(self):
-        self.stream       =DataStream(self.file)
+        self.stream       =DataStream(self.file,mode="r")
         self.header       =gif_header(self.stream)
         self.header.read()
         self.comments     =[]
@@ -64,8 +64,8 @@ cdef class decode:
             # TODO default global color table
             self.global_color_table=None
 
-        #if self.debug:
-        self.header.debug()
+        if self.debug:
+            self.header.debug()
         #print ("{0:02X}".format(self.stream.pos))
         loop=True
         frame=0
