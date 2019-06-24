@@ -9,10 +9,11 @@ cdef class DataStream:
     cdef object OUT_OF_BOUNDS
     cdef object INVALID_POSITION
     cdef object mode
-    cdef public int    pos
+    cdef public ulong   pos
     cdef long   file_length
     cdef object file
     cdef object file_object
+    cdef ulong  pinned_position
 
     cdef validate_file(self)
     cdef validate_bounds(self)
