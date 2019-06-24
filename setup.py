@@ -1,8 +1,6 @@
 # cython: language_level=2
 import os
 import sys
-#from distutils.core import setup, Command
-#from distutils.extension import Extension
 from setuptools import setup, find_packages
 from setuptools.extension import Extension
 from Cython.Build import cythonize
