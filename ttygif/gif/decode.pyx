@@ -42,7 +42,7 @@ cdef class decode:
     cdef object applications
     cdef object global_color_table
 
-    def __init__(self,file=None,debug=None):
+    def __cinit__(self,file=None,debug=None):
         self.debug        =debug
         self.file         =file
         self.decode_gif()
@@ -140,7 +140,7 @@ cdef class decode:
         if self.debug:
             self.stats()
     
-    def get(self):
+    cdef get(self):
         return {'header':self.header,
                 'global_color_table':self.global_color_table,
                 'frame_count':self.frame_count,
@@ -148,11 +148,11 @@ cdef class decode:
                 'comments':self.comments,
                 'applications':self.applications}
 
-    def stats(self):
+    cdef stats(self):
         print("Stats")
         print("  Frames: {0}".format(self.frame_count))
 
-    def load_image_descriptor(self):
+    cdef load_image_descriptor(self):
         try:
             self.stream.pin()
             descriptor=ImageDescriptor(self.stream)
@@ -164,7 +164,7 @@ cdef class decode:
             print("Trying:{0}".format(ex))
             self.stream.rewind()
 
-    def load_comment_extension(self):
+    cdef load_comment_extension(self):
         try:
             self.stream.pin()
             comment=CommentExtension(self.stream)
@@ -175,7 +175,7 @@ cdef class decode:
             #print("Trying:{0}".format(ex))
             self.stream.rewind()
             
-    def load_graphics_control_extension(self):
+    cdef load_graphics_control_extension(self):
         try:
             self.stream.pin()
             graphiccontrol=graphics_control_extension(self.stream)
@@ -187,7 +187,7 @@ cdef class decode:
             print("Trying:{0}".format(ex))
             self.stream.rewind()
 
-    def load_plain_text_extension(self):
+    cdef load_plain_text_extension(self):
         try:
             self.stream.pin()
             plaintext=PlainTextExtension(self.stream)
@@ -198,7 +198,7 @@ cdef class decode:
             #print("Trying:{0}".format(ex))
             self.stream.rewind()
     
-    def load_application_extension(self):
+    cdef load_application_extension(self):
         try:
             self.stream.pin()
 
@@ -211,7 +211,7 @@ cdef class decode:
             #print("Trying:{0}".format(ex))
             self.stream.rewind()
 
-    def load_trailer(self):
+    cdef load_trailer(self):
         try:
             self.stream.pin()
             _trailer=trailer(self.stream)
@@ -223,7 +223,7 @@ cdef class decode:
             #print("Trying:{0}".format(ex))
             self.stream.rewind()
 
-    def load_color_table(self,entries):
+    cdef load_color_table(self,entries):
         try:
             self.stream.pin()
             colortable=gif_color_table(self.stream)
@@ -235,7 +235,7 @@ cdef class decode:
             print("Trying:{0}".format(ex))
             self.stream.rewind()
 
-    def load_image_data(self,pixels,interlace,width):
+   cdef load_image_data(self,pixels,interlace,width):
         #try:
             self.stream.pin()
             imagedata=ImageData(self.stream)
