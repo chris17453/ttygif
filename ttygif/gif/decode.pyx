@@ -55,6 +55,7 @@ cdef class decode:
         self.frames       =[]
         self.applications =[]
 
+        print self.stream
         self.stream.open()
         if self.header.GlobalColorTableFlag==True:
             #print self.header.GlobalColorTableLength
