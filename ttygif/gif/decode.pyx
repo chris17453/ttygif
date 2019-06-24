@@ -34,10 +34,8 @@ from .color_table import gif_color_table
 
 cdef class decode:
     cdef object stream
-    cdef object stream
     cdef object debug
     cdef object file
-    cdef object header
     cdef object header
     cdef object comments
     cdef object frames
