@@ -55,10 +55,10 @@ upload:
 	@pipenv run twine upload  builds/pypi/*.gz
 
 install:
-	pip install ttygif --user
+	pip install . --user
 
 uninstall:
-	pip uninstall ttygif
+	pip uninstall ttygif -y
 
 examples:
 	# tetris
