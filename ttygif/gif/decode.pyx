@@ -235,7 +235,7 @@ cdef class decode:
             print("Trying:{0}".format(ex))
             self.stream.rewind()
 
-   cdef load_image_data(self,pixels,interlace,width):
+    cdef load_image_data(self,pixels,interlace,width):
         #try:
             self.stream.pin()
             imagedata=ImageData(self.stream)
