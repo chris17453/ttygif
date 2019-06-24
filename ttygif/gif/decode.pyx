@@ -43,15 +43,19 @@ cdef class decode:
     cdef object global_color_table
 
     def __init__(self,file=None,debug=None):
-        self.stream   =DataStream(file)
-        self.stream.open()
         self.debug        =debug
         self.file         =file
+        self.decode_gif()
+    
+    cdef decode_gif(self):
+        self.stream   =DataStream(file)
         self.header       =gif_header(self.stream)
         self.header.read()
         self.comments     =[]
         self.frames       =[]
         self.applications =[]
+
+        self.stream.open()
         if self.header.GlobalColorTableFlag==True:
             #print self.header.GlobalColorTableLength
             #print self.header.GlobalColorTableSize
