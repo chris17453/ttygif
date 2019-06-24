@@ -14,8 +14,6 @@ from .color_table import gif_color_table
 # GIT 89A
 # freehand implimentation of information found at  https://www.fileformat.info/format/gif/egff.htm
 # Charles Watkins
-
-cdef class decode:
     #################################3
     # header
     #  - logical screen descriptor
@@ -33,6 +31,19 @@ cdef class decode:
     # PixelAspectRatio = (AspectRatio + 15) / 64;
     # GlobalColorTableLength = 	 (2L << (SizeOfTheGlobalColorTable + 1));
 
+
+cdef class decode:
+    cdef object stream
+    cdef object stream
+    cdef object debug
+    cdef object file
+    cdef object header
+    cdef object header
+    cdef object comments
+    cdef object frames
+    cdef object applications
+    cdef object global_color_table
+
     def __init__(self,file=None,debug=None):
         self.stream   =DataStream(file)
         self.stream.open()
@@ -44,8 +55,8 @@ cdef class decode:
         self.frames       =[]
         self.applications =[]
         if self.header.GlobalColorTableFlag==True:
-            print self.header.GlobalColorTableLength
-            print self.header.GlobalColorTableSize
+            #print self.header.GlobalColorTableLength
+            #print self.header.GlobalColorTableSize
             self.global_color_table=self.load_color_table(self.header.GlobalColorTableLength)
         else:
             # TODO default global color table
@@ -53,7 +64,7 @@ cdef class decode:
 
         #if self.debug:
         self.header.debug()
-        print ("{0:02X}".format(self.stream.pos))
+        #print ("{0:02X}".format(self.stream.pos))
         loop=True
         frame=0
         old_pos=-1
