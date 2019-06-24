@@ -73,12 +73,12 @@ ls -lhatsR | ttygif --output 232377.gif --fps=0 --dilate .5
 ### Finished Features
 
 - ansi escape string parsing CSI, OSC and basic Control Characters
-- standard I/O -> Done
-- colors, default term, and rgb -> Done
-- cursor positioning -> Done
-- erase line modes 1,2,3 -> Done
-- erase screen  -> Done
-- r,g,b palette mapping to curent palette -> done
+- standard I/O
+- colors, default term, and rgb
+- cursor positioning
+- erase line modes 1,2,3
+- erase screen
+- r,g,b palette mapping to curent palette
 - piped stdout with auto cast generation/emulated timestamps
 
 
@@ -109,7 +109,7 @@ ls -lhatsR | ttygif --output 232377.gif --fps=0 --dilate .5
 - split every n seconds or size
 - export as frames
 - theme/solarized/bright/microsoft
-- frames, windows 95, x11, mac, fedora, gnome, cinnamon 
+- frames, windows 95, x11, mac, fedora, gnome, cinnamon
 - start and end frames, with delays
 
 ### Profile Times
