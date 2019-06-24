@@ -48,7 +48,7 @@ cdef class decode:
         self.decode_gif()
     
     cdef decode_gif(self):
-        self.stream   =DataStream(file)
+        self.stream       =DataStream(self.file)
         self.header       =gif_header(self.stream)
         self.header.read()
         self.comments     =[]
