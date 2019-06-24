@@ -15,7 +15,7 @@ from .color_table import gif_color_table
 # freehand implimentation of information found at  https://www.fileformat.info/format/gif/egff.htm
 # Charles Watkins
 
-class Decoder:
+class decode:
     #################################3
     # header
     #  - logical screen descriptor
