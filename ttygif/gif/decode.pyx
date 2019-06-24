@@ -1,6 +1,6 @@
 # cython: linetrace=True
 from .stream cimport DataStream
-from .stream import DataStream
+#from .stream import DataStream
 from .header import gif_header
 from .ImageDescriptor import ImageDescriptor
 from .ImageData import ImageData
