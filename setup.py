@@ -43,6 +43,7 @@ extensions = [
     Extension("ttygif.gif.PlainTextExtension"           ,[prefix+"./ttygif/gif/PlainTextExtension"         +ext ], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.gif.stream"                       ,[prefix+"./ttygif/gif/stream"                     +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.gif.trailer"                      ,[prefix+"./ttygif/gif/trailer"                    +ext ], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.tools.passthrough"                ,[prefix+"./ttygif/tools/passthrough"              +ext ], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.font"                         ,[prefix+"./ttygif/tty/font"                       +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.fonts"                        ,[prefix+"./ttygif/tty/fonts"                      +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.viewer"                       ,[prefix+"./ttygif/tty/viewer"                     +ext2], define_macros=[('CYTHON_TRACE', '1')]),
@@ -69,6 +70,7 @@ else:
 packages=[  'ttygif',
             'ttygif.tty',
             'ttygif.gif',
+            'ttygif.tools',
             'ttygif.asciicast'
          ]
     
