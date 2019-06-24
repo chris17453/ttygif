@@ -33,7 +33,7 @@ from .color_table import gif_color_table
 
 
 cdef class decode:
-    cdef object stream
+    cdef DataStream stream
     cdef object debug
     cdef object file
     cdef object header
