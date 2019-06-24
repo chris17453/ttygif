@@ -18,31 +18,30 @@ is a c compiler, python and its development libs. ttygif is a cython project.
 
 ## usage
 
-```bash
-ttygif version 1.0.752
+```
+ttygif version 1.0.792
 usage: ttygif [-h] [--input FILE] [--output FILE] [--loop COUNT] [--delay MS]
-              [--dilation RATE] [--fps FPS] [--width WIDTH] [--height HEIGHT]
-              [--debug]
+              [--record FILE] [--dilation RATE] [--fps FPS] [--width WIDTH]
+              [--height HEIGHT] [--debug]
 
 tty output to gif
 
 optional arguments:
-  -h, --help            show this help message and exit
-    --input FILE          asciinema .cast file (default: None)
-  --output FILE         gif output file (default: None)
-  --loop COUNT          number of loops to play, 0=unlimited (default: 0)
-  --delay MS            delay before restarting gif in milliseconds (default:
-                        100)
-  --dilation RATE       process events at a faster or slower rate of time
-                        (default: 1)
-  --fps FPS             encode at (n) frames per second (0-25) 0=speed of cast
-                        file, min 1ms (default: 0)
-  --width WIDTH         change character width of gif, default is 80 or what
-                        is in the cast file (default: None)
-  --height HEIGHT       change character height of gif, default is 25 or what
-                        is in the cast file (default: None)
---debug               show debuging statistics (default: None)
-
+  -h, --help       show this help message and exit
+  --input FILE     asciinema .cast file (default: None)
+  --output FILE    gif output file (default: None)
+  --loop COUNT     number of loops to play, 0=unlimited (default: 0)
+  --delay MS       delay before restarting gif in milliseconds (default: 100)
+  --record FILE    output generated cast data to file (default: None)
+  --dilation RATE  process events at a faster or slower rate of time (default:
+                   1)
+  --fps FPS        encode at (n) frames per second (0-25) 0=speed of cast
+                   file, min 3ms (default: 0)
+  --width WIDTH    change character width of gif, default is 80 or what is in
+                   the cast file (default: None)
+  --height HEIGHT  change character height of gif, default is 25 or what is in
+                   the cast file (default: None)
+  --debug          show debuging statistics (default: None)
 ```
 
 ## cast file to gif
