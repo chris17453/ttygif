@@ -19,6 +19,14 @@ cdef class term_parser:
         self.last_timestamp=0
         self.extra_text=""
 
+    cdef ascii_safe(self,text):
+        return ''.join([i if ord(i) < 128 else '*' for i in text])
+
+    cdef info(self,text):
+        if self.debug_mode:
+            print(self.ascii_safe(text))
+
+
     def clear_sequence(self):
         self.sequence=[]
     
