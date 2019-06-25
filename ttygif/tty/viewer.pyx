@@ -211,10 +211,10 @@ cdef class viewer:
     def render_underlay(self,underlay,frame):
         self.underlay_flag=True
         
-        for frame in underlay['frames']:
+        for frame in underlay['frames's]:
             if frame['image'] and frame['descriptor']:
                 descriptor=frame['descriptor']
-                src_image =frame['image']
+                src_image =frame['image'].image_data
                 print ("got stuff")
                 break
 
