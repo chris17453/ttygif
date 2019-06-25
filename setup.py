@@ -26,7 +26,9 @@ else:
 # distutils: define_macros=CYTHON_TRACE_NOGIL=1
 
 extensions = [
+    #data import
     Extension("ttygif.asciicast.reader"                 ,[prefix+"./ttygif/asciicast/reader"               +ext ], define_macros=[('CYTHON_TRACE', '1')]),
+    #gif minipulation
     Extension("ttygif.gif.application_extension"        ,[prefix+"./ttygif/gif/application_extension"      +ext ], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.gif.canvas"                       ,[prefix+"./ttygif/gif/canvas"                     +ext ], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.gif.color_table"                  ,[prefix+"./ttygif/gif/color_table"                +ext ], define_macros=[('CYTHON_TRACE', '1')]),
@@ -37,15 +39,21 @@ extensions = [
     Extension("ttygif.gif.graphics_control_extension"   ,[prefix+"./ttygif/gif/graphics_control_extension" +ext ], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.gif.header"                       ,[prefix+"./ttygif/gif/header"                     +ext ], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.gif.ImageData"                    ,[prefix+"./ttygif/gif/ImageData"                  +ext2], define_macros=[('CYTHON_TRACE', '1')]),
-    Extension("ttygif.gif.image_descriptor"              ,[prefix+"./ttygif/gif/image_descriptor"          +ext ], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.gif.image_descriptor"             ,[prefix+"./ttygif/gif/image_descriptor"           +ext ], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.gif.PlainTextExtension"           ,[prefix+"./ttygif/gif/PlainTextExtension"         +ext ], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.gif.stream"                       ,[prefix+"./ttygif/gif/stream"                     +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.gif.trailer"                      ,[prefix+"./ttygif/gif/trailer"                    +ext ], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tools.passthrough"                ,[prefix+"./ttygif/tools/passthrough"              +ext ], define_macros=[('CYTHON_TRACE', '1')]),
+    # graphical rendering
     Extension("ttygif.tty.font"                         ,[prefix+"./ttygif/tty/font"                       +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.fonts"                        ,[prefix+"./ttygif/tty/fonts"                      +ext2], define_macros=[('CYTHON_TRACE', '1')]),
-    Extension("ttygif.tty.viewer"                       ,[prefix+"./ttygif/tty/viewer"                     +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.tty.terminal_emulator"            ,[prefix+"./ttygif/tty/terminal_emulator"          +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.tty.graphics"                     ,[prefix+"./ttygif/tty/graphics"                   +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.tty.parser"                       ,[prefix+"./ttygif/tty/parser"                     +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    
+    # gif orchestraton of frames and data
     Extension("ttygif.cast2gif"                         ,[prefix+"./ttygif/cast2gif"                       +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    
     Extension("ttygif.version"                          ,[prefix+"./ttygif/version"                        +ext ], define_macros=[('CYTHON_TRACE', '1')]),
     #Extension("ttygif.cli"                              ,[prefix+"./ttygif/cli"                            +ext ], define_macros=[('CYTHON_TRACE', '1')]),
 ]

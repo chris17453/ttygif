@@ -1,6 +1,6 @@
 from cpython cimport array
-import array
 from libc.string cimport memset
+from .font cimport font
 
 
 cdef create_default_palette():
@@ -249,33 +249,33 @@ cdef class text_state:
         self.check_bounds()
 
 
-cdef class term_frame:
+cdef class terminal_graphics:
     cdef array.array data
     cdef image viewport
     cdef image character_buffer
     cdef text_state character_buffer_state
 
     def __cinit__(self,int character_width=-1,int character_height=-1,
-                       int viewport_width=-1,int viewport_height=-1,background=0,font image_font):
+                       int viewport_width=-1,int viewport_height=-1  ,font image_font):
         self font               = image_font
 
         # define displays by chaaracters on screen        
         if character_width>-1 and character_height>-1:
             cdef int px_width =character_width  * image_font.font_width
             cdef int px_height=character_height * image_font.font_height
-
-            self.character_buffer = image(width= character_width,height= character_height,init_value= background,bytes_per_pixel=3)
-            self.rendered_screen  = image(width= px_width       ,height= px_height       ,init_value= background,bytes_per_pixel=1)
+            self.character_buffer = image(width= character_width,height= character_height,init_value=0                    ,bytes_per_pixel=3)
+            self.character_buffer_state=text_state(self.character_buffer.dimentions.width,self.character_buffer.dimentions.height)
+            self.rendered_screen  = image(width= px_width       ,height= px_height       ,init_value=self.state.background,bytes_per_pixel=1)
         
         # define displays by screen dimentions and calculate characters
         else:
             cdef int char_height = viewport_height / image_font.font_width
             cdef int char_width  = viewport_width  / image_font.font_height
-            self.character_buffer= image(width= char_width    ,height= char_height    ,init_value= background,bytes_per_pixel=3)
-            self.rendered_screen = image(width= viewport_width,height= viewport_height,init_value= background,bytes_per_pixel=1)
+            self.character_buffer= image(width= char_width    ,height= char_height    ,init_value=0                    ,bytes_per_pixel=3)
+            self.character_buffer_state=text_state(self.character_buffer.dimentions.width,self.character_buffer.dimentions.height)
+            self.rendered_screen = image(width= viewport_width,height= viewport_height,init_value=self.state.background,bytes_per_pixel=1)
         
         # set default screen state
-        self.character_buffer_state=text_state(self.character_buffer.dimentions.width,self.character_buffer.dimentions.height)
 
     # write a character to the text buffer with the curent text attributes
     cdef write(self,int character):

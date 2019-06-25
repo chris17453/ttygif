@@ -6,12 +6,18 @@ import re
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 cdef class term_parser:
+    cdef object debug_mode
     cdef object sequence
+    cdef int    sequence_pos
+    cdef object extra_text
+    cdef double last_timestamp
 
     def __init__(self,debug_mode=None):
+        self.debug_mode=debug_mode
         self.sequence=[]
         self.sequence_pos=0
-        self.debug_mode=debug_mode
+        self.last_timestamp=0
+        self.extra_text=""
 
     def clear_sequence(self):
         self.sequence=[]
