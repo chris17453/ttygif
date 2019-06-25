@@ -130,7 +130,8 @@ cdef class cast2gif:
         self.minimal_interval=.03
 
         if underlay:
-            self.underlay=decode(underlay)
+            underlay_image=decode(underlay)
+            self.underlay=underlay_image.get()
 
         print("dilation:{0}".format(self.dilation))
         if None==events:
