@@ -65,7 +65,7 @@ cdef copy_image(image src_image,src_x1,src_y1,src_x2,src_y2,
                 image dst_image,dst_x1,dst_y1,dst_x2,dst_y2,mode='simple'):
     cdef int x3
     cdef int y3
-    
+
     if mode=='simple':
         
         for y in range(src_y1,src_y2):
@@ -141,7 +141,7 @@ cdef class image:
     cdef array.array data
     cdef bounds      dimentions
     cdef array.array palette
-    def __cint__(self,int bytes_per_pixel,int width,int height,array.array palette,int init_value)
+    def __cint__(self,int bytes_per_pixel,int width,int height,array.array palette,int init_value):
         
         self.dimentions=bounds(width=width,height=height,bytes_per_pixel=bytes_per_pixel)
         self.data      =create_array(size=dimentions.length,init_value)
