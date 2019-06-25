@@ -236,10 +236,10 @@ cdef class viewer:
                     src_width  = descriptor.Width,
                     src_height = descriptor.Height,
                     dst_image  = self.video,
-                    dst_x1      = dst_x,
-                    dst_y1      = dst_y,
-                    dst_x2      = dst_x,
-                    dst_y2      = dst_y,
+                    dst_x1      = dst_x1,
+                    dst_y1      = dst_y1,
+                    dst_x2      = dst_x2,
+                    dst_y2      = dst_y2,
                     dst_width  = dst_width,
                     dst_height = dst_height)
         
