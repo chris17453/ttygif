@@ -220,7 +220,7 @@ cdef class viewer:
 
         if None==descriptor or None == src_image:
             self.underlay_flag=None
-            prin ("BOM")
+            print("BOM")
             return
 
         dst_x1=0
