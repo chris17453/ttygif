@@ -128,7 +128,8 @@ cdef class cast2gif:
         self.minimal_interval=.03
 
         if underlay:
-            gif.deco
+            self.underlay=decode(underlay)
+            
         print("dilation:{0}".format(self.dilation))
         if None==events:
             print ("input: {0}".format(cast_file))
