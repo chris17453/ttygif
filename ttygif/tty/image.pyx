@@ -15,7 +15,7 @@ cdef class image:
     def __cint__(self,int bytes_per_pixel,int width,int height,array.array palette,int init_value):
         
         self.dimentions=bounds(width=width,height=height,bytes_per_pixel=bytes_per_pixel)
-        self.data      =self.create_buffer(size=dimentions.length,init_value=init_value)
+        self.data      =self.create_buffer(size=self.dimentions.length,init_value=init_value)
         if palette:
             self.palette   =palette
     
