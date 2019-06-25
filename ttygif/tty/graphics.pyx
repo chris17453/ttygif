@@ -63,15 +63,17 @@ cdef create_array(int size,int init_value):
     # super fast memory copy
 cdef copy_image(image src_image,src_x1,src_y1,src_x2,src_y2,
                 image dst_image,dst_x1,dst_y1,dst_x2,dst_y2,mode='simple'):
-
+    cdef int x3
+    cdef int y3
+    
     if mode=='simple':
         
         for y in range(src_y1,src_y2):
             for x in range(src_x1,src_x2):
                 pixel=src_image.get_pixel(x,y)
                 #print x,y,pixel
-                cdef int x3=x+dst_x1-src_x1
-                cdef int y3=y+dst_y1-src_y1
+                x3=x+dst_x1-src_x1
+                y3=y+dst_y1-src_y1
                 dst_image.put_pixel(x3,y3,pixel)
 
 
