@@ -224,7 +224,9 @@ cdef class decode:
         try:
             self.stream.pin()
             colortable=gif_color_table(self.stream)
+            print ("reading", entries,self.stream.pos)
             colortable.read(entries)
+            print (self.stream.pos)
             if self.debug:
                 colortable.debug()
             return colortable
