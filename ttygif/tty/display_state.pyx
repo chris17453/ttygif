@@ -23,8 +23,8 @@ cdef class text_state:
             self.cursor_x=0
         if self.cursor_x>=self.width:
             self.cursor_x=self.width-1
-            cursor_absolute_x(0):
-            this.state.cursor_down()
+            self.cursor_absolute_x(0)
+            self.cursor_down()
 
         #self.shift_buffer(buffer)
             #shift!buffer
