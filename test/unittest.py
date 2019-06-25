@@ -7,7 +7,7 @@ from .context import  ttygif
 # the rest are random. Kermit is my fav
 class test_engine(unittest2.TestCase):
     base_asset_dir="assets/examples/src_gifs/"
-    base_decode_dir="assets/examples/src_gifs/"
+    base_decode_dir="assets/examples/canvas/"
     def test_canvas_noninterlaced(self):
         try:
             g=ttygif.gif.gif(debug=None)
