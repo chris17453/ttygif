@@ -181,14 +181,13 @@ cdef class viewer:
         cdef int new_char_line_stride =fs-(fw+fsx)
         
         loop=True
-        if character<=32:
-            return
         while loop:
             pixel=font.graphic[char_pos]
             if pixel!=transparent:
                 self.video[screen_pos]=foreground_color
             else:
-                self.video[screen_pos]=background_color
+                if background_color!=0:
+                    self.video[screen_pos]=background_color
             char_pos+=1
             fx+=1
             screen_pos+=1
