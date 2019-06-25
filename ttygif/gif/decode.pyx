@@ -62,7 +62,6 @@ cdef class decode:
             #print self.header.GlobalColorTableLength
             #print self.header.GlobalColorTableSize
             self.global_color_table=self.load_color_table(self.header.GlobalColorTableLength)
-            self.global_color_table.debug()
         else:
             # TODO default global color table
             self.global_color_table=None
@@ -237,7 +236,7 @@ cdef class decode:
                 colortable.debug()
             return colortable
         except Exception as ex:
-            print("Trying:{0}".format(ex))
+            #print("Trying:{0}".format(ex))
             self.stream.rewind()
 
     cdef load_image_data(self,pixels,interlace,width):
