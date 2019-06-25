@@ -214,7 +214,7 @@ cdef class viewer:
         for frame in underlay['frames']:
             if frame['image'] and frame['descriptor']:
                 descriptor=frame['descriptor']
-                src_image =frame['image'].image_data
+                src_image =frame['image'].data
                 print ("got stuff")
                 break
 
