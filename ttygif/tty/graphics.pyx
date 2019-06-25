@@ -61,9 +61,8 @@ cdef create_array(int size,int init_value):
     memset(data.data.as_voidptr, init_value, len(data) * sizeof(char))
     return data
 
-    # super fast memory copy
-cdef copy_image(image src_image,int src_x1,int src_y1,int src_x2,int src_y2,
-                image dst_image,int dst_x1,int dst_y1,int dst_x2,int dst_y2,object mode='simple'):
+# super fast memory copy
+cdef copy_image(image src_image,int src_x1,int src_y1,int src_x2,int src_y2,image dst_image,int dst_x1,int dst_y1,int dst_x2,int dst_y2,object mode='simple'):
     cdef int x3
     cdef int y3
 
