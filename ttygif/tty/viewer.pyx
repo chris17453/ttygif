@@ -233,7 +233,7 @@ cdef class viewer:
         memset(self.video.data.as_voidptr, self.background_color, self.video_length * sizeof(char))
 
 
-        self.remap(underlay['global_color_table'],src_image,self.color_Table)
+        self.remap(underlay['global_color_table'],src_image,self.color_table)
 
         self.copy_image( src_image  = src_image,
                     src_x1      = 0,
