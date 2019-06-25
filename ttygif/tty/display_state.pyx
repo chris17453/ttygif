@@ -17,7 +17,7 @@ cdef class text_state:
             self.cursor_y=0
         if self.cursor_y>=self.height:
             self.cursor_y=self.height-1
-            self.cursor_absolute_x(0):
+            self.cursor_absolute_x(0)
 
         if self.cursor_x<0:
             self.cursor_x=0
