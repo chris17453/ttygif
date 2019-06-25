@@ -18,14 +18,14 @@ cdef class display_state:
 
         if self.cursor_y>=self.height:
             self.cursor_y=self.height-1
-            self.cursor_absolute_x(0)
+            self.cursor_y=0
 
         if self.cursor_x<0:
             self.cursor_x=0
 
         if self.cursor_x>=self.width:
             self.cursor_x=self.width-1
-            self.cursor_absolute_x(0)
+            self.cursor_x=0
             self.cursor_down()
 
         #self.shift_buffer(buffer)

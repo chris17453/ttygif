@@ -3,11 +3,6 @@ from cpython cimport array
 from libc.string cimport memset
 
 cdef class bounds:
-    cdef int width
-    cdef int height
-    cdef int stride
-    cdef int length
-    cdef int bytes_per_pixel
     def __cint__(self,int width,int height,int bytes_per_pixel=1):
         self.width          =width
         self.height          =height
@@ -17,9 +12,6 @@ cdef class bounds:
 
 # image class, holds image metrics, data and palette        
 cdef class image:
-    cdef array.array data
-    cdef bounds      dimentions
-    cdef array.array palette
     def __cint__(self,int bytes_per_pixel,int width,int height,array.array palette,int init_value):
         
         self.dimentions=bounds(width=width,height=height,bytes_per_pixel=bytes_per_pixel)
