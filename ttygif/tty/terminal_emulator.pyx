@@ -1,8 +1,8 @@
 # cython: linetrace=True
 
 
-from .parser cimpor term_parser
-from .graphic cimport terminal_graphics
+from .parser cimport term_parser
+from .terminal_graphics cimport terminal_graphics
 from .font cimport font
 from .fonts cimport vga_font
 
@@ -12,7 +12,7 @@ from .fonts cimport vga_font
 cdef class terminal_emulator:
     
     cdef public term_parser          parser
-    cdef public terminal_graphics    terminal_display
+    cdef public terminal_graphics    terminal_graphics
     cdef public object underlay_flag
     cdef public object term
     
