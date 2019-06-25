@@ -10,7 +10,7 @@ cdef class image:
     cdef array.array data
     cdef bounds      dimentions
     cdef array.array palette
-    cdef get position(int x,int y):
-    cdef get_pixel(int x,int y):
-    cdef put_pixel(int x,int y,pixel):
-    cdef clear(int init_value=0):
+    cdef get position(int x,int y)
+    cdef get_pixel(int x,int y)
+    cdef put_pixel(int x,int y,pixel)
+    cdef clear(int init_value)
