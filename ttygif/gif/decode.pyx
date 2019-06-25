@@ -57,6 +57,7 @@ cdef class decode:
             print self.header.GlobalColorTableLength
             print self.header.GlobalColorTableSize
             self.global_color_table=self.load_color_table(self.header.GlobalColorTableLength)
+            self.global_color_table.debug()
         else:
             # TODO default global color table
             self.global_color_table=None
@@ -224,9 +225,9 @@ cdef class decode:
         try:
             self.stream.pin()
             colortable=gif_color_table(self.stream)
-            print ("reading", entries,self.stream.pos)
+            #print ("reading", entries,self.stream.pos)
             colortable.read(entries)
-            print (self.stream.pos)
+            #$print (self.stream.pos)
             if self.debug:
                 colortable.debug()
             return colortable
