@@ -173,11 +173,11 @@ cdef class terminal_graphics:
             raise Exception(err_msg)
 
         if self.character_buffer_state.reverse_video:
-            character_buffer.put_pixel(x,y,[self.character_buffer_state.background,
+            self.character_buffer.put_pixel(x,y,[self.character_buffer_state.background,
                                             self.character_buffer_state.foreground,
                                             character])
         else:
-            character_buffer.put_pixel(x,y,[self.character_buffer_state.foreground,
+            self.character_buffer.put_pixel(x,y,[self.character_buffer_state.foreground,
                                             self.character_buffer_state.background,
                                             character])
 
