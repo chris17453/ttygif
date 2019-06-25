@@ -21,6 +21,7 @@ class gif_color_table:
             
     def read(self,entries):
         self.internal_position=self.stream.pos
+        print ("START",self.stream.pos)
         self.colors=[]
         for i in range(0,entries):
             red  = self.stream.byte()                           # Red Color Element 

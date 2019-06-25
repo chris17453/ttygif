@@ -8,7 +8,6 @@ class gif_header:
     
     def read(self):
         self.internal_position=self.stream.pos
-        print ("START",self.stream.pos)
         gif_sig='GIF'
         gif_sig_ver=['87a','89a']
         # Header
@@ -23,7 +22,6 @@ class gif_header:
 
         # computed
         self.unpack()
-        print ("END",self.stream.pos)
 
     def write(self):
         self.pack()
