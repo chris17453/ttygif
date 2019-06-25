@@ -7,7 +7,7 @@ cdef class bounds:
         self.width          =width
         self.height          =height
         self.stride          =width*bytes_per_pixel
-        self.length          =stride*height
+        self.length          =self.stride*height
         self.bytes_per_pixel =bytes_per_pixel
 
 # image class, holds image metrics, data and palette        
