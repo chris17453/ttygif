@@ -4,7 +4,7 @@ from .font cimport font
 
 
 cdef create_default_palette():
-    cdef array.array('B',[  # 16 System Colors
+    cdef array.array palette=array.array('B',[  # 16 System Colors
         [0,0,0],[128,0,0],[0,128,0],[128,128,0],
         [0,0,128],[128,0,128],[0,128,128],[192,192,192],
         [128,128,128],[255,0,0],[0,255,0],[255,255,0],
@@ -51,7 +51,7 @@ cdef create_default_palette():
         [138,138,138],[148,148,148],[158,158,158],[168,168,168],[178,178,178],[188,188,188],
         [198,198,198],[208,208,208],[218,218,218],[228,228,228],[238,238,238]
         ]
-    return color_table
+    return palette
 
 
 # returns a byte array set with an initial value
