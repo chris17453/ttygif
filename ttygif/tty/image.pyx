@@ -53,6 +53,6 @@ cdef class image:
             for i in range(0,self.dimentions.bytes_per_pixel):
                 self.data[pos+i]=pixel[i]
     
-    cdef clear(self,int init_value=0):
+    cdef clear(self,int init_value):
         memset(self.data.data.as_voidptr, init_value, self.dimentions.length )
 
