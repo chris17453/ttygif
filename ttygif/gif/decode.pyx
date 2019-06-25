@@ -45,9 +45,6 @@ cdef class decode:
     def __cinit__(self,file=None,debug=None):
         self.debug        =debug
         self.file         =file
-        self.decode_gif()
-    
-    cdef decode_gif(self):
         self.stream       =DataStream(self.file,mode="r")
         self.header       =gif_header(self.stream)
         self.header.read()
@@ -55,7 +52,6 @@ cdef class decode:
         self.frames       =[]
         self.applications =[]
 
-        print self.stream
         self.stream.open()
         if self.header.GlobalColorTableFlag==True:
             #print self.header.GlobalColorTableLength
@@ -65,8 +61,8 @@ cdef class decode:
             # TODO default global color table
             self.global_color_table=None
 
-        if self.debug:
-            self.header.debug()
+        #i#f self.debug:
+        self.header.debug()
         #print ("{0:02X}".format(self.stream.pos))
         loop=True
         frame=0
