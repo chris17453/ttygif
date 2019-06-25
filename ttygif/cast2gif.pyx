@@ -4,6 +4,7 @@ from cpython cimport array
 import array
 from libc.string cimport  memcpy
 from .gif.encode import encode_gif
+from .gif.decode import decode
 from .asciicast.reader import asciicast_reader
 from .tty.viewer import viewer
 
@@ -24,6 +25,12 @@ cdef class cast2gif:
     cdef double old_percent
     cdef object dilation 
     cdef object minimal_interval
+    cdef object underlay
+    cdef int underlay_x1
+    cdef int underlay_y1
+    cdef int underlay_x2
+    cdef int underlay_y2
+    cdef int underlay_mode
     # last frame created timestamp
     cdef double timestamp 
     # last timestamp in file
@@ -104,7 +111,7 @@ cdef class cast2gif:
         for i in range(0,len(self.stream['events'])):
             self.stream['events'][i][0]=float(self.stream['events'][i][0])*self.dilation
 
-    def __init__(self,cast_file,gif_file,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None):
+    def __init__(self,cast_file,gif_file,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None,underlay=None):
         self.dilation=dilation
         self.cast_file= cast_file
         self.gif_file= gif_file
@@ -119,6 +126,9 @@ cdef class cast2gif:
         self.timestamp=0
         self.aggregate_timestamp=0
         self.minimal_interval=.03
+
+        if underlay:
+            gif.deco
         print("dilation:{0}".format(self.dilation))
         if None==events:
             print ("input: {0}".format(cast_file))
