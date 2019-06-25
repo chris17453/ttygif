@@ -1,3 +1,5 @@
+from cpython cimport array
+
 # sets bounding paramaters for image transformations
 cdef class bounds:
     cdef int width
