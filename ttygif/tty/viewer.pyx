@@ -182,7 +182,7 @@ cdef class viewer:
         
         loop=True
         if character<=32:
-            continue
+            return
         while loop:
             pixel=font.graphic[char_pos]
             if pixel!=transparent:
