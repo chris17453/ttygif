@@ -211,7 +211,7 @@ cdef class viewer:
     def render_underlay(self,underlay,frame):
         self.underlay_flag=True
         
-        for frame in underlay:
+        for frame in underlay['frames']:
             if frame['image'] and frame['descriptor']:
                 descriptor=frame['descriptor']
                 src_image =frame['image']
