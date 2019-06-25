@@ -1,3 +1,7 @@
+from cpython cimport array
+import array
+from libc.string cimport memset
+
 
 cdef create_default_palette():
     cdef array.array('B',[  # 16 System Colors
@@ -98,6 +102,7 @@ def match_color_index(r,g,b,color_table):
 
     return mappeded_color
 
+
 # todo account for color table size mismatch, crud on new table, and reindexing for best color palette...
 def remap(src_color_table,src_pixels,dst_color_table):
     hash_map=[0]*len(src_color_table)
@@ -176,30 +181,79 @@ cdef class image:
 
 
 cdef class text_state:
+    cdef public int             width
+    cdef public int             height
     cdef public int             cursor_x
     cdef public int             cursor_y
     cdef public int             default_foreground
     cdef public int             default_background
-    cdef public int             foreround_color
-    cdef public int             background_color
+    cdef public int             foreround
+    cdef public int             background
     cdef public object          reverse_video
     cdef public object          bold 
-    def __cinit__(self):
+    def __cinit__(self,int width,int height):
         self.cursor_x           = 0
         self.cursor_y           = 0
+        self.width              = width
+        self.height             = height
         self.reverse_video      = None
         self.bold               = None            
         self.default_foreground = 15
         self.default_background = 0
-        self.foreground_color   = default_foreground
+        self.foreground         = default_foreground
         self.background         = default_background
-    
+
+    def check_bounds(self):
+        if self.cursor_y<0:
+            self.cursor_y=0
+        if self.cursor_y>=self.height:
+            self.cursor_y=self.height-1
+            cursor_absolute_x(0):
+
+        if self.cursor_x<0:
+            self.cursor_x=0
+        if self.cursor_x>=self.width:
+            self.cursor_x=self.width-1
+            cursor_absolute_x(0):
+            this.state.cursor_down()
+
+        #self.shift_buffer(buffer)
+            #shift!buffer
+
+    def cursor_up(self):
+        self.cursor_y-=1
+        self.check_bounds()
+        
+    def cursor_down(self):
+        self.cursor_y+=1
+        self.check_bounds()
+    def cursor_left(self):
+        self.cursor_x-=1
+        self.check_bounds()
+
+    def cursor_right(self):
+        self.cursor_x+=1
+        self.check_bounds()
+
+    def cursor_absolute_x(self,position):
+        self.cursor_x=position
+        self.check_bounds()
+        
+    def cursor_absolute_y(self,position):
+        self.cursor_y=position
+        self.check_bounds()
+
+    def cursor_absolute(self,position_x,position_y):
+        self.cursor_x=position_x
+        self.cursor_y=position_y
+        self.check_bounds()
+
 
 cdef class term_frame:
     cdef array.array data
     cdef image viewport
     cdef image character_buffer
-    cdef text_state character_buffer_state=text_state()
+    cdef text_state character_buffer_state
 
     def __cinit__(self,int character_width=-1,int character_height=-1,
                        int viewport_width=-1,int viewport_height=-1,background=0,font image_font):
@@ -219,17 +273,27 @@ cdef class term_frame:
             cdef int char_width  = viewport_width  / image_font.font_height
             self.character_buffer= image(width= char_width    ,height= char_height    ,init_value= background,bytes_per_pixel=3)
             self.rendered_screen = image(width= viewport_width,height= viewport_height,init_value= background,bytes_per_pixel=1)
+        
+        # set default screen state
+        self.character_buffer_state=text_state(self.character_buffer.dimentions.width,self.character_buffer.dimentions.height)
 
     # write a character to the text buffer with the curent text attributes
-    cdef write_buffer(self,int x,int y,int character):
+    cdef write(self,int character):
+        cdef int x=self.character_buffer_state.cursor_x
+        cdef int y=self.character_buffer_state.cursor_y
+
         if character>255:
             err_msg="Charactrer out of range -{0}".format(character)
             raise Exception(err_msg)
 
         if self.character_buffer_state.reverse_video:
-            character_buffer.put_pixel(x,y,[background_color,foreground_color,character])
+            character_buffer.put_pixel(x,y,[self.character_buffer_state.background,
+                                            self.character_buffer_state.foreground,
+                                            character])
         else:
-            character_buffer.put_pixel(x,y,[foreground_color,background_color,character])
+            character_buffer.put_pixel(x,y,[self.character_buffer_state.foreground,
+                                            self.character_buffer_state.background,
+                                            character])
 
     def draw_string(self,x,y,data):
         for i in data:
@@ -341,8 +405,20 @@ cdef class term_frame:
     #                dst_width  = dst_width,
     #                dst_height = dst_height)
 #
+    def foreground_from_rgb(self,r,g,b):
+        color=match_color_index(r,g,b,self.viewport.palette):
+        self.set_foreground(color)
 
+    def background_from_rgb(self,r,g,b):
+        color=match_color_index(r,g,b,self.viewport.palette):
+        self.set_background(color)
 
+    def set_foreground(self,color):
+        frame.state.foreground_color
+    
+    def set_background(self,color):
+        frame.state.background=color
+    
     def render(self):
         #if None==self.underlay_flag:
         self.viewport.clear();

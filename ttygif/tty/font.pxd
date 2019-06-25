@@ -2,7 +2,7 @@
 from cpython cimport array
 
 
-cdef class font_map:
+cdef class font:
 
     cdef str        name
     cdef int        chars_per_line

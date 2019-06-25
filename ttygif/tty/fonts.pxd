@@ -1,3 +1,3 @@
-from .font cimport font_map
+from .font cimport font
 
-cpdef font_map font
+cpdef font vga_font
