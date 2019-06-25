@@ -271,7 +271,7 @@ cdef class viewer:
         # remap the colors from the source to the dest
         for i in src_color_table:
             src_color=i
-            new_index=self.match_color_index(src_color[0],src_color[1],src_color[2])
+            new_index=self.match_color_index(src_color[0],src_color[1],src_color[2],dst_color_table)
             hash_map[i]=new_index
 
         # reindex the pixels
