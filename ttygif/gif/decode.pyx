@@ -63,8 +63,8 @@ cdef class decode:
             # TODO default global color table
             self.global_color_table=None
 
-        if self.debug:
-            self.header.debug()
+        #if self.debug:
+        self.header.debug()
         #print ("{0:02X}".format(self.stream.pos))
         loop=True
         frame=0
