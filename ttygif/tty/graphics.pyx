@@ -350,15 +350,15 @@ cdef class terminal_graphics:
     #                dst_height = dst_height)
 #
     def foreground_from_rgb(self,r,g,b):
-        color=match_color_index(r,g,b,self.viewport.palette):
+        cdef int color=match_color_index(r,g,b,self.viewport.palette):
         self.set_foreground(color)
 
     def background_from_rgb(self,r,g,b):
-        color=match_color_index(r,g,b,self.viewport.palette):
+        cdef int color=match_color_index(r,g,b,self.viewport.palette):
         self.set_background(color)
 
     def set_foreground(self,color):
-        frame.state.foreground_color
+        frame.state.foreground=color
     
     def set_background(self,color):
         frame.state.background=color
