@@ -90,8 +90,8 @@ cdef shift_buffer(image src_image,int init_value=0):
         buffer.pop(0)
         buffer.pop(0)
     cdef int row_pos=buffer_length-src_image.dimentions.stride
-    array.resize(buffer,buffer_length)  
-    memset(&buffer.data.as_uchars[row_pos],init_value,src_image.dimentions.length)
+    array.resize(src_image.data,buffer_length)  
+    memset(&src_image.data.data.as_uchars[row_pos],init_value,src_image.dimentions.length)
 
 def match_color_index(r,g,b,color_table):
     last_distance=-1
