@@ -59,7 +59,7 @@ cdef create_default_palette():
 
 # returns a byte array set with an initial value
 cdef create_array(int size,int init_value):
-    data=array.array('B')
+    cdef array.array data=array.array('B')
     array.resize(data,size)
     memset(data.data.as_voidptr, init_value, len(data) * sizeof(char))
 
