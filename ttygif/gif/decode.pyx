@@ -76,7 +76,8 @@ cdef class decode:
             # try for an image
             gc=self.load_graphics_control_extension()
             if gc:
-                gc.debug()
+                if self.debug:
+                    gc.debug()
                 #print ("GC")
                 descriptor=None
                 local_color_table=None
