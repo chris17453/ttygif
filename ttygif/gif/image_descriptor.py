@@ -1,4 +1,4 @@
-class ImageDescriptor:
+class image_descriptor:
     def __init__(self,stream):
         self.stream=stream
         self.internal_position=self.stream.pos

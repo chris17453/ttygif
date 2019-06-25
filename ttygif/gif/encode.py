@@ -2,7 +2,7 @@
 
 from .stream import DataStream
 from .header import gif_header
-from .ImageDescriptor import ImageDescriptor
+from .image_descriptor import image_descriptor
 from .ImageData import ImageData
 from .graphics_control_extension import graphics_control_extension
 from .application_extension import application_extension
@@ -132,7 +132,7 @@ class encode_gif:
         gce.new(    DelayTime=delay,
                     ColorIndex=transparent,
                     DisposalMethod=disposal_method)
-        descriptor=ImageDescriptor(self.stream)
+        descriptor=image_descriptor(self.stream)
         
 
         if palette:

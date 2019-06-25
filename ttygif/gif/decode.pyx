@@ -2,7 +2,7 @@
 from .stream cimport DataStream
 #from .stream import DataStream
 from .header import gif_header
-from .ImageDescriptor import ImageDescriptor
+from .image_descriptor import image_descriptor
 from .ImageData import ImageData
 from .graphics_control_extension import graphics_control_extension
 from .application_extension import application_extension
@@ -29,7 +29,7 @@ from .color_table import gif_color_table
     # trailer
 
     # PixelAspectRatio = (AspectRatio + 15) / 64;
-    # GlobalColorTableLength = 	 (2L << (SizeOfTheGlobalColorTable + 1));
+    # GlobalColorTableLength = 	 (2L << (SizeOfTheGlobalColorTable + 1)); or 1??? I've seeen different implimentations but 1 seems to be correct..
 
 
 cdef class decode:
@@ -157,7 +157,7 @@ cdef class decode:
     cdef load_image_descriptor(self):
         try:
             self.stream.pin()
-            descriptor=ImageDescriptor(self.stream)
+            descriptor=image_descriptor(self.stream)
             descriptor.read()
             if self.debug:
                 descriptor.debug()
