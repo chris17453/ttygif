@@ -1,3 +1,5 @@
+from .display_state cimport display_state
+from .image cimport image
 
 
 cdef create_default_palette()

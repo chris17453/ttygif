@@ -1,6 +1,3 @@
-from .display_state cimport display_state
-from .image cimport image
-
 from cpython cimport array
 from libc.string cimport memset
 from .font cimport font
