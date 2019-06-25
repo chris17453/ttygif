@@ -186,7 +186,7 @@ cdef class decode:
                 graphiccontrol.debug()
             return graphiccontrol
         except Exception as ex:
-            print("Trying:{0}".format(ex))
+            #print("Trying:{0}".format(ex))
             self.stream.rewind()
 
     cdef load_plain_text_extension(self):

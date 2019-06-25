@@ -312,8 +312,11 @@ class canvas:
                 if len(partial)>0:
                     fragment+=object_template.format(",".join(map(str, partial))) 
             else:
-                for item in obj:
-                    partial.append(tuple_template.format(item,self.render(obj[item],depth=depth+1)))
+                try:
+                    for item in obj:
+                        partial.append(tuple_template.format(item,self.render(obj[item],depth=depth+1)))
+                except:
+                    pass
                 if len(partial)>0:
                     fragment+=object_template.format(",".join(map(str, partial))) 
         else:
