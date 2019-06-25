@@ -216,7 +216,7 @@ cdef class cast2gif:
                 frame+=1
                
                 v.render_underlay(self.underlay,0)
-                #v.render()
+                v.render()
                
                 old_data=data
                 data=v.get()
