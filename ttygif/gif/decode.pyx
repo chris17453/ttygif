@@ -142,7 +142,7 @@ cdef class decode:
         if self.debug:
             self.stats()
     
-    cdef get(self):
+    def get(self):
         return {'header':self.header,
                 'global_color_table':self.global_color_table,
                 'frame_count':self.frame_count,
