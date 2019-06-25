@@ -53,6 +53,8 @@ cdef class decode:
 
         self.stream.open()
         self.header.read()
+        #if self.debug:
+        self.header.debug()
 
         if self.header.GlobalColorTableFlag==True:
             print self.header.GlobalColorTableLength
@@ -63,8 +65,6 @@ cdef class decode:
             # TODO default global color table
             self.global_color_table=None
 
-        #if self.debug:
-        self.header.debug()
         #print ("{0:02X}".format(self.stream.pos))
         loop=True
         frame=0
