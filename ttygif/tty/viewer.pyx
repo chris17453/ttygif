@@ -260,11 +260,11 @@ cdef class viewer:
                     x3=x+dst_x1-src_x1
                     y3=y+dst_y1-src_y1
                     dst_pos=x3+(y3)*dst_width
-                    if y3<0 or y3>=dst_x2:
+                    if x3<0 or x3>=dst_x2:
                         print('x')
                         continue
                     if y3<0 or y3>=dst_y2:
-                        print('y')
+                        print(y3,dst_y2)
                         continue
                     dst_image[dst_pos]=pixel
 
