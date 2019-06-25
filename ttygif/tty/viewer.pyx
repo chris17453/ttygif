@@ -43,6 +43,7 @@ cdef class viewer:
     cdef public object          reverse_video
     cdef public object          bold
     cdef public object          extra_text
+    cdef public object          underlay_flag
     
     cdef ascii_safe(self,text):
         return ''.join([i if ord(i) < 128 else '*' for i in text])
@@ -78,8 +79,9 @@ cdef class viewer:
             self.viewport_char_width  = self.viewport_px_width/font.font_height
             self.viewport_px_width    = width
             self.viewport_px_height   = height
+        self.underlay_flag        =None
         #fg,bg,char
-        self.viewport_char_stride     =self.viewport_char_width*3  
+        self.viewport_char_stride =self.viewport_char_width*3  
         self.clear_sequence()
         self.video                =self.new_video_buffer()
         self.buffer               =self.new_char_buffer()
@@ -204,10 +206,67 @@ cdef class viewer:
         height=self.buffer_rows*font.font_height
         return height
 
+
+
+    def render_underlay(self,underlay,frame):
+        self.underlay_flag=True
+        
+        for frame in underlay:
+            if frame['image'] and frame['descriptor']:
+                descriptor=frame['descriptor']
+                src_image =frame['image']
+                break
+
+        if None==descriptor or None == src_image:
+            self.underlay_flag=None
+            return
+
+        dst_x1=0
+        dst_y1=0
+        dst_y2=self.viewport_px_width-1
+        dst_y2=self.viewport_char_height-1
+        dst_width=self.viewport_px_width
+        dst_height=self.viewport_char_height
+
+        self.copy_image( src_image  = src_image,
+                    src_x1      = 0,
+                    src_y1      = 0,
+                    src_x2      = descriptor.Width-1,
+                    src_y2      = descriptor.Height-1,
+                    src_width  = descriptor.Width,
+                    src_height = descriptor.Height,
+                    dst_image  = self.video,
+                    dst_x1      = dst_x,
+                    dst_y1      = dst_y,
+                    dst_x2      = dst_x,
+                    dst_y2      = dst_y,
+                    dst_width  = dst_width,
+                    dst_height = dst_height)
+        
+
+     # super fast memory copy
+    cdef copy_image(self,array.array src_image,src_x1,src_y1,src_x2,src_y2,src_width,src_height,
+                         array.array dst_image,dst_x1,dst_y1,dst_x2,dst_y2,dst_width,dst_height,mode='simple'):
+
+        if mode=='simple'
+            for y in range(src_y1,src_y2):
+                for x in range(src_x1,src_x2):
+                    pos=x+y*src_width
+                    pixel=src_image[pos]
+                    dst_pos=x+dst_x1+(y+dst+dst_y1)*dst_width
+                    if x+dst_x1<0 or x+dst_x1>=dst_x2:
+                        continue
+                    if y+dst_y1<0 or y+dst_y1>=dst_y2:
+                        continue
+                    dst_image[dst_pos]=pixel
+
+
     # todo save as gif..
     # pre test with canvas extension    
     def render(self):
         self.sequence_to_buffer()
+        if self.underlay_flag:
+        
         memset(self.video.data.as_voidptr, self.background_color, self.video_length * sizeof(char))
         
         loop=True

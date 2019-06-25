@@ -1,5 +1,7 @@
 # cython: linetrace=True
 # cython: language_level=2
+from cpython cimport array
+import array
 import bitarray
 
 # TODO block size -> self
@@ -24,10 +26,6 @@ class ImageData:
         byte_len=len(byte_data)
         #print ("LENGTH: {0}".format(byte_len))
         self.stream.write_byte(self.min_code_size)
-        
-
-
-        
         byte_data_length=len(byte_data)
         
         index=0
@@ -82,8 +80,9 @@ class ImageData:
       
       if interlace==True:
         gif_index=self.deinterlace(gif_index,width)
-     
-      self.data    =gif_index
+      
+
+      self.data    =array.array('B',gif_index)
       self.end_pos =self.stream.pos
      
     def debug(self):
