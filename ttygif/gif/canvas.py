@@ -318,6 +318,8 @@ class canvas:
                 try:
                     for item in obj:
                         render_res=self.render(obj[item],depth=depth+1)
+                        if not render_res:
+                            continue
                         partial.append(tuple_template.format(item,render_res))
                     if len(partial)>0:
                         fragment+=object_template.format(",".join(map(str, partial))) 
