@@ -1,5 +1,5 @@
 # sets bounding paramaters for image transformations
-from .graphics cimport create_array create_default_palette
+from .graphics cimport create_array, create_default_palette
 from cpython cimport array
 from libc.string cimport memset
 
