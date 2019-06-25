@@ -181,7 +181,8 @@ cdef class viewer:
         cdef int new_char_line_stride =fs-(fw+fsx)
         
         loop=True
-        
+        if char<=32:
+            continue
         while loop:
             pixel=font.graphic[char_pos]
             if pixel!=transparent:
@@ -230,6 +231,7 @@ cdef class viewer:
         dst_width=self.viewport_px_width
         dst_height=self.viewport_px_height
         #print ("copy stuff")
+        memset(self.video.data.as_voidptr, self.background_color, self.video_length * sizeof(char))
 
         self.copy_image( src_image  = src_image,
                     src_x1      = 0,
@@ -261,10 +263,8 @@ cdef class viewer:
                     y3=y+dst_y1-src_y1
                     dst_pos=x3+(y3)*dst_width
                     if x3<0 or x3>=dst_x2:
-                        print('x')
                         continue
                     if y3<0 or y3>=dst_y2:
-                        print(y3,dst_y2)
                         continue
                     dst_image[dst_pos]=pixel
 
