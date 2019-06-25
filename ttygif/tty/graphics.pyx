@@ -374,7 +374,7 @@ cdef class terminal_graphics:
 
         for y in range(0,self.character_buffer.dimentions.height):
             for x in range(0,self.character_buffer.dimentions.width):
-                pixel=self.character_buffer.get_pixel(,x,y)
+                pixel=self.character_buffer.get_pixel(x,y)
                 fg=pixel[0]
                 bg=pixel[1]
                 character=pixel[2]
