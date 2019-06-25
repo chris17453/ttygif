@@ -265,9 +265,8 @@ cdef class viewer:
     # pre test with canvas extension    
     def render(self):
         self.sequence_to_buffer()
-        if self.underlay_flag:
-        
-        memset(self.video.data.as_voidptr, self.background_color, self.video_length * sizeof(char))
+        if None==self.underlay_flag:
+            memset(self.video.data.as_voidptr, self.background_color, self.video_length * sizeof(char))
         
         loop=True
         cdef int pos=0
