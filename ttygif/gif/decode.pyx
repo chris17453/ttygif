@@ -39,6 +39,7 @@ cdef class decode:
     cdef object header
     cdef object comments
     cdef object frames
+    cdef object frame_count
     cdef object applications
     cdef object global_color_table
 
@@ -49,6 +50,7 @@ cdef class decode:
         self.header       =gif_header(self.stream)
         self.comments     =[]
         self.frames       =[]
+        self.frame_count  =0
         self.applications =[]
 
         self.stream.open()
@@ -75,7 +77,7 @@ cdef class decode:
             gc=self.load_graphics_control_extension()
             if gc:
                 gc.debug()
-                print ("GC")
+                #print ("GC")
                 descriptor=None
                 local_color_table=None
                 imagedata=None
@@ -86,14 +88,14 @@ cdef class decode:
             if descriptor:
                 descriptor.debug()
                 if descriptor.LocalColorTableFlag==True:
-                    print ("Has color table")
+                    #print ("Has color table")
                     local_color_table=self.load_color_table(descriptor.ColorTableLength)
                 else:
-                    print ("No color table")
+                    #print ("No color table")
                     local_color_table=None
                 pixels=descriptor.Height*descriptor.Width
                 imagedata=self.load_image_data(pixels,descriptor.InterlaceFlag,descriptor.Width)
-                print ("Image Data")
+                #print ("Image Data")
                 info['descriptor']=descriptor
                 info['color_table']=local_color_table
                 info['image']=imagedata
