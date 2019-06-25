@@ -55,7 +55,7 @@ class gif_header:
         self.ColorTableSortFlag      = self.stream.bit(self.Packed,3)
         self.ColorResolution         = self.stream.bit(self.Packed,4,3)
         self.GlobalColorTableFlag    = self.stream.bit(self.Packed,7)
-        self.GlobalColorTableLength  = 2 << (self.GlobalColorTableSize + 1)
+        self.GlobalColorTableLength  = 1 << (self.GlobalColorTableSize + 1)
 
     def pack(self):
         self.Packed= self.GlobalColorTableFlag <<7

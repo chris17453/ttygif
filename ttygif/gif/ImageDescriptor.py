@@ -55,7 +55,7 @@ class ImageDescriptor:
         self.SortFlag             =self.stream.bit(self.Packed,5)
         self.Reserved             =self.stream.bit(self.Packed,3,2)
         self.LocalColorTableSize  =self.stream.bit(self.Packed,0,3)
-        self.ColorTableLength     =2 << (self.LocalColorTableSize + 1)
+        self.ColorTableLength     =1 << (self.LocalColorTableSize + 1)
 
     def pack(self):
         self.Packed=0
