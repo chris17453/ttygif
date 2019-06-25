@@ -62,10 +62,11 @@ cdef create_array(int size,int init_value):
     return data
 
 # super fast memory copy
-cdef copy_image(image src_image,int src_x1,int src_y1,int src_x2,int src_y2,image dst_image,int dst_x1,int dst_y1,int dst_x2,int dst_y2,object mode='simple'):
+cdef copy_image(image src_image,int src_x1,int src_y1,int src_x2,int src_y2,image dst_image,int dst_x1,int dst_y1,int dst_x2,int dst_y2,object mode):
     cdef int x3
     cdef int y3
-
+    if mode==None:
+        mode='simple'
     if mode=='simple':
         
         for y in range(src_y1,src_y2):
@@ -78,7 +79,7 @@ cdef copy_image(image src_image,int src_x1,int src_y1,int src_x2,int src_y2,imag
 
 
 # shifts an image buffer up 1 line and fills the newly created space with x value
-cdef shift_buffer(image src_image,int init_value=0):
+cdef shift_buffer(image src_image,int init_value):
     cdef int buffer_length=src_image.dimentions.length
     cdef int index=src_image.dimentions.width
     
