@@ -215,12 +215,12 @@ cdef class viewer:
             if frame['image'] and frame['descriptor']:
                 descriptor=frame['descriptor']
                 src_image =frame['image'].data
-                print ("got stuff")
+                #print ("got stuff")
                 break
 
         if None==descriptor or None == src_image:
             self.underlay_flag=None
-            print("BOM")
+            #print("BOM")
             return
 
         dst_x1=0
@@ -229,7 +229,7 @@ cdef class viewer:
         dst_y2=self.viewport_char_height-1
         dst_width=self.viewport_px_width
         dst_height=self.viewport_char_height
-        print ("copy stuff")
+        #print ("copy stuff")
 
         self.copy_image( src_image  = src_image,
                     src_x1      = 0,
@@ -256,6 +256,7 @@ cdef class viewer:
                 for x in range(src_x1,src_x2):
                     pos=x+y*src_width
                     pixel=src_image[pos]
+                    print x,y,pixel
                     dst_pos=x+dst_x1+(y+dst_y1)*dst_width
                     if x+dst_x1<0 or x+dst_x1>=dst_x2:
                         continue
