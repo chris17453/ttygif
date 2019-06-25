@@ -43,9 +43,9 @@ cdef class image:
     # put a pixel of X stride
     cdef put_pixel(self,int x,int y,pixel):
         if x<0 or x>=self.dimentions.width:
-            continue
+            return
         if y<0 or y>=self.dimentions.height:
-            continue
+            return
         cdef int pos=self.get_position(x,y)
         if self.dimentions.bytes_per_pixel==1:
             self.data[pos]=pixel
