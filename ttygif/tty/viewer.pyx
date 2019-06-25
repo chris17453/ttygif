@@ -223,7 +223,7 @@ cdef class viewer:
 
         dst_x1=0
         dst_y1=0
-        dst_y2=self.viewport_px_width-1
+        dst_x2=self.viewport_px_width-1
         dst_y2=self.viewport_char_height-1
         dst_width=self.viewport_px_width
         dst_height=self.viewport_char_height
