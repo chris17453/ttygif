@@ -269,8 +269,8 @@ cdef class viewer:
     def remap(self,src_color_table,src_pixels,dst_color_table):
         hash_map=[0]*len(src_color_table)
         # remap the colors from the source to the dest
-        for i in src_color_table:
-            src_color=i
+        for i in range(0,len(src_color_table)):
+            src_color=src_color_table[i]
             new_index=self.match_color_index(src_color[0],src_color[1],src_color[2],dst_color_table)
             hash_map[i]=new_index
 
