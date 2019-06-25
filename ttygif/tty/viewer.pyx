@@ -248,7 +248,7 @@ cdef class viewer:
     cdef copy_image(self,array.array src_image,src_x1,src_y1,src_x2,src_y2,src_width,src_height,
                          array.array dst_image,dst_x1,dst_y1,dst_x2,dst_y2,dst_width,dst_height,mode='simple'):
 
-        if mode=='simple'
+        if mode=='simple':
             for y in range(src_y1,src_y2):
                 for x in range(src_x1,src_x2):
                     pos=x+y*src_width
