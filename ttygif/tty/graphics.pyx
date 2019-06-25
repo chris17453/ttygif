@@ -1,7 +1,7 @@
 from cpython cimport array
 from libc.string cimport memset
 from .font cimport font
-
+from .image cimport image
 
 cdef create_default_palette():
     cdef array.array palette=array.array('B',[  # 16 System Colors
@@ -59,6 +59,7 @@ cdef create_array(int size,int init_value):
     cdef array.array data=array.array('B')
     array.resize(data,size)
     memset(data.data.as_voidptr, init_value, len(data) * sizeof(char))
+    return data
 
     # super fast memory copy
 cdef copy_image(image src_image,int src_x1,int src_y1,int src_x2,int src_y2,
