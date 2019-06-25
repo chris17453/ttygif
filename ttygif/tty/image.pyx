@@ -1,4 +1,7 @@
 # sets bounding paramaters for image transformations
+from cpython cimport array
+from libc.string cimport memset
+
 cdef class bounds:
     cdef int width
     cdef int height
