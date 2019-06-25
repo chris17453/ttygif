@@ -29,7 +29,7 @@ cdef class image:
         else:
             self.palette   =palette
     
-    cdef get position(int x,int y):
+    cdef get_position(int x,int y):
         cdef int pos=self.dimentions.stride*y+x*self.dimentions.bytes_per_pixel
         return pos
 
