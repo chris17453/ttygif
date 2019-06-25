@@ -163,7 +163,7 @@ cdef class decode:
                 descriptor.debug()
             return descriptor
         except Exception as ex:
-            print("Trying:{0}".format(ex))
+            #print("Trying:{0}".format(ex))
             self.stream.rewind()
 
     cdef load_comment_extension(self):
