@@ -15,4 +15,4 @@ cdef class image:
     cdef get_position(self,int x,int y)
     cdef get_pixel(self,int x,int y)
     cdef put_pixel(self,int x,int y,pixel)
-    cdef clear(self,int init_value=0)
+    cdef clear(self,int init_value)
