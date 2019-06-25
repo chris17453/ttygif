@@ -125,7 +125,7 @@ cdef class decode:
             # EOF
             _trailer=self.load_trailer()
             if _trailer:
-                print ("Trailer")
+               # print ("Trailer")
                 #print ("END POSITION: {0:02X}".format(self.stream.pos))
                 break
             if self.debug:
