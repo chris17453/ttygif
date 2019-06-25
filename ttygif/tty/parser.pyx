@@ -489,7 +489,7 @@ cdef class term_parser:
     
 
 
-   def has_escape(self,text):
+    def has_escape(self,text):
         for i in text:
             if ord(i)==0x1B:
                 return True
