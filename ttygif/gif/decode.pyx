@@ -47,12 +47,13 @@ cdef class decode:
         self.file         =file
         self.stream       =DataStream(self.file,mode="r")
         self.header       =gif_header(self.stream)
-        self.header.read()
         self.comments     =[]
         self.frames       =[]
         self.applications =[]
 
         self.stream.open()
+        self.header.read()
+
         if self.header.GlobalColorTableFlag==True:
             print self.header.GlobalColorTableLength
             print self.header.GlobalColorTableSize
