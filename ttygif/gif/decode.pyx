@@ -87,7 +87,8 @@ cdef class decode:
 
             descriptor =self.load_image_descriptor()
             if descriptor:
-                descriptor.debug()
+                if self.debug:
+                    descriptor.debug()
                 if descriptor.LocalColorTableFlag==True:
                     #print ("Has color table")
                     local_color_table=self.load_color_table(descriptor.ColorTableLength)
