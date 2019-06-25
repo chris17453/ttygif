@@ -53,12 +53,12 @@ cdef class decode:
 
         self.stream.open()
         self.header.read()
-        #if self.debug:
-        self.header.debug()
+        if self.debug:
+            self.header.debug()
 
         if self.header.GlobalColorTableFlag==True:
-            print self.header.GlobalColorTableLength
-            print self.header.GlobalColorTableSize
+            #print self.header.GlobalColorTableLength
+            #print self.header.GlobalColorTableSize
             self.global_color_table=self.load_color_table(self.header.GlobalColorTableLength)
             self.global_color_table.debug()
         else:
@@ -237,13 +237,13 @@ cdef class decode:
             self.stream.rewind()
 
     cdef load_image_data(self,pixels,interlace,width):
-        #try:
+        try:
             self.stream.pin()
             imagedata=ImageData(self.stream)
             imagedata.read(pixels,interlace,width)
             if self.debug:
                 imagedata.debug()
             return imagedata
-        #except Exception as ex:
-        #    #print("Trying:{0}".format(ex))
-        #    self.stream.rewind()
+        except Exception as ex:
+            #print("Trying:{0}".format(ex))
+            self.stream.rewind()
