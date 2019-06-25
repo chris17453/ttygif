@@ -300,10 +300,10 @@ cdef class terminal_graphics:
         self.set_background(color)
 
     def set_foreground(self,color):
-        frame.state.foreground=color
+        self.state.foreground=color
     
     def set_background(self,color):
-        frame.state.background=color
+        self.state.background=color
     
     def render(self):
         #if None==self.underlay_flag:
