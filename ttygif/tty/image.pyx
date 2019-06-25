@@ -19,7 +19,7 @@ cdef class image:
         if palette:
             self.palette   =palette
     
-    cdef create_buffer(self,size,init_value=0):
+    cdef create_buffer(self,size,init_value):
         cdef array.array data=array.array('B')
         array.resize(data,size)
         memset(data.data.as_voidptr, init_value, len(data) * sizeof(char))
