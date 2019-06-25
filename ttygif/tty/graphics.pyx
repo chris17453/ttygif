@@ -192,7 +192,7 @@ cdef class terminal_graphics:
 
     def __cinit__(self,int character_width=-1,int character_height=-1,
                        int viewport_width=-1,int viewport_height=-1  ,font image_font):
-        self font               = image_font
+        self.font               = image_font
 
         # define displays by chaaracters on screen        
         if character_width>-1 and character_height>-1:
@@ -236,16 +236,16 @@ cdef class terminal_graphics:
             x+=1
 
     cdef draw_character(self,int character,int x,int y,int offset,int foreground_color,int background_color):
-        cdef int fs            = image_font.width
-        cdef int fw            = image_font.font_width
-        cdef int fh            = image_font.font_height
-        cdef int fox           = image_font.offset_x
-        cdef int foy           = image_font.offset_y
-        cdef int fsx           = image_font.spacing_x
-        cdef int fsy           = image_font.spacing_y
-        cdef int transparent   = image_font.transparent
-        cdef int cx            = int(character%image_font.chars_per_line)
-        cdef int cy            = int(character/image_font.chars_per_line)
+        cdef int fs            = self.font.width
+        cdef int fw            = self.font.font_width
+        cdef int fh            = self.font.font_height
+        cdef int fox           = self.font.offset_x
+        cdef int foy           = self.font.offset_y
+        cdef int fsx           = self.font.spacing_x
+        cdef int fsy           = self.font.spacing_y
+        cdef int transparent   = self.font.transparent
+        cdef int cx            = int(character%self.font.chars_per_line)
+        cdef int cy            = int(character/self.font.chars_per_line)
         cdef int pre_x         = fox+cx*fw
         cdef int pre_y         = foy+cy*fh*fs
         cdef int pre           = pre_x+pre_y
@@ -260,7 +260,7 @@ cdef class terminal_graphics:
         
         loop=True
         while loop:
-            pixel=image_font.graphic[char_pos]
+            pixel=self.font.graphic[char_pos]
             if pixel!=transparent:
                 self.viewport.data[screen_pos]=foreground_color
             else:
