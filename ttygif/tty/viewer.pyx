@@ -215,10 +215,12 @@ cdef class viewer:
             if frame['image'] and frame['descriptor']:
                 descriptor=frame['descriptor']
                 src_image =frame['image']
+                print ("got stuff")
                 break
 
         if None==descriptor or None == src_image:
             self.underlay_flag=None
+            prin ("BOM")
             return
 
         dst_x1=0
@@ -227,6 +229,7 @@ cdef class viewer:
         dst_y2=self.viewport_char_height-1
         dst_width=self.viewport_px_width
         dst_height=self.viewport_char_height
+        print ("copy stuff")
 
         self.copy_image( src_image  = src_image,
                     src_x1      = 0,

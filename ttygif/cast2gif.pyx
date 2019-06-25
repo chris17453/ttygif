@@ -31,6 +31,8 @@ cdef class cast2gif:
     cdef int underlay_x2
     cdef int underlay_y2
     cdef int underlay_mode
+    cdef int underlay_frame
+    
     # last frame created timestamp
     cdef double timestamp 
     # last timestamp in file
@@ -129,7 +131,7 @@ cdef class cast2gif:
 
         if underlay:
             self.underlay=decode(underlay)
-            
+
         print("dilation:{0}".format(self.dilation))
         if None==events:
             print ("input: {0}".format(cast_file))
@@ -212,7 +214,7 @@ cdef class cast2gif:
                 new_frame=None
                 frame+=1
                
-            
+                v.render_underlay(self.underlay,0)
                 v.render()
                
                 old_data=data
