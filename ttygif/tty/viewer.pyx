@@ -256,11 +256,13 @@ cdef class viewer:
                 for x in range(src_x1,src_x2):
                     pos=x+y*src_width
                     pixel=src_image[pos]
-                    print x,y,pixel
+                    #print x,y,pixel
                     dst_pos=x+dst_x1+(y+dst_y1)*dst_width
                     if x+dst_x1<0 or x+dst_x1>=dst_x2:
+                        print('x')
                         continue
                     if y+dst_y1<0 or y+dst_y1>=dst_y2:
+                        print('y')
                         continue
                     dst_image[dst_pos]=pixel
 
