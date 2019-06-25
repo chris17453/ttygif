@@ -1,3 +1,5 @@
+from display_state cimport display_state
+
 from cpython cimport array
 from libc.string cimport memset
 from .font cimport font
@@ -182,80 +184,11 @@ cdef class image:
         memset(self.data.data.as_voidptr, init_value, self.dimentions.length )
 
 
-cdef class text_state:
-    cdef public int             width
-    cdef public int             height
-    cdef public int             cursor_x
-    cdef public int             cursor_y
-    cdef public int             default_foreground
-    cdef public int             default_background
-    cdef public int             foreround
-    cdef public int             background
-    cdef public object          reverse_video
-    cdef public object          bold 
-    def __cinit__(self,int width,int height):
-        self.cursor_x           = 0
-        self.cursor_y           = 0
-        self.width              = width
-        self.height             = height
-        self.reverse_video      = None
-        self.bold               = None            
-        self.default_foreground = 15
-        self.default_background = 0
-        self.foreground         = default_foreground
-        self.background         = default_background
-
-    def check_bounds(self):
-        if self.cursor_y<0:
-            self.cursor_y=0
-        if self.cursor_y>=self.height:
-            self.cursor_y=self.height-1
-            cursor_absolute_x(0):
-
-        if self.cursor_x<0:
-            self.cursor_x=0
-        if self.cursor_x>=self.width:
-            self.cursor_x=self.width-1
-            cursor_absolute_x(0):
-            this.state.cursor_down()
-
-        #self.shift_buffer(buffer)
-            #shift!buffer
-
-    def cursor_up(self):
-        self.cursor_y-=1
-        self.check_bounds()
-        
-    def cursor_down(self):
-        self.cursor_y+=1
-        self.check_bounds()
-    def cursor_left(self):
-        self.cursor_x-=1
-        self.check_bounds()
-
-    def cursor_right(self):
-        self.cursor_x+=1
-        self.check_bounds()
-
-    def cursor_absolute_x(self,position):
-        self.cursor_x=position
-        self.check_bounds()
-        
-    def cursor_absolute_y(self,position):
-        self.cursor_y=position
-        self.check_bounds()
-
-    def cursor_absolute(self,position_x,position_y):
-        self.cursor_x=position_x
-        self.cursor_y=position_y
-        self.check_bounds()
-
-
 cdef class terminal_graphics:
     cdef array.array data
     cdef image viewport
     cdef image character_buffer
-    cdef text_state character_buffer_state
+    cdef display_state character_buffer_state
 
     def __cinit__(self,int character_width=-1,int character_height=-1,
                        int viewport_width=-1,int viewport_height=-1  ,font image_font):
@@ -266,7 +199,7 @@ cdef class terminal_graphics:
             cdef int px_width =character_width  * image_font.font_width
             cdef int px_height=character_height * image_font.font_height
             self.character_buffer = image(width= character_width,height= character_height,init_value=0                    ,bytes_per_pixel=3)
-            self.character_buffer_state=text_state(self.character_buffer.dimentions.width,self.character_buffer.dimentions.height)
+            self.character_buffer_state=display_state(self.character_buffer.dimentions.width,self.character_buffer.dimentions.height)
             self.rendered_screen  = image(width= px_width       ,height= px_height       ,init_value=self.state.background,bytes_per_pixel=1)
         
         # define displays by screen dimentions and calculate characters
@@ -274,7 +207,7 @@ cdef class terminal_graphics:
             cdef int char_height = viewport_height / image_font.font_width
             cdef int char_width  = viewport_width  / image_font.font_height
             self.character_buffer= image(width= char_width    ,height= char_height    ,init_value=0                    ,bytes_per_pixel=3)
-            self.character_buffer_state=text_state(self.character_buffer.dimentions.width,self.character_buffer.dimentions.height)
+            self.character_buffer_state=display_state(self.character_buffer.dimentions.width,self.character_buffer.dimentions.height)
             self.rendered_screen = image(width= viewport_width,height= viewport_height,init_value=self.state.background,bytes_per_pixel=1)
         
         # set default screen state

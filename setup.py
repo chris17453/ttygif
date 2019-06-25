@@ -49,6 +49,7 @@ extensions = [
     Extension("ttygif.tty.fonts"                        ,[prefix+"./ttygif/tty/fonts"                      +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.terminal_emulator"            ,[prefix+"./ttygif/tty/terminal_emulator"          +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.graphics"                     ,[prefix+"./ttygif/tty/graphics"                   +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.tty.display_state"                ,[prefix+"./ttygif/tty/display_state"              +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.parser"                       ,[prefix+"./ttygif/tty/parser"                     +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     
     # gif orchestraton of frames and data
