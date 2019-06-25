@@ -234,7 +234,7 @@ cdef class viewer:
 
 
         self.remap(underlay['global_color_table'],src_image,self.color_Table)
-        
+
         self.copy_image( src_image  = src_image,
                     src_x1      = 0,
                     src_y1      = 0,
@@ -271,7 +271,7 @@ cdef class viewer:
         # remap the colors from the source to the dest
         for i in src_color_table:
             src_color=src_color_table[i]
-            new_index=match_color_index(src_color[0],src_color[1],src_color[2])
+            new_index=self.match_color_index(src_color[0],src_color[1],src_color[2])
             hash_map[i]=new_index
 
         # reindex the pixels
@@ -279,7 +279,7 @@ cdef class viewer:
         for i in range(0,src_pixel_len):
             original_index=src_pixels[i]
             #replace srrc data pixel...
-            src_pixels[i]=has_map[original_index]
+            src_pixels[i]=hash_map[original_index]
 
 
         
