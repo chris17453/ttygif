@@ -1,4 +1,4 @@
-cdef class text_state:
+cdef class display_state:
 
     def __cinit__(self,int width,int height):
         self.cursor_x           = 0

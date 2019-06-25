@@ -1,4 +1,4 @@
-cdef class text_state:
+cdef class display_state:
     cdef public int             width
     cdef public int             height
     cdef public int             cursor_x
