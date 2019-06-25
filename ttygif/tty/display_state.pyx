@@ -9,18 +9,20 @@ cdef class text_state:
         self.bold               = None            
         self.default_foreground = 15
         self.default_background = 0
-        self.foreground         = default_foreground
-        self.background         = default_background
+        self.foreground         = self.default_foreground
+        self.background         = self.default_background
 
     cdef check_bounds(self):
         if self.cursor_y<0:
             self.cursor_y=0
+
         if self.cursor_y>=self.height:
             self.cursor_y=self.height-1
             self.cursor_absolute_x(0)
 
         if self.cursor_x<0:
             self.cursor_x=0
+
         if self.cursor_x>=self.width:
             self.cursor_x=self.width-1
             self.cursor_absolute_x(0)
