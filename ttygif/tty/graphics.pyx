@@ -93,7 +93,7 @@ cdef shift_buffer(image src_image,int init_value=0):
     array.resize(src_image.data,buffer_length)  
     memset(&src_image.data.data.as_uchars[row_pos],init_value,src_image.dimentions.length)
 
-def match_color_index(r,g,b,color_table):
+cdef match_color_index(r,g,b,color_table):
     last_distance=-1
     mappeded_color=-1
 
@@ -109,7 +109,7 @@ def match_color_index(r,g,b,color_table):
 
 
 # todo account for color table size mismatch, crud on new table, and reindexing for best color palette...
-def remap(src_color_table,src_pixels,dst_color_table):
+cdef remap(src_color_table,src_pixels,dst_color_table):
     hash_map=[0]*len(src_color_table)
     # remap the colors from the source to the dest
     for i in range(0,len(src_color_table)):
