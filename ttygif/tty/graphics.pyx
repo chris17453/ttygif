@@ -307,7 +307,7 @@ cdef class terminal_graphics:
     
     def render(self):
         #if None==self.underlay_flag:
-        self.viewport.clear();
+        self.viewport.clear(self.state.background);
         cdef int fg =0
         cdef int bg =0
         cdef int x  =0
