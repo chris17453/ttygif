@@ -309,7 +309,10 @@ class canvas:
             if hasattr(obj,'__dict__'):
                 try:
                     for item in obj.__dict__:
-                        partial.append(tuple_template.format(item,self.render(obj.__dict__[item],depth=depth+1)))
+                        render_res=self.render(obj.__dict__[item],depth=depth+1)
+                        if not render_res or render_res=="":
+                            continue
+                        partial.append(tuple_template.format(item,render_res))
                     if len(partial)>0:
                         fragment+=object_template.format(",".join(map(str, partial))) 
                 except:
