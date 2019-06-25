@@ -29,12 +29,12 @@ cdef class image:
         else:
             self.palette   =palette
     
-    cdef get_position(int x,int y):
+    cdef get_position(self,int x,int y):
         cdef int pos=self.dimentions.stride*y+x*self.dimentions.bytes_per_pixel
         return pos
 
     # get a pixel of X stride
-    cdef get_pixel(int x,int y):
+    cdef get_pixel(self,int x,int y):
         cdef int pos=x*self.dimentions.bytes_per_pixel+y*self.dimentions.stride
         if self.dimentions.bytes_per_pixel==1:
             return self.data[pos]
@@ -45,7 +45,7 @@ cdef class image:
             return pixel
 
     # put a pixel of X stride
-    cdef put_pixel(int x,int y,pixel):
+    cdef put_pixel(self,int x,int y,pixel):
         if x<0 or x>=self.dimentions.width:
             continue
         if y<0 or y>=self.dimentions.height:
@@ -57,6 +57,6 @@ cdef class image:
             for i in range(0,self.dimentions.bytes_per_pixel):
                 self.data[pos+i]=pixel[i]
     
-    cdef clear(int init_value=0):
+    cdef clear(self,int init_value=0):
         memset(self.data.data.as_voidptr, init_value, self.dimentions.length )
 
