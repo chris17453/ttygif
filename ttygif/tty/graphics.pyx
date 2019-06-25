@@ -150,8 +150,8 @@ cdef class terminal_graphics:
         
         # define displays by screen dimentions and calculate characters
         else:
-            px_width    =width
-            px_height   =height
+            px_width    =viewport_width
+            px_height   =viewport_height
 
             char_width  = viewport_width  / image_font.font_height
             char_height = viewport_height / image_font.font_width
