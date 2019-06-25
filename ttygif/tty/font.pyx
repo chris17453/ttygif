@@ -3,18 +3,18 @@ from cpython cimport array
 
 
 cdef class font:
-
-    cdef str        name
-    cdef int        chars_per_line
-    cdef int        lines         
-    cdef int        width         
-    cdef int        height        
-    cdef int        font_width    
-    cdef int        font_height   
-    cdef int        spacing_x     
-    cdef int        spacing_y     
-    cdef int        offset_x      
-    cdef int        offset_y      
-    cdef public  array.array color_table
-    cdef int        transparent
-    cdef public array.array graphic
+    def __cinit__(self):
+        self.name=""
+        self.chars_per_line=0
+        self.lines=0
+        self.width=0       
+        self.height=0
+        self.font_width=0
+        self.font_height=0
+        self.spacing_x=0
+        self.spacing_y=0
+        self.offset_x=0
+        self.offset_y=0
+        self.transparent=0
+    #color_table
+    #graphic
