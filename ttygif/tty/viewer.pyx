@@ -181,7 +181,7 @@ cdef class viewer:
         cdef int new_char_line_stride =fs-(fw+fsx)
         
         loop=True
-        if char<=32:
+        if character<=32:
             continue
         while loop:
             pixel=font.graphic[char_pos]
