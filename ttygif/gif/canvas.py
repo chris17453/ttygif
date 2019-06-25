@@ -303,25 +303,26 @@ class canvas:
                 partial.append(tuple_template.format(item,self.render(obj[item],depth=depth+1)))
             if len(partial)>0:
                 fragment+=object_template.format(",".join(map(str, partial))) 
-        #elif isinstance(obj,object):
-        #    partial=[]
-        #    #print (obj)
-        #    if hasattr(obj,'__dict__'):
-        #        try:
-        #            for item in obj.__dict__:
-        #                partial.append(tuple_template.format(item,self.render(obj.__dict__[item],depth=depth+1)))
-        #            if len(partial)>0:
-        #                fragment+=object_template.format(",".join(map(str, partial))) 
-        #        except:
-        #            pass
-        #    else:
-        #        try:
-        #            for item in obj:
-        #                partial.append(tuple_template.format(item,self.render(obj[item],depth=depth+1)))
-        #            if len(partial)>0:
-        #                fragment+=object_template.format(",".join(map(str, partial))) 
-        #        except:
-        #            pass
+        elif isinstance(obj,object):
+            partial=[]
+            #print (obj)
+            if hasattr(obj,'__dict__'):
+                try:
+                    for item in obj.__dict__:
+                        partial.append(tuple_template.format(item,self.render(obj.__dict__[item],depth=depth+1)))
+                    if len(partial)>0:
+                        fragment+=object_template.format(",".join(map(str, partial))) 
+                except:
+                    pass
+            else:
+                try:
+                    for item in obj:
+                        render_res=self.render(obj[item],depth=depth+1)
+                        partial.append(tuple_template.format(item,render_res))
+                    if len(partial)>0:
+                        fragment+=object_template.format(",".join(map(str, partial))) 
+                except:
+                    pass
         else:
             fragment+=unk_template.format("UNK",obj)
         return fragment
