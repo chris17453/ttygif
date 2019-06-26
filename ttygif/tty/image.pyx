@@ -13,7 +13,7 @@ cdef class bounds:
 
 # image class, holds image metrics, data and palette        
 cdef class image:
-    def __cint__(self,int bytes_per_pixel,int width,int height,array.array palette,int init_value):
+    def __cinit__(self,int bytes_per_pixel,int width,int height,array.array palette,int init_value):
         
         self.dimentions=bounds(width=width,height=height,bytes_per_pixel=bytes_per_pixel)
         self.data      =self.create_buffer(size=self.dimentions.length,init_value=init_value)
