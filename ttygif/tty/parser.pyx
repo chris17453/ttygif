@@ -91,14 +91,16 @@ cdef class term_parser:
         new_sequence_pos=self.sequence_pos #self.sequence_pos:
         for event in self.sequence[self.sequence_pos:]:
             new_sequence_pos+=1
-            print event
+            if   event['type']=='text': 
+                self.cmd_render_text(event)
+                continue
             params   =event['params']
             command  =event['command']
             esc_type =event['esc_type']
             groups   =event['groups']
 
-            if   event['type']=='text': self.cmd_render_text(event)
-            elif esc_type=='OSC'      : self.procces_OSC(groups)
+            
+            if   esc_type=='OSC'      : self.procces_OSC(groups)
             elif esc_type=='SINGLE'   : self.process_DSINGLE(groups[1])
             elif esc_type=='CHAR_SET' : self.process_CHAR_SET(groups[3])
             elif esc_type=='G0'       : self.process_G0(groups[5])
