@@ -5,7 +5,7 @@ from .display_state cimport display_state
 
 cdef class terminal_graphics:
     cdef array.array    data
-    cdef font.          font
+    cdef font           font
     cdef image          viewport
     cdef image          character_buffer
     cdef display_state character_buffer_state
