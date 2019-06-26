@@ -241,7 +241,7 @@ cdef class term_parser:
         self.terminal_graphics.state.cursor_absolute_x(0)
         self.terminal_graphics.state.cursor_up(distance)
 
-    cmd_cdef absolute_pos_x(self,x):
+    cdef cmd_absolute_pos_x(self,x):
         self.terminal_graphics.state.cursor_absolute_x(x)
 
     cdef cmd_absolute_pos_y(self,y):
