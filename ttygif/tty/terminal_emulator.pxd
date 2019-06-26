@@ -1,3 +1,5 @@
+from .parser import term_parser
+from .terminal_graphics import terminal_graphics
 
 
 # main interface for terminal emulation
