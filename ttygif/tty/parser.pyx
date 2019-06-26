@@ -251,7 +251,7 @@ cdef class term_parser:
         self.terminal_graphics.state.cursor_absolute(x,y)
 
     cdef cmd_vert_pos(self,position):
-        self.terminal_graphics.state.cursor_absoloute(0,position)
+        self.terminal_graphics.state.cursor_absolute(0,position)
 
     cdef cmd_erase_display(self,mode):
         if mode==0:
