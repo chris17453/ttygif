@@ -9,6 +9,7 @@ cdef class bounds:
         self.stride          =width*bytes_per_pixel
         self.length          =self.stride*height
         self.bytes_per_pixel =bytes_per_pixel
+        print("BONDS")
 
 # image class, holds image metrics, data and palette        
 cdef class image:
