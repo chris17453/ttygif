@@ -34,7 +34,7 @@ cdef class terminal_graphics:
             char_width  = viewport_width  / image_font.font_height
             char_height = viewport_height / image_font.font_width
             
-        self.character_buffer_state=display_state(char_width,char_height)
+        self.state           = display_state(char_width,char_height)
         self.character_buffer= image(width= char_width ,height= char_height ,init_value=0                    ,bytes_per_pixel=3)
         self.rendered_screen = image(width= px_width   ,height= px_height   ,init_value=self.state.background,bytes_per_pixel=1)
 
@@ -43,20 +43,20 @@ cdef class terminal_graphics:
 
     # write a character to the text buffer with the curent text attributes
     cdef write(self,int character):
-        cdef int x=self.character_buffer_state.cursor_x
-        cdef int y=self.character_buffer_state.cursor_y
+        cdef int x=self.state.cursor_x
+        cdef int y=self.state.cursor_y
 
         if character>255:
             err_msg="Charactrer out of range -{0}".format(character)
             raise Exception(err_msg)
 
-        if self.character_buffer_state.reverse_video:
-            self.character_buffer.put_pixel(x,y,[self.character_buffer_state.background,
-                                            self.character_buffer_state.foreground,
+        if self.state.reverse_video:
+            self.character_buffer.put_pixel(x,y,[self.state.background,
+                                            self.state.foreground,
                                             character])
         else:
-            self.character_buffer.put_pixel(x,y,[self.character_buffer_state.foreground,
-                                            self.character_buffer_state.background,
+            self.character_buffer.put_pixel(x,y,[self.state.foreground,
+                                            self.state.background,
                                             character])
 
     cdef draw_string(self,x,y,data):

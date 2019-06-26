@@ -9,7 +9,7 @@ cdef class terminal_graphics:
     cdef font           font
     cdef image          viewport
     cdef image          character_buffer
-    cdef display_state character_buffer_state
+    cdef display_state  state
 
     cdef write(self,int character)
     cdef draw_string(self,x,y,data)
