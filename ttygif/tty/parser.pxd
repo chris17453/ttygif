@@ -9,7 +9,7 @@ cdef class term_parser:
     cdef int    sequence_pos
     cdef object extra_text
     cdef double last_timestamp
-    cdef ascii_safe(self,text):
+    cdef ascii_safe(self,text)
     cdef info(self,text)
     cdef clear_sequence(self)
     cdef rgb_to_palette(self,r,g,b)
