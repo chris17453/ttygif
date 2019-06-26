@@ -3,20 +3,19 @@ from cpython cimport array
 from libc.string cimport memset
 
 cdef class bounds:
-    def __cint__(self,int width,int height,int bytes_per_pixel=1):
+    def __cinit__(self,int width,int height,int bytes_per_pixel=1):
         self.width           =width
         self.height          =height
         self.stride          =width*bytes_per_pixel
         self.length          =self.stride*height
         self.bytes_per_pixel =bytes_per_pixel
-        print("BONDS")
 
 # image class, holds image metrics, data and palette        
 cdef class image:
     def __cinit__(self,int bytes_per_pixel,int width,int height,array.array palette,int init_value):
         
-        self.dimentions=bounds(width=width,height=height,bytes_per_pixel=bytes_per_pixel)
-        self.data      =self.create_buffer(size=self.dimentions.length,init_value=init_value)
+        self.dimentions=bounds(width,height,bytes_per_pixel)
+        self.data      =self.create_buffer(self.dimentions.length,init_value)
         if palette:
             self.palette   =palette
     
