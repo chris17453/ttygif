@@ -36,7 +36,7 @@ cdef class terminal_graphics:
             
         self.state           = display_state(char_width,char_height)
         self.character_buffer= image(width= char_width ,height= char_height ,init_value=0                    ,bytes_per_pixel=3)
-        self.rendered_screen = image(width= px_width   ,height= px_height   ,init_value=self.state.background,bytes_per_pixel=1)
+        self.viewport        = image(width= px_width   ,height= px_height   ,init_value=self.state.background,bytes_per_pixel=1)
 
 
         # set default screen state
