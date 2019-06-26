@@ -119,9 +119,9 @@ cdef remap(src_palette,src_pixels,dst_palette):
     cdef int mg
     cdef int mb
     for i in range(0,len(src_palette),3):
-        mr=color_table[i]
-        mg=color_table[i+1]
-        mb=color_table[i+2]
+        mr=src_palette[i]
+        mg=src_palette[i+1]
+        mb=src_palette[i+2]
         new_index=match_color_index(mr,mg,mb,dst_palette)
         hash_map[i]=new_index
 
