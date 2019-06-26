@@ -55,7 +55,7 @@ cdef class terminal_graphics:
             pix=[self.state.background,self.state.foreground,character])
         else:
             pix=[self.state.foreground,self.state.background,character]    
-        print pix
+        print("PIX",pix)
         self.character_buffer.put_pixel(x,y,pix)
 
     cdef draw_string(self,x,y,data):
