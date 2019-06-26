@@ -7,6 +7,7 @@ cdef class terminal_emulator:
     cdef public object underlay_flag
     cdef public object term
 
+
     cdef init(self,width,heigh,char_width,char_height,debug)
     cdef add_event(self,event)
     cdef render(self)

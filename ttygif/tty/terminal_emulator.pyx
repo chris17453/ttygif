@@ -9,10 +9,10 @@ from .fonts cimport vga_font
 
 # main interface for terminal emulation
 cdef class terminal_emulator:
-    cdef public term_parser          parser
-    cdef public terminal_graphics    terminal_graphics
-    cdef public object underlay_flag
-    cdef public object term
+    cdef term_parser          parser
+    cdef terminal_graphics    terminal_graphics
+    cdef object underlay_flag
+    cdef object term
     #parser=None
     #terminal_graphics=None
     #underlay_flag=None
