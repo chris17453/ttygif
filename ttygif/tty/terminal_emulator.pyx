@@ -12,7 +12,7 @@ cdef class terminal_emulator:
     
     def __cinit__(self,width=640,height=480,char_width=None,char_height=None,debug=None):
         self.debug_mode      =debug
-        self.underlay_fag    =None
+        self.underlay_flag   =None
         self.init(width,height,char_width,char_height,debug)
 
     cdef init(self,width,height,char_width,char_height,debug):
