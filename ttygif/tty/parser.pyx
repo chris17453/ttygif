@@ -91,6 +91,7 @@ cdef class term_parser:
         new_sequence_pos=self.sequence_pos #self.sequence_pos:
         for event in self.sequence[self.sequence_pos:]:
             new_sequence_pos+=1
+            print event
             params   =event['params']
             command  =event['command']
             esc_type =event['esc_type']
