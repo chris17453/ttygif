@@ -446,7 +446,7 @@ cdef class term_parser:
             self.add_text_sequence(text[cursor:],timestamp,0)
     
     
-    cdef last_frame((self):
+    cdef last_frame(self):
         self.add_text_sequence(self.extra_text,self.last_timestamp,0)
         self.extra_text=""
     
