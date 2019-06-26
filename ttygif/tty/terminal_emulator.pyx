@@ -1,6 +1,5 @@
 # cython: linetrace=True
-
-
+from cpython cimport array
 from .parser cimport term_parser
 from .terminal_graphics cimport terminal_graphics
 from .font cimport font
