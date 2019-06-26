@@ -218,16 +218,16 @@ cdef class term_parser:
             self.terminal_graphics.state.cursor_right(1)
 
 
-    cdef cursor_up(distance):
+    cdef cursor_up(self,distance):
         self.terminal_graphics.state.cursor_up(distance)
 
-    cdef cursor_down(distance):
+    cdef cursor_down(self,distance):
         self.terminal_graphics.state.cursor_down(distance)
 
-    cdef cursor_left(distance):
+    cdef cursor_left(self,distance):
         self.terminal_graphics.state.cursor_left(distance)
 
-    cdef cursor_right(distance):
+    cdef cursor_right(self,distance):
         self.terminal_graphics.state.cursor_right(distance)
 
     cdef cmd_previous_line(self,distance):
