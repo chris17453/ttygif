@@ -1,12 +1,9 @@
 
 
 cdef class terminal_graphics:
-    cdef array.array data
-    cdef image viewport
-    cdef image character_buffer
-    cdef display_state character_buffer_state
 
-    def __cinit__(self,int character_width=-1,int character_height=-1,
+
+    cdef __cinit__(self,int character_width=-1,int character_height=-1,
                        int viewport_width=-1,int viewport_height=-1 ,font image_font=None):
         self.font               = image_font
 
@@ -55,7 +52,7 @@ cdef class terminal_graphics:
                                             self.character_buffer_state.background,
                                             character])
 
-    def draw_string(self,x,y,data):
+    cdef draw_string(self,x,y,data):
         for i in data:
             self.draw_character(ord(i),x,y,0,0,15)
             x+=1
@@ -102,7 +99,7 @@ cdef class terminal_graphics:
                 if fy==sy:
                     loop=None
 
-    def get_text(self):
+    cdef get_text(self):
         text=""
         for y in range(0,self.character_buffer.dimentions.height):
             for x in range(0,self.character_buffer.dimentions.width):
@@ -165,21 +162,21 @@ cdef class terminal_graphics:
     #                dst_width  = dst_width,
     #                dst_height = dst_height)
 #
-    def foreground_from_rgb(self,r,g,b):
+    cdef foreground_from_rgb(self,r,g,b):
         cdef int color=match_color_index(r,g,b,self.viewport.palette)
         self.set_foreground(color)
 
-    def background_from_rgb(self,r,g,b):
+    cdef background_from_rgb(self,r,g,b):
         cdef int color=match_color_index(r,g,b,self.viewport.palette)
         self.set_background(color)
 
-    def set_foreground(self,color):
+    cdef set_foreground(self,color):
         self.state.foreground=color
     
-    def set_background(self,color):
+    cdef set_background(self,color):
         self.state.background=color
     
-    def render(self):
+    cdef render(self):
         #if None==self.underlay_flag:
         self.viewport.clear(self.state.background);
         cdef int fg =0
