@@ -73,3 +73,6 @@ examples:
 	@python -m ttygif.cli --input assets/examples/cast/687.cast --output assets/examples/encode/687.gif --fps 12
 	# htop animaiton
 	@python -m ttygif.cli --input assets/examples/cast/test.cast --output assets/examples/encode/test.gif --fps 0
+
+tetris:
+	@python -m ttygif.cli --input assets/examples/cast/232377.cast --output assets/examples/encode/232377.gif --fps 12

@@ -7,6 +7,7 @@ cdef class terminal_emulator:
     cdef public term_parser          parser
     cdef public terminal_graphics    terminal_graphics
     cdef public object underlay_flag
+    cdef public object debug_mode
 
 
     cdef init(self,width,heigh,char_width,char_height,debug)
