@@ -145,7 +145,7 @@ cdef class term_parser:
         #        self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
         #    y+=params[0]
         
-        else: self.info("Impliment: pos x:{2},Y:{3} - {0}-{1}".format(command,params,x,y))
+        else: self.info("Impliment: {0}-{1}".format(command,params))
         
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
