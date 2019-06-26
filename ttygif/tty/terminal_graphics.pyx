@@ -9,7 +9,7 @@ from .display_state cimport display_state
 cdef class terminal_graphics:
 
 
-    cdef __cinit__(self,int character_width=-1,int character_height=-1,
+    def __cinit__(self,int character_width=-1,int character_height=-1,
                        int viewport_width=-1,int viewport_height=-1 ,font image_font=None):
         self.font               = image_font
 
