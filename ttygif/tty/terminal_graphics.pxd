@@ -1,5 +1,6 @@
 from cpython cimport array
 from .image cimport image
+from .font  cimport font
 from .display_state cimport display_state
 
 
