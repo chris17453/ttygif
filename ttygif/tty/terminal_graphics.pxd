@@ -1,4 +1,4 @@
-
+from cpython cimport array
 from .image cimport image
 from .display_state cimport display_state
 
