@@ -1,5 +1,7 @@
 
 from .image cimport image
+from .display_state cimport display_state
+
 
 cdef class terminal_graphics:
     cdef array.array data
