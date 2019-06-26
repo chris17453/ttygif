@@ -2,11 +2,11 @@ from cpython cimport array
 
 # sets bounding paramaters for image transformations
 cdef class bounds:
-    cdef int width
-    cdef int height
-    cdef int stride
-    cdef int length
-    cdef int bytes_per_pixel
+    cdef public int width
+    cdef public int height
+    cdef public int stride
+    cdef public int length
+    cdef public int bytes_per_pixel
 
 cdef class image:
     cdef array.array data
