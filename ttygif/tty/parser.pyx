@@ -255,23 +255,23 @@ cdef class term_parser:
 
     cdef cmd_erase_display(self,mode):
         if mode==0:
-            self.terminal_graphics.state.save_cursor_position()
+            self.terminal_graphics.state.cursor_save_position()
             for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.width):
                 self.terminal_graphics.state.cursor_absolute_x(x)
                 self.terminal_graphics.write(32)
-            self.terminal_graphics.state.restore_cursor_position()
+            self.terminal_graphics.state.cursor_restore_position()
         if mode==1:
-            self.terminal_graphics.state.save_cursor_position()
+            self.terminal_graphics.state.cursor_save_position()
             for x in range(0,self.terminal_graphics.state.cursor_x+1):
                 self.terminal_graphics.state.cursor_absolute_x(x)
                 self.terminal_graphics.write(32)
-            self.terminal_graphics.state.restore_cursor_position()
+            self.terminal_graphics.state.cursor_restore_position()
 
         if mode==2:
             self.terminal_graphics.viewport.clear(self.terminal_graphics.state.background)
 
     cdef cmd_erase_line(self,mode):
-        self.terminal_graphics.state.save_cursor_position()
+        self.terminal_graphics.state.cursor_save_position()
 
         if mode==0:
             for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.width):
@@ -286,7 +286,7 @@ cdef class term_parser:
                 self.terminal_graphics.state.cursor_absolute_x(x)
                 self.terminal_graphics.write(32)
 
-        self.terminal_graphics.state.restore_cursor_position()
+        self.terminal_graphics.state.cursor_restore_position()
 
     cdef cmd_erase_characters(self,distance):
         temp=[]
@@ -308,11 +308,11 @@ cdef class term_parser:
             self.terminal_graphics.character_buffer.put_pixel(x2,y,c)
 
     cdef cmd_del_characters(self,length):
-        self.terminal_graphics.state.save_cursor_position()
+        self.terminal_graphics.state.cursor_save_position()
         for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.cursor_x+length):
                 self.terminal_graphics.state.cursor_absolute_x(x)
                 self.terminal_graphics.write(0)
-        self.terminal_graphics.state.restore_cursor_position()
+        self.terminal_graphics.state.cursor_restore_position()
 
 
     cdef stream_2_sequence(self,text,timestamp,delay):
