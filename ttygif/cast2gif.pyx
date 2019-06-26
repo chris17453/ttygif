@@ -1,12 +1,11 @@
 # cython: linetrace=True
 import sys
 from cpython cimport array
-import array
 from libc.string cimport  memcpy
 from .gif.encode import encode_gif
 from .gif.decode import decode
 from .asciicast.reader import asciicast_reader
-from .tty.viewer import viewer
+from .tty.terminal_emulator cimport terminal_emulator
 
 
 cdef class cast2gif:
