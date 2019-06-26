@@ -18,6 +18,6 @@ cdef class display_state:
     cdef cursor_right(self)
     cdef cursor_absolute_x(self,position)
     cdef cursor_absolute_y(self,position)
-    cdef cursor_save_position(self):
+    cdef cursor_save_position(self)
     cdef cursor_restore_position(self)
-    cdef cursor_absolute(self,position_x,position_y
+    cdef cursor_absolute(self,position_x,position_y)
