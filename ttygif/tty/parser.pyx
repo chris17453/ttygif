@@ -232,11 +232,11 @@ cdef class term_parser:
 
     cdef cmd_previous_line(self,distance):
         self.terminal_graphics.state.cursor_absolute_x(0)
-        self.terminal_graphics.state.cursor_up(distance])
+        self.terminal_graphics.state.cursor_up(distance)
 
     cdef cmd_next_line(self,distance):
         self.terminal_graphics.state.cursor_absolute_x(0)
-        self.terminal_graphics.state.cursor_up(distance])
+        self.terminal_graphics.state.cursor_up(distance)
 
     cdef absolute_pos_x(self,x):
         self.terminal_graphics.state.cursor_absolute_x(x)
