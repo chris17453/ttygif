@@ -35,6 +35,8 @@ cdef class terminal_emulator:
         self.parser.render_to_buffer()
         self.terminal_graphics.render()
 
+    cdef last_frame(self):
+        self.parser.last_frame()
     # this is for returning screen data to other functions
     cdef get(self):
         return {    
