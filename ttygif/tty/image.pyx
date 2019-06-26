@@ -50,8 +50,12 @@ cdef class image:
         if self.dimentions.bytes_per_pixel==1:
             self.data[pos]=pixel
         else:
-            for i in range(0,self.dimentions.bytes_per_pixel):
-                self.data[pos+i]=pixel[i]
+            try
+                for i in range(0,self.dimentions.bytes_per_pixel):
+                    self.data[pos+i]=pixel[i]
+                except Exception as ex:
+                    print ex
+                    print x,y,pixel,pos,self.dimentions.bytes_per_pixel
     
     cdef clear(self,int init_value):
         memset(self.data.data.as_voidptr, init_value, self.dimentions.length )
