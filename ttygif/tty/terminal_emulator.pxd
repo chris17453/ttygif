@@ -1,5 +1,5 @@
-from .parser import term_parser
-from .terminal_graphics import terminal_graphics
+from .parser cimport term_parser
+from .terminal_graphics cimport terminal_graphics
 
 
 # main interface for terminal emulation
