@@ -167,11 +167,11 @@ cdef class cast2gif:
         
 
         v=terminal_emulator(char_width=self.width,char_height=self.height,debug=self.debug)
-        dim=terminal_emulator.viewport.dimensions
+        dim=terminal_emulator.get_dimentions()
         g.create(width=dim.width,height=dim.height,filename=self.gif_file,default_palette=True)
 
         print ("character dimensions: {0}x{1}".format(self.width,self.height))
-        print ("pixel dimensions: {0}x{1}".format(v.viewport_px_width,v.viewport_px_height))
+        print ("pixel dimensions: {0}x{1}".format(dim.width,dim.height))
 
         index=0
         if self.frame_rate!=0:
@@ -222,9 +222,9 @@ cdef class cast2gif:
                 data=v.get()
 
 
-                diff=self.get_frame_bounding_diff(old_data,data,v.viewport_px_width,v.viewport_px_height)
+                diff=self.get_frame_bounding_diff(old_data,data,dim.width,dim.height)
                 if diff:
-                    frame_snip=self.copy_area(data['data'],diff,v.viewport_px_width,v.viewport_px_height)
+                    frame_snip=self.copy_area(data['data'],diff,dim.width,dim.height)
 
                     # loop the frames if the delay is bigger than 65.535 seconds =0xFFFF
                     add_frames=True
