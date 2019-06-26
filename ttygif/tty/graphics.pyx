@@ -106,10 +106,11 @@ cdef match_color_index(r,g,b,palette):
         color_distance=(r-mr)*(r-mr)+(g-mg)*(g-mg)+(b-mb)*(b-mb)
         if last_distance==-1 or color_distance<last_distance:
             last_distance=color_distance
-            mapped_color=i
+            mapped_color=i/3
 
     if mapped_color>255:
-        raise Exception("Color value to high")
+        #print color_distance
+        #raise Exception("Color value to high")
 
     return mapped_color
 
