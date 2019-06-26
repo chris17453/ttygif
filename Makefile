@@ -62,7 +62,7 @@ uninstall:
 
 examples:
 	# tetris
-	@python -m ttygif.cli --input assets/cast/232377.cast --output assets/encode/232377.gif --fps 12
+	#@python -m ttygif.cli --input assets/cast/232377.cast --output assets/encode/232377.gif --fps 12
   # term raytracing
 	@python -m ttygif.cli --input assets/cast/174524.cast --output assets/encode/174524.gif --fps 12
 	# Pikachu

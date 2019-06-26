@@ -154,8 +154,8 @@ cdef class term_parser:
         
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
-            self.terminal_graphics.state.foreground=self.terminal_graphics.state.default_foreground
-            self.terminal_graphics.state.background=self.terminal_graphics.state.default_background
+            self.terminal_graphics.state.set_foreground(self.terminal_graphics.state.default_foreground)
+            self.terminal_graphics.state.set_background(self.terminal_graphics.state.default_background)
             self.terminal_graphics.state.bold=None
             self.terminal_graphics.state.reverse_video=None
         elif cmd==1:
@@ -165,26 +165,26 @@ cdef class term_parser:
         elif cmd==27:
             self.terminal_graphics.state.reverse_video=None
         elif cmd>=30 and cmd<=37:
-            self.terminal_graphics.state.foreground=cmd-30
+            self.terminal_graphics.state.set_foreground(cmd-30)
             if self.terminal_graphics.state.bold:
-                self.terminal_graphics.state.foreground+=8
+                self.terminal_graphics.state.set_foreground(self.terminal_graphics.state.foreground+8)
         elif cmd==39:
-            self.terminal_graphics.state.foreground=self.terminal_graphics.state.default_foreground
+            self.terminal_graphics.state.set_foreground(self.terminal_graphics.state.default_foreground)
         elif cmd>=40 and cmd<=47:
             self.terminal_graphics.state.background=cmd-40
             if self.terminal_graphics.state.bold:
-                self.terminal_graphics.state.foreground+=8
+                self.terminal_graphics.state.set_background(self.terminal_graphics.state.backround+8)
         elif cmd==49:
-            self.terminal_graphics.state.background=self.terminal_graphics.state.default_background
+            self.terminal_graphics.state.set_background(self.terminal_graphics.state.default_background)
         elif cmd>=90 and cmd<=97:
-            self.terminal_graphics.state.foreground=cmd-90+8
+            self.terminal_graphics.state.set_foreground(cmd-90+8)
         elif cmd>=100 and cmd<=107:
-            self.terminal_graphics.state.background=cmd-100+8
+            self.terminal_graphics.state.set_background(cmd-100+8)
 
     cdef cmd_reset_mode(self,cmd):
         if cmd==0:
-            self.terminal_graphics.state.foreground=self.terminal_graphics.state.default_foreground
-            self.terminal_graphics.state.background=self.terminal_graphics.state.default_background
+            self.terminal_graphics.state.set_foreground(self.terminal_graphics.state.default_foreground)
+            self.terminal_graphics.state.set_background(self.terminal_graphics.state.default_background)
             self.terminal_graphics.state.bold=None
             self.terminal_graphics.state.reverse_video=None
         elif cmd==1:
