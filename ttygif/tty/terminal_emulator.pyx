@@ -31,7 +31,8 @@ cdef class terminal_emulator:
         self.parser.add_event(event)
     
     cdef render(self):
-        self.parser.render_to_buffer(self.terminal_graphics)
+        # graphics pointer is inside of the parser.... maybe seperate...
+        self.parser.render_to_buffer()
         self.terminal_graphics.render()
 
     # this is for returning screen data to other functions
