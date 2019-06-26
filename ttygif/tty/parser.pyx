@@ -106,19 +106,19 @@ cdef class term_parser:
         self.sequence_pos=new_sequence_pos
 
     # TODO STUBS
-    cdef procces_OSC():
+    cdef procces_OSC(self):
         self.info(groups)
 
-    cdef process_DSINGLE(groups):
+    cdef process_DSINGLE(self,groups):
         self.info(groups)
 
-    cdef process_CHAR_SET(groups):
+    cdef process_CHAR_SET(self,groups):
         self.info(groups)
 
-    cdef process_G0(groups):
+    cdef process_G0(self,groups):
         self.info(groups)
 
-    cdef process_G1(groups):
+    cdef process_G1(self,groups):
         self.info(groups)
 
     cdef process_CSI(self,command,params):
