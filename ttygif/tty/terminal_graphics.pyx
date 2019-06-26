@@ -1,3 +1,4 @@
+from .image cimport image
 
 
 cdef class terminal_graphics:

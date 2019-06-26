@@ -1,4 +1,5 @@
 
+from .image cimport image
 
 cdef class terminal_graphics:
     cdef array.array data
