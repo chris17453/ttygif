@@ -258,17 +258,17 @@ cdef class term_parser:
             self.terminal_graphics.state.cursor_save_position()
             for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.width):
                 self.terminal_graphics.state.cursor_absolute_x(x)
-                self.terminal_graphics.write(32)
+                self.terminal_graphics.write(0)
             self.terminal_graphics.state.cursor_restore_position()
         if mode==1:
             self.terminal_graphics.state.cursor_save_position()
             for x in range(0,self.terminal_graphics.state.cursor_x+1):
                 self.terminal_graphics.state.cursor_absolute_x(x)
-                self.terminal_graphics.write(32)
+                self.terminal_graphics.write(0)
             self.terminal_graphics.state.cursor_restore_position()
 
         if mode==2:
-            self.terminal_graphics.viewport.clear(self.terminal_graphics.state.background)
+            self.terminal_graphics.viewport.clear(0)
 
     cdef cmd_erase_line(self,mode):
         self.terminal_graphics.state.cursor_save_position()
@@ -276,15 +276,15 @@ cdef class term_parser:
         if mode==0:
             for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.width):
                 self.terminal_graphics.state.cursor_absolute_x(x)
-                self.terminal_graphics.write(32)
+                self.terminal_graphics.write(0)
         elif mode==1:
             for x in range(0,self.terminal_graphics.state.cursor_x):
                 self.terminal_graphics.state.cursor_absolute_x(x)
-                self.terminal_graphics.write(32)
+                self.terminal_graphics.write(0)
         elif mode==2:
             for x in range(0,self.terminal_graphics.state.width):
                 self.terminal_graphics.state.cursor_absolute_x(x)
-                self.terminal_graphics.write(32)
+                self.terminal_graphics.write(0)
 
         self.terminal_graphics.state.cursor_restore_position()
 
