@@ -18,7 +18,7 @@ cdef class terminal_emulator:
     cdef init(self,width,height,char_width,char_height,debug):
         self.parser          = term_parser(debug_mode=debug)
         
-        self.terminal_display= terminal_graphics(character_width =char_width,
+        self.terminal_graphics= terminal_graphics(character_width =char_width,
                                                  character_height=char_height,
                                                  viewport_width  =width,
                                                  viewport_height =height,
@@ -36,10 +36,10 @@ cdef class terminal_emulator:
     # this is for returning screen data to other functions
     cdef get(self):
         return {    
-            'width'         : self.terminal_display.viewport.dimentions.width,
-            'height'        : self.terminal_display.viewport.dimentions.height,
-            'data'          : array.copy(self.terminal_display.viewport.data),
-            'color_table'   : self.terminal_display.viewport.palette}
+            'width'         : self.terminal_graphics.viewport.dimentions.width,
+            'height'        : self.terminal_graphics.viewport.dimentions.height,
+            'data'          : array.copy(self.terminal_graphics.viewport.data),
+            'color_table'   : self.terminal_graphics.viewport.palette}
 
     # TODO snapshot of a frame
     cdef save_screen(self):
