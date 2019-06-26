@@ -1,9 +1,6 @@
 # cython: linetrace=True
 
 import argparse
-from .gif.gif import gif
-from .gif.encode import encode_gif
-from .tty.viewer import viewer 
 from .asciicast.reader import asciicast_reader
 from .cast2gif import cast2gif
 from .version import __version__
