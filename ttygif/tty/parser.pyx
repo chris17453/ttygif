@@ -1,4 +1,4 @@
-from .term_graphics cimport term_graphics
+from .terminal_graphics cimport terminal_graphics
 import re
 
 
