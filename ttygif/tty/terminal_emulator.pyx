@@ -48,5 +48,5 @@ class terminal_emulator:
             'color_table'   : self.terminal_display.viewport.palette}
 
     # TODO snapshot of a frame
-    cdef save_screen(self):
+    def save_screen(self):
         x=1
