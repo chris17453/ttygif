@@ -37,7 +37,8 @@ cdef class term_parser:
             if last_distance==-1 or color_distance<last_distance:
                 last_distance=color_distance
                 mappeded_color=i
-        
+        if mappeded_color>255:
+            print r,g,b,mappeded_color
         return mappeded_color
 
     cdef remap_character(self,character):
