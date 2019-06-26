@@ -167,7 +167,7 @@ cdef class cast2gif:
         
 
         v=terminal_emulator(char_width=self.width,char_height=self.height,debug=self.debug)
-        dim=terminal_emulator.get_dimentions()
+        dim=v.get_dimentions()
         g.create(width=dim.width,height=dim.height,filename=self.gif_file,default_palette=True)
 
         print ("character dimensions: {0}x{1}".format(self.width,self.height))
