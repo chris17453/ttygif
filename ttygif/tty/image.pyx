@@ -4,7 +4,7 @@ from libc.string cimport memset
 
 cdef class bounds:
     def __cint__(self,int width,int height,int bytes_per_pixel=1):
-        self.width          =width
+        self.width           =width
         self.height          =height
         self.stride          =width*bytes_per_pixel
         self.length          =self.stride*height
