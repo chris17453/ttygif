@@ -221,16 +221,16 @@ cdef class term_parser:
             self.terminal_graphics.state.cursor_right(1)
 
 
-    cdef cursor_up(self,distance):
+    cdef cmd_cursor_up(self,distance):
         self.terminal_graphics.state.cursor_up(distance)
 
-    cdef cursor_down(self,distance):
+    cdef cmd_cursor_down(self,distance):
         self.terminal_graphics.state.cursor_down(distance)
 
-    cdef cursor_left(self,distance):
+    cdef cmd_cursor_left(self,distance):
         self.terminal_graphics.state.cursor_left(distance)
 
-    cdef cursor_right(self,distance):
+    cdef cmd_cursor_right(self,distance):
         self.terminal_graphics.state.cursor_right(distance)
 
     cdef cmd_previous_line(self,distance):
@@ -241,19 +241,19 @@ cdef class term_parser:
         self.terminal_graphics.state.cursor_absolute_x(0)
         self.terminal_graphics.state.cursor_up(distance)
 
-    cdef absolute_pos_x(self,x):
+    cmd_cdef absolute_pos_x(self,x):
         self.terminal_graphics.state.cursor_absolute_x(x)
 
-    cdef absolute_pos_y(self,y):
+    cdef cmd_absolute_pos_y(self,y):
         self.terminal_graphics.state.cursor_absolute_y(y)
     
-    cdef absolute_pos(self,x,y):
+    cdef cmd_absolute_pos(self,x,y):
         self.terminal_graphics.state.cursor_absolute(x,y)
 
-    cdef vert_pos(self,position):
+    cdef cmd_vert_pos(self,position):
         self.terminal_graphics.state.cursor_absoloute(0,position)
 
-    cdef erase_display(self,mode):
+    cdef cmd_erase_display(self,mode):
         if mode==0:
             self.terminal_graphics.state.save_cursor_position()
             for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.width):
