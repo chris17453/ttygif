@@ -1,7 +1,7 @@
 from cpython cimport array
 from libc.string cimport memset
 
-from .graphics cimport match_color_index create_default_palette
+from .graphics cimport match_color_index, create_default_palette
 from .image cimport image
 from .font cimport font
 from .display_state cimport display_state
