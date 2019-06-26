@@ -52,13 +52,11 @@ cdef class terminal_graphics:
             raise Exception(err_msg)
 
         if self.state.reverse_video:
-            self.character_buffer.put_pixel(x,y,[self.state.background,
-                                            self.state.foreground,
-                                            character])
+            pix=[self.state.background,self.state.foreground,character])
         else:
-            self.character_buffer.put_pixel(x,y,[self.state.foreground,
-                                            self.state.background,
-                                            character])
+            pix=[self.state.foreground,self.state.background,character]    
+        print pix
+        self.character_buffer.put_pixel(x,y,pix)
 
     cdef draw_string(self,x,y,data):
         for i in data:
