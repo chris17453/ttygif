@@ -68,12 +68,12 @@ cdef class display_state:
         self.cursor_x=self.saved_cursor_x
         self.cursor_y=self.saved_cursor_y
 
-    cdef set_background(self,color):
+    cdef set_background(self,int color):
         if color>255:
             raise Exception ("Color over maximum value")
         self.background=color
     
-    cdef set_foreground(self,color):
+    cdef set_foreground(self,int color):
         if color>255:
             raise Exception ("Color over maximum value")
         self.foreground=color

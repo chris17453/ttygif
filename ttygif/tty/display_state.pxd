@@ -23,3 +23,5 @@ cdef class display_state:
     cdef cursor_save_position(self)
     cdef cursor_restore_position(self)
     cdef cursor_absolute(self,position_x,position_y)
+    cdef set_background(self,int color)
+    cdef set_foreground(self,int color)
