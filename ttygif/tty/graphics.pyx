@@ -93,7 +93,7 @@ cdef shift_buffer(image src_image,int init_value):
 
 cdef match_color_index(r,g,b,palette):
     last_distance=-1
-    mappeded_color=-1
+    mapped_color=-1
     cdef int mr
     cdef int mg
     cdef int mb
@@ -106,12 +106,12 @@ cdef match_color_index(r,g,b,palette):
         color_distance=(r-mr)*(r-mr)+(g-mg)*(g-mg)+(b-mb)*(b-mb)
         if last_distance==-1 or color_distance<last_distance:
             last_distance=color_distance
-            mappeded_color=i
+            mapped_color=i
 
     if mapped_color>255:
         raise Exception("Color value to high")
 
-    return mappeded_color
+    return mapped_color
 
 
 # todo account for color table size mismatch, crud on new table, and reindexing for best color palette...
