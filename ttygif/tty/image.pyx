@@ -42,6 +42,7 @@ cdef class image:
 
     # put a pixel of X stride
     cdef put_pixel(self,int x,int y,pixel):
+        cdef int pix_byte
         if x<0 or x>=self.dimentions.width:
             return
         if y<0 or y>=self.dimentions.height:
@@ -52,7 +53,8 @@ cdef class image:
         else:
             try:
                 for i in range(0,self.dimentions.bytes_per_pixel):
-                    self.data[pos+i]=pixel[i]
+                    pix_byte=pixel[i]
+                    self.data[pos+i]=pix_byte
             except Exception as ex:
                     print ex
                     print x,y,pixel,pos,self.dimentions.bytes_per_pixel,len(self.data)
