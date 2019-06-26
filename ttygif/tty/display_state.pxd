@@ -4,6 +4,8 @@ cdef class display_state:
     cdef public int             height
     cdef public int             cursor_x
     cdef public int             cursor_y
+    cdef public int             saved_cursor_x
+    cdef public int             saved_cursor_y
     cdef public int             default_foreground
     cdef public int             default_background
     cdef public int             foreground

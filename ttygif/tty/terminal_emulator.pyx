@@ -17,11 +17,11 @@ cdef class terminal_emulator:
 
     cdef init(self,width,height,char_width,char_height,debug):
         
-        self.terminal_graphics= terminal_graphics(character_width =char_width,
-                                                 character_height=char_height,
-                                                 viewport_width  =width,
-                                                 viewport_height =height,
-                                                 image_font=vga_font)
+        self.terminal_graphics= terminal_graphics(character_width = char_width,
+                                                 character_height = char_height,
+                                                 viewport_width   = width,
+                                                 viewport_height  = height,
+                                                 image_font       = vga_font)
 
         self.parser          = term_parser(debug_mode=debug,terminal_graphics=self.terminal_graphics)
 
@@ -44,10 +44,6 @@ cdef class terminal_emulator:
             'color_table'   : self.terminal_graphics.viewport.palette}
     
     cdef get_dimentions(self):
-        print self.terminal_graphics
-        print self.terminal_graphics.viewport
-        print self.terminal_graphics.viewport.dimentions
-    
         return self.terminal_graphics.viewport.dimentions
 
     # TODO snapshot of a frame
