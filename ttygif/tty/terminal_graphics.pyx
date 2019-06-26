@@ -185,8 +185,8 @@ cdef class terminal_graphics:
         self.state.background=color
     
     cdef render(self):
-        #if None==self.underlay_flag:
-        #self.viewport.clear(self.state.background);
+        if None==self.underlay_flag:
+            self.viewport.clear(self.state.default_background);
         cdef int fg =0
         cdef int bg =0
         cdef int x  =0
