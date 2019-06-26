@@ -1,6 +1,6 @@
 # cython: linetrace=True
 from cpython cimport array
-from .parser import term_parser
+from .parser cimport term_parser
 from .terminal_graphics import terminal_graphics
 from .font cimport font
 from .fonts cimport vga_font
@@ -9,14 +9,6 @@ from .fonts cimport vga_font
 
 # main interface for terminal emulation
 cdef class terminal_emulator:
-    cdef term_parser          parser
-    cdef terminal_graphics    terminal_graphics
-    cdef object underlay_flag
-    cdef object term
-    #parser=None
-    #terminal_graphics=None
-    #underlay_flag=None
-    #term=None
     
     def __cinit__(self,width=640,height=480,char_width=None,char_height=None,debug=None):
         self.debug_mode      =debug
