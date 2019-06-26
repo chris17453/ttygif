@@ -118,7 +118,7 @@ cdef remap(src_palette,src_pixels,dst_palette):
     cdef int mr
     cdef int mg
     cdef int mb
-    for i in range(0,len(src_palette,3)):
+    for i in range(0,len(src_palette),3):
         mr=color_table[i]
         mg=color_table[i+1]
         mb=color_table[i+2]
