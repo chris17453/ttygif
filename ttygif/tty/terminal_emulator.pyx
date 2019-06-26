@@ -8,12 +8,15 @@ from .fonts cimport vga_font
 
 
 # main interface for terminal emulation
-cpdef class terminal_emulator:
-    
-    cdef public term_parser          parser
-    cdef public terminal_graphics    terminal_graphics
-    cdef public object underlay_flag
-    cdef public object term
+class terminal_emulator:
+    #cdef public term_parser          parser
+    #cdef public terminal_graphics    terminal_graphics
+    #cdef public object underlay_flag
+    #cdef public object term
+    parser=None
+    terminal_graphics=None
+    underlay_flag=None
+    term=None
     
     def __init__(self,width=640,height=480,char_width=None,char_height=None,debug=None):
         self.debug_mode      =debug
