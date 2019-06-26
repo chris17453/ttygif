@@ -8,7 +8,7 @@ from .fonts cimport vga_font
 
 
 # main interface for terminal emulation
-class terminal_emulator:
+cpdef class terminal_emulator:
     
     cdef public term_parser          parser
     cdef public terminal_graphics    terminal_graphics
