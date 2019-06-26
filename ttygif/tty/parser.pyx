@@ -27,16 +27,17 @@ cdef class term_parser:
     cdef rgb_to_palette(self,r,g,b):
         last_distance=-1
         mappeded_color=-1
-
-        for i in range(0,len(self.color_table)):
-            color=self.color_table[i]
+        palette=self.terminal_graphics.character_buffer.palette
+        for i in range(0,len(palette),3):
+            mr=palette[i]
+            mg=palette[i+1]
+            mb=palette[i+2]
             
-            color_distance=(r-color[0])*(r-color[0])+(g-color[1])*(g-color[1])+(b-color[2])*(b-color[2])
+            color_distance=(r-mr)*(r-mr)+(g-mg)*(g-mg)+(b-mb)*(b-mb)
             if last_distance==-1 or color_distance<last_distance:
                 last_distance=color_distance
                 mappeded_color=i
         
-        #print r,g,b,mappeded_color#color_distance,color[0],color[1],color[2]
         return mappeded_color
 
     cdef remap_character(self,character):
