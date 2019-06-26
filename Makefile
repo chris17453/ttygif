@@ -62,17 +62,17 @@ uninstall:
 
 examples:
 	# tetris
-	@python -m ttygif.cli --input assets/examples/cast/232377.cast --output assets/examples/encode/232377.gif --fps 12
+	@python -m ttygif.cli --input assets/cast/232377.cast --output assets/encode/232377.gif --fps 12
   # term raytracing
-	@python -m ttygif.cli --input assets/examples/cast/174524.cast --output assets/examples/encode/174524.gif --fps 12
+	@python -m ttygif.cli --input assets/cast/174524.cast --output assets/encode/174524.gif --fps 12
 	# Pikachu
-	@python -m ttygif.cli --input assets/examples/cast/236096.cast --output assets/examples/encode/236096.gif --fps 12
+	@python -m ttygif.cli --input assets/cast/236096.cast --output assets/encode/236096.gif --fps 12
 	# compile very long
-	@python -m ttygif.cli --input assets/examples/cast/234628.cast --output assets/examples/encode/234628.gif --fps 12
+	@python -m ttygif.cli --input assets/cast/234628.cast --output assets/encode/234628.gif --fps 12
 	# ncurses animaiton
-	@python -m ttygif.cli --input assets/examples/cast/687.cast --output assets/examples/encode/687.gif --fps 12
+	@python -m ttygif.cli --input assets/cast/687.cast --output assets/encode/687.gif --fps 12
 	# htop animaiton
-	@python -m ttygif.cli --input assets/examples/cast/test.cast --output assets/examples/encode/test.gif --fps 0
+	@python -m ttygif.cli --input assets/cast/test.cast --output assets/encode/test.gif --fps 0
 
 tetris:
-	@python -m ttygif.cli --input assets/examples/cast/232377.cast --output assets/examples/encode/232377.gif --fps 12
+	@python -m ttygif.cli --input assets/cast/232377.cast --output assets/encode/232377.gif --fps 12
