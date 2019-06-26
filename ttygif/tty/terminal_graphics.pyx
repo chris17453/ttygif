@@ -52,7 +52,7 @@ cdef class terminal_graphics:
             raise Exception(err_msg)
 
         if self.state.reverse_video:
-            pix=[self.state.background,self.state.foreground,character])
+            pix=[self.state.background,self.state.foreground,character]
         else:
             pix=[self.state.foreground,self.state.background,character]    
         print("PIX",pix)
