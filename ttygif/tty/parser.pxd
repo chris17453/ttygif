@@ -4,11 +4,13 @@ import re
 
 
 cdef class term_parser:
-    cdef object debug_mode
-    cdef object sequence
-    cdef int    sequence_pos
-    cdef object extra_text
+    cdef object            debug_mode
+    cdef object            sequence
+    cdef int               sequence_pos
+    cdef object            extra_text
+    cdef terminal_graphics terminal_graphics
     cdef double last_timestamp
+    
     cdef ascii_safe(self,text)
     cdef info(self,text)
     cdef clear_sequence(self)

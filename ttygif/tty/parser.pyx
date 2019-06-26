@@ -6,12 +6,13 @@ import re
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 cdef class term_parser:
-    def __init__(self,debug_mode=None):
+    def __init__(self,debug_mode=None,terminal_graphics terminal_graphics):
         self.debug_mode=debug_mode
         self.sequence=[]
         self.sequence_pos=0
         self.last_timestamp=0
         self.extra_text=""
+        self.terminal_graphics=terminal_graphics
 
     cdef ascii_safe(self,text):
         return ''.join([i if ord(i) < 128 else '*' for i in text])
@@ -19,7 +20,6 @@ cdef class term_parser:
     cdef info(self,text):
         if self.debug_mode:
             print(self.ascii_safe(text))
-
 
     cdef clear_sequence(self):
         self.sequence=[]
@@ -84,266 +84,233 @@ cdef class term_parser:
             return character
         return unichr(c)
 
-    cdef set_mode(self,cmd):
-        dm=self.debug_mode
-        self.debug_mode=None
-        if cmd==0:
-            self.fg=self.def_fg
-            self.bg=self.def_bg
-            self.bold=None
-            self.reverse_video=None
-            if self.debug_mode:
-                self.info("RESET All")
-        elif cmd==1:
-            self.bold=True
-            if self.debug_mode:
-                self.info("Set BOLD")
-        elif cmd==7:
-            if self.debug_mode:
-                self.info("Reverse Video On")
-            self.reverse_video=True
-        elif cmd==27:
-            if self.debug_mode:
-                self.info("Reverse Video Off")
-            self.reverse_video=None
-        elif cmd>=30 and cmd<=37:
-            self.fg=cmd-30
-            if self.bold:
-                self.fg+=8
-            if self.debug_mode:
-                self.info("Set FG")
-        elif cmd==39:
-            self.fg=self.def_fg
-            if self.debug_mode:
-                self.info("Set Default FG")
-        elif cmd>=40 and cmd<=47:
-            self.bg=cmd-40
-            if self.bold:
-                self.fg+=8
-            if self.debug_mode:
-                self.info("Set BG")
-        elif cmd==49:
-            self.bg=self.def_bg
-            if self.debug_mode:
-                self.info("Set Default BG")
-        elif cmd>=90 and cmd<=97:
-            self.fg=cmd-90+8
-            if self.debug_mode:
-                self.info("Set High INTENSITY FG")
-        elif cmd>=100 and cmd<=107:
-            self.bg=cmd-100+8
-            if self.debug_mode:
-                self.info("Set High INTENSITY BG")
-        self.debug_mode=dm
 
-    cdef reset_mode(self,cmd):
-        if cmd==0:
-            self.fg=self.def_fg
-            self.bg=self.def_bg
-            self.bold=None
-            self.reverse_video=None
-            if self.debug_mode:
-                self.info("RESET All")
-        elif cmd==1:
-            self.bold=None
-            if self.debug_mode:
-                self.info("Set BOLD")
-        elif cmd==7:
-            self.reverse_video=None
+    
+    cdef render_to_buffer(self):
 
-    cdef render_to_buffer(self,terminal_graphics frame):
-        
-        cdef int pos=0
-        cdef int cursor = 0
-        # pre buffer
-        buffer=self.buffer
-        overflow=None
         new_sequence_pos=self.sequence_pos #self.sequence_pos:
-
         for event in self.sequence[self.sequence_pos:]:
             new_sequence_pos+=1
-            if event['type']=='text':
-                #if self.debug_mode:
-                    #self.info(u"X:{0:<2} {1:<2},FG:{2:<2},BG:{3},Text: {4}".format(x,y,self.fg,self.bg,event['data']))
-                for character in event['data']:
-                    # new line or wrap
-                    char_ord=ord(character)
-                    # handle non printable codes here
-                    if char_ord<32:
-                        if char_ord==0x08:
-                            frame.state.cursor_left()
-                        if char_ord==0x0A:
-                            frame.state.cursor_absolute_x(0)
-                            frame.state.cursor_down()
-                        continue
-                    if x>=self.viewport_char_width:
-                            frame.state.cursor_right()
-                    frame.write(char_ord)
-                    frame.state.cursor_right()
-                continue
-
-
-            #print cursor,start, end
             params   =event['params']
             command  =event['command']
             esc_type =event['esc_type']
             groups   =event['groups']
 
-            if esc_type=='OSC':
-                continue
-            elif esc_type=='SINGLE':
-                command=groups[1]
-            elif esc_type=='CHAR_SET':
-                command=groups[3]
-            elif esc_type=='G0':
-                command=groups[5]
-            elif esc_type=='G1':
-                command=groups[7]
-            elif esc_type=='CSI':
-                if command=='m':
-                    if 38 in params:
-                        if params[1]==2:
-                            frame.foreground_from_rgb(params[2],params[3],params[4])
-                        if params[1]==5:
-                            frame.set_foreground(params[2])
-                    elif 48 in params:
-                            if params[1]==2:
-                                self.background_from_rgb(params[2],params[3],params[4])
-                            if params[1]==5:
-                                frame.set_background(params[2])
-                    else:
-                        for cmd in params:
-                           self.set_mode(cmd)
-                else:
-                    if command=='A': # move cursor up
-                        y-=params[0]
-                        if y<0:
-                            y=0;
-                    elif command=='B': # move cursor down
-                        y+=params[0]
-                        if y>=self.viewport_char_height:
-                            y=self.viewport_char_height-1
-
-                    elif command=='C': # move cursor foreward
-                        x+=params[0]
-                        if x>=self.viewport_char_width:
-                            x=self.viewport_char_width-1
-
-                    elif command=='D': # move cursor back
-                        x-=params[0]
-                        if x<0:
-                            x=0
-                    elif command=='E': # move cursor next line
-                        x=0
-                        y+=params[0]
-
-                    elif command=='F': # move cursor previous  line
-                        x=0
-                        y-=params[0]
-                    elif command=='G': # move cursor to HORIZONTAL pos X
-                        x=params[0]-1
-                    elif command=='`': # move cursor to HORIZONTAL pos X
-                        x=params[0]-1
-
-                    elif command=='H' or command=='f': # move cursor to x,y pos
-                        x=params[1]-1
-                        y=params[0]-1
-
-                    elif command=='J': # erase display
-                        if params[0]==0:
-                            if self.debug_mode:
-                                self.info("Erase Display cursor to end")
-                            pos=x+y*self.viewport_char_width
-                            for x in range(pos,self.viewport_char_height*self.viewport_char_width):
-                                buffer[x*3+0]=self.fg
-                                buffer[x*3+1]=self.bg
-                                buffer[x*3+2]=32
-                        if params[0]==1:
-                            if self.debug_mode:
-                                self.info("Erase Display top til cursor")
-                            pos=x+y*self.viewport_char_width
-                            for x in range(0,pos+1):
-                                buffer[x*3+0]=self.fg
-                                buffer[x*3+1]=self.bg
-                                buffer[x*3+2]=32
-
-                        if params[0]==2:
-                            if self.debug_mode:
-                                self.info("Erase Display and buffer")
-                            buffer=self.new_char_buffer()
-
-                    elif command=='K': # erase line
-                        if self.debug_mode:
-                            self.info("Erase Line: {0}".format(params[0]))
-                        if params[0]==0:
-                            for x2 in range(x,self.viewport_char_width):
-                                self.write_buffer(x2,y,32,buffer)
-                        elif params[0]==1:
-                            for x2 in range(0,x+1):
-                                self.write_buffer(x2,y,32,buffer)
-                        elif params[0]==2:
-                            for x2 in range(0,self.viewport_char_width):
-                                self.write_buffer(x2,y,32,buffer)
-                    elif command=='d': # move cursor to Vertivcal pos y
-                        if self.debug_mode:
-                            self.info("Cursor (d) Y{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
-                        y=params[0]-1
-                        x=0
-                    #elif command=='e': 
-                    #    if self.debug_mode:
-                    #        self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
-                    #    y+=params[0]
-                    elif command=='h': 
-                        if self.debug_mode:
-                            self.info("Set mode:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
-                            self.set_mode(params)
-                    elif command=='l': 
-                        if self.debug_mode:
-                            self.info("Set mode:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
-                            self.reset_mode(params)
-                    elif command=='P': 
-                        if self.debug_mode:
-                            self.info("Erase number of charchters on line:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
-                        char_to_erase=params[0]
-                        stride=self.viewport_char_width-x
-                        temp=[0,0,0]*stride
-                        for x2 in range(x,stride-char_to_erase):
-                            t=(x2-x)*3
-                            b=(char_to_erase+x2)*3  +y*self.viewport_char_stride
-                            temp[t+0]=buffer[b+0]
-                            temp[t+1]=buffer[b+1]
-                            temp[t+2]=buffer[b+2]
-
-                        for x2 in range(x,stride):
-                            t=(x2-x)*3
-                            b=x2*3+y*self.viewport_char_stride
-                            buffer[b+0]=temp[t+0]
-                            buffer[b+1]=temp[t+1]
-                            buffer[b+2]=temp[t+2]
-                                
-
-                    elif command=='X': 
-                        if self.debug_mode:
-                            self.info("Delete number of charchters on line:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
-                        #b=self.bg
-                        #self.bg=14
-                        for x2 in range(x,x+params[0]):
-                            self.write_buffer(x2,y,0,buffer)
-                        #self.bg=b
-                        
-                    else:
-                        if self.debug_mode:
-                            self.info("Impliment: pos x:{2},Y:{3} - {0}-{1}".format(command,params,x,y))
-            
-        
-        
-
+            if   event['type']=='text': self.cmd_render_text()
+            elif esc_type=='OSC'      : self.procces_OSC()
+            elif esc_type=='SINGLE'   : self.process_DSINGLE(groups[1])
+            elif esc_type=='CHAR_SET' : self.process_CHAR_SET(groups[3])
+            elif esc_type=='G0'       : self.process_G0(groups[5])
+            elif esc_type=='G1'       : self.process_G1(groups[7])
+            elif esc_type=='CSI'      : self.process_CSI(command,params)
         self.sequence_pos=new_sequence_pos
 
-        self.x=x
-        self.y=y
-   
+    # TODO STUBS
+    cdef procces_OSC():
+        self.info(groups)
+
+    cdef process_DSINGLE(groups):
+        self.info(groups)
+
+    cdef process_CHAR_SET(groups):
+        self.info(groups)
+
+    cdef process_G0(groups):
+        self.info(groups)
+
+    cdef process_G1(groups):
+        self.info(groups)
+
+    cdef process_CSI(self,command,params):
+        if   command=='m':  self.cmd_process_colors(params)
+        elif command=='A':  self.cmd_cursor_up(params[0])
+        elif command=='B':  self.cmd_cursor_down(params[0])
+        elif command=='C':  self.cmd_cursor_right(params[0])
+        elif command=='D':  self.cmd_cursor_left(params[0])
+        elif command=='E':  self.cmd_next_line(params[0])
+        elif command=='F':  self.cmd_previous_line(params[0])
+        elif command=='G':  self.cmd_absolute_x(params[0]-1)
+        elif command=='H':  self.cmd_absolute_pos(params[1]-1,params[0]-1)
+        elif command=='J':  self.cmd_erase_display(params[0])
+        elif command=='K':  self.cmd_erase_line(params[0])
+        elif command=='P':  self.cmd_erase_chaaracters(params[0])
+        elif command=='X':  self.cmd_del_characters(params[0])
+        elif command=='`':  self.cmd_absolute_x(params[0]-1)
+        elif command=='d':  self.cmd_vert_pos(params[0]-1)
+        elif command=='f':  self.cmd_absolute_pos(params[1]-1,params[0]-1)
+        elif command=='h':  self.cmd_set_mode(params)
+        elif command=='l':  self.cmd_reset_mode(params[0])
+        #elif command=='e': 
+        #    if self.debug_mode:
+        #        self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
+        #    y+=params[0]
+        
+        else: self.info("Impliment: pos x:{2},Y:{3} - {0}-{1}".format(command,params,x,y))
+        
+    cdef cmd_set_mode(self,cmd):
+        if cmd==0:
+            self.terminal_graphics.state.foreground=self.terminal_graphics.state.default_foreground
+            self.terminal_graphics.state.background=self.terminal_graphics.state.default_background
+            self.terminal_graphics.state.bold=None
+            self.terminal_graphics.state.reverse_video=None
+        elif cmd==1:
+            self.terminal_graphics.state.bold=True
+        elif cmd==7:
+            self.terminal_graphics.state.reverse_video=True
+        elif cmd==27:
+            self.terminal_graphics.state.reverse_video=None
+        elif cmd>=30 and cmd<=37:
+            self.terminal_graphics.state.foreground=cmd-30
+            if self.terminal_graphics.state.bold:
+                self.terminal_graphics.state.foreground+=8
+        elif cmd==39:
+            self.terminal_graphics.state.foreground=self.terminal_graphics.state.default_foreground
+        elif cmd>=40 and cmd<=47:
+            self.terminal_graphics.state.background=cmd-40
+            if self.terminal_graphics.state.bold:
+                self.terminal_graphics.state.foreground+=8
+        elif cmd==49:
+            self.terminal_graphics.state.background=self.terminal_graphics.state.default_background
+        elif cmd>=90 and cmd<=97:
+            self.terminal_graphics.state.foreground=cmd-90+8
+        elif cmd>=100 and cmd<=107:
+            self.terminal_graphics.state.background=cmd-100+8
+
+    cdef cmd_reset_mode(self,cmd):
+        if cmd==0:
+            self.terminal_graphics.state.foreground=self.terminal_graphics.state.default_foreground
+            self.terminal_graphics.state.background=self.terminal_graphics.state.default_background
+            self.terminal_graphics.state.bold=None
+            self.terminal_graphics.state.reverse_video=None
+        elif cmd==1:
+            self.terminal_graphics.state.bold=None
+        elif cmd==7:
+            self.terminal_graphics.state.reverse_video=None
+
+
+    cdef cmd_process_colors(self,params):
+        if 38 in params:
+            if params[1]==2:
+                self.terminal_graphics.foreground_from_rgb(params[2],params[3],params[4])
+            if params[1]==5:
+                self.terminal_graphics.set_foreground(params[2])
+        elif 48 in params:
+                if params[1]==2:
+                    self.terminal_graphics.background_from_rgb(params[2],params[3],params[4])
+                if params[1]==5:
+                    self.terminal_graphics.set_background(params[2])
+        else:
+            for cmd in params:
+                self.cmd_set_mode(cmd)
+
+    cdef cmd_render_text(self,event):
+        for character in event['data']:
+            char_ord=ord(character)
+            if char_ord<32:
+                if char_ord==0x08:
+                    self.terminal_graphics.state.cursor_left(1)
+                if char_ord==0x0A:
+                    self.terminal_graphics.state.cursor_absolute_x(0)
+                    self.terminal_graphics.state.cursor_down(1)
+                self.terminal_graphics.state.cursor_right(1)
+                continue
+            self.terminal_graphics.write(char_ord)
+            self.terminal_graphics.state.cursor_right(1)
+
+
+    cdef cursor_up(distance):
+        self.terminal_graphics.state.cursor_up(distance)
+
+    cdef cursor_down(distance):
+        self.terminal_graphics.state.cursor_down(distance)
+
+    cdef cursor_left(distance):
+        self.terminal_graphics.state.cursor_left(distance)
+
+    cdef cursor_right(distance):
+        self.terminal_graphics.state.cursor_right(distance)
+
+    cdef cmd_previous_line(self,distance):
+        self.terminal_graphics.state.cursor_absolute_x(0)
+        self.terminal_graphics.state.cursor_up(distance])
+
+    cdef cmd_next_line(self,distance):
+        self.terminal_graphics.state.cursor_absolute_x(0)
+        self.terminal_graphics.state.cursor_up(distance])
+
+    cdef absolute_pos_x(self,x):
+        self.terminal_graphics.state.cursor_absolute_x(x)
+
+    cdef absolute_pos_y(self,y):
+        self.terminal_graphics.state.cursor_absolute_y(y)
     
+    cdef absolute_pos(self,x,y):
+        self.terminal_graphics.state.cursor_absolute(x,y)
+
+    cdef vert_pos(self,position):
+        self.terminal_graphics.state.cursor_absoloute(0,position)
+
+    cdef erase_display(self,mode):
+        if mode==0:
+            self.terminal_graphics.state.save_cursor_position()
+            for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.width):
+                self.terminal_graphics.state.cursor_absolute_x(x)
+                self.terminal_graphics.write(32)
+            self.terminal_graphics.state.restore_cursor_position()
+        if mode==1:
+            self.terminal_graphics.state.save_cursor_position()
+            for x in range(0,self.terminal_graphics.state.cursor_x+1):
+                self.terminal_graphics.state.cursor_absolute_x(x)
+                self.terminal_graphics.write(32)
+            self.terminal_graphics.state.restore_cursor_position()
+
+        if mode==2:
+            self.terminal_graphics.viewport.clear()
+
+    cdef cmd_erase_line(self,mode):
+        self.terminal_graphics.state.save_cursor_position()
+
+        if mode==0:
+            for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.width):
+                self.terminal_graphics.state.cursor_absolute_x(x)
+                self.terminal_graphics.write(32)
+        elif mode==1:
+            for x in range(0,self.terminal_graphics.state.cursor_x):
+                self.terminal_graphics.state.cursor_absolute_x(x)
+                self.terminal_graphics.write(32)
+        elif mode==2:
+            for x in range(0,self.terminal_graphics.state.width):
+                self.terminal_graphics.state.cursor_absolute_x(x)
+                self.terminal_graphics.write(32)
+
+        self.terminal_graphics.state.restore_cursor_position()
+
+   cdef cmd_erase_characters(self,length):
+        char_to_erase=length
+        stride=self.viewport_char_width-x
+        temp=[0,0,0]*stride
+        for x2 in range(x,stride-char_to_erase):
+            t=(x2-x)*3
+            b=(char_to_erase+x2)*3  +y*self.viewport_char_stride
+            temp[t+0]=buffer[b+0]
+            temp[t+1]=buffer[b+1]
+            temp[t+2]=buffer[b+2]
+
+        for x2 in range(x,stride):
+            t=(x2-x)*3
+            b=x2*3+y*self.viewport_char_stride
+            buffer[b+0]=temp[t+0]
+            buffer[b+1]=temp[t+1]
+            buffer[b+2]=temp[t+2]
+
+    cdef cmd_del_characters(self,length):
+        self.terminal_graphics.state.save_cursor_position()
+        for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.cursor_x+length):
+                self.terminal_graphics.state.cursor_absolute_x(x)
+                self.terminal_graphics.write(0)
+        self.terminal_graphics.state.restore_cursor_position()
+
+
     cdef stream_2_sequence(self,text,timestamp,delay):
          
         # patterns for filtering out commands from the stream
@@ -477,7 +444,7 @@ cdef class term_parser:
             #print("->",text[cursor:])
             self.add_text_sequence(text[cursor:],timestamp,0)
     
-    cdef last_frame(self):
+    cdef last_self.terminal_graphics(self):
         self.add_text_sequence(self.extra_text,self.last_timestamp,0)
         self.extra_text=""
     

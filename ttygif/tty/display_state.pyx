@@ -59,3 +59,11 @@ cdef class display_state:
         self.cursor_x=position_x
         self.cursor_y=position_y
         self.check_bounds()
+
+    cdef cursor_save_position(self):
+        self.saved_cursor_x=self.cursor_x
+        self.saved_cursor_y=self.cursor_y
+
+    cdef cursor_restore_position(self):
+        self.cursor_x=self.saved_cursor_x
+        self.cursor_y=self.saved_cursor_y

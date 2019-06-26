@@ -16,13 +16,14 @@ cdef class terminal_emulator:
         self.init(width,height,char_width,char_height,debug)
 
     cdef init(self,width,height,char_width,char_height,debug):
-        self.parser          = term_parser(debug_mode=debug)
         
         self.terminal_graphics= terminal_graphics(character_width =char_width,
                                                  character_height=char_height,
                                                  viewport_width  =width,
                                                  viewport_height =height,
                                                  image_font=vga_font)
+
+        self.parser          = term_parser(debug_mode=debug,terminal_graphics=self.terminal_graphics)
 
    
     # this pre computes the regex into commands and stores into an array
