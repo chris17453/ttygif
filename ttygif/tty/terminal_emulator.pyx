@@ -33,7 +33,7 @@ class terminal_emulator:
    
     # this pre computes the regex into commands and stores into an array
     def add_event(self,event):
-        parser.add_event(event)
+        self.parser.add_event(event)
     
     def render(self):
         self.parser.render_to_buffer(terminal_graphics)
