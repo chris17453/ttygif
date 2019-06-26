@@ -96,7 +96,7 @@ cdef class term_parser:
             esc_type =event['esc_type']
             groups   =event['groups']
 
-            if   event['type']=='text': self.cmd_render_text()
+            if   event['type']=='text': self.cmd_render_text(event)
             elif esc_type=='OSC'      : self.procces_OSC()
             elif esc_type=='SINGLE'   : self.process_DSINGLE(groups[1])
             elif esc_type=='CHAR_SET' : self.process_CHAR_SET(groups[3])
