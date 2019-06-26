@@ -110,7 +110,7 @@ cdef match_color_index(r,g,b,palette):
 
     if mapped_color>255:
         #print color_distance
-        #raise Exception("Color value to high")
+        raise Exception("Color value to high")
 
     return mapped_color
 
