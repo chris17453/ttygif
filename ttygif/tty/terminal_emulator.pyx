@@ -42,7 +42,7 @@ cdef class terminal_emulator:
             'color_table'   : self.terminal_graphics.viewport.palette}
     
     cdef get_dimentions(self):
-        return self.terminal_graphics.viewport.dimentions()
+        return self.terminal_graphics.viewport.dimentions
 
     # TODO snapshot of a frame
     cdef save_screen(self):
