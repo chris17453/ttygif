@@ -14,4 +14,5 @@ cdef class terminal_emulator:
     cdef add_event(self,event)
     cdef render(self)
     cdef get(self)
+    cdef get_dimentions(self)
     cdef save_screen(self)

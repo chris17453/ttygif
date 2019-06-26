@@ -40,8 +40,10 @@ cdef class terminal_emulator:
             'height'        : self.terminal_graphics.viewport.dimentions.height,
             'data'          : array.copy(self.terminal_graphics.viewport.data),
             'color_table'   : self.terminal_graphics.viewport.palette}
-    cdef get_dimentions(delf):
+    
+    cdef get_dimentions(self):
         return self.terminal_graphics.viewport.dimentions()
+
     # TODO snapshot of a frame
     cdef save_screen(self):
         x=1
