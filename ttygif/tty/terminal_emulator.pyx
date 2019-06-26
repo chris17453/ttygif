@@ -34,7 +34,8 @@ cdef class terminal_emulator:
         parser.add_event(event)
     
     def render(self):
-        self.terminal_display.
+        self.parser.render_to_buffer(terminal_graphics)
+        self.terminal_graphics.render()
 
     # this is for returning screen data to other functions
     def get(self):
