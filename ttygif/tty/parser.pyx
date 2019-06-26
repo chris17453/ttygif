@@ -268,7 +268,7 @@ cdef class term_parser:
             self.terminal_graphics.state.cursor_restore_position()
 
         if mode==2:
-            self.terminal_graphics.viewport.clear(0)
+            self.terminal_graphics.viewport.clear(self.terminal_graphics.state.background)
 
     cdef cmd_erase_line(self,mode):
         self.terminal_graphics.state.cursor_save_position()

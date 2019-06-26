@@ -186,7 +186,7 @@ cdef class terminal_graphics:
     
     cdef render(self):
         #if None==self.underlay_flag:
-        self.viewport.clear(self.state.background);
+        #self.viewport.clear(self.state.background);
         cdef int fg =0
         cdef int bg =0
         cdef int x  =0
