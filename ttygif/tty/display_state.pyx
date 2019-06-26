@@ -31,20 +31,20 @@ cdef class display_state:
         #self.shift_buffer(buffer)
             #shift!buffer
 
-    cdef cursor_up(self):
-        self.cursor_y-=1
+    cdef cursor_up(self,int distance):
+        self.cursor_y-=distance
         self.check_bounds()
         
-    cdef cursor_down(self):
-        self.cursor_y+=1
+    cdef cursor_down(self,int distance):
+        self.cursor_y+=distance
         self.check_bounds()
     
-    cdef cursor_left(self):
-        self.cursor_x-=1
+    cdef cursor_left(self,int distance):
+        self.cursor_x-=distance
         self.check_bounds()
 
-    cdef cursor_right(self):
-        self.cursor_x+=1
+    cdef cursor_right(self,int distance):
+        self.cursor_x+=distance
         self.check_bounds()
 
     cdef cursor_absolute_x(self,position):
