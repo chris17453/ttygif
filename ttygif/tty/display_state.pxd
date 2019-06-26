@@ -1,3 +1,4 @@
+
 cdef class display_state:
     cdef public int             width
     cdef public int             height
@@ -5,7 +6,7 @@ cdef class display_state:
     cdef public int             cursor_y
     cdef public int             default_foreground
     cdef public int             default_background
-    cdef public int             foreround
+    cdef public int             foreground
     cdef public int             background
     cdef public object          reverse_video
     cdef public object          bold 
