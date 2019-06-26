@@ -97,7 +97,7 @@ cdef match_color_index(r,g,b,palette):
     cdef int mr
     cdef int mg
     cdef int mb
-
+    print r,g,b
     color_table_len=len(palette)
     for i in range(0,color_table_len,3):
         mr=palette[i]
