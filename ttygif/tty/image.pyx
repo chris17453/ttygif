@@ -55,7 +55,7 @@ cdef class image:
                     self.data[pos+i]=pixel[i]
             except Exception as ex:
                     print ex
-                    print x,y,pixel,pos,self.dimentions.bytes_per_pixel
+                    print x,y,pixel,pos,self.dimentions.bytes_per_pixel,len(self.data)
     
     cdef clear(self,int init_value):
         memset(self.data.data.as_voidptr, init_value, self.dimentions.length )
