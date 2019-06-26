@@ -26,7 +26,7 @@ cdef class display_state:
         if self.cursor_x>=self.width:
             self.cursor_x=self.width-1
             self.cursor_x=0
-            self.cursor_down()
+            self.cursor_down(1)
 
         #self.shift_buffer(buffer)
             #shift!buffer
