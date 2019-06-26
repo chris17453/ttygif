@@ -21,7 +21,7 @@ class gif_color_table:
             
     def read(self,entries):
         self.internal_position=self.stream.pos
-        self.colors=
+        self.colors=[]
         for i in range(0,entries*3):
             color  = self.stream.byte()
             self.colors.append(color)
@@ -31,7 +31,7 @@ class gif_color_table:
             self.stream.write_byte(color)
 
     def new(self,palette=None):
-        self.colors=
+        self.colors=[]
         if palette:
             self.colors=palette
         else:
