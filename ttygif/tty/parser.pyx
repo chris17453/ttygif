@@ -285,7 +285,7 @@ cdef class term_parser:
 
         self.terminal_graphics.state.restore_cursor_position()
 
-   cdef cmd_erase_characters(self,length):
+    cdef cmd_erase_characters(self,length):
         char_to_erase=length
         stride=self.viewport_char_width-x
         temp=[0,0,0]*stride
