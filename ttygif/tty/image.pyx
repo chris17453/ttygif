@@ -50,10 +50,10 @@ cdef class image:
         if self.dimentions.bytes_per_pixel==1:
             self.data[pos]=pixel
         else:
-            try
+            try:
                 for i in range(0,self.dimentions.bytes_per_pixel):
                     self.data[pos+i]=pixel[i]
-                except Exception as ex:
+            except Exception as ex:
                     print ex
                     print x,y,pixel,pos,self.dimentions.bytes_per_pixel
     
