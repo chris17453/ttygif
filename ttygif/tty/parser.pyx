@@ -6,12 +6,6 @@ import re
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 cdef class term_parser:
-    cdef object debug_mode
-    cdef object sequence
-    cdef int    sequence_pos
-    cdef object extra_text
-    cdef double last_timestamp
-
     def __init__(self,debug_mode=None):
         self.debug_mode=debug_mode
         self.sequence=[]
@@ -27,10 +21,10 @@ cdef class term_parser:
             print(self.ascii_safe(text))
 
 
-    def clear_sequence(self):
+    cdef clear_sequence(self):
         self.sequence=[]
     
-    def rgb_to_palette(self,r,g,b):
+    cdef rgb_to_palette(self,r,g,b):
         last_distance=-1
         mappeded_color=-1
 
@@ -90,7 +84,7 @@ cdef class term_parser:
             return character
         return unichr(c)
 
-    def set_mode(self,cmd):
+    cdef set_mode(self,cmd):
         dm=self.debug_mode
         self.debug_mode=None
         if cmd==0:
@@ -142,7 +136,7 @@ cdef class term_parser:
                 self.info("Set High INTENSITY BG")
         self.debug_mode=dm
 
-    def reset_mode(self,cmd):
+    cdef reset_mode(self,cmd):
         if cmd==0:
             self.fg=self.def_fg
             self.bg=self.def_bg
@@ -157,7 +151,7 @@ cdef class term_parser:
         elif cmd==7:
             self.reverse_video=None
 
-    cdef sequence_to_buffer(self,terminal_graphics frame):
+    cdef render_to_buffer(self,terminal_graphics frame):
         
         cdef int pos=0
         cdef int cursor = 0
@@ -483,19 +477,19 @@ cdef class term_parser:
             #print("->",text[cursor:])
             self.add_text_sequence(text[cursor:],timestamp,0)
     
-    def last_frame(self):
+    cdef last_frame(self):
         self.add_text_sequence(self.extra_text,self.last_timestamp,0)
         self.extra_text=""
     
 
 
-    def has_escape(self,text):
+    cdef has_escape(self,text):
         for i in text:
             if ord(i)==0x1B:
                 return True
         return None    
     
-    def add_event(self,event):
+    cdef add_event(self,event):
         timestamp=round(float(event[0]),3)
         event_type=event[1]
         event_io=event[2]
@@ -511,7 +505,7 @@ cdef class term_parser:
             self.stream_2_sequence(self.extra_text+event_io,timestamp,0)
             self.last_timestamp=timestamp
         
-    def add_text_sequence(self,text,timestamp,delay):
+    cdef add_text_sequence(self,text,timestamp,delay):
         if len(text)==0:
             return
         #print "1",text
@@ -526,7 +520,7 @@ cdef class term_parser:
         #    self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp,'delay':delay})
 
-    def add_command_sequence(self,esc_type,command,params,groups,name,timestamp,delay):
+    cdef add_command_sequence(self,esc_type,command,params,groups,name,timestamp,delay):
         #if self.debug_mode:
         #    self.info("CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(
         #                                        esc_type,
@@ -536,7 +530,7 @@ cdef class term_parser:
         #                                        timestamp))
         self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name,'timestamp':timestamp,'delay':delay})
 
-    def debug_sequence(self):
+    cdef debug_sequence(self):
         print ("============")
         print ("Sequence List")
         print ("Count:{0}".format(len(self.sequence)))
