@@ -1,7 +1,7 @@
 from cpython cimport array
 from libc.string cimport memset
 
-from .graphics cimport match_color_index
+from .graphics cimport match_color_index create_default_palette
 from .image cimport image
 from .font cimport font
 from .display_state cimport display_state
@@ -34,9 +34,10 @@ cdef class terminal_graphics:
             char_width  = viewport_width  / image_font.font_height
             char_height = viewport_height / image_font.font_width
             
+        palette=create_default_palette()
         self.state           = display_state(char_width,char_height)
-        self.character_buffer= image(width= char_width ,height= char_height ,init_value=0                    ,bytes_per_pixel=3)
-        self.viewport        = image(width= px_width   ,height= px_height   ,init_value=self.state.background,bytes_per_pixel=1)
+        self.character_buffer= image(3,char_width ,char_height ,palette,0                    )
+        self.viewport        = image(1,px_width   ,px_height   ,palette,self.state.background)
 
 
         # set default screen state
