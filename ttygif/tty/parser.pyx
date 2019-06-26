@@ -6,7 +6,7 @@ import re
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 cdef class term_parser:
-    def __init__(self,debug_mode=None,terminal_graphics terminal_graphics):
+    def __init__(self,terminal_graphics terminal_graphics,debug_mode=None):
         self.debug_mode=debug_mode
         self.sequence=[]
         self.sequence_pos=0
@@ -97,7 +97,7 @@ cdef class term_parser:
             groups   =event['groups']
 
             if   event['type']=='text': self.cmd_render_text(event)
-            elif esc_type=='OSC'      : self.procces_OSC()
+            elif esc_type=='OSC'      : self.procces_OSC(groups)
             elif esc_type=='SINGLE'   : self.process_DSINGLE(groups[1])
             elif esc_type=='CHAR_SET' : self.process_CHAR_SET(groups[3])
             elif esc_type=='G0'       : self.process_G0(groups[5])
@@ -106,7 +106,7 @@ cdef class term_parser:
         self.sequence_pos=new_sequence_pos
 
     # TODO STUBS
-    cdef procces_OSC(self):
+    cdef procces_OSC(self,groups):
         self.info(groups)
 
     cdef process_DSINGLE(self,groups):
