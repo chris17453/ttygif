@@ -285,23 +285,24 @@ cdef class term_parser:
 
         self.terminal_graphics.state.restore_cursor_position()
 
-    cdef cmd_erase_characters(self,length):
-        char_to_erase=length
-        stride=self.viewport_char_width-x
-        temp=[0,0,0]*stride
-        for x2 in range(x,stride-char_to_erase):
-            t=(x2-x)*3
-            b=(char_to_erase+x2)*3  +y*self.viewport_char_stride
-            temp[t+0]=buffer[b+0]
-            temp[t+1]=buffer[b+1]
-            temp[t+2]=buffer[b+2]
+    cdef cmd_erase_characters(self,distance):
+        temp=[]
 
-        for x2 in range(x,stride):
-            t=(x2-x)*3
-            b=x2*3+y*self.viewport_char_stride
-            buffer[b+0]=temp[t+0]
-            buffer[b+1]=temp[t+1]
-            buffer[b+2]=temp[t+2]
+        cdef int x=self.terminal_graphics.state.cursor_x
+        cdef int y=self.terminal_graphics.state.cursor_y
+        cdef int width=self.terminal_graphics.state.width
+        temp=[]
+        #copy elements to buffer
+        for x2 in range(x+distance,width):
+            temp.append(self.terminal_graphics.character_buffer.get_pixel(x2,y))
+        # Move line over x ammount
+        for x2 in range(0,width-x-distance):
+            c=temp[c]
+            self.terminal_graphics.character_buffer.put_pixel(x2+x,y,c)
+        # clear the end of the line
+        for x2 in range(width-distance,width):
+            c=[self.terminal_graphics.state.foreground,self.terminal_graphics.state.background,0]
+            self.terminal_graphics.character_buffer.put_pixel(x2,y,c)
 
     cdef cmd_del_characters(self,length):
         self.terminal_graphics.state.save_cursor_position()
