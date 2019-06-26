@@ -21,7 +21,9 @@ class terminal_emulator:
     def __init__(self,width=640,height=480,char_width=None,char_height=None,debug=None):
         self.debug_mode      =debug
         self.underlay_fag    =None
-        
+        self.init(width,height,char_width,char_height,debug)
+
+    cdef  init(self,width=640,height=480,char_width=None,char_height=None,debug=None):
         self.parser          = term_parser(debug_mode=debug)
         
         self.terminal_display= terminal_graphics(character_width =char_width,
