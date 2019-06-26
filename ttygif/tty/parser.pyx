@@ -1,4 +1,4 @@
-
+from .term_graphics cimport term_graphics
 import re
 
 
@@ -157,7 +157,7 @@ cdef class term_parser:
         elif cmd==7:
             self.reverse_video=None
 
-    cdef sequence_to_buffer(self,term_frame frame):
+    cdef sequence_to_buffer(self,term_graphics frame):
         
         cdef int pos=0
         cdef int cursor = 0
