@@ -46,7 +46,7 @@ build: bump
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 	@python setup.py build_ext --inplace sdist  --dist-dir builds/pypi/  --build-cython
 	# @$(MAKE) -f $(THIS_FILE) standalone
-	@$(MAKE) -f $(THIS_FILE) unittest
+	#@$(MAKE) -f $(THIS_FILE) unittest
 
 standalone:
 	@pyinstaller ttygif.spec
