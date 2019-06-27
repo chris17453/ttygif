@@ -211,16 +211,17 @@ cdef class term_parser:
     cdef cmd_render_text(self,event):
         for character in event['data']:
             char_ord=ord(character)
-            if char_ord<32:
-                if char_ord==0x08:
-                    self.terminal_graphics.state.cursor_left(1)
-                if char_ord==0x0A:
-                    self.terminal_graphics.state.cursor_absolute_x(0)
-                    self.terminal_graphics.state.cursor_down(1)
+
+            if char_ord==0x08:
+                self.terminal_graphics.state.cursor_left(1)
+            elif char_ord==0x0A:
+                self.terminal_graphics.state.cursor_absolute_x(0)
+                self.terminal_graphics.state.cursor_down(1)
+            elif char_ord<32:
                 self.terminal_graphics.state.cursor_right(1)
-                continue
-            self.terminal_graphics.write(char_ord)
-            self.terminal_graphics.state.cursor_right(1)
+            else:
+                self.terminal_graphics.write(char_ord)
+                self.terminal_graphics.state.cursor_right(1)
 
 
     cdef cmd_cursor_up(self,distance):
