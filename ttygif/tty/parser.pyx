@@ -300,7 +300,7 @@ cdef class term_parser:
             temp.append(self.terminal_graphics.character_buffer.get_pixel(x2,y))
         # Move line over x ammount
         for x2 in range(0,width-x-distance):
-            c=temp[c]
+            c=temp[x2]
             self.terminal_graphics.character_buffer.put_pixel(x2+x,y,c)
         # clear the end of the line
         for x2 in range(width-distance,width):
