@@ -138,7 +138,7 @@ cdef class term_parser:
         elif command=='H':  self.cmd_absolute_pos(params[1]-1,params[0]-1)
         elif command=='J':  self.cmd_erase_display(params[0])
         elif command=='K':  self.cmd_erase_line(params[0])
-        elif command=='P':  self.cmd_erase_chaaracters(params[0])
+        elif command=='P':  self.cmd_erase_characters(params[0])
         elif command=='X':  self.cmd_del_characters(params[0])
         elif command=='`':  self.cmd_absolute_x(params[0]-1)
         elif command=='d':  self.cmd_vert_pos(params[0]-1)
