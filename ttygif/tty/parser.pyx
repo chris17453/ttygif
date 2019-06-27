@@ -290,7 +290,6 @@ cdef class term_parser:
 
     cdef cmd_erase_characters(self,distance):
         temp=[]
-
         cdef int x=self.terminal_graphics.state.cursor_x
         cdef int y=self.terminal_graphics.state.cursor_y
         cdef int width=self.terminal_graphics.state.width
