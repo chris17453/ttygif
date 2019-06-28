@@ -76,3 +76,6 @@ examples:
 
 tetris:
 	@python -m ttygif.cli --input assets/cast/232377.cast --output assets/encode/232377.gif --fps 12
+
+caca:
+	@python -m ttygif.cli --input assets/cast/687.cast --output assets/encode/687.gif --fps 12

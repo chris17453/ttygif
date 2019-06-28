@@ -127,31 +127,83 @@ cdef class term_parser:
         self.info(groups)
 
     cdef process_CSI(self,command,params):
-        if   command=='m':  self.cmd_process_colors(params)
-        elif command=='A':  self.cmd_cursor_up(params[0])
-        elif command=='B':  self.cmd_cursor_down(params[0])
-        elif command=='C':  self.cmd_cursor_right(params[0])
-        elif command=='D':  self.cmd_cursor_left(params[0])
-        elif command=='E':  self.cmd_next_line(params[0])
-        elif command=='F':  self.cmd_previous_line(params[0])
-        elif command=='G':  self.cmd_absolute_x(params[0]-1)
-        elif command=='H':  self.cmd_absolute_pos(params[1]-1,params[0]-1)
-        elif command=='J':  self.cmd_erase_display(params[0])
-        elif command=='K':  self.cmd_erase_line(params[0])
-        elif command=='P':  self.cmd_erase_characters(params[0])
-        elif command=='X':  self.cmd_del_characters(params[0])
-        elif command=='`':  self.cmd_absolute_x(params[0]-1)
-        elif command=='d':  self.cmd_vert_pos(params[0]-1)
-        elif command=='f':  self.cmd_absolute_pos(params[1]-1,params[0]-1)
+
+        #    x  A   CUU       Move cursor up the indicated # of rows.
+        #    x  B   CUD       Move cursor down the indicated # of rows.
+        #    x  C   CUF       Move cursor right the indicated # of columns.
+        #    x  D   CUB       Move cursor left the indicated # of columns.
+        #    x  E   CNL       Move cursor down the indicated # of rows, to column 1.
+        #    x  F   CPL       Move cursor up the indicated # of rows, to column 1.
+        #    x  G   CHA       Move cursor to indicated column in current row.
+        #    x  H   CUP       Move cursor to the indicated row, column (origin at 1,1).
+        #    x  J   ED        Erase display (default: from cursor to end of display).
+        #    x                ESC [ 1 J: erase from start to cursor.
+        #    x                ESC [ 2 J: erase whole display.
+        #    x                ESC [ 3 J: erase whole display including scroll-back
+        #    x                           buffer (since Linux 3.0).
+        #    x  K   EL        Erase line (default: from cursor to end of line).
+        #    x                ESC [ 1 K: erase from start of line to cursor.
+        #    x                ESC [ 2 K: erase whole line.
+        #    x  L   IL        Insert the indicated # of blank lines.
+        #    x  P   DCH       Delete the indicated # of characters on current line.
+        #    x  X   ECH       Erase the indicated # of characters on current line.
+        #    x  d   VPA       Move cursor to the indicated row, current column.
+        #    x  f   HVP       Move cursor to the indicated row, column.
+        #    y  h   SM        Set Mode (see below).
+        #    y  l   RM        Reset Mode (see below).
+        #    x  m   SGR       Set attributes (see below).
+        #    x  `   HPA       Move cursor to indicated column in current row.
+        #    x  s   ?         Save cursor location.
+        #    x  u   ?         Restore cursor location.
+        #       @   ICH       Insert the indicated # of blank characters.
+        #       M   DL        Delete the indicated # of lines.
+        #       a   HPR       Move cursor right the indicated # of columns.
+        #       c   DA        Answer ESC [ ? 6 c: "I am a VT102".
+        #       e   VPR       Move cursor down the indicated # of rows.
+        #       g   TBC       Without parameter: clear tab stop at current position.
+        #                     ESC [ 3 g: delete all tab stops.
+        #       n   DSR       Status report (see below).
+        #       q   DECLL     Set keyboard LEDs.
+        #                     ESC [ 0 q: clear all LEDs
+        #                     ESC [ 1 q: set Scroll Lock LED
+        #                     ESC [ 2 q: set Num Lock LED
+        #                     ESC [ 3 q: set Caps Lock LED
+        #       r   DECSTBM   Set scrolling region; parameters are top and bottom row.
+        value=parms[0]
+        if   command=='A':  self.cmd_CUU(value)
+        elif command=='B':  self.cmd_CUD(value)
+        elif command=='C':  self.cmd_CUF(value)
+        elif command=='D':  self.cmd_CUB(value)
+        elif command=='E':  self.cmd_CNL(value)
+        elif command=='F':  self.cmd_CPL(value)
+        elif command=='G':  self.cmd_CHA(value-1)
+        elif command=='H':  self.cmd_CUP(params[1]-1,value-1)
+        elif command=='J':  self.cmd_ED(value)
+        elif command=='K':  self.cmd_EL(value)
+        elif command=='P':  self.cmd_DCH(value)
+        elif command=='X':  self.cmd_ECH(value)
+        elif command=='d':  self.cmd_VPA(value-1)
+        elif command=='f':  self.cmd_HPV(params[1]-1,value-1)
         elif command=='h':  self.cmd_set_mode(params)
-        elif command=='l':  self.cmd_reset_mode(params[0])
+        elif command=='l':  self.cmd_reset_mode(value)
+        elif command=='m':  self.cmd_process_colors(params)
+        elif command=='s':  self.cmd_SCP(value)
+        elif command=='u':  self.cmd_RCP(value)
+        elif command=='`':  self.cmd_HPA(value-1)
         #elif command=='e': 
         #    if self.debug_mode:
-        #        self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(params[0],x,y))
-        #    y+=params[0]
+        #        self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(value,x,y))
+        #    y+=value
         
         else: self.info("Impliment: {0}-{1}".format(command,params))
-        
+
+    cdef cmd_SCP(self):
+        self.g.cursor_save_position()
+
+    cdef cmd_RCP(self):
+        self.g.cursor_restore_position()
+
+
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
             self.g.state.set_foreground(self.g.state.default_foreground)
@@ -224,39 +276,46 @@ cdef class term_parser:
                 self.g.state.cursor_right(1)
 
 
-    cdef cmd_cursor_up(self,distance):
+    cdef cmd_CUU(self,distance):
         self.g.state.cursor_up(distance)
 
-    cdef cmd_cursor_down(self,distance):
+    cdef cmd_CUD(self,distance):
         self.g.state.cursor_down(distance)
 
-    cdef cmd_cursor_left(self,distance):
+    cdef cmd_CUB(self,distance):
         self.g.state.cursor_left(distance)
 
-    cdef cmd_cursor_right(self,distance):
+    cdef cmd_CUF(self,distance):
         self.g.state.cursor_right(distance)
 
-    cdef cmd_previous_line(self,distance):
+    cdef cmd_CPL(self,distance):
         self.g.state.cursor_absolute_x(0)
         self.g.state.cursor_up(distance)
 
-    cdef cmd_next_line(self,distance):
+    cdef cmd_CNL(self,distance):
         self.g.state.cursor_absolute_x(0)
         self.g.state.cursor_up(distance)
 
-    cdef cmd_absolute_x(self,x):
+    cdef cmd_CHA(self,x):
         self.g.state.cursor_absolute_x(x)
 
     
-    cdef cmd_absolute_pos(self,x,y):
+    cdef cmd_CUP(self,x,y):
+        self.g.state.cursor_absolute(x,y)
+    
+    cdef cmd_HPV(self,x,y):
+
         self.g.state.cursor_absolute(x,y)
 
-    cdef cmd_vert_pos(self,position):
+    cdef cmd_HPA(self,x,y):
+        self.g.state.cursor_absolute_x(x)
+
+    cdef cmd_VPA(self,position):
         self.g.state.cursor_absolute(0,position)
 
-    cdef cmd_erase_display(self,mode):
+    cdef cmd_ED(self,mode):
         if mode==0:
-            self.g.state.cursor_save_position()
+            cp=self.g.state.cursor_get_position()
             for x in range(0,self.g.state.cursor_x+1):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
@@ -264,9 +323,9 @@ cdef class term_parser:
                 for x in range(0,self.g.state.width):
                     self.g.state.cursor_absolute(x,y)
                     self.g.write(0)
-            self.g.state.cursor_restore_position()
+            self.g.state.cursor_absolute(cp[0],cp[1])
         if mode==1:
-            self.g.state.cursor_save_position()
+            cp=self.g.state.cursor_get_position()
             for x in range(self.g.state.cursor_x,self.g.state.width):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
@@ -276,30 +335,29 @@ cdef class term_parser:
                     self.g.state.cursor_absolute(x,y)
                     self.g.write(0)
 
-            self.g.state.cursor_restore_position()
+            self.g.state.cursor_absolute(cp[0],cp[1])
 
         if mode==2:
             self.g.character_buffer.clear(self.g.state.background)
 
-    cdef cmd_erase_line(self,mode):
-        self.g.state.cursor_save_position()
+    cdef cmd_EL(self,mode):
+        cp=self.g.state.cursor_get_position()
 
         if mode==0:
             for x in range(self.g.state.cursor_x,self.g.state.width):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
         elif mode==1:
-            for x in range(0,self.g.state.cursor_x):
+            for x in range(0,self.g.state.cursor_x+1):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
         elif mode==2:
             for x in range(0,self.g.state.width):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
+        self.g.state.cursor_absolute(cp[0],cp[1])
 
-        self.g.state.cursor_restore_position()
-
-    cdef cmd_erase_characters(self,distance):
+    cdef cmd_ECH(self,distance):
         temp=[]
         cdef int x=self.g.state.cursor_x
         cdef int y=self.g.state.cursor_y
@@ -321,14 +379,15 @@ cdef class term_parser:
             c=[self.g.state.foreground,self.g.state.background,0]
             self.g.character_buffer.put_pixel(x2,y,c)
 
-    cdef cmd_del_characters(self,length):
-        self.g.state.cursor_save_position()
+    cdef cmd_DCH(self,length):
+        cp=self.g.state.cursor_get_position()
         for x in range(self.g.state.cursor_x,self.g.state.cursor_x+length):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
-        self.g.state.cursor_restore_position()
+        self.g.state.cursor_absolute(cp[0],cp[1])
 
 
+    
     cdef stream_2_sequence(self,text,timestamp,delay):
          
         # patterns for filtering out commands from the stream
