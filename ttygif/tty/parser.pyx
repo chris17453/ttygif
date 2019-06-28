@@ -257,19 +257,29 @@ cdef class term_parser:
     cdef cmd_erase_display(self,mode):
         if mode==0:
             self.terminal_graphics.state.cursor_save_position()
-            for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.width):
-                self.terminal_graphics.state.cursor_absolute_x(x)
-                self.terminal_graphics.write(0)
-            self.terminal_graphics.state.cursor_restore_position()
-        if mode==1:
-            self.terminal_graphics.state.cursor_save_position()
             for x in range(0,self.terminal_graphics.state.cursor_x+1):
                 self.terminal_graphics.state.cursor_absolute_x(x)
                 self.terminal_graphics.write(0)
+            for y in range(0,self.terminal_graphics.state.cursor_y)
+                for x in range(0,self.terminal_graphics.state.width):
+                    self.terminal_graphics.state.cursor_absolute(x,y)
+                    self.terminal_graphics.write(0)
+            self.terminal_graphics.state.cursor_restore_position()
+        if mode==1:
+            self.terminal_graphics.state.cursor_save_position()
+            for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.width):
+                self.terminal_graphics.state.cursor_absolute_x(x)
+                self.terminal_graphics.write(0)
+
+            for y in range(self.terminal_graphics.state.cursor_y+1,self.terminal_graphics.state.height)
+                for x in range(0,self.terminal_graphics.state.width):
+                    self.terminal_graphics.state.cursor_absolute(x,y)
+                    self.terminal_graphics.write(0)
+
             self.terminal_graphics.state.cursor_restore_position()
 
         if mode==2:
-            self.terminal_graphics.viewport.clear(self.terminal_graphics.state.background)
+            self.terminal_graphics.character_buffer.clear(self.terminal_graphics.state.background)
 
     cdef cmd_erase_line(self,mode):
         self.terminal_graphics.state.cursor_save_position()

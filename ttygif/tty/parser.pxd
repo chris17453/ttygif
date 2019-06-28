@@ -8,7 +8,7 @@ cdef class term_parser:
     cdef object            sequence
     cdef int               sequence_pos
     cdef object            extra_text
-    cdef terminal_graphics terminal_graphics
+    cdef terminal_graphics g
     cdef double            last_timestamp
     
 
