@@ -169,7 +169,7 @@ cdef class term_parser:
         #                     ESC [ 2 q: set Num Lock LED
         #                     ESC [ 3 q: set Caps Lock LED
         #       r   DECSTBM   Set scrolling region; parameters are top and bottom row.
-        value=parms[0]
+        value=params[0]
         if   command=='A':  self.cmd_CUU(value)
         elif command=='B':  self.cmd_CUD(value)
         elif command=='C':  self.cmd_CUF(value)
