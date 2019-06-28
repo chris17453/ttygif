@@ -260,7 +260,7 @@ cdef class term_parser:
             for x in range(0,self.terminal_graphics.state.cursor_x+1):
                 self.terminal_graphics.state.cursor_absolute_x(x)
                 self.terminal_graphics.write(0)
-            for y in range(0,self.terminal_graphics.state.cursor_y)
+            for y in range(0,self.terminal_graphics.state.cursor_y):
                 for x in range(0,self.terminal_graphics.state.width):
                     self.terminal_graphics.state.cursor_absolute(x,y)
                     self.terminal_graphics.write(0)
@@ -271,7 +271,7 @@ cdef class term_parser:
                 self.terminal_graphics.state.cursor_absolute_x(x)
                 self.terminal_graphics.write(0)
 
-            for y in range(self.terminal_graphics.state.cursor_y+1,self.terminal_graphics.state.height)
+            for y in range(self.terminal_graphics.state.cursor_y+1,self.terminal_graphics.state.height):
                 for x in range(0,self.terminal_graphics.state.width):
                     self.terminal_graphics.state.cursor_absolute(x,y)
                     self.terminal_graphics.write(0)
