@@ -40,7 +40,7 @@ cdef class term_parser:
     cdef cmd_ED(self,mode)
     cdef cmd_EL(self,mode)
     cdef cmd_ECH(self,distance)
-    cdef cmd_DCH(self,length)
+    cdef cmd_DCH(self,distance)
     cdef cmd_HPV(self,x,y)
     cdef cmd_HPA(self,x)
     cdef cmd_SCP(self)

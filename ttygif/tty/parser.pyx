@@ -347,10 +347,8 @@ cdef class term_parser:
         cdef int width=self.g.state.width
         temp=[]
         #copy elements to buffer
-        print x,y,distance
         for x2 in range(x+distance,width):
             temp.append(self.g.character_buffer.get_pixel(x2,y))
-        print len(temp)
 
         # Move line over x ammount
         for x2 in range(0,len(temp)):
@@ -359,7 +357,7 @@ cdef class term_parser:
             self.g.character_buffer.put_pixel(x2+x,y,c)
         # clear the end of the line
         for x2 in range(width-distance,width):
-            c=[self.g.state.foreground,self.g.state.background,0]
+            c=[self.g.state.foreground,15,32]
             self.g.character_buffer.put_pixel(x2,y,c)
 
     cdef cmd_ECH(self,distance):
