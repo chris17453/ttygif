@@ -12,7 +12,7 @@ cdef class term_parser:
         self.sequence_pos=0
         self.last_timestamp=0
         self.extra_text=""
-        self.terminal_graphics=terminal_graphics
+        self.g=terminal_graphics
 
     cdef ascii_safe(self,text):
         return ''.join([i if ord(i) < 128 else '*' for i in text])
@@ -27,7 +27,7 @@ cdef class term_parser:
     cdef rgb_to_palette(self,r,g,b):
         last_distance=-1
         mappeded_color=-1
-        palette=self.terminal_graphics.character_buffer.palette
+        palette=self.g.character_buffer.palette
         for i in range(0,len(palette),3):
             mr=palette[i]
             mg=palette[i+1]
@@ -154,56 +154,56 @@ cdef class term_parser:
         
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
-            self.terminal_graphics.state.set_foreground(self.terminal_graphics.state.default_foreground)
-            self.terminal_graphics.state.set_background(self.terminal_graphics.state.default_background)
-            self.terminal_graphics.state.bold=None
-            self.terminal_graphics.state.reverse_video=None
+            self.g.state.set_foreground(self.g.state.default_foreground)
+            self.g.state.set_background(self.g.state.default_background)
+            self.g.state.bold=None
+            self.g.state.reverse_video=None
         elif cmd==1:
-            self.terminal_graphics.state.bold=True
+            self.g.state.bold=True
         elif cmd==7:
-            self.terminal_graphics.state.reverse_video=True
+            self.g.state.reverse_video=True
         elif cmd==27:
-            self.terminal_graphics.state.reverse_video=None
+            self.g.state.reverse_video=None
         elif cmd>=30 and cmd<=37:
-            self.terminal_graphics.state.set_foreground(cmd-30)
-            if self.terminal_graphics.state.bold:
-                self.terminal_graphics.state.set_foreground(self.terminal_graphics.state.foreground+8)
+            self.g.state.set_foreground(cmd-30)
+            if self.g.state.bold:
+                self.g.state.set_foreground(self.g.state.foreground+8)
         elif cmd==39:
-            self.terminal_graphics.state.set_foreground(self.terminal_graphics.state.default_foreground)
+            self.g.state.set_foreground(self.g.state.default_foreground)
         elif cmd>=40 and cmd<=47:
-            self.terminal_graphics.state.background=cmd-40
-            if self.terminal_graphics.state.bold:
-                self.terminal_graphics.state.set_background(self.terminal_graphics.state.backround+8)
+            self.g.state.background=cmd-40
+            if self.g.state.bold:
+                self.g.state.set_background(self.g.state.backround+8)
         elif cmd==49:
-            self.terminal_graphics.state.set_background(self.terminal_graphics.state.default_background)
+            self.g.state.set_background(self.g.state.default_background)
         elif cmd>=90 and cmd<=97:
-            self.terminal_graphics.state.set_foreground(cmd-90+8)
+            self.g.state.set_foreground(cmd-90+8)
         elif cmd>=100 and cmd<=107:
-            self.terminal_graphics.state.set_background(cmd-100+8)
+            self.g.state.set_background(cmd-100+8)
 
     cdef cmd_reset_mode(self,cmd):
         if cmd==0:
-            self.terminal_graphics.state.set_foreground(self.terminal_graphics.state.default_foreground)
-            self.terminal_graphics.state.set_background(self.terminal_graphics.state.default_background)
-            self.terminal_graphics.state.bold=None
-            self.terminal_graphics.state.reverse_video=None
+            self.g.state.set_foreground(self.g.state.default_foreground)
+            self.g.state.set_background(self.g.state.default_background)
+            self.g.state.bold=None
+            self.g.state.reverse_video=None
         elif cmd==1:
-            self.terminal_graphics.state.bold=None
+            self.g.state.bold=None
         elif cmd==7:
-            self.terminal_graphics.state.reverse_video=None
+            self.g.state.reverse_video=None
 
 
     cdef cmd_process_colors(self,params):
         if 38 in params:
             if params[1]==2:
-                self.terminal_graphics.foreground_from_rgb(params[2],params[3],params[4])
+                self.g.foreground_from_rgb(params[2],params[3],params[4])
             if params[1]==5:
-                self.terminal_graphics.set_foreground(params[2])
+                self.g.set_foreground(params[2])
         elif 48 in params:
                 if params[1]==2:
-                    self.terminal_graphics.background_from_rgb(params[2],params[3],params[4])
+                    self.g.background_from_rgb(params[2],params[3],params[4])
                 if params[1]==5:
-                    self.terminal_graphics.set_background(params[2])
+                    self.g.set_background(params[2])
         else:
             for cmd in params:
                 self.cmd_set_mode(cmd)
@@ -213,116 +213,116 @@ cdef class term_parser:
             char_ord=ord(character)
 
             if char_ord==0x08:
-                self.terminal_graphics.state.cursor_left(1)
+                self.g.state.cursor_left(1)
             elif char_ord==0x0A:
-                self.terminal_graphics.state.cursor_absolute_x(0)
-                self.terminal_graphics.state.cursor_down(1)
+                self.g.state.cursor_absolute_x(0)
+                self.g.state.cursor_down(1)
             elif char_ord<32:
-                self.terminal_graphics.state.cursor_right(1)
+                self.g.state.cursor_right(1)
             else:
-                self.terminal_graphics.write(char_ord)
-                self.terminal_graphics.state.cursor_right(1)
+                self.g.write(char_ord)
+                self.g.state.cursor_right(1)
 
 
     cdef cmd_cursor_up(self,distance):
-        self.terminal_graphics.state.cursor_up(distance)
+        self.g.state.cursor_up(distance)
 
     cdef cmd_cursor_down(self,distance):
-        self.terminal_graphics.state.cursor_down(distance)
+        self.g.state.cursor_down(distance)
 
     cdef cmd_cursor_left(self,distance):
-        self.terminal_graphics.state.cursor_left(distance)
+        self.g.state.cursor_left(distance)
 
     cdef cmd_cursor_right(self,distance):
-        self.terminal_graphics.state.cursor_right(distance)
+        self.g.state.cursor_right(distance)
 
     cdef cmd_previous_line(self,distance):
-        self.terminal_graphics.state.cursor_absolute_x(0)
-        self.terminal_graphics.state.cursor_up(distance)
+        self.g.state.cursor_absolute_x(0)
+        self.g.state.cursor_up(distance)
 
     cdef cmd_next_line(self,distance):
-        self.terminal_graphics.state.cursor_absolute_x(0)
-        self.terminal_graphics.state.cursor_up(distance)
+        self.g.state.cursor_absolute_x(0)
+        self.g.state.cursor_up(distance)
 
     cdef cmd_absolute_x(self,x):
-        self.terminal_graphics.state.cursor_absolute_x(x)
+        self.g.state.cursor_absolute_x(x)
 
     
     cdef cmd_absolute_pos(self,x,y):
-        self.terminal_graphics.state.cursor_absolute(x,y)
+        self.g.state.cursor_absolute(x,y)
 
     cdef cmd_vert_pos(self,position):
-        self.terminal_graphics.state.cursor_absolute(0,position)
+        self.g.state.cursor_absolute(0,position)
 
     cdef cmd_erase_display(self,mode):
         if mode==0:
-            self.terminal_graphics.state.cursor_save_position()
-            for x in range(0,self.terminal_graphics.state.cursor_x+1):
-                self.terminal_graphics.state.cursor_absolute_x(x)
-                self.terminal_graphics.write(0)
-            for y in range(0,self.terminal_graphics.state.cursor_y):
-                for x in range(0,self.terminal_graphics.state.width):
-                    self.terminal_graphics.state.cursor_absolute(x,y)
-                    self.terminal_graphics.write(0)
-            self.terminal_graphics.state.cursor_restore_position()
+            self.g.state.cursor_save_position()
+            for x in range(0,self.g.state.cursor_x+1):
+                self.g.state.cursor_absolute_x(x)
+                self.g.write(0)
+            for y in range(0,self.g.state.cursor_y):
+                for x in range(0,self.g.state.width):
+                    self.g.state.cursor_absolute(x,y)
+                    self.g.write(0)
+            self.g.state.cursor_restore_position()
         if mode==1:
-            self.terminal_graphics.state.cursor_save_position()
-            for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.width):
-                self.terminal_graphics.state.cursor_absolute_x(x)
-                self.terminal_graphics.write(0)
+            self.g.state.cursor_save_position()
+            for x in range(self.g.state.cursor_x,self.g.state.width):
+                self.g.state.cursor_absolute_x(x)
+                self.g.write(0)
 
-            for y in range(self.terminal_graphics.state.cursor_y+1,self.terminal_graphics.state.height):
-                for x in range(0,self.terminal_graphics.state.width):
-                    self.terminal_graphics.state.cursor_absolute(x,y)
-                    self.terminal_graphics.write(0)
+            for y in range(self.g.state.cursor_y+1,self.g.state.height):
+                for x in range(0,self.g.state.width):
+                    self.g.state.cursor_absolute(x,y)
+                    self.g.write(0)
 
-            self.terminal_graphics.state.cursor_restore_position()
+            self.g.state.cursor_restore_position()
 
         if mode==2:
-            self.terminal_graphics.character_buffer.clear(self.terminal_graphics.state.background)
+            self.g.character_buffer.clear(self.g.state.background)
 
     cdef cmd_erase_line(self,mode):
-        self.terminal_graphics.state.cursor_save_position()
+        self.g.state.cursor_save_position()
 
         if mode==0:
-            for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.width):
-                self.terminal_graphics.state.cursor_absolute_x(x)
-                self.terminal_graphics.write(0)
+            for x in range(self.g.state.cursor_x,self.g.state.width):
+                self.g.state.cursor_absolute_x(x)
+                self.g.write(0)
         elif mode==1:
-            for x in range(0,self.terminal_graphics.state.cursor_x):
-                self.terminal_graphics.state.cursor_absolute_x(x)
-                self.terminal_graphics.write(0)
+            for x in range(0,self.g.state.cursor_x):
+                self.g.state.cursor_absolute_x(x)
+                self.g.write(0)
         elif mode==2:
-            for x in range(0,self.terminal_graphics.state.width):
-                self.terminal_graphics.state.cursor_absolute_x(x)
-                self.terminal_graphics.write(0)
+            for x in range(0,self.g.state.width):
+                self.g.state.cursor_absolute_x(x)
+                self.g.write(0)
 
-        self.terminal_graphics.state.cursor_restore_position()
+        self.g.state.cursor_restore_position()
 
     cdef cmd_erase_characters(self,distance):
         temp=[]
-        cdef int x=self.terminal_graphics.state.cursor_x
-        cdef int y=self.terminal_graphics.state.cursor_y
-        cdef int width=self.terminal_graphics.state.width
+        cdef int x=self.g.state.cursor_x
+        cdef int y=self.g.state.cursor_y
+        cdef int width=self.g.state.width
         temp=[]
         #copy elements to buffer
         for x2 in range(x+distance,width):
-            temp.append(self.terminal_graphics.character_buffer.get_pixel(x2,y))
+            temp.append(self.g.character_buffer.get_pixel(x2,y))
         # Move line over x ammount
         for x2 in range(0,width-x-distance):
             c=temp[x2]
-            self.terminal_graphics.character_buffer.put_pixel(x2+x,y,c)
+            self.g.character_buffer.put_pixel(x2+x,y,c)
         # clear the end of the line
         for x2 in range(width-distance,width):
-            c=[self.terminal_graphics.state.foreground,self.terminal_graphics.state.background,0]
-            self.terminal_graphics.character_buffer.put_pixel(x2,y,c)
+            c=[self.g.state.foreground,self.g.state.background,0]
+            self.g.character_buffer.put_pixel(x2,y,c)
 
     cdef cmd_del_characters(self,length):
-        self.terminal_graphics.state.cursor_save_position()
-        for x in range(self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.cursor_x+length):
-                self.terminal_graphics.state.cursor_absolute_x(x)
-                self.terminal_graphics.write(0)
-        self.terminal_graphics.state.cursor_restore_position()
+        self.g.state.cursor_save_position()
+        for x in range(self.g.state.cursor_x,self.g.state.cursor_x+length):
+                self.g.state.cursor_absolute_x(x)
+                self.g.write(0)
+        self.g.state.cursor_restore_position()
 
 
     cdef stream_2_sequence(self,text,timestamp,delay):
