@@ -197,13 +197,6 @@ cdef class term_parser:
         
         else: self.info("Impliment: {0}-{1}".format(command,params))
 
-    cdef cmd_SCP(self):
-        self.g.cursor_save_position()
-
-    cdef cmd_RCP(self):
-        self.g.cursor_restore_position()
-
-
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
             self.g.state.set_foreground(self.g.state.default_foreground)
@@ -303,16 +296,6 @@ cdef class term_parser:
     cdef cmd_CUP(self,x,y):
         self.g.state.cursor_absolute(x,y)
     
-    cdef cmd_HPV(self,x,y):
-
-        self.g.state.cursor_absolute(x,y)
-
-    cdef cmd_HPA(self,x):
-        self.g.state.cursor_absolute_x(x)
-
-    cdef cmd_VPA(self,position):
-        self.g.state.cursor_absolute(0,position)
-
     cdef cmd_ED(self,mode):
         if mode==0:
             cp=self.g.state.cursor_get_position()
@@ -342,7 +325,7 @@ cdef class term_parser:
 
     cdef cmd_EL(self,mode):
         cp=self.g.state.cursor_get_position()
-
+        print ( "DEL",mode)
         if mode==0:
             for x in range(self.g.state.cursor_x,self.g.state.width):
                 self.g.state.cursor_absolute_x(x)
@@ -388,6 +371,23 @@ cdef class term_parser:
 
 
     
+    cdef cmd_HPV(self,x,y):
+
+        self.g.state.cursor_absolute(x,y)
+
+    cdef cmd_HPA(self,x):
+        self.g.state.cursor_absolute_x(x)
+
+    cdef cmd_SCP(self):
+        self.g.cursor_save_position()
+
+    cdef cmd_RCP(self):
+        self.g.cursor_restore_position()
+    cdef cmd_VPA(self,position):
+        self.g.state.cursor_absolute(0,position)
+
+
+
     cdef stream_2_sequence(self,text,timestamp,delay):
          
         # patterns for filtering out commands from the stream
