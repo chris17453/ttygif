@@ -307,7 +307,7 @@ cdef class term_parser:
 
         self.g.state.cursor_absolute(x,y)
 
-    cdef cmd_HPA(self,x,y):
+    cdef cmd_HPA(self,x):
         self.g.state.cursor_absolute_x(x)
 
     cdef cmd_VPA(self,position):
