@@ -353,11 +353,10 @@ cdef class term_parser:
         # Move line over x ammount
         for x2 in range(0,len(temp)):
             c=temp[x2]
-            print(x2+1,y,c)
             self.g.character_buffer.put_pixel(x2+x,y,c)
         # clear the end of the line
         for x2 in range(width-distance,width):
-            c=[self.g.state.foreground,15,32]
+            c=[self.g.state.foreground,self.g.state.background,0]
             self.g.character_buffer.put_pixel(x2,y,c)
 
     cdef cmd_ECH(self,distance):
@@ -387,7 +386,6 @@ cdef class term_parser:
 
 
     cdef stream_2_sequence(self,text,timestamp,delay):
-         
         # patterns for filtering out commands from the stream
         ANSI_SINGLE   ='[\001b|\033]([cDEHMZ78>=])'
         ANSI_CHAR_SET = '[\001b|\033]\\%([@G*])'
@@ -397,13 +395,8 @@ cdef class term_parser:
         # guessed on this one
         #ANSI_OSC_777_REGEX='[\0x1b|\033]\]777[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)'
         ANSI_OSC ='(?:\001?\\]|\x9d).*?(?:\001?\\\\|[\a\x9c])'
-
-
         ESC_SEQUENCES=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE,ANSI_OSC]
-        
         ANSI_REGEX="("+")|(".join(ESC_SEQUENCES)+")"
-        
-        
         ANSI=re.compile(ANSI_REGEX)
         cursor=0
         for match in ANSI.finditer(text):
@@ -452,58 +445,6 @@ cdef class term_parser:
                         elif command in 'ABCD':
                             params = (1,)
                 
-                if command=='m':
-                    if 38 in params:
-                        name="Set FG"
-                    elif 48 in params:
-                        name="Set BG"
-                    else:
-                        for cmd in params:
-                            if cmd==0:
-                                name="RESET All"
-                                reverse_video=None
-                            elif cmd==1:
-                                name="Set BOLD"
-                            elif cmd==7:
-                                name="Reverse Video On"
-                            elif cmd==27:
-                                name="Reverse Video Off"
-                            elif cmd>=30 and cmd<=37:
-                                name="Set FG"
-                            elif cmd==39:
-                                name="Set Default FG"
-                            elif cmd>=40 and cmd<=47:
-                                name="Set BG"
-                            elif cmd==49:
-                                name="Set Default BG"
-                            elif cmd>=90 and cmd<=97:
-                                name="Set High INTENSITY FG"
-                            elif cmd>=100 and cmd<=107:
-                                name="Set High INTENSITY BG"
-                            #self.add_command_sequence(esc_type,command,cmd,groups,name,timestamp)
-                        #continue
-
-                else:
-                    if command=='A': # move cursor up
-                        name="Cursor Up"
-                    elif command=='B': # move cursor down
-                        name="Cursor Down"
-                    elif command=='C': # move cursor back
-                        name="Cursor Right"
-                    elif command=='D': # move cursor right
-                        name="Cursor Left"
-                    elif command=='E': # move cursor next line
-                        name="Cursor Next Line"
-                    elif command=='F': # move cursor previous  line
-                        name="Cursor Previous Line"
-                    elif command=='G': # move cursor to HORIZONTAL pos X
-                        name="Cursor X"
-                    elif command=='H' or command=='f': # move cursor to x,y pos
-                        name="Cursor Pos"
-                    elif command=='J': # erase display
-                        name="Erase Display"
-                    elif command=='K': # erase line
-                        name="Erase Line"
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay)
         
         
