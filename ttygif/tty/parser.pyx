@@ -340,7 +340,7 @@ cdef class term_parser:
                 self.g.write(0)
         self.g.state.cursor_absolute(cp[0],cp[1])
 
-    cdef cmd_ECH(self,distance):
+    cdef cmd_DCH(self,distance):
         temp=[]
         cdef int x=self.g.state.cursor_x
         cdef int y=self.g.state.cursor_y
@@ -362,9 +362,9 @@ cdef class term_parser:
             c=[self.g.state.foreground,self.g.state.background,0]
             self.g.character_buffer.put_pixel(x2,y,c)
 
-    cdef cmd_DCH(self,length):
+    cdef cmd_ECH(self,distance):
         cp=self.g.state.cursor_get_position()
-        for x in range(self.g.state.cursor_x,self.g.state.cursor_x+length):
+        for x in range(self.g.state.cursor_x,self.g.state.cursor_x+distance):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
         self.g.state.cursor_absolute(cp[0],cp[1])
