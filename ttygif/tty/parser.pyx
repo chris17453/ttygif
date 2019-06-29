@@ -257,16 +257,16 @@ cdef class term_parser:
 
     
     cdef cmd_render_text(self,event):
-        cdef int NULL=00   #   Null character
-        cdef int SOH=01    #   Start of Header
-        cdef int STX=02    #   Start of Text
-        cdef int ETX=03    #   End of Text
-        cdef int EOT=04    #   End of Trans
-        cdef int ENQ=05    #   Enquiry
-        cdef int ACK=06    #   Acknowledgement
-        cdef int BEL=07    #   Bell
-        cdef int BS=08     # x Backspace
-        cdef int HT=09     #   Horizontal Tab
+        cdef int NULL=0   #   Null character
+        cdef int SOH=1    #   Start of Header
+        cdef int STX=2    #   Start of Text
+        cdef int ETX=3    #   End of Text
+        cdef int EOT=4    #   End of Trans
+        cdef int ENQ=5    #   Enquiry
+        cdef int ACK=6    #   Acknowledgement
+        cdef int BEL=7    #   Bell
+        cdef int BS=8     # x Backspace
+        cdef int HT=9     #   Horizontal Tab
         cdef int LF=10     # x Line feed
         cdef int VT=11     #   Vertical Tab
         cdef int FF=12     #   Form feed
