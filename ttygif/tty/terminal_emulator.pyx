@@ -1,4 +1,9 @@
+# cython: profile=True
 # cython: linetrace=True
+# cython: binding=True
+# cython: language_level=2
+
+
 from cpython cimport array
 from .parser cimport term_parser
 from .terminal_graphics import terminal_graphics

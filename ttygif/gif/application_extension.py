@@ -1,3 +1,5 @@
+# cython: profile=True
+
 class application_extension:
     def __init__(self,stream):
         self.stream=stream

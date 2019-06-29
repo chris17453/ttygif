@@ -1,3 +1,9 @@
+# cython: profile=True
+# cython: linetrace=True
+# cython: binding=True
+# cython: language_level=2
+
+
 
 # array..
 # ColorTableSize = 3L * (1L << (SizeOfGlobalColorTable + 1));

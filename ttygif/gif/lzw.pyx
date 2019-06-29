@@ -1,3 +1,7 @@
+# cython: profile=True
+# cython: linetrace=True
+# cython: binding=True
+# cython: language_level=2
 
 const int32_t MAX_STACK_SIZE = 4096
 const int32_t BYTE_NUM = 256

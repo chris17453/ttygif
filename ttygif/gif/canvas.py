@@ -1,3 +1,5 @@
+# cython: profile=True
+
 import json
 # TODO pick transparent color index, none OR first pixel
 # TODO disposal of last frame if end of loop

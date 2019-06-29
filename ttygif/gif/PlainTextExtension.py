@@ -1,3 +1,8 @@
+# cython: profile=True
+# cython: linetrace=True
+# cython: binding=True
+# cython: language_level=2
+
 class PlainTextExtension:
     def __init__(self,stream):
         self.internal_position=stream.pos

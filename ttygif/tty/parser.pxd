@@ -1,3 +1,8 @@
+# cython: profile=True
+# cython: linetrace=True
+# cython: binding=True
+# cython: language_level=2
+
 from .terminal_graphics cimport terminal_graphics
 import re
 

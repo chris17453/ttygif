@@ -1,3 +1,9 @@
+# cython: profile=True
+# cython: linetrace=True
+# cython: binding=True
+# cython: language_level=2
+
+
 class CommentExtension:
     #  5 to 259 bytes in total length
     def __init__(self,stream):

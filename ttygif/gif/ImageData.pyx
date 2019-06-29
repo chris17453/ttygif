@@ -1,5 +1,8 @@
+# cython: profile=True
 # cython: linetrace=True
+# cython: binding=True
 # cython: language_level=2
+
 from cpython cimport array
 import array
 import bitarray

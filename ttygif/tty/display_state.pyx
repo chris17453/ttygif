@@ -1,3 +1,8 @@
+# cython: profile=True
+# cython: linetrace=True
+# cython: binding=True
+# cython: language_level=2
+
 cdef class display_state:
 
     def __cinit__(self,int width,int height):

@@ -1,4 +1,8 @@
+# cython: profile=True
 # cython: linetrace=True
+# cython: binding=True
+# cython: language_level=2
+
 import sys
 from cpython cimport array
 from libc.string cimport  memcpy

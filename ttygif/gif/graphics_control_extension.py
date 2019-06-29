@@ -1,3 +1,9 @@
+# cython: profile=True
+# cython: linetrace=True
+# cython: binding=True
+# cython: language_level=2
+
+
 class graphics_control_extension:
     def __init__(self,stream):
         self.stream=stream

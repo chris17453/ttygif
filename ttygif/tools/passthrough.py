@@ -1,3 +1,7 @@
+# cython: profile=True
+# cython: linetrace=True
+# cython: binding=True
+
 import sys
 import time
 import select
