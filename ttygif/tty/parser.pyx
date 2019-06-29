@@ -293,7 +293,7 @@ cdef class term_parser:
         for character in event['data']:
             char_ord=ord(character)
 
-            if charord<32:
+            if char_ord<32:
                 if  char_ord==BS:
                     self.g.state.cursor_left(1)
                     continue
