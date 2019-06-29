@@ -170,7 +170,7 @@ cdef class term_parser:
         #                     ESC [ 3 q: set Caps Lock LED
         #       r   DECSTBM   Set scrolling region; parameters are top and bottom row.
         value=params[0]
-        print command,value,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
+       #print command,value,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
         
         if   command=='A':  self.cmd_CUU(value)
         elif command=='B':  self.cmd_CUD(value)
@@ -255,18 +255,58 @@ cdef class term_parser:
             for cmd in params:
                 self.cmd_set_mode(cmd)
 
+    
     cdef cmd_render_text(self,event):
+        cdef int NULL=00   #   Null character
+        cdef int SOH=01    #   Start of Header
+        cdef int STX=02    #   Start of Text
+        cdef int ETX=03    #   End of Text
+        cdef int EOT=04    #   End of Trans
+        cdef int ENQ=05    #   Enquiry
+        cdef int ACK=06    #   Acknowledgement
+        cdef int BEL=07    #   Bell
+        cdef int BS=08     # x Backspace
+        cdef int HT=09     #   Horizontal Tab
+        cdef int LF=10     # x Line feed
+        cdef int VT=11     #   Vertical Tab
+        cdef int FF=12     #   Form feed
+        cdef int CR=13     # x Carriage return
+        cdef int SO=14     #   Shift Out
+        cdef int SI=15     #   Shift In
+        cdef int DLE=16    #   Data link escape
+        cdef int DC1=17    #   Device control 1
+        cdef int DC2=18    #   Device control 2
+        cdef int DC3=19    #   Device control 3
+        cdef int DC4=20    #   Device control 4
+        cdef int NAK=21    #   Negative acknowl.
+        cdef int SYN=22    #   Synchronous idle
+        cdef int ETB=23    #   End of trans. block
+        cdef int CAN=24    #   Cancel
+        cdef int EM=25     #   End of medium
+        cdef int SUB=26    #   Substitute
+        cdef int ESC=27    #   Escape
+        cdef int FS=28     #   File separator
+        cdef int GS=29     #   Group separator
+        cdef int RS=30     #   Record separator
+        cdef int US=31     #   Unit separator                    
+        
         for character in event['data']:
             char_ord=ord(character)
 
-            if char_ord==0x08:
-                self.g.state.cursor_left(1)
-            elif char_ord==0x0A:
-                self.g.state.cursor_absolute_x(0)
-                self.g.state.cursor_down(1)
-            elif char_ord<32:
-                self.g.state.cursor_right(1)
-            else:
+            if charord<32:
+                if  char_ord==BS:
+                    self.g.state.cursor_left(1)
+                    continue
+
+                elif char_ord==LF:
+                    self.g.state.cursor_absolute_x(0)
+                    self.g.state.cursor_down(1)
+                    continue
+
+                elif char_ord==CR:
+                    self.g.state.cursor_down(1)
+                    continue
+            else char_ord>=32:
                 self.g.write(char_ord)
                 self.g.state.cursor_right(1)
 
