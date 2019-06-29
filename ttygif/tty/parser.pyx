@@ -181,7 +181,6 @@ cdef class term_parser:
         if param_len>1:
             value=params[0]
         if param_len>2: 
-            print params,command,"**"
             value2=params[1]
 
         
