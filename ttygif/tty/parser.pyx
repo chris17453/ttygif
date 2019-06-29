@@ -325,7 +325,7 @@ cdef class term_parser:
 
     cdef cmd_EL(self,mode):
         cp=self.g.state.cursor_get_position()
-        print ( "DEL",mode)
+        #print ( "DEL",mode)
         if mode==0:
             for x in range(self.g.state.cursor_x,self.g.state.width):
                 self.g.state.cursor_absolute_x(x)

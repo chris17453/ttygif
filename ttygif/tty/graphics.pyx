@@ -133,6 +133,6 @@ cdef remap(src_palette,src_pixels,dst_palette):
     src_pixel_len=len(src_pixels)
     for i in range(0,src_pixel_len):
         original_index=src_pixels[i]
-        #replace srrc data pixel...
+        #replace src data pixel...
         src_pixels[i]=hash_map[original_index]
 
