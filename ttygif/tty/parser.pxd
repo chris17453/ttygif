@@ -24,7 +24,7 @@ cdef class term_parser:
     cdef remap_character(self,character)
     cdef render_to_buffer(self)
     cdef procces_OSC(self,groups)
-    cdef process_DSINGLE(self,groups)
+    cdef process_SINGLE(self,groups)
     cdef process_CHAR_SET(self,groups)
     cdef process_G0(self,groups)
     cdef process_G1(self,groups)
