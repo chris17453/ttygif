@@ -41,7 +41,8 @@ for func in run:
     
     
     #ttygif.cast2gif.cast2gif('data/234628.cast','a.gif',1,'1',None)
-    cProfile.runctx("ttygif.cast2gif.cast2gif('assets/cast/232377.cast','assets/encode/232377.cast',1,'1',None)".format(func)   , globals(), locals(),profile_name)
+    #events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None,underlay=None                                          ():
+    cProfile.runctx("ttygif.cast2gif.cast2gif(cast_file='assets/cast/232377.cast',gif_file='assets/encode/232377.cast')".format(func)   , globals(), locals(),profile_name)
     
     print profile_name
     s = pstats.Stats(profile_name)

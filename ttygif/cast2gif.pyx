@@ -51,7 +51,7 @@ cdef class cast2gif:
         if self.debug:
             print(self.ascii_safe(text))
 
-    def get_frame_bounding_diff(self,frame1,frame2,int width,int height):
+    def get_frame_bounding_diff(self,array.array frame1,array.array frame2,int width,int height):
         if frame1==None or frame2==None:
             return {'min_x':0,'min_y':0,'max_x':width-1,'max_y':height-1,'width':width,'height':height}
         cdef int pos=0
@@ -62,7 +62,7 @@ cdef class cast2gif:
         cdef same=1
         for y in range(0,height):
             for x in range(0,width):
-                if frame1['data'][pos]!=frame2['data'][pos]:
+                if frame1[pos]!=frame2[pos]:
                     same=0
                     if x<min_x:
                         min_x=x
@@ -226,7 +226,7 @@ cdef class cast2gif:
                 data=v.get()
 
 
-                diff=self.get_frame_bounding_diff(old_data,data,dim.width,dim.height)
+                diff=self.get_frame_bounding_diff(old_data['data'],data['data'],dim.width,dim.height)
                 if diff:
                     frame_snip=self.copy_area(data['data'],diff,dim.width,dim.height)
 

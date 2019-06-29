@@ -174,29 +174,37 @@ cdef class term_parser:
         #                     ESC [ 2 q: set Num Lock LED
         #                     ESC [ 3 q: set Caps Lock LED
         #       r   DECSTBM   Set scrolling region; parameters are top and bottom row.
-        value=params[0]
+        cdef int param_len=len(params)
+        cdef int value1=0
+        cdef int value2=0
+        
+        if param_len>1:
+            value=params[0]
+        if param_len>2: 
+            value2=params[1]
+        
        #print command,value,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
         
-        if   command=='A':  self.cmd_CUU(value)
-        elif command=='B':  self.cmd_CUD(value)
-        elif command=='C':  self.cmd_CUF(value)
-        elif command=='D':  self.cmd_CUB(value)
-        elif command=='E':  self.cmd_CNL(value)
-        elif command=='F':  self.cmd_CPL(value)
-        elif command=='G':  self.cmd_CHA(value-1)
-        elif command=='H':  self.cmd_CUP(params[1]-1,value-1)
-        elif command=='J':  self.cmd_ED(value)
-        elif command=='K':  self.cmd_EL(value)
-        elif command=='P':  self.cmd_DCH(value)
-        elif command=='X':  self.cmd_ECH(value)
-        elif command=='d':  self.cmd_VPA(value-1)
-        elif command=='f':  self.cmd_HPV(params[1]-1,value-1)
+        if   command=='A':  self.cmd_CUU(value1)
+        elif command=='B':  self.cmd_CUD(value1)
+        elif command=='C':  self.cmd_CUF(value1)
+        elif command=='D':  self.cmd_CUB(value1)
+        elif command=='E':  self.cmd_CNL(value1)
+        elif command=='F':  self.cmd_CPL(value1)
+        elif command=='G':  self.cmd_CHA(value1-1)
+        elif command=='H':  self.cmd_CUP(value2-1,value1-1)
+        elif command=='J':  self.cmd_ED(value1)
+        elif command=='K':  self.cmd_EL(value1)
+        elif command=='P':  self.cmd_DCH(value1)
+        elif command=='X':  self.cmd_ECH(value1)
+        elif command=='d':  self.cmd_VPA(value1-1)
+        elif command=='f':  self.cmd_HPV(value2-1,value1-1)
         elif command=='h':  self.cmd_set_mode(params)
-        elif command=='l':  self.cmd_reset_mode(value)
+        elif command=='l':  self.cmd_reset_mode(value1)
         elif command=='m':  self.cmd_process_colors(params)
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
-        elif command=='`':  self.cmd_HPA(value-1)
+        elif command=='`':  self.cmd_HPA(value1-1)
         #elif command=='e': 
         #    if self.debug_mode:
         #        self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(value,x,y))
@@ -416,7 +424,6 @@ cdef class term_parser:
 
     
     cdef cmd_HPV(self,x,y):
-
         self.g.state.cursor_absolute(x,y)
 
     cdef cmd_HPA(self,x):
