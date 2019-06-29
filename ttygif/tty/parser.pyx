@@ -181,7 +181,9 @@ cdef class term_parser:
         if param_len>1:
             value=params[0]
         if param_len>2: 
+            print params
             value2=params[1]
+
         
        #print command,value,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
         
