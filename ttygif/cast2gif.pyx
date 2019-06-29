@@ -226,7 +226,7 @@ cdef class cast2gif:
                 data=v.get()
 
                 if None==old_data:
-                diff={'min_x':0,'min_y':0,'max_x':dim.width-1,'max_y':dim.height-1,'width':dim.width,'height':dim.height}
+                    diff={'min_x':0,'min_y':0,'max_x':dim.width-1,'max_y':dim.height-1,'width':dim.width,'height':dim.height}
                 else:
                     diff=self.get_frame_bounding_diff(old_data['data'],data['data'],dim.width,dim.height)
                 if diff:
