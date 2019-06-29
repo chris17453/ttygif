@@ -190,6 +190,7 @@ cdef class term_parser:
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value-1)
+        print command,value,self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.cursor_y
         #elif command=='e': 
         #    if self.debug_mode:
         #        self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(value,x,y))
