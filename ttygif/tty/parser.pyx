@@ -170,6 +170,8 @@ cdef class term_parser:
         #                     ESC [ 3 q: set Caps Lock LED
         #       r   DECSTBM   Set scrolling region; parameters are top and bottom row.
         value=params[0]
+        print command,value,self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.cursor_y
+        
         if   command=='A':  self.cmd_CUU(value)
         elif command=='B':  self.cmd_CUD(value)
         elif command=='C':  self.cmd_CUF(value)
@@ -190,7 +192,6 @@ cdef class term_parser:
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value-1)
-        print command,value,self.terminal_graphics.state.cursor_x,self.terminal_graphics.state.cursor_y
         #elif command=='e': 
         #    if self.debug_mode:
         #        self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(value,x,y))
