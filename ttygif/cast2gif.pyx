@@ -225,8 +225,10 @@ cdef class cast2gif:
                 old_data=data
                 data=v.get()
 
-
-                diff=self.get_frame_bounding_diff(old_data['data'],data['data'],dim.width,dim.height)
+                if None==old_data:
+                    diff={'min_x':0,'min_y':0,'width':dim.width,'height':dim.height}
+                else:
+                    diff=self.get_frame_bounding_diff(old_data['data'],data['data'],dim.width,dim.height)
                 if diff:
                     frame_snip=self.copy_area(data['data'],diff,dim.width,dim.height)
 
