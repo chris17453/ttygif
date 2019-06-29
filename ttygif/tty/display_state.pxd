@@ -14,9 +14,13 @@ cdef class display_state:
     cdef public int             default_background
     cdef public int             foreground
     cdef public int             background
+    cdef public int             scroll
+    cdef public int             scroll_top
+    cdef public int             scroll_bottom
     cdef public object          reverse_video
     cdef public object          bold 
 
+    cdef set_scroll_region(self,top,bottom)
     cdef check_bounds(self)
     cdef cursor_up(self,int distance)
     cdef cursor_down(self,int distance)

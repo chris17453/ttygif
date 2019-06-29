@@ -48,6 +48,23 @@ cdef class terminal_graphics:
 
         # set default screen state
 
+    cdef scroll_buffer(self):
+        cdef int top=self.state.scroll_top
+        cdef int bottom=self.state.scroll_bottom
+        cdef int length=self.state.scroll
+
+        for y in range(top,bottom+1):
+            for x in range(self.character_buffer.dimentions.width):
+                if y+length<top or y+length>bottom:
+                    pixel=[src_image.state.foreground,src_image.state.background,0]
+                else:
+                    pixel=self.character_buffer.get_pixel(x,y+length)
+                self.character_buffer.character_buffer.put_pixel(x,y,pixel)
+        self.state.scroll=0
+        #cdef int row_pos=buffer_length-src_image.dimentions.stride
+        #array.resize(src_image.data,buffer_length)  
+        #memset(&src_image.data.data.as_uchars[row_pos],init_value,src_image.dimentions.length)        
+
     # write a character to the text buffer with the curent text attributes
     cdef write(self,int character):
         cdef int x=self.state.cursor_x

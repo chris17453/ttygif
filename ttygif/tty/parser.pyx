@@ -203,6 +203,7 @@ cdef class term_parser:
         elif command=='h':  self.cmd_set_mode(params)
         elif command=='l':  self.cmd_reset_mode(value1)
         elif command=='m':  self.cmd_process_colors(params)
+        elif command=='r':  self.cmd_DECSTBM(value1,value2)
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value1-1)
@@ -310,20 +311,22 @@ cdef class term_parser:
             if char_ord<32:
                 if  char_ord==BS:
                     self.g.state.cursor_left(1)
-                    continue
-
                 elif char_ord==LF:
                     self.g.state.cursor_absolute_x(0)
                     self.g.state.cursor_down(1)
-                    continue
-
                 elif char_ord==CR:
                     self.g.state.cursor_down(1)
-                    continue
             else:
                 self.g.write(char_ord)
                 self.g.state.cursor_right(1)
+            
+            while self.g.scroll!=0:
+                self.g.scroll_buffer()
+    
 
+    cdef cmd_DECSTBM(self,top,bottom):
+        print ("SCROLL REGION",top,bottom)
+        self.g.set_scroll_region(top,bottom)
 
     cdef cmd_CUU(self,distance):
         self.g.state.cursor_up(distance)

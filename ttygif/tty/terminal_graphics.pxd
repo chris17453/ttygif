@@ -18,6 +18,7 @@ cdef class terminal_graphics:
 
     cdef write(self,int character)
     cdef draw_string(self,x,y,data)
+    cdef scroll_buffer(self)
     cdef draw_character(self,int character,int x,int y,int offset,int foreground_color,int background_color)
     cdef get_text(self)
     cdef foreground_from_rgb(self,r,g,b)

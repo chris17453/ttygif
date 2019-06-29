@@ -17,24 +17,30 @@ cdef class display_state:
         self.foreground         = self.default_foreground
         self.background         = self.default_background
 
+        self.set_scroll_region(0,self.height-1)
+
+
+    cdef set_scroll_region(self,top,bottom):
+        self.scroll             = 0
+        self.scroll_top         = top
+        self.scroll_bottom      = bottom
+
     cdef check_bounds(self):
-        if self.cursor_y<0:
-            self.cursor_y=0
-
-        if self.cursor_y>=self.height:
-            self.cursor_y=self.height-1
-            self.cursor_y=0
-
         if self.cursor_x<0:
             self.cursor_x=0
 
         if self.cursor_x>=self.width:
             self.cursor_x=self.width-1
-            self.cursor_x=0
-            self.cursor_down(1)
 
-        #self.shift_buffer(buffer)
-            #shift!buffer
+        if self.cursor_y<self.scroll_top:
+            self.scroll-=self.cursor_y-self.scroll_top
+            self.cursor_y=self.scroll_top
+            
+        if self.cursor_y>=self.scroll_bottom:
+            self.scroll+=self.scroll_bottom-self.cursor_y
+            self.cursor_y=self.scroll_bottom
+
+
 
     cdef cursor_up(self,int distance):
         self.cursor_y-=distance
