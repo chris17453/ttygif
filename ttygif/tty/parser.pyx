@@ -306,7 +306,7 @@ cdef class term_parser:
                 elif char_ord==CR:
                     self.g.state.cursor_down(1)
                     continue
-            else char_ord>=32:
+            else:
                 self.g.write(char_ord)
                 self.g.state.cursor_right(1)
 
