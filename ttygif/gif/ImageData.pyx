@@ -408,6 +408,7 @@ cdef class lzw_encode:
             self.compressed[self.data_pos]=self.chunk[i]
             #print len(self.chunk),len(self.compressed),self.data_pos
             self.data_pos+=1
+          print h
 
         self.bit_pos   = 0
         self.byte      = 0
