@@ -429,7 +429,7 @@ cdef class lzw_encode:
         cdef uint32_t     code_tree_len  = 256*4096
         cdef array.array  codetree       = array.array('I',[0]*code_tree_len)
         cdef uint32_t     image_length   = len(self.image)
-        cdef uint32_t     min_code_size  = self.min_code_size
+        cdef uint32_t     min_code_size  = self.min_code_size+1
         cdef uint32_t     clear_code     = 2**self.bit_depth
         cdef uint16_t     max_code       = clear_code+1
         cdef uint32_t     code_size      = min_code_size + 1 
