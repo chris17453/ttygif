@@ -25,7 +25,7 @@ cdef class display_state:
     cdef cursor_up(self,int distance)
     cdef cursor_down(self,int distance)
     cdef cursor_left(self,int distance)
-    cdef cursor_right(self,int distance)
+    cdef cursor_right(self,int distance,wrap)
     cdef cursor_absolute_x(self,position)
     cdef cursor_absolute_y(self,position)
     cdef cursor_save_position(self)
