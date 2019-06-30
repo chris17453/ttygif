@@ -421,7 +421,7 @@ cdef class lzw_encode:
     cdef compress (self):
         cdef uint32_t     minCodeSize   = self.min_code_size
         cdef uint32_t     clearCode     = 1 << self.bit_depth
-        cdef uint32_t     image_length  = width*height
+        cdef uint32_t     image_length  = self.width*self.height
         cdef array.array  codetree      = array.array('I')
         cdef uint32_t     code_tree_len = 2*256*4096
         cdef uint32_t     curCode       = -1
