@@ -353,7 +353,7 @@ cdef class lzw_encode:
     cdef array.array chunk
     cdef array.array compressed
     cdef uint32_t     byte
-    cdef uint32_t     13 bit
+    cdef uint32_t     bit_pos
     cdef uint32_t     chunk_pos
     cdef uint32_t     data_pos
     cdef uint32_t     min_code_size
@@ -465,7 +465,7 @@ cdef class lzw_encode:
                   self.code_size+=1
 
               # end of lookup table
-              if max_code == 4095 or self.code_size==12:
+              if max_code == 4095 or 12==self.code_size:
                   print ("clearing")
                   self.write_code(clear_code)
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
