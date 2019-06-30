@@ -339,7 +339,7 @@ def compress(data, lzw_min, max_code_size=12):
 
 
 
-class lzw_encode {
+cdef class lzw_encode:
     cdef array.array image
     cdef int         width
     cdef int         height
