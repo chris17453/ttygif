@@ -26,7 +26,7 @@ class ImageData:
             raise Exception("Image data empty")
         
         old=None
-        old=1
+        #old=1
         
         if old:
           byte_data=compress(self.image_data, self.min_code_size)
@@ -439,7 +439,9 @@ cdef class lzw_encode:
         
         #compression loop
         for i in range(0,image_length):
-          next_value=self.image[i]
+          
+          next_value=&codetree.data.as_uchars[i]
+          #self.image[i]
   
           if current_code < 0:
               current_code = next_value
