@@ -419,53 +419,46 @@ cdef class lzw_encode:
       
 
     cdef compress (self):
-        cdef uint32_t y_offset
-        cdef uint32_t image_pos
-        cdef int    minCodeSize =self.min_code_size
-        cdef uint32_t clearCode = 1 << self.bit_depth
-
-
-        cdef array.array codetree = array.array('I')
-        cdef uint32_t code_tree_len=2*256*4096
+        cdef uint32_t     minCodeSize   = self.min_code_size
+        cdef uint32_t     clearCode     = 1 << self.bit_depth
+        cdef uint32_t     image_length  = width*height
+        cdef array.array  codetree      = array.array('I')
+        cdef uint32_t     code_tree_len = 2*256*4096
+        cdef uint32_t     curCode       = -1
+        cdef uint32_t     codeSize      = minCodeSize + 1
+        cdef uint16_t     maxCode       = clearCode+1
+        cdef uint8_t      nextValue     = 0
+        cdef uint16_t     lookup        = 0
+        
         array.resize(codetree,code_tree_len)
         memset(&codetree.data.data.as_uint,0,code_tree_len)
 
         
-        cdef int32_t  curCode = -1
-        cdef uint32_t codeSize = (uint32_t)minCodeSize + 1
-        cdef uint32_t maxCode = clearCode+1
-
-
         self.write_code(clearCode, codeSize)
-        
         #compression loop
-        for y in range(0,height):
-          y_offset=y*width
-          for x in range(0,width):
-                image_pos=y_offset+x
-                uint8_t nextValue = image[image_pos]
+        for i in range(0,image_length)
+          nextValue = self.image[i]
+          lookup=curCode*256+nextValue
+          if curCode < 0:
+              curCode = nextValue
+          elif codetree[lookup]!=0 :
+              curCode = codetree[lookup]
+          else:
+              self.write_code(curCode, codeSize)
+              maxCode+=1
+              codetree[lookup] = maxCode
 
-                if curCode < 0:
-                    curCode = nextValue
-                elif codetree[curCode].m_next[nextValue] :
-                    curCode = codetree[curCode].m_next[nextValue]
-                else:
-                    self.write_code((uint32_t)curCode, codeSize)
-                    maxCode+=1
-                    codetree[curCode].m_next[nextValue] = (uint16_t)maxCode;
-
-                    if maxCode >= 1 << codeSize:
-                        codeSize+=1
-                    if maxCode == 4095:
-                        self.write_code(learCode, codeSize)
-                        memset(&codetree.data.data.as_uint,0,code_tree_len)
-                        codeSize = (uint32_t)(minCodeSize + 1)
-                        maxCode = clearCode+1
-                    curCode = nextValue
-
+              if maxCode >= 1 << codeSize:
+                  codeSize+=1
+              if maxCode == 4095:
+                  self.write_code(clearCode, codeSize)
+                  memset(&codetree.data.data.as_uint,0,code_tree_len)
+                  codeSize =minCodeSize + 1
+                  maxCode = clearCode+1
+              curCode = nextValue
 
         # end of loop cleanup
-        self.write_code((uint32_t)curCode, codeSize)
+        self.write_code(curCode, codeSize)
         self.write_code(clearCode, codeSize)
-        self.write_code(clearCode + 1, (uint32_t)minCodeSize + 1)
+        self.write_code(clearCode + 1, minCodeSize + 1)
         self.empty_stream()
