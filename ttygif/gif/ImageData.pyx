@@ -431,7 +431,7 @@ cdef class lzw_encode:
         cdef uint16_t     lookup        = 0
         
         array.resize(codetree,code_tree_len)
-        memset(&codetree.data.data.as_uints,0,code_tree_len)
+        memset(&codetree.data.as_uints,0,code_tree_len)
 
         
         self.write_code(clearCode, codeSize)
@@ -452,7 +452,7 @@ cdef class lzw_encode:
                   codeSize+=1
               if maxCode == 4095:
                   self.write_code(clearCode, codeSize)
-                  memset(&codetree.data.data.as_uints,0,code_tree_len)
+                  memset(&codetree.data.as_uints,0,code_tree_len)
                   codeSize =minCodeSize + 1
                   maxCode = clearCode+1
               curCode = nextValue
