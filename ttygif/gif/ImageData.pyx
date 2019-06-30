@@ -445,11 +445,11 @@ cdef class lzw_encode:
         cdef int32_t      current_code   = -1                 # curent hash lookup code
         cdef uint8_t      next_value     = 0                  # pixel value
         cdef uint16_t     lookup         = 0                  # code  table lookup hash
+        cdef uint16_t     lookup_base    = 0
 
         
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
 
-        lookup_base=0
         self.write_code(clear_code, code_size)
         #compression loop
         for i in range(0,image_length):
