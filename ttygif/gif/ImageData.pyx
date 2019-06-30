@@ -373,7 +373,7 @@ cdef class lzw_encode:
       self.chunk_fragment  =0
       #first byte in array
       self.compressed =array.array ('B',[self.min_code_size])
-      self.compress(image)
+      self.compress()
     
       
     cdef void write_bit(self,uint32_t bit):
@@ -423,11 +423,11 @@ cdef class lzw_encode:
 
 
 
-    cdef void compress (self,array.array image):
+    cdef void compress (self):
         cdef uint32_t     code_tree_len  = 256*4096
         cdef array.array  codetree       = array.array('i')
         array.resize(codetree,code_tree_len)
-        cdef uint32_t     image_length   = len(image)
+        cdef uint32_t     image_length   = len(self.image)
         cdef int32_t      min_code_size  = self.min_code_size    
         cdef uint32_t     clear_code     = 1<<self.min_code_size   # the code right after the color table
         cdef uint16_t     end_code       = clear_code+1            # the code right after the clear code
@@ -443,8 +443,8 @@ cdef class lzw_encode:
         self.write_code(clear_code)
         
         #compression loop
-        for next_value in image:#xrange(0,image_length):
-          #next_value=self.image[i]
+        for next_value in xrange(0,image_length):
+          next_value=self.image[i]
   
           lookup=current_code*256+next_value
           if current_code < 0:
