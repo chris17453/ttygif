@@ -320,7 +320,7 @@ cdef class term_parser:
                 self.g.write(char_ord)
                 self.g.state.cursor_right(1)
             
-            while self.g.scroll!=0:
+            while self.g.state.scroll!=0:
                 self.g.scroll_buffer()
     
 
