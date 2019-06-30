@@ -463,9 +463,8 @@ cdef class lzw_encode:
           else:
               self.write_code(current_code)
               #print "MAX",max_code,lookup,i
-              codetree[current_code*256+next_value] = codes
               codes+=1
-              
+              codetree[current_code*256+next_value] = codes
               
               #increase curent bit depth if outsized
               if codes >= 1 << self.code_size:
@@ -480,37 +479,8 @@ cdef class lzw_encode:
                   codes= clear_code+2
                   for i in range(0,clear_code):
                     codetree[i*256]=i
-              
-              
-              current_code = next_value
-        
 
-#            function compress($unc) {
-#                $i;$c;$wc;
-#                $w = "";
-#                $dictionary = array();
-#                $result = array();
-#                $dictSize = 256;
-#                for ($i = 0; $i < 256; $i += 1) {
-#                    $dictionary[chr($i)] = $i;
-#                }
-#                for ($i = 0; $i < strlen($unc); $i++) {
-#                    $c = $unc[$i];
-#                    $wc = $w.$c;
-#                    if (array_key_exists($w.$c, $dictionary)) {
-#                        $w = $w.$c;
-#                    } else {
-#                        array_push($result,$dictionary[$w]);
-#                        $dictionary[$wc] = $dictSize++;
-#                        $w = (string)$c;
-#                    }
-#                }
-#                if ($w !== "") {
-#                    array_push($result,$dictionary[$w]);
-#                }
-#                return implode(",",$result);
-#            }
-#        
+              current_code = next_value
 
 
         # end of loop cleanup (not sure about this)
@@ -519,4 +489,3 @@ cdef class lzw_encode:
         self.code_size= min_code_size + 1
         self.write_code(end_code)
         self.empty_stream()
-        print "done"
