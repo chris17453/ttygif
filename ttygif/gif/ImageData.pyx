@@ -434,7 +434,7 @@ cdef class lzw_encode:
         cdef uint8_t      next_value     = 0                       # pixel value
         cdef uint16_t     lookup         = 0                       # code  table lookup hash
         cdef uint16_t     lookup_base    = 0
-        cdef uint32_t     tree_lookup    = 0
+        cdef int32_t      tree_lookup    = 0
 
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
 
