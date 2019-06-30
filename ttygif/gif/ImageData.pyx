@@ -390,7 +390,7 @@ cdef class lzw_encode:
     cdef write_chunk(self):
         cdef int new_compressed_size = len(self.compressed)+self.chunk_pos+1
         if 0==0:
-          self.compressed.resize(new_compressed_size)
+          array.resize(self.compressed,new_compressed_size)
           self.compressed_data[self.data_pos]=self.chunk_pos
           self.data_pos+=1
 
@@ -444,7 +444,7 @@ cdef class lzw_encode:
 
           next_value = self.image[i]
           lookup=current_code*256+next_value
-          print lookup,len(codetree),code_tree_len
+          #print lookup,len(codetree),code_tree_len
           if current_code < 0:
               current_code = next_value
           elif codetree[lookup]!=0 :
