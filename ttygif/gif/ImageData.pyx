@@ -449,7 +449,7 @@ cdef class lzw_encode:
               current_code = next_value
               continue
           
-          leaf=codetree[lookup]
+          leaf=codetree[current_code<<8+next_value]
           if leaf!=0:
               current_code =leaf
               continue
