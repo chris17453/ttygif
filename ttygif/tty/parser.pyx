@@ -187,7 +187,7 @@ cdef class term_parser:
                 value2=params[1]
 
         
-       #print command,value,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
+       print command,value,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
         
         if   command=='A':  self.cmd_CUU(value1)
         elif command=='B':  self.cmd_CUD(value1)
@@ -305,6 +305,8 @@ cdef class term_parser:
     
     
     cdef cmd_render_text(self,event):
+        print event['data']
+       
         cdef int BS=8     # x Backspace
         cdef int LF=10     # x Line feed
         cdef int CR=13     # x Carriage return
@@ -321,7 +323,7 @@ cdef class term_parser:
                     self.g.state.cursor_down(1)
             else:
                 self.g.write(char_ord)
-                self.g.state.cursor_right(1)
+                self.g.state.cursor_right(1,True)
             
             while self.g.state.scroll!=0:
                 self.g.scroll_buffer()
