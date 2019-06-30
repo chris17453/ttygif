@@ -439,7 +439,7 @@ cdef class lzw_encode:
         cdef int32_t      tree_lookup    = 0
         cdef uint32_t     code_max       = 1 << self.code_size
 
-        for i in range(0,clear_code):
+        for i in range(0,clear_code+2):
           codetree[i*256]=i
 
         print "CLEAR",clear_code
@@ -463,8 +463,8 @@ cdef class lzw_encode:
           else:
               self.write_code(current_code)
               #print "MAX",max_code,lookup,i
-              codes+=1
               codetree[current_code*256+next_value] = codes
+              codes+=1
               
               #increase curent bit depth if outsized
               if codes >= 1 << self.code_size:
@@ -477,7 +477,7 @@ cdef class lzw_encode:
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   self.code_size = min_code_size + 1
                   codes= clear_code+2
-                  for i in range(0,clear_code):
+                  for i in range(0,clear_code+2):
                     codetree[i*256]=i
 
               current_code = next_value
