@@ -417,6 +417,7 @@ cdef class lzw_encode:
 
     # used to clear the incomplete bits of a chunk, end of line stuff
     cdef empty_stream(self):
+      print "LEFT",self.chunk_pos
       while( self.bit_pos>0):
         self.write_bit(0)
       if self.chunk_pos>0:
