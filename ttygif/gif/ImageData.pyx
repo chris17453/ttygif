@@ -423,6 +423,37 @@ cdef class lzw_encode:
         self.write_chunk()
       
 
+
+
+def compress(uncompressed):
+    """Compress a string to a list of output symbols."""
+ 
+    # Build the dictionary.
+    dict_size = 256
+    dictionary = dict((chr(i), i) for i in xrange(dict_size))
+    # in Python 3: dictionary = {chr(i): i for i in range(dict_size)}
+ 
+    w = ""
+    result = []
+    for c in uncompressed:
+        wc = w + c
+        if wc in dictionary:
+            w = wc
+        else:
+            result.append(dictionary[w])
+            # Add wc to the dictionary.
+            dictionary[wc] = dict_size
+            dict_size += 1
+            w = c
+ 
+    # Output the code for w.
+    if w:
+        result.append(dictionary[w])
+    return result
+ 
+
+
+
     cdef compress (self):
         cdef uint32_t     code_tree_len  = 256*4096
         cdef array.array  codetree       = array.array('i',[0]*code_tree_len)
@@ -430,7 +461,7 @@ cdef class lzw_encode:
         cdef int32_t      min_code_size  = self.min_code_size    
         cdef uint32_t     clear_code     = 1<<self.min_code_size   # the code right after the color table
         cdef uint16_t     end_code       = clear_code+1            # the code right after the clear code
-        cdef uint16_t     codes          = 0
+        cdef uint16_t     codes          = clear_code+2
         cdef int32_t      current_code   = -1                      # curent hash lookup code
         cdef uint8_t      next_value     = 0                       # pixel value
         cdef uint16_t     lookup         = 0                       # code  table lookup hash
@@ -438,8 +469,8 @@ cdef class lzw_encode:
         cdef int32_t      tree_lookup    = 0
         cdef uint32_t     code_max       = 1 << self.code_size
 
-        #f#or i in range(0,clear_code):
-        #  codetree[i]=i
+        for i in range(0,clear_code):
+          codetree[i*256]=i
 
         print "CLEAR",clear_code
         print "LEN",image_length
@@ -453,18 +484,16 @@ cdef class lzw_encode:
         for i in range(0,image_length):
           next_value=self.image[i]
   
-          lookup=current_code*256+next_value
-          tree_lookup=codetree[lookup]
 
           #print lookup,len(codetree),code_tree_len
           if current_code < 0:
               current_code = next_value
-          elif tree_lookup!=0 :
-              current_code = tree_lookup
+          elif codetree[current_code*256+next_value]:
+              current_code = codetree[current_code*256+next_value]
           else:
               self.write_code(current_code)
               #print "MAX",max_code,lookup,i
-              codetree[lookup] = codes
+              codetree[current_code*256+next_value] = codes
               codes+=1
               
               
@@ -478,13 +507,41 @@ cdef class lzw_encode:
                   self.write_code(clear_code)
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   self.code_size = min_code_size + 1
-                  codes=0
-                  #for i in range(0,clear_code):
-                  #  codetree[i]=i
+                  codes= clear_code+2
+                  for i in range(0,clear_code):
+                    codetree[i*256]=i
               
               
               current_code = next_value
         
+
+#            function compress($unc) {
+#                $i;$c;$wc;
+#                $w = "";
+#                $dictionary = array();
+#                $result = array();
+#                $dictSize = 256;
+#                for ($i = 0; $i < 256; $i += 1) {
+#                    $dictionary[chr($i)] = $i;
+#                }
+#                for ($i = 0; $i < strlen($unc); $i++) {
+#                    $c = $unc[$i];
+#                    $wc = $w.$c;
+#                    if (array_key_exists($w.$c, $dictionary)) {
+#                        $w = $w.$c;
+#                    } else {
+#                        array_push($result,$dictionary[$w]);
+#                        $dictionary[$wc] = $dictSize++;
+#                        $w = (string)$c;
+#                    }
+#                }
+#                if ($w !== "") {
+#                    array_push($result,$dictionary[$w]);
+#                }
+#                return implode(",",$result);
+#            }
+#        
+
 
         # end of loop cleanup (not sure about this)
         self.write_code(current_code)
