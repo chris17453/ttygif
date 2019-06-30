@@ -44,7 +44,7 @@ class ImageData:
               index+=length
         else:
           encoder=lzw_encode(self.image_data,self.min_code_size)
-          #self.stream.write_bytes(encoder.compressed)
+          self.stream.write_bytes(encoder.compressed)
 
         
         #for byte in byte_data:
@@ -370,7 +370,6 @@ cdef class lzw_encode:
       self.bit_depth       =self.min_code_size
       #first byte in array
       self.compressed =array.array ('B',[self.min_code_size])
-      print ("PRE COMPRESS")
       self.compress()
     
     cdef increment_bit(self):
@@ -390,7 +389,7 @@ cdef class lzw_encode:
 
     cdef write_chunk(self):
         cdef int new_compressed_size = len(self.compressed)+self.chunk_pos+1
-        if 1==0:
+        if 0==0:
           self.compressed.resize(new_compressed_size)
           self.compressed_data[self.data_pos]=self.chunk_pos
           self.data_pos+=1
@@ -412,7 +411,7 @@ cdef class lzw_encode:
               self.write_chunk()
 
     # used to clear the incomplete bits of a chunk, end of line stuff
-    cdef empyt_stream(self):
+    cdef empty_stream(self):
       while( self.bit_pos>0):
         self.write_bit(0)
       if self.chunk_pos>0:
@@ -424,8 +423,6 @@ cdef class lzw_encode:
       
 
     cdef compress (self):
-        print ("COMPRESS")
-
         cdef array.array  codetree       = array.array('I')
         cdef uint32_t     code_tree_len  = 256*4096
         cdef uint32_t     image_length   = len(self.image)
@@ -436,13 +433,10 @@ cdef class lzw_encode:
         cdef uint16_t     max_code       = clear_code+1
         cdef uint8_t      next_value     = 0
         cdef uint16_t     lookup         = 0
-        print ("ARRAY")
         
         array.resize(codetree,code_tree_len)
-        print("RESIZED",code_tree_len,len(codetree))
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
 
-        print ("MEMSET")
         
         self.write_code(clear_code, code_size)
         #compression loop
