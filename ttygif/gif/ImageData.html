@@ -5168,13 +5168,13 @@ static int __pyx_pf_6ttygif_3gif_9ImageData_10lzw_encode___init__(struct __pyx_o
 }
 </pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">430</span>:         <span class="k">cdef</span> <span class="kt">uint32_t</span>     <span class="nf">code_tree_len</span>  <span class="o">=</span> <span class="mf">256</span><span class="o">*</span><span class="mf">4096</span></pre>
 <pre class='cython code score-0 '>  __pyx_v_code_tree_len = 0x100000;
-</pre><pre class="cython line score-7" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">431</span>:         <span class="k">cdef</span> <span class="kt">array</span>.<span class="kt">array</span>  <span class="nf">codetree</span>       <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">)</span></pre>
+</pre><pre class="cython line score-7" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">431</span>:         <span class="k">cdef</span> <span class="kt">array</span>.<span class="kt">array</span>  <span class="nf">codetree</span>       <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s">&#39;I&#39;</span><span class="p">)</span></pre>
 <pre class='cython code score-7 '>  __pyx_t_1 = <span class='pyx_c_api'>__Pyx_PyObject_Call</span>(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_tuple__28, NULL);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 431, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
   __pyx_v_codetree = ((arrayobject *)__pyx_t_1);
   __pyx_t_1 = 0;
 /* … */
-  __pyx_tuple__28 = <span class='py_c_api'>PyTuple_Pack</span>(1, __pyx_n_s_i);<span class='error_goto'> if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 431, __pyx_L1_error)</span>
+  __pyx_tuple__28 = <span class='py_c_api'>PyTuple_Pack</span>(1, __pyx_n_s_I);<span class='error_goto'> if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 431, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_tuple__28);
   <span class='refnanny'>__Pyx_GIVEREF</span>(__pyx_tuple__28);
 </pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">432</span>:         <span class="n">array</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">codetree</span><span class="p">,</span><span class="n">code_tree_len</span><span class="p">)</span></pre>

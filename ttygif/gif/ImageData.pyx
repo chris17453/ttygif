@@ -461,7 +461,7 @@ cdef class lzw_encode:
           else:
               self.write_code(current_code)
               codetree[current_code*256+next_value] = codes
-              
+              print codes
               #increase curent bit depth if outsized
               if codes >= 1 << self.code_size:
                   self.code_size+=1
