@@ -361,7 +361,7 @@ cdef class lzw_encode:
     cdef uint32_t     data_pos
     cdef uint32_t     min_code_size
     cdef uint32_t     code_size
-    
+    cdef uint32_t     chunk_fragment
     def __cinit__(self,array.array image,min_code_size):
       self.image      =image
       self.byte      = 0
@@ -372,6 +372,7 @@ cdef class lzw_encode:
       #compress the image and render to array
       self.min_code_size   =min_code_size
       self.code_size       =min_code_size + 1       # because its the color table size pLus 1
+      self.chunk_fragment  =0
       #first byte in array
       self.compressed =array.array ('B',[self.min_code_size])
       self.compress()
@@ -392,6 +393,7 @@ cdef class lzw_encode:
   
 
     cdef write_chunk(self):
+        self.chunk_fragment+=1
         if self.chunk_pos==0:
           raise Exception("Cannot write chunk of empty stream")
         cdef int new_compressed_size = len(self.compressed)+self.chunk_pos+1
@@ -401,7 +403,8 @@ cdef class lzw_encode:
         self.data_pos+=1
         
         for i in range(0,self.chunk_pos):
-          self.compressed[self.data_pos]=self.chunk[i]
+          self.compressed[self.data_pos]=self.chunk_fragment
+          #self.compressed[self.data_pos]=self.chunk[i]
           self.data_pos+=1
 
         self.bit_pos   = 0
