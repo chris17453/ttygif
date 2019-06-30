@@ -206,8 +206,7 @@ cdef class term_parser:
         elif command=='h':  self.cmd_set_mode(params)
         elif command=='l':  self.cmd_reset_mode(value1)
         elif command=='m':  self.cmd_process_colors(params)
-        elif command=='r':  
-            self.cmd_DECSTBM(value1,value2)
+        elif command=='r':  self.cmd_DECSTBM(value1-1,value2-1)
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value1-1)
@@ -329,7 +328,6 @@ cdef class term_parser:
     
 
     cdef cmd_DECSTBM(self,int top,int bottom):
-        print ("SCROLL REGION",top,bottom)
         self.g.state.set_scroll_region(top,bottom)
 
     cdef cmd_CUU(self,distance):
