@@ -440,7 +440,7 @@ cdef class lzw_encode:
         for i in range(0,image_length):
           next_value=self.image[i]
 
-          self.write_code(nextValue, code_size )
+          self.write_code(next_value, code_size )
           self.write_code(256, code_size )
           continue
 
