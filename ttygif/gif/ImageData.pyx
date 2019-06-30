@@ -437,7 +437,7 @@ cdef class lzw_encode:
         cdef int32_t      tree_lookup    = 0
 
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
-        print ("LEN",len(image))
+        print ("LEN",image_length)
         self.write_code(clear_code)
         #compression loop
         for i in range(0,image_length):
