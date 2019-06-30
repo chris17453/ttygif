@@ -474,9 +474,22 @@ cdef class lzw_encode:
                   #print("{0:04x}".format(self.chunk_pos))
                     self.code_size+=1
                     code_max=1 << self.code_size
-                    print "MAX",code_max
-
-
+                    print "MAX",code_max,i
+                    self.write_code(0xFFFF)
+                    self.write_code(0xFFFF)
+                    self.write_code(0xFFFF)
+                    self.write_code(0xFFFF)
+                    self.write_code(0xFFFF)
+                    self.write_code(0xFFFF)
+                    self.write_code(0xFFFF)
+                    self.write_code(0xFFFF)
+                    self.write_code(0xFFFF)
+                    self.write_code(0xFFFF)
+                    self.write_code(0xFFFF)
+                    self.write_code(0xFFFF)
+                    self.write_code(0xFFFF)
+                    self.write_code(0xFFFF)
+                    
               # end of lookup table
               if codes == 4095:
                   print "4k"
@@ -490,31 +503,7 @@ cdef class lzw_encode:
               
               current_code = next_value
         
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
-        self.write_code(0xFFFF)
+
         # end of loop cleanup (not sure about this)
         self.write_code(current_code)
         self.write_code(clear_code  )
