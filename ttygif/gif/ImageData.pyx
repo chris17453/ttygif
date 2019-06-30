@@ -430,7 +430,7 @@ cdef class lzw_encode:
         cdef uint16_t     end_code       = clear_code+1            # the code right after the clear code
         cdef uint16_t     codes          = clear_code+2
         cdef int32_t      current_code   = -1                      # curent hash lookup code
-        cdef uint_8_t     next_value     = 0                       # pixel value
+        cdef uint8_t      next_value     = 0                       # pixel value
         cdef uint16_t     lookup         = 0                       # code  table lookup hash
         cdef uint32_t     code_max       = 1 << self.code_size
 
