@@ -473,7 +473,7 @@ cdef class lzw_encode:
                   self.code_size+=1
 
               # end of lookup table
-              if codes == 4095 or 13==self.code_size:
+              if codes == 4095 :
                   self.write_code(clear_code)
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   self.code_size = min_code_size + 1
