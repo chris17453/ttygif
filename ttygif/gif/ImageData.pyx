@@ -466,6 +466,7 @@ cdef class lzw_encode:
               #print "MAX",max_code,lookup,i
               codetree[lookup] = codes
               
+              codes+=1
               #increase curent bit depth if outsized
               if codes >= code_max:
                   #print ("code size increase",self.code_size,i,max_code,self.chunk_pos)
@@ -486,7 +487,6 @@ cdef class lzw_encode:
                   codes=clear_code+2
                   #for i in range(0,clear_code):
                   #  codetree[i]=i
-              codes+=1
 
               current_code = next_value
         
