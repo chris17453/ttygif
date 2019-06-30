@@ -348,9 +348,9 @@ def compress(data, lzw_min, max_code_size=12):
 
 
 cdef class lzw_encode:
-    cdef array.array image
-    cdef array.array chunk
-    cdef array.array compressed
+    cdef array.array  image
+    cdef array.array  chunk
+    cdef array.array  compressed
     cdef uint32_t     byte
     cdef uint32_t     bit_pos
     cdef uint32_t     chunk_pos
@@ -438,9 +438,10 @@ cdef class lzw_encode:
         self.write_code(clear_code)
         
         #compression loop
-        for i in range(0,image_length):
+        #range(0,image_length)
+        for next_value in self.image:
           
-          next_value=self.image[i]
+          #next_value=self.image[i]
           #&codetree.data.as_voidptr[i]
           #self.image[i]
   
