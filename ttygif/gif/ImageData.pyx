@@ -26,7 +26,7 @@ class ImageData:
             raise Exception("Image data empty")
         
         old=None
-        #old=1
+        old=1
         
         if old:
           byte_data=compress(self.image_data, self.min_code_size)
@@ -312,6 +312,7 @@ def compress(data, lzw_min, max_code_size=12):
                 prev += c
             else:
                 yield table.get(prev)
+                print prev + c
                 table.add(prev + c)
                 prev = c
 
