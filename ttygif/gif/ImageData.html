@@ -5233,14 +5233,10 @@ static int __pyx_pf_6ttygif_3gif_9ImageData_10lzw_encode___init__(struct __pyx_o
     __pyx_t_7 = __Pyx_PyInt_As_uint8_t(__pyx_t_1); if (unlikely((__pyx_t_7 == ((uint8_t)-1)) &amp;&amp; <span class='py_c_api'>PyErr_Occurred</span>())) <span class='error_goto'>__PYX_ERR(0, 450, __pyx_L1_error)</span>
     <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_v_next_value = __pyx_t_7;
-</pre><pre class="cython line score-7" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">451</span>:           <span class="k">if</span> <span class="n">current_code</span><span class="o">*</span><span class="mf">256</span><span class="o">+</span><span class="n">next_value</span><span class="o">&gt;=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">):</span></pre>
-<pre class='cython code score-7 '>    __pyx_t_1 = ((PyObject *)__pyx_v_self-&gt;image);
-    <span class='pyx_macro_api'>__Pyx_INCREF</span>(__pyx_t_1);
-    if (unlikely(__pyx_t_1 == Py_None)) {
-      <span class='py_c_api'>PyErr_SetString</span>(PyExc_TypeError, "object of type 'NoneType' has no len()");
-      <span class='error_goto'>__PYX_ERR(0, 451, __pyx_L1_error)</span>
-    }
-    __pyx_t_3 = Py_SIZE(__pyx_t_1);<span class='error_goto'> if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 451, __pyx_L1_error)</span>
+</pre><pre class="cython line score-8" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">451</span>:           <span class="k">if</span> <span class="n">current_code</span><span class="o">*</span><span class="mf">256</span><span class="o">+</span><span class="n">next_value</span><span class="o">&gt;=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">codetree</span><span class="p">):</span></pre>
+<pre class='cython code score-8 '>    __pyx_t_1 = <span class='pyx_c_api'>__Pyx_PyObject_GetAttrStr</span>(((PyObject *)__pyx_v_self), __pyx_n_s_codetree);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 451, __pyx_L1_error)</span>
+    <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
+    __pyx_t_3 = <span class='py_c_api'>PyObject_Length</span>(__pyx_t_1);<span class='error_goto'> if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 451, __pyx_L1_error)</span>
     <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_8 = ((((__pyx_v_current_code * 0x100) + __pyx_v_next_value) &gt;= __pyx_t_3) != 0);
     if (__pyx_t_8) {
