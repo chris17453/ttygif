@@ -387,7 +387,7 @@ cdef class lzw_encode:
           self.chunk_pos+=1
           self.bit_pos = 0
           self.byte = 0
-          if self.chunk_pos == 255:
+          if self.chunk_pos == 256:
               self.write_chunk()
   
 
