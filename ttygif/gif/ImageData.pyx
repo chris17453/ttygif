@@ -57,7 +57,7 @@ class ImageData:
         #    self.stream.write_byte(byte)
         #    index+=1
         self.stream.write_byte(0)
-        exit(0)
+        bit_pos(0)
         
 
     def read(self,image_byte_length,interlace,width):
@@ -371,20 +371,20 @@ cdef class lzw_encode:
       self.compressed =array.array ('B',[self.min_code_size])
       self.compress()
     
-    cdef increment_bit(self):
-      self.bit_pos+=1
-      if self.bit_pos > 7 :
-        self.chunk[self.chunk_pos] = self.byte
-        self.chunk_pos+=1
-        self.bit_pos = 0
-        self.byte = 0
-  
+      
     cdef write_bit(self,uint32_t bit):
         bit = bit & 1
         bit = bit << self.bit_pos
         self.byte |= bit
-        self.increment_bit()
-
+        self.bit_pos+=1
+        if self.bit_pos > 7 :
+          self.chunk[self.chunk_pos] = self.byte
+          self.chunk_pos+=1
+          self.bit_pos = 0
+          self.byte = 0
+          if self.chunk_pos == 255:
+              self.write_chunk()
+  
 
     cdef write_chunk(self):
         if self.chunk_pos==0:
@@ -419,8 +419,6 @@ cdef class lzw_encode:
       for i in range (0,length):
           self.write_bit(code)
           code = code >> 1
-          if self.chunk_pos == 255:
-              self.write_chunk()
 
     # used to clear the incomplete bits of a chunk, end of line stuff
     cdef empty_stream(self):
