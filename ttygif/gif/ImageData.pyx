@@ -26,7 +26,7 @@ class ImageData:
             raise Exception("Image data empty")
         
         old=None
-        old=1
+        #old=1
         
         if old:
           byte_data=compress(self.image_data, self.min_code_size)
@@ -479,6 +479,7 @@ cdef class lzw_encode:
                     
               # end of lookup table
               if codes == 4095:
+                  print ("clear",self.data_pos)
                   self.write_code(clear_code)
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   self.code_size = min_code_size + 1
