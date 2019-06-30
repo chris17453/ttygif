@@ -368,7 +368,7 @@ cdef class lzw_encode:
       self.min_code_size   =8
       self.bit_depth       =self.min_code_size
       #first byte in array
-      self.compressed =array_array ('B',[self.min_code_size])
+      self.compressed =array.array ('B',[self.min_code_size])
       self.compress()
     
     cdef increment_bit(self):
