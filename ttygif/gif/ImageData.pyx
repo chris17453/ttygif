@@ -1,9 +1,10 @@
 # cython: profile=True
-# cython: linetrace=True
 # cython: binding=True
 # cython: language_level=2
 # cython: boundscheck=False
 # cython: wraparou1nd=False
+
+# xcython: linetrace=True
 
 from cpython cimport array
 from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
@@ -415,7 +416,7 @@ cdef class lzw_encode:
           code = code >> 1
 
     # used to clear the incomplete bits of a chunk, end of line stuff
-    cdef empty_stream(self):
+    cdef void empty_stream(self):
       while( self.bit_pos>0):
         self.write_bit(0)
       if self.chunk_pos>0:
@@ -424,7 +425,7 @@ cdef class lzw_encode:
 
 
 
-    cdef compress (self):
+    cdef void compress (self):
         cdef uint32_t     code_tree_len  = 256*4096
         cdef array.array  codetree       = array.array('i')
         array.resize(codetree,code_tree_len)
