@@ -25,7 +25,7 @@ class ImageData:
         if None==self.image_data or len(self.image_data)==0:
             raise Exception("Image data empty")
         
-        old=None
+        old=1
         if old:
           byte_data=compress(self.image_data, self.min_code_size)
           byte_len=len(byte_data)
