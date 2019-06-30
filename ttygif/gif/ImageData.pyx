@@ -358,6 +358,7 @@ cdef class lzw_encode:
     cdef int         bit_depth
     
     def __cinit__(self,array.array image,min_code_size):
+      print ("CINIT")
       self.image      =image
       self.byte      = 0
       self.chunk     = array.array('B',[0]*256)
@@ -369,6 +370,7 @@ cdef class lzw_encode:
       self.bit_depth       =self.min_code_size
       #first byte in array
       self.compressed =array.array ('B',[self.min_code_size])
+      print ("PRE COMPRESS")
       self.compress()
     
     cdef increment_bit(self):
@@ -422,6 +424,8 @@ cdef class lzw_encode:
       
 
     cdef compress (self):
+        print ("COMPRESS")
+
         cdef array.array  codetree       = array.array('I')
         cdef uint32_t     code_tree_len  = 2*256*4096
         cdef uint32_t     image_length   = len(self.image)
@@ -432,10 +436,12 @@ cdef class lzw_encode:
         cdef uint16_t     max_code       = clear_code+1
         cdef uint8_t      next_value     = 0
         cdef uint16_t     lookup         = 0
+        print ("ARRAY")
         
         array.resize(codetree,code_tree_len)
         memset(&codetree.data.as_uints,0,code_tree_len)
 
+        print ("MEMSET")
         
         self.write_code(clear_code, code_size)
         #compression loop
