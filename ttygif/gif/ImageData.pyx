@@ -351,7 +351,7 @@ cdef class lzw_encode:
     cdef int         chunkIndex
     cdef int         data_index
     cdef array.array chunk
-    cdef array_array compressed
+    cdef array.array compressed
     cdef int         min_code_size
     cdef int         bit_depth
     
