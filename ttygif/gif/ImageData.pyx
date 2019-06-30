@@ -461,6 +461,7 @@ cdef class lzw_encode:
           elif codetree[lookup]!=0 :
               lookup=self.image[i]+lookup_base
               current_code = codetree[lookup]
+              lookup_base  = current_code<<8
           else:
               self.write_code(current_code, code_size)
               max_code+=1
@@ -477,7 +478,8 @@ cdef class lzw_encode:
 
               current_code = self.image[i]
               lookup_base  = current_code<<8
-
+        
+        print "done"
         # end of loop cleanup (not sure about this)
         self.write_code(current_code  , code_size)
         self.write_code(clear_code    , code_size)
