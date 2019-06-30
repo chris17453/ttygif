@@ -310,7 +310,7 @@ cdef class term_parser:
         cdef int CR=13     # x Carriage return
         for character in event['data']:
             char_ord=ord(character)
-
+            print self.g.state.cursor_x,.cursor_y,unichr(character)
             if char_ord<32:
                 if  char_ord==BS:
                     self.g.state.cursor_left(1)
