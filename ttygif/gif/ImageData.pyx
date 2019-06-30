@@ -456,7 +456,8 @@ cdef class lzw_encode:
               continue
 
 
-
+          lookup=current_code*256+next_value
+          
           for i in range (0,self.code_size):
               bit = current_code & 1
               bit = bit << self.bit_pos
@@ -469,11 +470,10 @@ cdef class lzw_encode:
                 self.byte = 0
                 if self.chunk_pos == 255:
                     self.write_chunk()
-              code = code >> 1
+              current_code = current_code >> 1
               
 
           #self.write_code(current_code)
-          lookup=current_code*256+next_value
           codetree[lookup] = codes
           
           #increase curent bit depth if outsized
