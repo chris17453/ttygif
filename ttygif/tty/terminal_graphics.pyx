@@ -59,7 +59,7 @@ cdef class terminal_graphics:
                     pixel=[self.state.foreground,self.state.background,0]
                 else:
                     pixel=self.character_buffer.get_pixel(x,y+length)
-                self.character_buffer.character_buffer.put_pixel(x,y,pixel)
+                self.character_buffer.put_pixel(x,y,pixel)
         self.state.scroll=0
         #cdef int row_pos=buffer_length-src_image.dimentions.stride
         #array.resize(src_image.data,buffer_length)  
