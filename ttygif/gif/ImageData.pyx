@@ -472,12 +472,6 @@ cdef class lzw_encode:
               if codes >= 1 << self.code_size:
                   #print ("code size increase",self.code_size,i,max_code,self.chunk_pos)
                   #print("{0:04x}".format(self.chunk_pos))
-                  if self.code_size==12:
-                    self.write_code(clear_code)
-                    memset(codetree.data.as_voidptr,0,2*code_tree_len)
-                    self.code_size = min_code_size + 1
-                    codes=clear_code+2
-                  else:
                     self.code_size+=1
                     code_max=1 << self.code_size
                     print "MAX",code_max
@@ -485,6 +479,7 @@ cdef class lzw_encode:
 
               # end of lookup table
               if codes == 4095:
+                  print "4k"
                   self.write_code(clear_code)
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   self.code_size = min_code_size + 1
