@@ -443,7 +443,7 @@ cdef class lzw_encode:
 
           next_value = self.image[i]
           lookup=current_code*256+next_value
-          print lookup,len(code_tree),code_tree_len
+          print lookup,len(codetree),code_tree_len
           if current_code < 0:
               current_code = next_value
           elif codetree[lookup]!=0 :
