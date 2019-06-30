@@ -5322,8 +5322,8 @@ static int __pyx_pf_6ttygif_3gif_9ImageData_10lzw_encode___init__(struct __pyx_o
 <pre class='cython code score-0 '>        __pyx_v_code_max = (1 &lt;&lt; __pyx_v_self-&gt;code_size);
 </pre><pre class="cython line score-0">&#xA0;<span class="">468</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">469</span>:               <span class="c"># end of lookup table</span></pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">470</span>:               <span class="k">if</span> <span class="n">codes</span> <span class="o">==</span> <span class="mf">4095</span><span class="p">:</span></pre>
-<pre class='cython code score-0 '>      __pyx_t_8 = ((__pyx_v_codes == 0xFFF) != 0);
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">470</span>:               <span class="k">if</span> <span class="n">codes</span> <span class="o">&gt;=</span> <span class="mf">4095</span><span class="p">:</span></pre>
+<pre class='cython code score-0 '>      __pyx_t_8 = ((__pyx_v_codes &gt;= 0xFFF) != 0);
       if (__pyx_t_8) {
 /* … */
       }

@@ -467,13 +467,13 @@ cdef class lzw_encode:
                   code_max=1 << self.code_size
                     
               # end of lookup table
+              codes+=1
               if codes >= 4095:
                   #print ("clear",self.data_pos)
                   self.write_code(clear_code)
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   self.code_size = min_code_size + 1
                   codes= clear_code+2
-              codes+=1
               current_code = next_value
 
 
