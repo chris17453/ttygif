@@ -430,7 +430,7 @@ cdef class lzw_encode:
         cdef uint16_t     end_code       = clear_code+1            # the code right after the clear code
         cdef uint16_t     codes          = clear_code+2
         cdef int32_t      current_code   = -1                      # curent hash lookup code
-        cdef uint8_t      next_value     = 0                       # pixel value
+        cdef uchar      next_value     = 0                       # pixel value
         cdef uint16_t     lookup         = 0                       # code  table lookup hash
         cdef uint32_t     code_max       = 1 << self.code_size
 
@@ -440,7 +440,8 @@ cdef class lzw_encode:
         #compression loop
         for i in range(0,image_length):
           
-          next_value=&codetree.data.as_voidptr[i]
+          next_value=self.image[i]
+          #&codetree.data.as_voidptr[i]
           #self.image[i]
   
           if current_code < 0:
@@ -450,25 +451,25 @@ cdef class lzw_encode:
           lookup=current_code<<8+next_value
           if codetree[lookup]:
               current_code = codetree[lookup]
-  
-          else:
-              self.write_code(current_code)
-              codetree[lookup] = codes
-              
-              #increase curent bit depth if outsized
-              if codes >= code_max:
-                  self.code_size+=1
-                  code_max=1 << self.code_size
-                    
-              # end of lookup table
-              if codes == 4095:
-                  #print ("clear",self.data_pos)
-                  self.write_code(clear_code)
-                  memset(codetree.data.as_voidptr,0,2*code_tree_len)
-                  self.code_size = min_code_size + 1
-                  codes= clear_code+2
-              codes+=1
-              current_code = next_value
+              continue
+
+          self.write_code(current_code)
+          codetree[lookup] = codes
+          
+          #increase curent bit depth if outsized
+          if codes >= code_max:
+              self.code_size+=1
+              code_max=1 << self.code_size
+                
+          # end of lookup table
+          if codes == 4095:
+              #print ("clear",self.data_pos)
+              self.write_code(clear_code)
+              memset(codetree.data.as_voidptr,0,2*code_tree_len)
+              self.code_size = min_code_size + 1
+              codes= clear_code+2
+          codes+=1
+          current_code = next_value
 
 
         # end of loop cleanup trailing stuff in bit shifter
