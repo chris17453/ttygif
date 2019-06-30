@@ -449,13 +449,13 @@ cdef class lzw_encode:
               current_code = next_value
               continue
           
-          leaf=codetree[current_code<<8+next_value]
+          leaf=codetree[current_code*256+next_value]
           if leaf!=0:
               current_code =leaf
               continue
 
           self.write_code(current_code)
-          lookup=current_code<<8+next_value
+          lookup=current_code*256+next_value
           codetree[lookup] = codes
           
           #increase curent bit depth if outsized
