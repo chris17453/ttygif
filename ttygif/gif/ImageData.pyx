@@ -1,9 +1,8 @@
-#cython: profile=True
-#cython: linetrace=True
-#cython: binding=True
-#cython: language_level=2
-#cython: boundscheck=False
-#cython: wraparound=False
+# cython: profile=True
+# cython: binding=True
+# cython: language_level=2
+# cython: boundscheck=False
+# cython: wraparou1nd=False
 
 from cpython cimport array
 from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
@@ -361,7 +360,7 @@ cdef class lzw_encode:
     cdef uint32_t     min_code_size
     cdef uint32_t     code_size
     cdef uint32_t     chunk_fragment
-    def __cinit__(self,array.array image,min_code_size):
+    def __cinit__(self,array.array image,int min_code_size):
       self.image      =image
       self.byte      = 0
       self.chunk     = array.array('B',[0]*256)
@@ -374,10 +373,10 @@ cdef class lzw_encode:
       self.chunk_fragment  =0
       #first byte in array
       self.compressed =array.array ('B',[self.min_code_size])
-      self.compress()
+      self.compress(image)
     
       
-    cdef write_bit(self,uint32_t bit):
+    cdef void write_bit(self,uint32_t bit):
         bit = bit & 1
         bit = bit << self.bit_pos
         self.byte |= bit
@@ -391,7 +390,7 @@ cdef class lzw_encode:
               self.write_chunk()
   
 
-    cdef write_chunk(self):
+    cdef void write_chunk(self):
         self.chunk_fragment+=1
         if self.chunk_pos==0:
           raise Exception("Cannot write chunk of empty stream")
@@ -409,13 +408,13 @@ cdef class lzw_encode:
         self.chunk_pos = 0
     
 
-    cdef write_code(self,uint32_t code):
+    cdef void write_code(self,uint32_t code):
       for i in xrange (0,self.code_size):
           self.write_bit(code)
           code = code >> 1
 
     # used to clear the incomplete bits of a chunk, end of line stuff
-    cdef empty_stream(self):
+    cdef void empty_stream(self):
       while( self.bit_pos>0):
         self.write_bit(0)
       if self.chunk_pos>0:
@@ -424,10 +423,11 @@ cdef class lzw_encode:
 
 
 
-    cdef compress (self):
+    cdef void compress (self,array.array image):
         cdef uint32_t     code_tree_len  = 256*4096
-        cdef array.array  codetree       = array.array('i',[0]*code_tree_len)
-        cdef uint32_t     image_length   = len(self.image)
+        cdef array.array  codetree       = array.array('i')
+        array.resize(codetree,code_tree_len)
+        cdef uint32_t     image_length   = len(image)
         cdef int32_t      min_code_size  = self.min_code_size    
         cdef uint32_t     clear_code     = 1<<self.min_code_size   # the code right after the color table
         cdef uint16_t     end_code       = clear_code+1            # the code right after the clear code
@@ -443,18 +443,19 @@ cdef class lzw_encode:
         self.write_code(clear_code)
         
         #compression loop
-        for i in xrange(0,image_length):
-          next_value=self.image[i]
+        for next_value in image:#xrange(0,image_length):
+          #next_value=self.image[i]
   
+          lookup=current_code*256+next_value
           if current_code < 0:
               current_code = next_value
   
-          elif codetree[current_code*256+next_value]:
-              current_code = codetree[current_code*256+next_value]
+          elif codetree[lookup]:
+              current_code = codetree[lookup]
   
           else:
               self.write_code(current_code)
-              codetree[current_code*256+next_value] = codes
+              codetree[lookup] = codes
               
               #increase curent bit depth if outsized
               if codes >= 1 << self.code_size:
