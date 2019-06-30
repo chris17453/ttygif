@@ -454,12 +454,13 @@ cdef class lzw_encode:
         for i in range(0,image_length):
           next_value=self.image[i]
   
-
           #print lookup,len(codetree),code_tree_len
           if current_code < 0:
               current_code = next_value
+  
           elif codetree[current_code*256+next_value]:
               current_code = codetree[current_code*256+next_value]
+  
           else:
               self.write_code(current_code)
               #print "MAX",max_code,lookup,i
@@ -468,8 +469,9 @@ cdef class lzw_encode:
               
               #increase curent bit depth if outsized
               if codes >= code_max:
-                    self.code_size+=1
-                    code_max=1 << self.code_size
+                  print("{0:04X}".format(self.data_pos))
+                  self.code_size+=1
+                  code_max=1 << self.code_size
                     
               # end of lookup table
               if codes == 4095:
