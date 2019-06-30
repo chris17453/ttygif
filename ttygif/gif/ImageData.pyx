@@ -62,7 +62,7 @@ class ImageData:
         #    self.stream.write_byte(byte)
         #    index+=1
         self.stream.write_byte(0)
-        exit(0)
+        #exit(0)
         
         
     def read(self,image_byte_length,interlace,width):
