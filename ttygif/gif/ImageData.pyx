@@ -400,7 +400,7 @@ cdef class lzw_encode:
           array.resize(self.compressed,new_compressed_size)
           #print "After",len(self.chunk),len(self.compressed)
           
-          self.compressed[self.data_pos]=self.chunk_pos
+          self.compressed[self.data_pos]=self.chunk_pos-1
           self.data_pos+=1
           
           for i in range(0,self.chunk_pos):
