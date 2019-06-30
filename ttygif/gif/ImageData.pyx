@@ -427,7 +427,7 @@ cdef class lzw_encode:
         print ("COMPRESS")
 
         cdef array.array  codetree       = array.array('I')
-        cdef uint32_t     code_tree_len  = 2*256*4096
+        cdef uint32_t     code_tree_len  = 256*4096
         cdef uint32_t     image_length   = len(self.image)
         cdef uint32_t     min_code_size  = self.min_code_size
         cdef uint32_t     clear_code     = 1 << self.bit_depth
@@ -439,7 +439,7 @@ cdef class lzw_encode:
         print ("ARRAY")
         
         array.resize(codetree,code_tree_len)
-        print("RESIZED",code_tree_len)
+        print("RESIZED",code_tree_len,len(codetree))
         memset(&codetree.data.as_uints,0,code_tree_len)
 
         print ("MEMSET")
