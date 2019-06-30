@@ -440,7 +440,7 @@ cdef class lzw_encode:
         
         array.resize(codetree,code_tree_len)
         print("RESIZED",code_tree_len,len(codetree))
-        memset(&codetree.data.as_voidptr,0,2*code_tree_len)
+        memset(codetree.data.as_voidptr,0,2*code_tree_len)
 
         print ("MEMSET")
         
@@ -464,7 +464,7 @@ cdef class lzw_encode:
                   code_size+=1
               if max_code == 4095:
                   self.write_code(clear_code, code_size)
-                  memset(&codetree.data.as_uints,0,code_tree_len)
+                  memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   code_size = min_code_size + 1
                   max_code  = clear_code + 1
               current_code = next_value
