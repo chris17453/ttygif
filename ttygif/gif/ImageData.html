@@ -5313,8 +5313,12 @@ static int __pyx_pf_6ttygif_3gif_9ImageData_10lzw_encode___init__(struct __pyx_o
       __pyx_t_15 = ((__pyx_v_current_code * 0x100) + __pyx_v_next_value);
       if (unlikely(<span class='pyx_c_api'>__Pyx_SetItemInt</span>(((PyObject *)__pyx_v_codetree), __pyx_t_15, __pyx_t_14, long, 1, __Pyx_PyInt_From_long, 0, 1, 0) &lt; 0)) <span class='error_goto'>__PYX_ERR(0, 463, __pyx_L1_error)</span>
       <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_14); __pyx_t_14 = 0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">464</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">465</span>:               <span class="c">#increase curent bit depth if outsized</span></pre>
+</pre><pre class="cython line score-3" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">464</span>:               <span class="k">print</span> <span class="n">codes</span></pre>
+<pre class='cython code score-3 '>      __pyx_t_14 = __Pyx_PyInt_From_uint16_t(__pyx_v_codes);<span class='error_goto'> if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 464, __pyx_L1_error)</span>
+      <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_14);
+      if (<span class='pyx_c_api'>__Pyx_PrintOne</span>(0, __pyx_t_14) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 464, __pyx_L1_error)</span>
+      <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_14); __pyx_t_14 = 0;
+</pre><pre class="cython line score-0">&#xA0;<span class="">465</span>:               <span class="c">#increase curent bit depth if outsized</span></pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">466</span>:               <span class="k">if</span> <span class="n">codes</span> <span class="o">&gt;=</span> <span class="mf">1</span> <span class="o">&lt;&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">code_size</span><span class="p">:</span></pre>
 <pre class='cython code score-0 '>      __pyx_t_8 = ((__pyx_v_codes &gt;= (1 &lt;&lt; __pyx_v_self-&gt;code_size)) != 0);
       if (__pyx_t_8) {
