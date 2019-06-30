@@ -207,8 +207,7 @@ cdef class term_parser:
         elif command=='l':  self.cmd_reset_mode(value1)
         elif command=='m':  self.cmd_process_colors(params)
         elif command=='r':  
-            print params
-            self.cmd_DECSTBM(value2,value1)
+            self.cmd_DECSTBM(value1,value2)
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value1-1)
