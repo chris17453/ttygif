@@ -25,8 +25,8 @@ class ImageData:
         if None==self.image_data or len(self.image_data)==0:
             raise Exception("Image data empty")
         
-        #old=None
-        old=1
+        old=None
+        #old=1
         
         if old:
           byte_data=compress(self.image_data, self.min_code_size)
@@ -456,7 +456,7 @@ cdef class lzw_encode:
               self.write_code(current_code)
               #print "MAX",max_code,lookup,i
               max_code+=1
-              codetree[lookup] = max_code
+              codetree[lookup] = uint16_t(max_code)
 
               #increase curent bit depth if outsized
               if max_code >= 1 << self.code_size:
