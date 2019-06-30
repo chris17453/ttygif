@@ -473,7 +473,6 @@ cdef class lzw_encode:
                   self.code_size+=1
                   code_max=1 << self.code_size
                     
-              codes+=1
               # end of lookup table
               if codes == 4095:
                   print ("clear",self.data_pos)
@@ -483,6 +482,7 @@ cdef class lzw_encode:
                   codes= clear_code+2
                   #for i in range(0,clear_code+2):
                   #  codetree[i*256]=i
+              codes+=1
 
               current_code = next_value
 
