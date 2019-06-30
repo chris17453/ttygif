@@ -379,7 +379,7 @@ cdef class lzw_encode:
         self.bitIndex = 0
         self.byte = 0
   
-    cdef write_bit(uint32_t bit):
+    cdef write_bit(self,uint32_t bit):
         bit = bit & 1
         bit = bit << self.bitIndex
         self.byte |= bit
@@ -399,7 +399,7 @@ cdef class lzw_encode:
         self.chunkIndex = 0
     
 
-    cdef write_code(uint32_t code, uint32_t length):
+    cdef write_code(self,uint32_t code, uint32_t length):
       for i in range (0,length):
           self.write_bit(code)
           code = code >> 1
@@ -407,7 +407,7 @@ cdef class lzw_encode:
               self.write_chunk()
 
     # used to clear the incomplete bits of a chunk, end of line stuff
-    cdef empyt_stream():
+    cdef empyt_stream(self):
       while( self.bitIndex>0):
         self.write_bit(0)
       if self.chunkIndex>0:
