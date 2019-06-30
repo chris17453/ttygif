@@ -466,14 +466,14 @@ cdef class lzw_encode:
               self.write_code(current_code)
               #print "MAX",max_code,lookup,i
               codetree[current_code*256+next_value] = codes
-              codes+=1
               
               #increase curent bit depth if outsized
-              if codes >= code_max-1:
+              if codes >= 1 << self.code_size:
                   print("{0:04X}".format(self.data_pos+self.chunk_pos))
                   self.code_size+=1
                   code_max=1 << self.code_size
                     
+              codes+=1
               # end of lookup table
               if codes == 4095:
                   print ("clear",self.data_pos)
