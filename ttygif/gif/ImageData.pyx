@@ -456,13 +456,13 @@ cdef class lzw_encode:
           else:
               self.write_code(current_code, code_size)
               #print "MAX",max_code,lookup,i
-              codetree[lookup] = max_code
               max_code+=1
+              codetree[lookup] = max_code
 
               #increase curent bit depth if outsized
-              if max_code >= 1 << code_size:
-                  print ("code size increase",code_size,i,max_code)
-                  code_size+=1
+              #if max_code >= 1 << code_size:
+               #   print ("code size increase",code_size,i,max_code)
+               #   code_size+=1
 
               # end of lookup table
               if max_code == 4095:
