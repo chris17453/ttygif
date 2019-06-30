@@ -391,16 +391,16 @@ cdef class lzw_encode:
           raise Exception("Cannot write chunk of empty stream")
         cdef int new_compressed_size = len(self.compressed)+self.chunk_pos+1+1
         if 0==0:
-          print "Before",len(self.chunk),len(self.compressed)
+          #print "Before",len(self.chunk),len(self.compressed)
           array.resize(self.compressed,new_compressed_size)
-          print "After",len(self.chunk),len(self.compressed)
+          #print "After",len(self.chunk),len(self.compressed)
           
           self.compressed[self.data_pos]=self.chunk_pos
           self.data_pos+=1
           
           for i in range(0,self.chunk_pos+1):
             self.compressed[self.data_pos]=self.chunk[i]
-            print len(self.chunk),len(self.compressed),self.data_pos
+            #print len(self.chunk),len(self.compressed),self.data_pos
             self.data_pos+=1
 
         self.bit_pos   = 0
