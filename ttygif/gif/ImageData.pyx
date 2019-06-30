@@ -454,19 +454,16 @@ cdef class lzw_encode:
         #compression loop
         for i in range(0,image_length):
           next_value=self.image[i]
+          lookup=next_value+current_code*256
+
           #print lookup,len(codetree),code_tree_len
           if current_code < 0:
               current_code = next_value
-              lookup_base  = current_code<<8
-
           elif codetree[lookup]!=0 :
-              lookup=next_value+lookup_base
               current_code = codetree[lookup]
-              lookup_base  = current_code<<8
           else:
               self.write_code(current_code, code_size)
               max_code+=1
-              lookup=next_value+lookup_base
               codetree[lookup] = max_code
 
               #increase curent bit depth if outsized
@@ -481,7 +478,6 @@ cdef class lzw_encode:
                   max_code  = clear_code + 1
 
               current_code = next_value
-              lookup_base  = current_code<<8
         
         # end of loop cleanup (not sure about this)
         self.write_code(current_code  , code_size)
