@@ -451,8 +451,6 @@ cdef class lzw_encode:
           if leaf!=0:
               current_code =leaf
               continue
-
-
           
           self.write_code(current_code)
           lookup=current_code*256+next_value
@@ -463,6 +461,8 @@ cdef class lzw_encode:
               self.code_size+=1
               code_max=1 << self.code_size
                 
+          codes+=1
+          
           # end of lookup table
           if codes == 4095:
               #print ("clear",self.data_pos)
@@ -470,7 +470,6 @@ cdef class lzw_encode:
               memset(codetree.data.as_voidptr,0,2*code_tree_len)
               self.code_size = min_code_size + 1
               codes= clear_code+2
-          codes+=1
           current_code = next_value
 
 
