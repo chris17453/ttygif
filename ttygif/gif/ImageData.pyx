@@ -426,7 +426,7 @@ cdef class lzw_encode:
         cdef int32_t      min_code_size  = self.min_code_size    
         cdef uint32_t     clear_code     = 1<<self.min_code_size   # the code right after the color table
         cdef uint16_t     max_code       = clear_code+1            # the code right after the clear code
-        cdef uint32_t     code_size      = min_code_size + 1       # because its the color table size pLus 1
+        cdef uint32_t     code_size      = min_code_size + 0       # because its the color table size pLus 1
         cdef int32_t      current_code   = -1                      # curent hash lookup code
         cdef uint8_t      next_value     = 0                       # pixel value
         cdef uint16_t     lookup         = 0                       # code  table lookup hash
