@@ -57,7 +57,7 @@ class ImageData:
         #    self.stream.write_byte(byte)
         #    index+=1
         self.stream.write_byte(0)
-    
+        exit(0)
         
 
     def read(self,image_byte_length,interlace,width):
@@ -423,7 +423,7 @@ cdef class lzw_encode:
         self.write_chunk()
       # reset counters
       self.bit_pos   = 0
-      self.byte       = 0
+      self.byte      = 0
       self.chunk_pos = 0
       
 
@@ -432,12 +432,13 @@ cdef class lzw_encode:
         cdef uint32_t     code_tree_len  = 256*4096
         cdef uint32_t     image_length   = len(self.image)
         cdef uint32_t     min_code_size  = self.min_code_size
-        cdef uint32_t     clear_code     = 1 << self.bit_depth
-        cdef int32_t      current_code   = -1
-        cdef uint32_t     code_size      = min_code_size + 1
+        cdef uint32_t     clear_code     = 2**self.bit_depth
         cdef uint16_t     max_code       = clear_code+1
-        cdef uint8_t      next_value     = 0
-        cdef uint16_t     lookup         = 0
+        cdef int32_t      current_code   = -1
+        cdef uint32_t     code_size      = min_code_size + 1 
+        cdef uint8_t      next_value     = 0                  # pixel value
+        cdef uint16_t     lookup         = 0                  # code  table lookup hash
+
         
         array.resize(codetree,code_tree_len)
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
