@@ -54,9 +54,14 @@ cdef class display_state:
         self.cursor_x-=distance
         self.check_bounds()
 
-    cdef cursor_right(self,int distance):
+    cdef cursor_right(self,int distance,wrap=None):
         self.cursor_x+=distance
-        self.check_bounds()
+        if wrap:
+            if self.cursor_x>=self.width:
+                self.cursor_x-=self.width
+                self.cursor_down(1):
+        else:
+            self.check_bounds()
 
     cdef cursor_absolute_x(self,position):
         self.cursor_x=position
