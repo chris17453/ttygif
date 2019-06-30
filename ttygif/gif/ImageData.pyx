@@ -440,9 +440,8 @@ cdef class lzw_encode:
         
         #compression loop
         #range(0,image_length)
-        for next_value in self.image:
-          
-          #next_value=self.image[i]
+        for i in range(0,image_length):
+          next_value=self.image[i]
           #&codetree.data.as_voidptr[i]
           #self.image[i]
   
