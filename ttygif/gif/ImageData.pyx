@@ -438,8 +438,8 @@ cdef class lzw_encode:
         cdef int32_t      tree_lookup    = 0
         cdef uint32_t     code_max       = 1 << self.code_size
 
-        for i in range(0,clear_code):
-          codetree[i]=i
+        #f#or i in range(0,clear_code):
+        #  codetree[i]=i
 
         print "CLEAR",clear_code
         print "LEN",image_length
@@ -482,8 +482,8 @@ cdef class lzw_encode:
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   self.code_size = min_code_size + 1
                   codes=clear_code+2
-                  for i in range(0,clear_code):
-                    codetree[i]=i
+                  #for i in range(0,clear_code):
+                  #  codetree[i]=i
 
               current_code = next_value
         
