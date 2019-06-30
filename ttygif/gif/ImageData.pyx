@@ -427,15 +427,14 @@ cdef class lzw_encode:
         cdef uint32_t     code_tree_len  = 256*4096
         cdef array.array  codetree       = array.array('I',[0]*code_tree_len)
         cdef uint32_t     image_length   = len(self.image)
-        cdef uint32_t     min_code_size  = self.min_code_size
-        cdef uint32_t     clear_code     = 1<<self.min_code_size
-        cdef uint16_t     max_code       = clear_code+1
-        cdef uint32_t     code_size      = min_code_size + 1 
-        cdef int32_t      current_code   = -1                 # curent hash lookup code
-        cdef uint8_t      next_value     = 0                  # pixel value
-        cdef uint16_t     lookup         = 0                  # code  table lookup hash
+        cdef int32_t      min_code_size  = self.min_code_size    
+        cdef uint32_t     clear_code     = 1<<self.min_code_size   # the code right after the color table
+        cdef uint16_t     max_code       = clear_code+1            # the code right after the clear code
+        cdef uint32_t     code_size      = min_code_size + 1       # because its the color table size pLus 1
+        cdef int32_t      current_code   = -1                      # curent hash lookup code
+        cdef uint8_t      next_value     = 0                       # pixel value
+        cdef uint16_t     lookup         = 0                       # code  table lookup hash
         cdef uint16_t     lookup_base    = 0
-
         cdef uint32_t     tree_lookup    = 0
 
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
@@ -444,7 +443,6 @@ cdef class lzw_encode:
         #compression loop
         for i in range(0,image_length):
           next_value=self.image[i]
-          
           lookup=next_value+current_code*256
           tree_lookup=codetree[lookup]
 
@@ -459,10 +457,10 @@ cdef class lzw_encode:
               max_code+=1
               codetree[lookup] = max_code
 
-              #increase curent bit depth if outsized
-              #if max_code >= 1 << code_size:
+              increase curent bit depth if outsized
+              if max_code >= 1 << code_size:
                #   print ("code size increase",code_size,i,max_code)
-               #   code_size+=1
+                  code_size+=1
 
               # end of lookup table
               if max_code == 4095:
