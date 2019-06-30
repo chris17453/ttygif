@@ -30,7 +30,6 @@ class ImageData:
         
         if old:
           byte_data=compress(self.image_data, self.min_code_size)
-          self.stream.hex(byte_data)
           byte_len=len(byte_data)
           #print ("LENGTH: {0}".format(byte_len))
           self.stream.write_byte(self.min_code_size)
