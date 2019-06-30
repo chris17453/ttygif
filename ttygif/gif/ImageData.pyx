@@ -312,7 +312,7 @@ def compress(data, lzw_min, max_code_size=12):
                 prev += c
             else:
                 yield table.get(prev)
-                print prev + c
+                print [ord[i] for i in prev],  + ord(c)
                 table.add(prev + c)
                 prev = c
 
