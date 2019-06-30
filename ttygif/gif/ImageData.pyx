@@ -460,7 +460,7 @@ cdef class lzw_encode:
 
               #increase curent bit depth if outsized
               if max_code >= 1 << code_size:
-                  print ("code size increase",code_size)
+                  print ("code size increase",code_size,i,max_code)
                   code_size+=1
 
               # end of lookup table
