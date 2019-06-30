@@ -60,10 +60,8 @@ class ImageData:
         #    self.stream.write_byte(byte)
         #    index+=1
         self.stream.write_byte(0)
-        self.stream.write_byte(0x3B)
-
-        exit (0)
-
+        
+        
     def read(self,image_byte_length,interlace,width):
       self.internal_pos = self.stream.pos
       self.LZ_BITS           = 12
