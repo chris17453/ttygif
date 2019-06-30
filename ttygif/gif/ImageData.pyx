@@ -399,7 +399,7 @@ cdef class lzw_encode:
         self.compressed[self.data_pos]=self.chunk_pos
         self.data_pos+=1
         
-        for i in range(0,self.chunk_pos):
+        for i in xrange(0,self.chunk_pos):
           #self.compressed[self.data_pos]=self.chunk_fragment
           self.compressed[self.data_pos]=self.chunk[i]
           self.data_pos+=1
@@ -408,7 +408,7 @@ cdef class lzw_encode:
     
 
     cdef write_code(self,uint32_t code):
-      for i in range (0,self.code_size):
+      for i in xrange (0,self.code_size):
           self.write_bit(code)
           code = code >> 1
 
@@ -441,7 +441,7 @@ cdef class lzw_encode:
         self.write_code(clear_code)
         
         #compression loop
-        for i in range(0,image_length):
+        for i in xrange(0,image_length):
           next_value=self.image[i]
   
           if current_code < 0:
