@@ -326,7 +326,7 @@ cdef class term_parser:
 
     cdef cmd_DECSTBM(self,top,bottom):
         print ("SCROLL REGION",top,bottom)
-        self.g.set_scroll_region(top,bottom)
+        self.g.state.set_scroll_region(top,bottom)
 
     cdef cmd_CUU(self,distance):
         self.g.state.cursor_up(distance)
