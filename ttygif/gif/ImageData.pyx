@@ -361,7 +361,7 @@ cdef class lzw_encode:
       self.image      =image
       self.byte      = 0
       self.chunk     = array.array('B',[0]*256)
-      self.data_pos  = 0
+      self.data_pos  = 1
       self.bit_pos   = 0
       self.chunk_pos = 0
       #compress the image and render to array
