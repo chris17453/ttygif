@@ -448,7 +448,7 @@ cdef class lzw_encode:
         #compression loop
         for i in xrange(0,image_length):
           next_value=self.image[i]
-          if current_code*256+next_value>=len(self.image):
+          if current_code*256+next_value>=len(self.codetree):
             print(current_code*256+next_value,len(self.image))
           if current_code < 0:
               current_code = next_value
