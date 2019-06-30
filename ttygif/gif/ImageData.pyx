@@ -397,7 +397,7 @@ cdef class lzw_encode:
           self.compressed[self.data_pos]=self.chunk_pos
           self.data_pos+=1
           
-          for for i in range(0,self.chunk_pos+1):
+          for i in range(0,self.chunk_pos+1):
             c in self.chunk[i]:
             self.compressed[self.data_pos]=c
             print len(self.chunk),len(self.compressed),self.data_pos
