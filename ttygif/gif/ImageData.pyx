@@ -447,20 +447,23 @@ cdef class lzw_encode:
         cdef uint16_t     lookup         = 0                  # code  table lookup hash
         cdef uint16_t     lookup_base    = 0
 
-        
+        cdef uint32_t     tree_lookup    = 0
+
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
 
         self.write_code(clear_code, code_size)
         #compression loop
         for i in range(0,image_length):
           next_value=self.image[i]
+          
           lookup=next_value+current_code*256
+          tree_lookup=codetree[lookup]
 
           #print lookup,len(codetree),code_tree_len
           if current_code < 0:
               current_code = next_value
-          elif codetree[lookup]!=0 :
-              current_code = codetree[lookup]
+          elif tree_lookup!=0 :
+              current_code = tree_lookup
           else:
               self.write_code(current_code, code_size)
               max_code+=1
