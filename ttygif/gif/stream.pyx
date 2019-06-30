@@ -227,3 +227,14 @@ cdef class DataStream:
         #self.print_bit(bit_value)
         #print ("Bit: {0:02X},Mask:{1:02X},Index:{2},Length:{3}".format(bit_value,mask,index,length))
         return bit_value
+    
+    def hex(self,array.array data):
+        h=""
+        for i in range(0,len(data)):
+            h+= ("{0:02X} ".format(self.data[i]))
+            if i%16==0:
+              intro="{0:06X} - ".format(i)
+            if (i%16==0 and i!=0) or i==len(data):
+              print("{0}{1}".format(intro,h))
+              h=""
+            

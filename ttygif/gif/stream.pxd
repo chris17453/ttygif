@@ -26,4 +26,4 @@ cdef class DataStream:
     cdef seek(self,position)
     cdef rewind(self)
     cdef get_file_size(self)
-    
+

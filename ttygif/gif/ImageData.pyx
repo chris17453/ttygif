@@ -45,6 +45,7 @@ class ImageData:
         else:
           encoder=lzw_encode(self.image_data,self.min_code_size)
           self.stream.write_bytes(encoder.compressed)
+          self.stream.hex(encoder.compressed)
 
         
         #for byte in byte_data:
@@ -397,17 +398,10 @@ cdef class lzw_encode:
           self.compressed[self.data_pos]=self.chunk_pos
           self.data_pos+=1
           
-          h=""
           for i in range(0,self.chunk_pos+1):
-            if i%16==0:
-              print h
-              h=""
-
-            h+= ("{0:02X} ".format(self.chunk[i]))
             self.compressed[self.data_pos]=self.chunk[i]
             #print len(self.chunk),len(self.compressed),self.data_pos
             self.data_pos+=1
-          print h
 
         self.bit_pos   = 0
         self.byte      = 0
