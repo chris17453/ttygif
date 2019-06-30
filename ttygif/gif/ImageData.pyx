@@ -417,10 +417,6 @@ cdef class lzw_encode:
         self.write_bit(0)
       if self.chunk_pos>0:
         self.write_chunk()
-      # reset counters
-      self.bit_pos   = 0
-      self.byte      = 0
-      self.chunk_pos = 0
       
 
     cdef compress (self):
@@ -443,6 +439,11 @@ cdef class lzw_encode:
         #compression loop
         for i in range(0,image_length):
           next_value=self.image[i]
+
+          self.write_code(nextValue, codeSize )
+          self.write_code(256, codeSize )
+          continue
+
           lookup=next_value+current_code*256
           tree_lookup=codetree[lookup]
 
