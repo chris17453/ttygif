@@ -187,7 +187,7 @@ cdef class term_parser:
                 value2=params[1]
 
         
-        print command,value1,value1,params,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
+        print "\n"+command,value1,value1,params,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
         
         if   command=='A':  self.cmd_CUU(value1)
         elif command=='B':  self.cmd_CUD(value1)
@@ -390,7 +390,7 @@ cdef class term_parser:
 
     cdef cmd_EL(self,mode):
         cp=self.g.state.cursor_get_position()
-        #print ( "DEL",mode)
+        print ( "DEL",mode,cp)
         if mode==0:
             for x in range(self.g.state.cursor_x,self.g.state.width):
                 self.g.state.cursor_absolute_x(x)
