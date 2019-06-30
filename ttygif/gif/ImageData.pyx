@@ -459,7 +459,8 @@ cdef class lzw_encode:
 
               #increase curent bit depth if outsized
               if max_code >= 1 << code_size:
-               #   print ("code size increase",code_size,i,max_code)
+                  print ("code size increase",code_size,i,max_code,self.chunk_pos)
+                  print("{0:04x}".format(self.chunk_pos))
                   code_size+=1
 
               # end of lookup table
