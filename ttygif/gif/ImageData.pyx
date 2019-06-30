@@ -397,7 +397,7 @@ cdef class lzw_encode:
         cdef int new_compressed_size = len(self.compressed)+self.chunk_pos+1
         array.resize(self.compressed,new_compressed_size)
         
-        self.compressed[self.data_pos]=0x22
+        self.compressed[self.data_pos]=self.chunk_pos
         self.data_pos+=1
         
         for i in range(0,self.chunk_pos):
