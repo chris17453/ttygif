@@ -383,7 +383,7 @@ cdef class lzw_encode:
         bit = bit << self.bit_pos
         self.byte |= bit
         self.bit_pos+=1
-        if self.bit_pos > 7 :
+        if self.bit_pos ==8:
           self.chunk[self.chunk_pos] = self.byte
           self.chunk_pos+=1
           self.bit_pos = 0
@@ -403,12 +403,10 @@ cdef class lzw_encode:
         self.data_pos+=1
         
         for i in range(0,self.chunk_pos):
-          self.compressed[self.data_pos]=self.chunk_fragment
-          #self.compressed[self.data_pos]=self.chunk[i]
+          #self.compressed[self.data_pos]=self.chunk_fragment
+          self.compressed[self.data_pos]=self.chunk[i]
           self.data_pos+=1
 
-        self.bit_pos   = 0
-        self.byte      = 0
         self.chunk_pos = 0
     
 
