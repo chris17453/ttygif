@@ -430,12 +430,13 @@ cdef class lzw_encode:
         cdef int32_t      min_code_size  = self.min_code_size    
         cdef uint32_t     clear_code     = 1<<self.min_code_size   # the code right after the color table
         cdef uint16_t     end_code       = clear_code+1            # the code right after the clear code
-        cdef uint16_t     codes          = end_code+2
+        cdef uint16_t     codes          = clear_code+2
         cdef int32_t      current_code   = -1                      # curent hash lookup code
         cdef uint8_t      next_value     = 0                       # pixel value
         cdef uint16_t     lookup         = 0                       # code  table lookup hash
         cdef uint16_t     lookup_base    = 0
         cdef int32_t      tree_lookup    = 0
+        cdef uint32_t     code_max       = 1 << self.code_size
 
         for i in range(0,clear_code+2):
           codetree[i]=i
@@ -467,17 +468,20 @@ cdef class lzw_encode:
               codetree[lookup] = codes
               
               #increase curent bit depth if outsized
-              if codes >= 1 << self.code_size:
+              if codes >= code_max:
                   #print ("code size increase",self.code_size,i,max_code,self.chunk_pos)
                   #print("{0:04x}".format(self.chunk_pos))
                   self.code_size+=1
+                  code_max=1 << self.code_size
+                  print "MAX",code_max
+
 
               # end of lookup table
               if codes == 4095 or self.code_size==13:
                   self.write_code(clear_code)
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   self.code_size = min_code_size + 1
-                  codes=end_code+2
+                  codes=clear_code+2
                   for i in range(0,clear_code+2):
                     codetree[i]=i
 
