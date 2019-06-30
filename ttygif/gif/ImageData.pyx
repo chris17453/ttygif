@@ -43,7 +43,7 @@ class ImageData:
               byte_data_length-=length
               index+=length
         else:
-          encoder=lzw_encode(self.image_data,self.min_code_size-1)
+          encoder=lzw_encode(self.image_data,self.min_code_size)
           self.stream.write_bytes(encoder.compressed)
           self.stream.hex(encoder.compressed)
 
@@ -455,6 +455,7 @@ cdef class lzw_encode:
               current_code = tree_lookup
           else:
               self.write_code(current_code, code_size)
+              print "MAX",max_code,lookup
               max_code+=1
               codetree[lookup] = max_code
 
