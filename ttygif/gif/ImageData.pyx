@@ -374,7 +374,7 @@ cdef class lzw_encode:
     cdef increment_bit(self):
       self.bitIndex+=1
       if self.bitIndex > 7 :
-        self.chunk[stat.chunkIndex] = stat.byte
+        self.chunk[stat.chunkIndex] = self.byte
         self.chunkIndex+=1
         self.bitIndex = 0
         self.byte = 0
