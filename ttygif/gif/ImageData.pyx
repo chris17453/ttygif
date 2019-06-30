@@ -490,6 +490,12 @@ cdef class lzw_encode:
               
               current_code = next_value
         
+        self.write_code(0xFF)
+        self.write_code(0xFF)
+        self.write_code(0xFF)
+        self.write_code(0xFF)
+        self.write_code(0xFF)
+        self.write_code(0xFF)
         # end of loop cleanup (not sure about this)
         self.write_code(current_code)
         self.write_code(clear_code  )
