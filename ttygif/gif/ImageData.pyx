@@ -458,7 +458,7 @@ cdef class lzw_encode:
 
 
           for i in range (0,self.code_size):
-              bit = code & 1
+              bit = current_code & 1
               bit = bit << self.bit_pos
               self.byte |= bit
               self.bit_pos+=1
