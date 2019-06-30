@@ -179,10 +179,10 @@ cdef class term_parser:
         cdef int value2=0
         
         
-        if param_len>1:
+        if param_len>0:
             if isinstance(params[0],int):
                 value1=params[0]
-        if param_len>2: 
+        if param_len>1: 
             if isinstance(params[1],int):
                 value2=params[1]
 
@@ -328,7 +328,7 @@ cdef class term_parser:
                 self.g.scroll_buffer()
     
 
-    cdef cmd_DECSTBM(self,top,bottom):
+    cdef cmd_DECSTBM(self,int top,int bottom):
         print ("SCROLL REGION",top,bottom)
         self.g.state.set_scroll_region(top,bottom)
 
