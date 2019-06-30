@@ -400,11 +400,11 @@ cdef class lzw_encode:
           
           h=""
           for i in range(0,self.chunk_pos+1):
-          if i%16==0:
-            print h
-            h=""
+            if i%16==0:
+              print h
+              h=""
 
-          h+= ("{0:02X} ".format(self.chunk[i]))
+            h+= ("{0:02X} ".format(self.chunk[i]))
             self.compressed[self.data_pos]=self.chunk[i]
             #print len(self.chunk),len(self.compressed),self.data_pos
             self.data_pos+=1
