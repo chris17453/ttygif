@@ -377,94 +377,94 @@ cdef class lzw_encode:
         self.bitIndex = 0
         self.byte = 0
   
-  cdef write_bit(uint32_t bit):
-      bit = bit & 1
-      bit = bit << self.bitIndex
-      self.byte |= bit
-      self.increment_bit()
+    cdef write_bit(uint32_t bit):
+        bit = bit & 1
+        bit = bit << self.bitIndex
+        self.byte |= bit
+        self.increment_bit()
 
 
-  cdef write_chunk(self):
-      self.compressed.resize(self.chunkIndex+1)
-      compressed_data[data_index]=chunkIndex
-      data_index+=1
-      for c in chunk:
-        compressed_data[data_index]=c
+    cdef write_chunk(self):
+        self.compressed.resize(self.chunkIndex+1)
+        compressed_data[data_index]=chunkIndex
         data_index+=1
+        for c in chunk:
+          compressed_data[data_index]=c
+          data_index+=1
 
+        self.bitIndex   = 0
+        self.byte       = 0
+        self.chunkIndex = 0
+    
+
+    cdef write_code(uint32_t code, uint32_t length):
+      for i in range (0,length):
+          self.write_bit(code)
+          code = code >> 1
+          if self.chunkIndex == 255:
+              self.write_chunk()
+
+    # used to clear the incomplete bits of a chunk, end of line stuff
+    cdef empyt_stream():
+      while( self.bitIndex>0):
+        self.write_bit(0)
+      if self.chunkIndex>0:
+        self.write_chunk()
+      # reset counters
       self.bitIndex   = 0
       self.byte       = 0
       self.chunkIndex = 0
-  
-
-  cdef write_code(uint32_t code, uint32_t length):
-    for i in range (0,length):
-        self.write_bit(code)
-        code = code >> 1
-        if self.chunkIndex == 255:
-            self.write_chunk()
-
-  # used to clear the incomplete bits of a chunk, end of line stuff
-  cdef empyt_stream():
-    while( self.bitIndex>0):
-      self.write_bit(0)
-    if self.chunkIndex>0:
-      self.write_chunk()
-    # reset counters
-    self.bitIndex   = 0
-    self.byte       = 0
-    self.chunkIndex = 0
-    
-
-  cdef compress (self):
-      cdef int y_offset
-      cdef int image_pos
-      cdef int minCodeSize =self.min_code_size
-      cdef int clearCode = 1 << self.bit_depth
-
-      fputc(minCodeSize, f)
-
-      cdef array.array codetree = array.array('I')
-      cdef int code_tree_len=2*256*4096
-      array.resize(codetree,code_tree_len)
-      memset(&codetree.data.data.as_uint,0,code_tree_len)
-
       
-      cdef uint32_t curCode = -1
-      cdef uint32_t codeSize = (uint32_t)minCodeSize + 1
-      cdef uint32_t maxCode = clearCode+1
+
+    cdef compress (self):
+        cdef int y_offset
+        cdef int image_pos
+        cdef int minCodeSize =self.min_code_size
+        cdef int clearCode = 1 << self.bit_depth
+
+        fputc(minCodeSize, f)
+
+        cdef array.array codetree = array.array('I')
+        cdef int code_tree_len=2*256*4096
+        array.resize(codetree,code_tree_len)
+        memset(&codetree.data.data.as_uint,0,code_tree_len)
+
+        
+        cdef uint32_t curCode = -1
+        cdef uint32_t codeSize = (uint32_t)minCodeSize + 1
+        cdef uint32_t maxCode = clearCode+1
 
 
-      self.write_code(clearCode, codeSize)
-      
-      #compression loop
-      for y in range(0,height):
-        y_offset=y*width
-        for x in range(0,width):
-              image_pos=y_offset+x
-              uint8_t nextValue = image[image_pos]
+        self.write_code(clearCode, codeSize)
+        
+        #compression loop
+        for y in range(0,height):
+          y_offset=y*width
+          for x in range(0,width):
+                image_pos=y_offset+x
+                uint8_t nextValue = image[image_pos]
 
-              if curCode < 0:
-                  curCode = nextValue
-              elif codetree[curCode].m_next[nextValue] :
-                  curCode = codetree[curCode].m_next[nextValue]
-              else:
-                  self.write_code((uint32_t)curCode, codeSize)
-                  maxCode+=1
-                  codetree[curCode].m_next[nextValue] = (uint16_t)maxCode;
+                if curCode < 0:
+                    curCode = nextValue
+                elif codetree[curCode].m_next[nextValue] :
+                    curCode = codetree[curCode].m_next[nextValue]
+                else:
+                    self.write_code((uint32_t)curCode, codeSize)
+                    maxCode+=1
+                    codetree[curCode].m_next[nextValue] = (uint16_t)maxCode;
 
-                  if maxCode >= 1 << codeSize:
-                      codeSize+=1
-                  if maxCode == 4095:
-                      self.write_code(learCode, codeSize)
-                      memset(&codetree.data.data.as_uint,0,code_tree_len)
-                      codeSize = (uint32_t)(minCodeSize + 1)
-                      maxCode = clearCode+1
-                  curCode = nextValue
+                    if maxCode >= 1 << codeSize:
+                        codeSize+=1
+                    if maxCode == 4095:
+                        self.write_code(learCode, codeSize)
+                        memset(&codetree.data.data.as_uint,0,code_tree_len)
+                        codeSize = (uint32_t)(minCodeSize + 1)
+                        maxCode = clearCode+1
+                    curCode = nextValue
 
 
-      # end of loop cleanup
-      self.write_code((uint32_t)curCode, codeSize)
-      self.write_code(clearCode, codeSize)
-      self.write_code(clearCode + 1, (uint32_t)minCodeSize + 1)
-      self.empty_stream()
+        # end of loop cleanup
+        self.write_code((uint32_t)curCode, codeSize)
+        self.write_code(clearCode, codeSize)
+        self.write_code(clearCode + 1, (uint32_t)minCodeSize + 1)
+        self.empty_stream()
