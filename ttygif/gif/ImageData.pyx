@@ -441,10 +441,7 @@ cdef class lzw_encode:
         for i in range(0,image_length):
           next_value=self.image[i]
 
-          self.write_code(next_value)
-          self.write_code(clear_code)
-          continue
-
+          
           lookup=next_value+current_code*256
           tree_lookup=codetree[lookup]
 
