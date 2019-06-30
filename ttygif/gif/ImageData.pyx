@@ -440,7 +440,7 @@ cdef class lzw_encode:
         #compression loop
         for i in range(0,image_length):
           
-          next_value=&codetree.data.as_ushorts[i]
+          next_value=&codetree.data.as_voidptr[i]
           #self.image[i]
   
           if current_code < 0:
