@@ -436,7 +436,7 @@ cdef class lzw_encode:
         
         self.write_code(clearCode, codeSize)
         #compression loop
-        for i in range(0,image_length)
+        for i in range(0,image_length):
           nextValue = self.image[i]
           lookup=curCode*256+nextValue
           if curCode < 0:
