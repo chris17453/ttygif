@@ -467,7 +467,7 @@ cdef class lzw_encode:
               codes+=1
               
               #increase curent bit depth if outsized
-              if codes >= 1 << self.code_size:
+              if codes >= code_max:
                     self.code_size+=1
                     code_max=1 << self.code_size
                     
