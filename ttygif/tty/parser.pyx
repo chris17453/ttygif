@@ -178,10 +178,13 @@ cdef class term_parser:
         cdef int value1=0
         cdef int value2=0
         
+        
         if param_len>1:
-            value1=params[0]
+            if isinstance(params[0],int):
+                value1=params[0]
         if param_len>2: 
-            value2=params[1]
+            if isinstance(params[1],int):
+                value2=params[1]
 
         
        #print command,value,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
