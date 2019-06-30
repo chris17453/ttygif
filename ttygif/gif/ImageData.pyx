@@ -475,6 +475,7 @@ cdef class lzw_encode:
 
               # end of lookup table
               if max_code == 4095:
+                  print ("clearing")
                   self.write_code(clear_code, code_size)
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   code_size = min_code_size + 1
