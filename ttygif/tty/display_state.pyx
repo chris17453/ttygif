@@ -36,7 +36,7 @@ cdef class display_state:
             self.scroll-=self.scroll_top-self.cursor_y #negative
             self.cursor_y=self.scroll_top
             
-        if self.cursor_y>=self.scroll_bottom:
+        if self.cursor_y>self.scroll_bottom:
             self.scroll+=self.cursor_y-self.scroll_bottom #positive
             self.cursor_y=self.scroll_bottom
 
