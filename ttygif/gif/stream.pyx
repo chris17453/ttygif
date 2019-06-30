@@ -231,7 +231,7 @@ cdef class DataStream:
     def hex(self,array.array data):
         h=""
         for i in range(0,len(data)):
-            h+= ("{0:02X} ".format(self.data[i]))
+            h+= ("{0:02X} ".format(data[i]))
             if i%16==0:
               intro="{0:06X} - ".format(i)
             if (i%16==0 and i!=0) or i==len(data):
