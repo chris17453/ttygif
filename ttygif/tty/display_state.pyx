@@ -33,11 +33,11 @@ cdef class display_state:
             self.cursor_x=self.width-1
 
         if self.cursor_y<self.scroll_top:
-            self.scroll+=self.cursor_y-self.scroll_top
+            self.scroll-=self.cursor_y-self.scroll_top
             self.cursor_y=self.scroll_top
             
         if self.cursor_y>=self.scroll_bottom:
-            self.scroll-=self.scroll_bottom-self.cursor_y
+            self.scroll+=self.scroll_bottom-self.cursor_y
             self.cursor_y=self.scroll_bottom
 
 
