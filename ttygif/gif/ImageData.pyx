@@ -47,7 +47,6 @@ class ImageData:
         else:
           encoder=lzw_encode(self.image_data,self.min_code_size)
           self.stream.write_bytes(encoder.compressed)
-          self.stream.hex(encoder.compressed)
 
         
         #for byte in byte_data:
@@ -438,22 +437,13 @@ cdef class lzw_encode:
         cdef int32_t      tree_lookup    = 0
         cdef uint32_t     code_max       = 1 << self.code_size
 
-        #@for i in range(0,clear_code+2):
-        #@  codetree[i*256]=i
-
-        print "CLEAR",clear_code
-        print "LEN",image_length
-        print "min_code",min_code_size
-        print "LOOKUP_LEN",code_tree_len
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
-        print ("LEN",image_length)
         self.write_code(clear_code)
         
         #compression loop
         for i in range(0,image_length):
           next_value=self.image[i]
   
-          #print lookup,len(codetree),code_tree_len
           if current_code < 0:
               current_code = next_value
   
@@ -462,12 +452,10 @@ cdef class lzw_encode:
   
           else:
               self.write_code(current_code)
-              #print "MAX",max_code,lookup,i
               codetree[current_code*256+next_value] = codes
               
               #increase curent bit depth if outsized
               if codes >= 1 << self.code_size:
-                  print("{0:04X}".format(self.data_pos+self.chunk_pos))
                   self.code_size+=1
                   code_max=1 << self.code_size
                     
@@ -478,15 +466,11 @@ cdef class lzw_encode:
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   self.code_size = min_code_size + 1
                   codes= clear_code+2
-                  #for i in range(0,clear_code+2):
-                  #  codetree[i*256]=i
               codes+=1
-
               current_code = next_value
 
 
-        # end of loop cleanup (not sure about this)
-        
+        # end of loop cleanup trailing stuff in bit shifter
         self.write_code(current_code)
         self.write_code(clear_code  )
         self.code_size= min_code_size + 1
