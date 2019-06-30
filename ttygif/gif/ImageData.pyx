@@ -439,6 +439,7 @@ cdef class lzw_encode:
         print ("ARRAY")
         
         array.resize(codetree,code_tree_len)
+        print("RESIZED",code_tree_len)
         memset(&codetree.data.as_uints,0,code_tree_len)
 
         print ("MEMSET")
