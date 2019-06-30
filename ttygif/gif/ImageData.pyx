@@ -449,7 +449,7 @@ cdef class lzw_encode:
         for i in xrange(0,image_length):
           next_value=self.image[i]
           if current_code*256+next_value>=len(codetree):
-            print(current_code*256+next_value,len(codetree),next_code,current_code,i,image_length)
+            print(current_code*256+next_value,len(codetree),next_value,current_code,i,image_length)
           
           if current_code < 0:
               current_code = next_value
