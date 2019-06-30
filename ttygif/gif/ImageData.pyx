@@ -26,7 +26,7 @@ class ImageData:
             raise Exception("Image data empty")
         
         old=None
-        #old=1
+        old=1
         
         if old:
           byte_data=compress(self.image_data, self.min_code_size)
@@ -47,7 +47,6 @@ class ImageData:
         else:
           encoder=lzw_encode(self.image_data,self.min_code_size)
           self.stream.write_bytes(encoder.compressed)
-        #self.stream.write_bytes(encoder.compressed)
 
         
         #for byte in byte_data:
@@ -60,7 +59,6 @@ class ImageData:
         #    self.stream.write_byte(byte)
         #    index+=1
         self.stream.write_byte(0)
-        exit(0)
         
         
     def read(self,image_byte_length,interlace,width):
@@ -350,9 +348,9 @@ def compress(data, lzw_min, max_code_size=12):
 
 
 cdef class lzw_encode:
-    cdef array.array  image
-    cdef array.array  chunk
-    cdef array.array  compressed
+    cdef array.array image
+    cdef array.array chunk
+    cdef array.array compressed
     cdef uint32_t     byte
     cdef uint32_t     bit_pos
     cdef uint32_t     chunk_pos
@@ -388,7 +386,6 @@ cdef class lzw_encode:
           self.byte = 0
           if self.chunk_pos == 255:
               self.write_chunk()
-              
   
 
     cdef write_chunk(self):
@@ -435,7 +432,6 @@ cdef class lzw_encode:
         cdef int32_t      current_code   = -1                      # curent hash lookup code
         cdef uint8_t      next_value     = 0                       # pixel value
         cdef uint16_t     lookup         = 0                       # code  table lookup hash
-        cdef uint16_t     leaf           = 0                       # code  table lookup hash
         cdef uint32_t     code_max       = 1 << self.code_size
 
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
@@ -443,36 +439,35 @@ cdef class lzw_encode:
         
         #compression loop
         for i in range(0,image_length):
-          next_value=self.image[i]
           
+          next_value=self.image[i]
+  
           if current_code < 0:
               current_code = next_value
               continue
           
-          leaf=codetree[current_code*256+next_value]
-          if leaf!=0:
-              current_code =leaf
-              continue
-          
-          self.write_code(current_code)
-          lookup=current_code*256+next_value
-          codetree[lookup] = codes
-          
-          #increase curent bit depth if outsized
-          if codes >= code_max:
-              self.code_size+=1
-              code_max=1 << self.code_size
-                
-          codes+=1
-          
-          # end of lookup table
-          if codes == 4095:
-              #print ("clear",self.data_pos)
-              self.write_code(clear_code)
-              memset(codetree.data.as_voidptr,0,2*code_tree_len)
-              self.code_size = min_code_size + 1
-              codes= clear_code+2
-          current_code = next_value
+          lookup=current_code<<8+next_value
+          if codetree[lookup]:
+              current_code = codetree[lookup]
+  
+          else:
+              self.write_code(current_code)
+              codetree[lookup] = codes
+              
+              #increase curent bit depth if outsized
+              if codes >= code_max:
+                  self.code_size+=1
+                  code_max=1 << self.code_size
+                    
+              # end of lookup table
+              if codes == 4095:
+                  #print ("clear",self.data_pos)
+                  self.write_code(clear_code)
+                  memset(codetree.data.as_voidptr,0,2*code_tree_len)
+                  self.code_size = min_code_size + 1
+                  codes= clear_code+2
+              codes+=1
+              current_code = next_value
 
 
         # end of loop cleanup trailing stuff in bit shifter
