@@ -47,6 +47,7 @@ class ImageData:
         else:
           encoder=lzw_encode(self.image_data,self.min_code_size)
           self.stream.write_bytes(encoder.compressed)
+        #self.stream.write_bytes(encoder.compressed)
 
         
         #for byte in byte_data:
@@ -59,6 +60,7 @@ class ImageData:
         #    self.stream.write_byte(byte)
         #    index+=1
         self.stream.write_byte(0)
+        exit(0)
         
         
     def read(self,image_byte_length,interlace,width):
