@@ -79,3 +79,6 @@ tetris:
 
 caca:
 	@python -m ttygif.cli --input assets/cast/687.cast --output assets/encode/687.gif --fps 12
+
+compile:	
+	@python -m ttygif.cli --input assets/cast/234628.cast --output assets/encode/234628.gif --fps 12
