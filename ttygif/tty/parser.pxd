@@ -34,7 +34,7 @@ cdef class term_parser:
     cdef cmd_reset_mode(self,cmd)
     cdef cmd_process_colors(self,params)
     cdef cmd_render_text(self,event)
-    cdef cmd_DECSTBM(self,top,bottom):
+    cdef cmd_DECSTBM(self,top,bottom)
     cdef cmd_CUU(self,distance)
     cdef cmd_CUD(self,distance)
     cdef cmd_CUB(self,distance)
