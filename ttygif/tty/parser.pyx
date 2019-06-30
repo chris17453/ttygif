@@ -179,7 +179,7 @@ cdef class term_parser:
         cdef int value2=0
         
         if param_len>1:
-            value=params[0]
+            value1=params[0]
         if param_len>2: 
             value2=params[1]
 
@@ -205,7 +205,7 @@ cdef class term_parser:
         elif command=='m':  self.cmd_process_colors(params)
         elif command=='r':  
             print params
-            self.cmd_DECSTBM(value1,value2)
+            self.cmd_DECSTBM(value2,value1)
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value1-1)
