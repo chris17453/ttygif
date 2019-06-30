@@ -425,7 +425,7 @@ cdef class lzw_encode:
 
     cdef compress (self):
         cdef uint32_t     code_tree_len  = 256*4096
-        cdef array.array  codetree       = array.array('I',[0]*code_tree_len)
+        cdef array.array  codetree       = array.array('i',[0]*code_tree_len)
         cdef uint32_t     image_length   = len(self.image)
         cdef int32_t      min_code_size  = self.min_code_size    
         cdef uint32_t     clear_code     = 1<<self.min_code_size   # the code right after the color table
@@ -456,7 +456,7 @@ cdef class lzw_encode:
               self.write_code(current_code)
               #print "MAX",max_code,lookup,i
               max_code+=1
-              codetree[lookup] = uint16_t(max_code)
+              codetree[lookup] = max_code
 
               #increase curent bit depth if outsized
               if max_code >= 1 << self.code_size:
