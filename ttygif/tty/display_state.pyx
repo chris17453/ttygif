@@ -59,7 +59,7 @@ cdef class display_state:
         if wrap:
             if self.cursor_x>=self.width:
                 self.cursor_x-=self.width
-                self.cursor_down(1):
+                self.cursor_down(1)
         else:
             self.check_bounds()
 
