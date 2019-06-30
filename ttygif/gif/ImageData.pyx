@@ -30,7 +30,7 @@ class ImageData:
           byte_data=compress(self.image_data, self.min_code_size)
           byte_len=len(byte_data)
           #print ("LENGTH: {0}".format(byte_len))
-          self.stream.write_byte(self.min_code_size)
+          self.stream.write_byte(self.min_code_size-1)
           byte_data_length=len(byte_data)
           index=0
           while byte_data_length>0:
