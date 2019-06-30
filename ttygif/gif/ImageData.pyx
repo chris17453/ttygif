@@ -439,7 +439,7 @@ cdef class lzw_encode:
         print "LEN",image_length
         print "min_code",min_code_size
         print "LOOKUP_LEN",code_tree_len
-        cdef int          codes=0
+        cdef int          codes=end_code+1
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
         print ("LEN",image_length)
         self.write_code(clear_code)
@@ -473,6 +473,7 @@ cdef class lzw_encode:
                   self.write_code(clear_code)
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   code_size = min_code_size + 1
+                  codes=end_code+1
               current_code = next_value
         
         # end of loop cleanup (not sure about this)
