@@ -53,7 +53,7 @@ cdef class terminal_graphics:
         cdef int bottom=self.state.scroll_bottom
         cdef int length=self.state.scroll
         print "len",length,top,bottom
-        if 1=0:
+        if 1==0:
             if length>0:
                 for y in range(top,bottom+1):
                     for x in range(0,self.character_buffer.dimentions.width):
