@@ -435,32 +435,31 @@ cdef class lzw_encode:
       
 
     cdef compress (self):
-        cdef array.array  codetree       = array.array('I')
         cdef uint32_t     code_tree_len  = 256*4096
+        cdef array.array  codetree       = array.array('I',[0]*code_tree_len)
         cdef uint32_t     image_length   = len(self.image)
         cdef uint32_t     min_code_size  = self.min_code_size
         cdef uint32_t     clear_code     = 2**self.bit_depth
         cdef uint16_t     max_code       = clear_code+1
-        cdef int32_t      current_code   = -1
         cdef uint32_t     code_size      = min_code_size + 1 
+        cdef int32_t      current_code   = -1                 # curent hash lookup code
         cdef uint8_t      next_value     = 0                  # pixel value
         cdef uint16_t     lookup         = 0                  # code  table lookup hash
 
         
-        array.resize(codetree,code_tree_len)
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
 
-        
+        lookup_base=0
         self.write_code(clear_code, code_size)
         #compression loop
         for i in range(0,image_length):
-
-          next_value = self.image[i]
-          lookup=current_code*256+next_value
           #print lookup,len(codetree),code_tree_len
           if current_code < 0:
-              current_code = next_value
+              current_code = self.image[i]
+              lookup_base  = current_code<<8
+
           elif codetree[lookup]!=0 :
+              lookup=self.image[i]+lookup_base
               current_code = codetree[lookup]
           else:
               self.write_code(current_code, code_size)
@@ -469,12 +468,15 @@ cdef class lzw_encode:
 
               if max_code >= 1 << code_size:
                   code_size+=1
+
               if max_code == 4095:
                   self.write_code(clear_code, code_size)
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   code_size = min_code_size + 1
                   max_code  = clear_code + 1
-              current_code = next_value
+
+              current_code = self.image[i]
+              lookup_base  = current_code<<8
 
         # end of loop cleanup (not sure about this)
         self.write_code(current_code  , code_size)
