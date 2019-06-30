@@ -455,7 +455,7 @@ cdef class lzw_encode:
               current_code = tree_lookup
           else:
               self.write_code(current_code, code_size)
-              print "MAX",max_code,lookup
+              print "MAX",max_code,lookup,i
               max_code+=1
               codetree[lookup] = max_code
 
