@@ -350,11 +350,12 @@ cdef class lzw_encode:
     cdef array.array image
     cdef array.array chunk
     cdef array.array compressed
-    cdef int         byte
-    cdef int         bit_pos
-    cdef int         chunk_pos
-    cdef int         data_pos
-    cdef int         min_code_size
+    cdef uint32_t     byte
+    cdef uint32_t     bit_pos
+    cdef uint32_t     chunk_pos
+    cdef uint32_t     data_pos
+    cdef uint32_t     min_code_size
+    cdef uint32_t     code_size
     
     def __cinit__(self,array.array image,min_code_size):
       self.image      =image
@@ -365,6 +366,7 @@ cdef class lzw_encode:
       self.chunk_pos = 0
       #compress the image and render to array
       self.min_code_size   =min_code_size
+      self.code_size       =min_code_size + 1       # because its the color table size pLus 1
       #first byte in array
       self.compressed =array.array ('B',[self.min_code_size])
       self.compress()
@@ -406,8 +408,8 @@ cdef class lzw_encode:
         self.chunk_pos = 0
     
 
-    cdef write_code(self,uint32_t code, uint32_t length):
-      for i in range (0,length):
+    cdef write_code(self,uint32_t code):
+      for i in range (0,self.code_size):
           self.write_bit(code)
           code = code >> 1
 
@@ -426,7 +428,6 @@ cdef class lzw_encode:
         cdef int32_t      min_code_size  = self.min_code_size    
         cdef uint32_t     clear_code     = 1<<self.min_code_size   # the code right after the color table
         cdef uint16_t     max_code       = clear_code+1            # the code right after the clear code
-        cdef uint32_t     code_size      = min_code_size + 1       # because its the color table size pLus 1
         cdef int32_t      current_code   = -1                      # curent hash lookup code
         cdef uint8_t      next_value     = 0                       # pixel value
         cdef uint16_t     lookup         = 0                       # code  table lookup hash
@@ -435,13 +436,13 @@ cdef class lzw_encode:
 
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
 
-        self.write_code(clear_code, code_size)
+        self.write_code(clear_code)
         #compression loop
         for i in range(0,image_length):
           next_value=self.image[i]
 
-          self.write_code(next_value, code_size )
-          self.write_code(clear_code, code_size )
+          self.write_code(next_value)
+          self.write_code(clear_code)
           continue
 
           lookup=next_value+current_code*256
@@ -453,21 +454,21 @@ cdef class lzw_encode:
           elif tree_lookup!=0 :
               current_code = tree_lookup
           else:
-              self.write_code(current_code, code_size)
+              self.write_code(current_code)
               #print "MAX",max_code,lookup,i
               max_code+=1
               codetree[lookup] = max_code
 
               #increase curent bit depth if outsized
-              if max_code >= 1 << code_size:
-                  print ("code size increase",code_size,i,max_code,self.chunk_pos)
+              if max_code >= 1 << self.code_size:
+                  print ("code size increase",self.code_size,i,max_code,self.chunk_pos)
                   print("{0:04x}".format(self.chunk_pos))
-                  code_size+=1
+                  self.code_size+=1
 
               # end of lookup table
               if max_code == 4095:
                   print ("clearing")
-                  self.write_code(clear_code, code_size)
+                  self.write_code(clear_code)
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   code_size = min_code_size + 1
                   max_code  = clear_code + 1
@@ -475,8 +476,9 @@ cdef class lzw_encode:
               current_code = next_value
         
         # end of loop cleanup (not sure about this)
-        self.write_code(current_code  , code_size)
-        self.write_code(clear_code    , code_size)
-        self.write_code(clear_code + 1, min_code_size + 1)
+        self.write_code(current_code)
+        self.write_code(clear_code  )
+        self.code_size= min_code_size + 1
+        self.write_code(clear_code + 1)
         self.empty_stream()
         print "done"
