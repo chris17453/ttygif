@@ -430,24 +430,28 @@ cdef class lzw_encode:
         cdef int32_t      min_code_size  = self.min_code_size    
         cdef uint32_t     clear_code     = 1<<self.min_code_size   # the code right after the color table
         cdef uint16_t     end_code       = clear_code+1            # the code right after the clear code
+        cdef uint16_t     codes          = end_code+1
         cdef int32_t      current_code   = -1                      # curent hash lookup code
         cdef uint8_t      next_value     = 0                       # pixel value
         cdef uint16_t     lookup         = 0                       # code  table lookup hash
         cdef uint16_t     lookup_base    = 0
         cdef int32_t      tree_lookup    = 0
+
+        for i in range(0,clear_code+2):
+          codetree[i]=i
+
         print "CLEAR",clear_code
         print "LEN",image_length
         print "min_code",min_code_size
         print "LOOKUP_LEN",code_tree_len
-        cdef int          codes=end_code+1
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
         print ("LEN",image_length)
         self.write_code(clear_code)
+        
         #compression loop
         for i in range(0,image_length):
           next_value=self.image[i]
-
-          
+  
           lookup=current_code*256+next_value
           tree_lookup=codetree[lookup]
 
@@ -459,8 +463,8 @@ cdef class lzw_encode:
           else:
               self.write_code(current_code)
               #print "MAX",max_code,lookup,i
-              codetree[lookup] = codes
               codes+=1
+              codetree[lookup] = codes
               
               #increase curent bit depth if outsized
               if codes >= 1 << self.code_size:
@@ -474,6 +478,9 @@ cdef class lzw_encode:
                   memset(codetree.data.as_voidptr,0,2*code_tree_len)
                   self.code_size = min_code_size + 1
                   codes=end_code+1
+                  for i in range(0,clear_code+2):
+                    codetree[i]=i
+
               current_code = next_value
         
         # end of loop cleanup (not sure about this)
