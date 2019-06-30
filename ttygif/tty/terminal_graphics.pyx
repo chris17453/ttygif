@@ -53,23 +53,24 @@ cdef class terminal_graphics:
         cdef int bottom=self.state.scroll_bottom
         cdef int length=self.state.scroll
         print "len",length,top,bottom
-        if length>0:
-            for y in range(top,bottom+1):
-                for x in range(0,self.character_buffer.dimentions.width):
-                    if y+length<top or y+length>bottom:
-                        pixel=[self.state.foreground,self.state.background,0]
-                    else:
-                        pixel=self.character_buffer.get_pixel(x,y+length)
-                    self.character_buffer.put_pixel(x,y,pixel)
-        else:
-            for y in range(bottom,top-1):
-                for x in range(0,self.character_buffer.dimentions.width):
-                    if y+length<top or y+length>bottom:
-                        pixel=[self.state.foreground,self.state.background,0]
-                    else:
-                        pixel=self.character_buffer.get_pixel(x,y+length)
-                    self.character_buffer.put_pixel(x,y,pixel)
-        
+        if 1=0:
+            if length>0:
+                for y in range(top,bottom+1):
+                    for x in range(0,self.character_buffer.dimentions.width):
+                        if y+length<top or y+length>bottom:
+                            pixel=[self.state.foreground,self.state.background,0]
+                        else:
+                            pixel=self.character_buffer.get_pixel(x,y+length)
+                        self.character_buffer.put_pixel(x,y,pixel)
+            else:
+                for y in range(bottom,top-1):
+                    for x in range(0,self.character_buffer.dimentions.width):
+                        if y+length<top or y+length>bottom:
+                            pixel=[self.state.foreground,self.state.background,0]
+                        else:
+                            pixel=self.character_buffer.get_pixel(x,y+length)
+                        self.character_buffer.put_pixel(x,y,pixel)
+            
         self.state.scroll=0
         #cdef int row_pos=buffer_length-src_image.dimentions.stride
         #array.resize(src_image.data,buffer_length)  
