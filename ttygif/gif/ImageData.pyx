@@ -443,7 +443,7 @@ cdef class lzw_encode:
         self.write_code(clear_code)
         
         #compression loop
-        for next_value in xrange(0,image_length):
+        for i in xrange(0,image_length):
           next_value=self.image[i]
   
           lookup=current_code*256+next_value
