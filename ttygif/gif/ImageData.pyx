@@ -387,7 +387,7 @@ cdef class lzw_encode:
 
 
     cdef write_chunk(self):
-        cdef int new_compressed_size = len(self.compressed)+self.chunk_pos+1
+        cdef int new_compressed_size = len(self.compressed)+self.chunk_pos+1+1
         if 0==0:
           print "Before",len(self.chunk),len(self.compressed)
           array.resize(self.compressed,new_compressed_size)
