@@ -44,7 +44,7 @@ class ImageData:
               index+=length
         else:
           encoder=lzw_encode(self.image_data,self.min_code_size)
-          self.stream.write_bytes(encoder.compressed)
+          #self.stream.write_bytes(encoder.compressed)
 
         
         #for byte in byte_data:
