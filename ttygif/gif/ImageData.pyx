@@ -358,7 +358,6 @@ cdef class lzw_encode:
     cdef int         bit_depth
     
     def __cinit__(self,array.array image,min_code_size):
-      print ("CINIT")
       self.image      =image
       self.byte      = 0
       self.chunk     = array.array('B',[0]*256)
@@ -393,7 +392,8 @@ cdef class lzw_encode:
           array.resize(self.compressed,new_compressed_size)
           self.compressed[self.data_pos]=self.chunk_pos
           self.data_pos+=1
-
+          print len(self.chunk),len(self.compressed)
+          
           for c in self.chunk:
             self.compressed[self.data_pos]=c
             self.data_pos+=1
