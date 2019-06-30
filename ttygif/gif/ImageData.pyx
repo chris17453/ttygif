@@ -448,8 +448,6 @@ cdef class lzw_encode:
         #compression loop
         for i in xrange(0,image_length):
           next_value=self.image[i]
-          if current_code*256+next_value>=len(codetree):
-            print(current_code*256+next_value,len(codetree),next_value,current_code,i,image_length)
           
           if current_code < 0:
               current_code = next_value
@@ -461,7 +459,6 @@ cdef class lzw_encode:
           else:
               self.write_code(current_code)
               codetree[current_code*256+next_value] = codes
-              print codes
               #increase curent bit depth if outsized
               if codes >= 1 << self.code_size:
                   self.code_size+=1
