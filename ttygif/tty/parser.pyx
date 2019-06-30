@@ -187,7 +187,7 @@ cdef class term_parser:
                 value2=params[1]
 
         
-        print "\n"+command,value1,value1,params,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
+        #print "\n"+command,value1,value1,params,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
         
         if   command=='A':  self.cmd_CUU(value1)
         elif command=='B':  self.cmd_CUD(value1)
@@ -305,13 +305,13 @@ cdef class term_parser:
     
     
     cdef cmd_render_text(self,event):
-        print event['data']
+        #print event['data']
        
         cdef int BS=8     # x Backspace
         cdef int LF=10     # x Line feed
         cdef int CR=13     # x Carriage return
-        cdef int sx=self.g.state.cursor_x
-        cdef int sy=self.g.state.cursor_y
+        #cdef int sx=self.g.state.cursor_x
+        #cdef int sy=self.g.state.cursor_y
         for character in event['data']:
             char_ord=ord(character)
             if char_ord<32:
@@ -328,7 +328,7 @@ cdef class term_parser:
             
             while self.g.state.scroll!=0:
                 self.g.scroll_buffer()
-        print "Start",sx,sy,"End",self.g.state.cursor_x,self.g.state.cursor_y
+        #print "Start",sx,sy,"End",self.g.state.cursor_x,self.g.state.cursor_y
     
 
     cdef cmd_DECSTBM(self,int top,int bottom):
@@ -390,7 +390,7 @@ cdef class term_parser:
 
     cdef cmd_EL(self,mode):
         cp=self.g.state.cursor_get_position()
-        print ( "DEL",mode,cp)
+        #print ( "DEL",mode,cp)
         if mode==0:
             for x in range(self.g.state.cursor_x,self.g.state.width):
                 self.g.state.cursor_absolute_x(x)
