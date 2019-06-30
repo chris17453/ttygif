@@ -440,12 +440,9 @@ cdef class lzw_encode:
         self.write_code(clear_code)
         
         #compression loop
-        #range(0,image_length)
         for i in range(0,image_length):
           next_value=self.image[i]
-          #&codetree.data.as_voidptr[i]
-          #self.image[i]
-  
+          
           if current_code < 0:
               current_code = next_value
               continue
@@ -456,24 +453,9 @@ cdef class lzw_encode:
               continue
 
 
-          lookup=current_code*256+next_value
           
-          for i in range (0,self.code_size):
-              bit = current_code & 1
-              bit = bit << self.bit_pos
-              self.byte |= bit
-              self.bit_pos+=1
-              if self.bit_pos ==8:
-                self.chunk[self.chunk_pos] = self.byte
-                self.chunk_pos+=1
-                self.bit_pos = 0
-                self.byte = 0
-                if self.chunk_pos == 255:
-                    self.write_chunk()
-              current_code = current_code >> 1
-              
-
-          #self.write_code(current_code)
+          self.write_code(current_code)
+          lookup=current_code*256+next_value
           codetree[lookup] = codes
           
           #increase curent bit depth if outsized
