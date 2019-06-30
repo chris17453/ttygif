@@ -56,7 +56,7 @@ cdef class terminal_graphics:
         for y in range(top,bottom+1):
             for x in range(self.character_buffer.dimentions.width):
                 if y+length<top or y+length>bottom:
-                    pixel=[src_image.state.foreground,src_image.state.background,0]
+                    pixel=[self.state.foreground,self.state.background,0]
                 else:
                     pixel=self.character_buffer.get_pixel(x,y+length)
                 self.character_buffer.character_buffer.put_pixel(x,y,pixel)
