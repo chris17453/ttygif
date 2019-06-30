@@ -13,7 +13,7 @@ import bitarray
 class ImageData:
     def __init__(self,stream):
         self.stream=stream
-        self.internal_position=self.stream.pos
+        self.internal_pos=self.stream.pos
 
 
     def new(self,min_code_size=8,data=None):
@@ -22,26 +22,30 @@ class ImageData:
 
 
     def write(self):
-
         if None==self.image_data or len(self.image_data)==0:
             raise Exception("Image data empty")
-        #self.image_data=[0,1,2,3,4,5,6,7,8,9,10]
-        byte_data=compress(self.image_data, self.min_code_size)
-        byte_len=len(byte_data)
-        #print ("LENGTH: {0}".format(byte_len))
-        self.stream.write_byte(self.min_code_size)
-        byte_data_length=len(byte_data)
         
-        index=0
-        while byte_data_length>0:
-            if byte_data_length>0xFF:
-                length=0xFF
-            else:
-                 length=byte_data_length
-            self.stream.write_byte(length)
-            self.stream.write_bytes(byte_data[index:index+length])
-            byte_data_length-=length
-            index+=length
+        old=None
+        if old:
+          byte_data=compress(self.image_data, self.min_code_size)
+          byte_len=len(byte_data)
+          #print ("LENGTH: {0}".format(byte_len))
+          self.stream.write_byte(self.min_code_size)
+          byte_data_length=len(byte_data)
+          index=0
+          while byte_data_length>0:
+              if byte_data_length>0xFF:
+                  length=0xFF
+              else:
+                  length=byte_data_length
+              self.stream.write_byte(length)
+              self.stream.write_bytes(byte_data[index:index+length])
+              byte_data_length-=length
+              index+=length
+        else:
+          encoder=lzw_encode(self.image_data,self.min_code_size)
+          self.stream.write_bytes(encoder.compressed)
+
         
         #for byte in byte_data:
         #    if index%255==0:
@@ -57,7 +61,7 @@ class ImageData:
         
 
     def read(self,image_byte_length,interlace,width):
-      self.internal_position = self.stream.pos
+      self.internal_pos = self.stream.pos
       self.LZ_BITS           = 12
       self.NOT_A_CODE        = 4096
       self.pixels            = image_byte_length
@@ -91,14 +95,14 @@ class ImageData:
      
     def debug(self):
       print("ImageData")
-      #print("  Start Offset:  {0:02X}".format(self.internal_position))
+      #print("  Start Offset:  {0:02X}".format(self.internal_pos))
       #print("  DataLength:    {0:02X}".format(self.DataLength))
       #print("  MIN_BYTE_SIZE: {0:02X}".format(self.LWZ_MIN_BYTE_SIZE))
       #print("  Data Len:      {0}".format(len(self.data)))
       #print("  End Offset:    {0:02X}".format(self.end_pos))
 
 
-    def lzw_decode(self,minCodeSize, data,pixelCount) :
+    def lzw_decode(self,min_code_size, data,pixelCount) :
         MAX_STACK_SIZE = 4096
         nullCode = -1
         npix = pixelCount
@@ -109,7 +113,7 @@ class ImageData:
         pixelStack = [0]* (MAX_STACK_SIZE + 1)
 
         # Initialize GIF data stream decoder.
-        data_size = minCodeSize
+        data_size = min_code_size
         clear = 1 << data_size
         end_of_information = clear + 1
         available = clear + 2
@@ -340,126 +344,122 @@ def compress(data, lzw_min, max_code_size=12):
 
 
 
+
+
 cdef class lzw_encode:
     cdef array.array image
-    cdef int         width
-    cdef int         height
-
-
-    cdef int         bitIndex
-    cdef int         byte
-    cdef int         chunkIndex
-    cdef int         data_index
     cdef array.array chunk
     cdef array.array compressed
+    cdef int         byte
+    cdef int         bit_pos
+    cdef int         chunk_pos
+    cdef int         data_pos
     cdef int         min_code_size
     cdef int         bit_depth
     
-    def __cinit__(self,array.array image,int width,int height):
+    def __cinit__(self,array.array image,min_code_size):
       self.image      =image
-      self.width      =width
-      self.height     =height
-      self.data_index =0
-      self.bitIndex   =0
-      self.byte       =0
-      self.chunkIndex =0
-      self.chunk      =array.array('B',[0]*256)
+      self.byte      = 0
+      self.chunk     = array.array('B',[0]*256)
+      self.data_pos  = 0
+      self.bit_pos   = 0
+      self.chunk_pos = 0
       #compress the image and render to array
-      self.min_code_size   =8
+      self.min_code_size   =min_code_size
       self.bit_depth       =self.min_code_size
       #first byte in array
       self.compressed =array.array ('B',[self.min_code_size])
       self.compress()
     
     cdef increment_bit(self):
-      self.bitIndex+=1
-      if self.bitIndex > 7 :
-        self.chunk[self.chunkIndex] = self.byte
-        self.chunkIndex+=1
-        self.bitIndex = 0
+      self.bit_pos+=1
+      if self.bit_pos > 7 :
+        self.chunk[self.chunk_pos] = self.byte
+        self.chunk_pos+=1
+        self.bit_pos = 0
         self.byte = 0
   
     cdef write_bit(self,uint32_t bit):
         bit = bit & 1
-        bit = bit << self.bitIndex
+        bit = bit << self.bit_pos
         self.byte |= bit
         self.increment_bit()
 
 
     cdef write_chunk(self):
-        self.compressed.resize(self.chunkIndex+1)
-        self.compressed_data[self.data_index]=self.chunkIndex
-        self.data_index+=1
+        self.compressed.resize(self.chunk_pos+1)
+        self.compressed_data[self.data_pos]=self.chunk_pos
+        self.data_pos+=1
 
         for c in self.chunk:
-          self.compressed_data[self.data_index]=c
-          self.data_index+=1
+          self.compressed_data[self.data_pos]=c
+          self.data_pos+=1
 
-        self.bitIndex   = 0
+        self.bit_pos   = 0
         self.byte       = 0
-        self.chunkIndex = 0
+        self.chunk_pos = 0
     
 
     cdef write_code(self,uint32_t code, uint32_t length):
       for i in range (0,length):
           self.write_bit(code)
           code = code >> 1
-          if self.chunkIndex == 255:
+          if self.chunk_pos == 255:
               self.write_chunk()
 
     # used to clear the incomplete bits of a chunk, end of line stuff
     cdef empyt_stream(self):
-      while( self.bitIndex>0):
+      while( self.bit_pos>0):
         self.write_bit(0)
-      if self.chunkIndex>0:
+      if self.chunk_pos>0:
         self.write_chunk()
       # reset counters
-      self.bitIndex   = 0
+      self.bit_pos   = 0
       self.byte       = 0
-      self.chunkIndex = 0
+      self.chunk_pos = 0
       
 
     cdef compress (self):
-        cdef uint32_t     minCodeSize   = self.min_code_size
-        cdef uint32_t     clearCode     = 1 << self.bit_depth
-        cdef uint32_t     image_length  = self.width*self.height
-        cdef array.array  codetree      = array.array('I')
-        cdef uint32_t     code_tree_len = 2*256*4096
-        cdef uint32_t     curCode       = -1
-        cdef uint32_t     codeSize      = minCodeSize + 1
-        cdef uint16_t     maxCode       = clearCode+1
-        cdef uint8_t      nextValue     = 0
-        cdef uint16_t     lookup        = 0
+        cdef array.array  codetree       = array.array('I')
+        cdef uint32_t     code_tree_len  = 2*256*4096
+        cdef uint32_t     image_length   = len(self.image)
+        cdef uint32_t     min_code_size  = self.min_code_size
+        cdef uint32_t     clear_code     = 1 << self.bit_depth
+        cdef uint32_t     current_code   = -1
+        cdef uint32_t     code_size      = min_code_size + 1
+        cdef uint16_t     max_code       = clear_code+1
+        cdef uint8_t      next_value     = 0
+        cdef uint16_t     lookup         = 0
         
         array.resize(codetree,code_tree_len)
         memset(&codetree.data.as_uints,0,code_tree_len)
 
         
-        self.write_code(clearCode, codeSize)
+        self.write_code(clear_code, code_size)
         #compression loop
         for i in range(0,image_length):
-          nextValue = self.image[i]
-          lookup=curCode*256+nextValue
-          if curCode < 0:
-              curCode = nextValue
+          next_value = self.image[i]
+          lookup=current_code*256+next_value
+          if current_code < 0:
+              current_code = next_value
           elif codetree[lookup]!=0 :
-              curCode = codetree[lookup]
+              current_code = codetree[lookup]
           else:
-              self.write_code(curCode, codeSize)
-              maxCode+=1
-              codetree[lookup] = maxCode
+              self.write_code(current_code, code_size)
+              max_code+=1
+              codetree[lookup] = max_code
 
-              if maxCode >= 1 << codeSize:
-                  codeSize+=1
-              if maxCode == 4095:
-                  self.write_code(clearCode, codeSize)
+              if max_code >= 1 << code_size:
+                  code_size+=1
+              if max_code == 4095:
+                  self.write_code(clear_code, code_size)
                   memset(&codetree.data.as_uints,0,code_tree_len)
-                  codeSize =minCodeSize + 1
-                  maxCode = clearCode+1
-              curCode = nextValue
+                  code_size = min_code_size + 1
+                  max_code  = clear_code + 1
+              current_code = next_value
 
-        # end of loop cleanup
-        self.write_code(curCode, codeSize)
-        self.write_code(clearCode, codeSize)
-        self.write_code(clearCode + 1, minCodeSize + 1)
+        # end of loop cleanup (not sure about this)
+        self.write_code(current_code  , code_size)
+        self.write_code(clear_code    , code_size)
+        self.write_code(clear_code + 1, min_code_size + 1)
         self.empty_stream()
