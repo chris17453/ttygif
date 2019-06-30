@@ -1,4 +1,5 @@
 # cython: profile=True
+# cython: linetrace=True
 # cython: binding=True
 # cython: language_level=2
 # cython: boundscheck=False
@@ -360,7 +361,7 @@ cdef class lzw_encode:
     cdef uint32_t     min_code_size
     cdef uint32_t     code_size
     cdef uint32_t     chunk_fragment
-    def __cinit__(self,array.array image,int min_code_size):
+    def __init__(self,array.array image,min_code_size):
       self.image      =image
       self.byte      = 0
       self.chunk     = array.array('B',[0]*256)
@@ -376,7 +377,7 @@ cdef class lzw_encode:
       self.compress()
     
       
-    cdef void write_bit(self,uint32_t bit):
+    cdef write_bit(self,uint32_t bit):
         bit = bit & 1
         bit = bit << self.bit_pos
         self.byte |= bit
@@ -414,7 +415,7 @@ cdef class lzw_encode:
           code = code >> 1
 
     # used to clear the incomplete bits of a chunk, end of line stuff
-    cdef void empty_stream(self):
+    cdef empty_stream(self):
       while( self.bit_pos>0):
         self.write_bit(0)
       if self.chunk_pos>0:
@@ -423,7 +424,7 @@ cdef class lzw_encode:
 
 
 
-    cdef void compress (self):
+    cdef compress (self):
         cdef uint32_t     code_tree_len  = 256*4096
         cdef array.array  codetree       = array.array('i')
         array.resize(codetree,code_tree_len)
@@ -446,16 +447,15 @@ cdef class lzw_encode:
         for i in xrange(0,image_length):
           next_value=self.image[i]
   
-          lookup=current_code*256+next_value
           if current_code < 0:
               current_code = next_value
   
-          elif codetree[lookup]:
-              current_code = codetree[lookup]
+          elif codetree[current_code*256+next_value]:
+              current_code = codetree[current_code*256+next_value]
   
           else:
               self.write_code(current_code)
-              codetree[lookup] = codes
+              codetree[current_code*256+next_value] = codes
               
               #increase curent bit depth if outsized
               if codes >= 1 << self.code_size:
