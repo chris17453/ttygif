@@ -386,6 +386,7 @@ cdef class lzw_encode:
           self.byte = 0
           if self.chunk_pos == 255:
               self.write_chunk()
+              
   
 
     cdef write_chunk(self):
@@ -454,7 +455,24 @@ cdef class lzw_encode:
               current_code =leaf
               continue
 
-          self.write_code(current_code)
+
+
+          for i in range (0,self.code_size):
+              bit = code & 1
+              bit = bit << self.bit_pos
+              self.byte |= bit
+              self.bit_pos+=1
+              if self.bit_pos ==8:
+                self.chunk[self.chunk_pos] = self.byte
+                self.chunk_pos+=1
+                self.bit_pos = 0
+                self.byte = 0
+                if self.chunk_pos == 255:
+                    self.write_chunk()
+              code = code >> 1
+              
+
+          #self.write_code(current_code)
           lookup=current_code*256+next_value
           codetree[lookup] = codes
           
