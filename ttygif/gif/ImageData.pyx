@@ -4,6 +4,7 @@
 # cython: language_level=2
 
 from cpython cimport array
+from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t
 from libc.string cimport memset
 import bitarray
 
@@ -363,10 +364,11 @@ cdef class lzw_encode:
       self.byte       =0
       self.chunkIndex =0
       self.chunk      =array.array('B',[0]*256)
-      self.compressed =array_array ('B')
       #compress the image and render to array
       self.min_code_size   =8
       self.bit_depth       =self.min_code_size
+      #first byte in array
+      self.compressed =array_array ('B',[self.min_code_size])
       self.compress()
     
     cdef increment_bit(self):
@@ -417,20 +419,19 @@ cdef class lzw_encode:
       
 
     cdef compress (self):
-        cdef int y_offset
-        cdef int image_pos
-        cdef int minCodeSize =self.min_code_size
-        cdef int clearCode = 1 << self.bit_depth
+        cdef uint32_t y_offset
+        cdef uint32_t image_pos
+        cdef int    minCodeSize =self.min_code_size
+        cdef uint32_t clearCode = 1 << self.bit_depth
 
-        fputc(minCodeSize, f)
 
         cdef array.array codetree = array.array('I')
-        cdef int code_tree_len=2*256*4096
+        cdef uint32_t code_tree_len=2*256*4096
         array.resize(codetree,code_tree_len)
         memset(&codetree.data.data.as_uint,0,code_tree_len)
 
         
-        cdef uint32_t curCode = -1
+        cdef int32_t  curCode = -1
         cdef uint32_t codeSize = (uint32_t)minCodeSize + 1
         cdef uint32_t maxCode = clearCode+1
 
