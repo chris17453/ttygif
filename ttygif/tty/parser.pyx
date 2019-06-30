@@ -187,7 +187,7 @@ cdef class term_parser:
                 value2=params[1]
 
         
-        print command,value,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
+        print command,value1,value1,params,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
         
         if   command=='A':  self.cmd_CUU(value1)
         elif command=='B':  self.cmd_CUD(value1)
