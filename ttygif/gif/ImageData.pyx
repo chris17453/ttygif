@@ -309,6 +309,7 @@ def compress(data, lzw_min, max_code_size=12):
                 prev += c
             else:
                 yield table.get(prev)
+                print [ord(i) for i in prev],  + ord(c)
                 table.add(prev + c)
                 prev = c
 
@@ -432,6 +433,8 @@ cdef class lzw_encode:
         cdef int32_t      current_code   = -1                      # curent hash lookup code
         cdef uint8_t      next_value     = 0                       # pixel value
         cdef uint16_t     lookup         = 0                       # code  table lookup hash
+        cdef uint16_t     lookup_base    = 0
+        cdef int32_t      tree_lookup    = 0
         cdef uint32_t     code_max       = 1 << self.code_size
 
         memset(codetree.data.as_voidptr,0,2*code_tree_len)
@@ -439,23 +442,20 @@ cdef class lzw_encode:
         
         #compression loop
         for i in range(0,image_length):
-          
           next_value=self.image[i]
   
           if current_code < 0:
               current_code = next_value
-              continue
-          
-          lookup=current_code<<8+next_value
-          if codetree[lookup]:
-              current_code = codetree[lookup]
+  
+          elif codetree[current_code*256+next_value]:
+              current_code = codetree[current_code*256+next_value]
   
           else:
               self.write_code(current_code)
-              codetree[lookup] = codes
+              codetree[current_code*256+next_value] = codes
               
               #increase curent bit depth if outsized
-              if codes >= code_max:
+              if codes >= 1 << self.code_size:
                   self.code_size+=1
                   code_max=1 << self.code_size
                     
