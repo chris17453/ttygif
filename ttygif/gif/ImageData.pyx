@@ -355,7 +355,6 @@ cdef class lzw_encode:
     cdef int         chunk_pos
     cdef int         data_pos
     cdef int         min_code_size
-    cdef int         bit_depth
     
     def __cinit__(self,array.array image,min_code_size):
       self.image      =image
@@ -366,7 +365,6 @@ cdef class lzw_encode:
       self.chunk_pos = 0
       #compress the image and render to array
       self.min_code_size   =min_code_size
-      self.bit_depth       =self.min_code_size
       #first byte in array
       self.compressed =array.array ('B',[self.min_code_size])
       self.compress()
@@ -430,7 +428,7 @@ cdef class lzw_encode:
         cdef array.array  codetree       = array.array('I',[0]*code_tree_len)
         cdef uint32_t     image_length   = len(self.image)
         cdef uint32_t     min_code_size  = self.min_code_size
-        cdef uint32_t     clear_code     = 2**self.bit_depth
+        cdef uint32_t     clear_code     = 1<<self.min_code_size
         cdef uint16_t     max_code       = clear_code+1
         cdef uint32_t     code_size      = min_code_size + 1 
         cdef int32_t      current_code   = -1                 # curent hash lookup code
