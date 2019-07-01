@@ -7,6 +7,7 @@ from cpython cimport array
 from libc.string cimport memset
 
 from .graphics cimport match_color_index, create_default_palette
+from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
 from .image cimport image
 from .font cimport font
 from .display_state cimport display_state
@@ -118,7 +119,7 @@ cdef class terminal_graphics:
         cdef int fy            = 0
         cdef int new_line_stride      =self.viewport.dimentions.stride-(fw+fsx)
         cdef int new_char_line_stride =fs-(fw+fsx)
-        
+        cdef uint8_t  pixel
         loop=True
         while loop:
             pixel=self.font.graphic[char_pos]
