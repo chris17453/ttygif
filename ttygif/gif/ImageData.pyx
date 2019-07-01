@@ -28,39 +28,9 @@ class ImageData:
         if None==self.image_data or len(self.image_data)==0:
             raise Exception("Image data empty")
         
-        old=None
-        #old=1
-        
-        if old:
-          byte_data=compress(self.image_data, self.min_code_size)
-          byte_len=len(byte_data)
-          #print ("LENGTH: {0}".format(byte_len))
-          self.stream.write_byte(self.min_code_size)
-          byte_data_length=len(byte_data)
-          index=0
-          while byte_data_length>0:
-              if byte_data_length>0xFF:
-                  length=0xFF
-              else:
-                  length=byte_data_length
-              self.stream.write_byte(length)
-              self.stream.write_bytes(byte_data[index:index+length])
-              byte_data_length-=length
-              index+=length
-        else:
-          encoder=lzw_encode(self.image_data,self.min_code_size)
-          self.stream.write_bytes(encoder.compressed)
-
-        
-        #for byte in byte_data:
-        #    if index%255==0:
-        #        if byte_data_length-index>=255:
-        #            length=255
-        #        else:
-        #            length=byte_data_length-index
-        #        self.stream.write_byte(length)    
-        #    self.stream.write_byte(byte)
-        #    index+=1
+    
+        encoder=lzw_encode(self.image_data,self.min_code_size)
+        self.stream.write_bytes(encoder.compressed)
         self.stream.write_byte(0)
         #exit(0)
         
