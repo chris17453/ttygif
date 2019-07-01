@@ -10,4 +10,4 @@ build
 profile
 *.egg-info
 ttygif-*
-
+*.html
