@@ -17,7 +17,7 @@ cdef class display_state:
         self.foreground         = self.default_foreground
         self.background         = self.default_background
 
-        self.set_scroll_region(0,self.height)
+        self.set_scroll_region(0,self.height-1)
 
 
     cdef set_scroll_region(self,top,bottom):
@@ -58,7 +58,7 @@ cdef class display_state:
         self.cursor_x+=distance
         if wrap:
             if self.cursor_x>=self.width:
-                self.cursor_x-=self.width
+                self.cursor_x=0
                 self.cursor_down(1)
         else:
             self.check_bounds()
