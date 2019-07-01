@@ -59,6 +59,8 @@ cdef class cast2gif:
         cdef int max_x=0
         cdef int max_y=0
         cdef same=1
+        cdef int x
+        cdef int y
         for y in xrange(0,height):
             for x in xrange(0,width):
                 if frame1[pos]!=frame2[pos]:
