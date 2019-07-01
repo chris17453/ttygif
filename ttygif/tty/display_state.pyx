@@ -37,7 +37,7 @@ cdef class display_state:
             self.cursor_y=self.scroll_top
             
         if self.cursor_y>self.scroll_bottom:
-            print self.cursor_y,self.scroll_bottom:
+            print self.cursor_y,self.scroll_bottom
             self.scroll+=self.cursor_y-self.scroll_bottom #positive
             self.cursor_y=self.scroll_bottom
 
