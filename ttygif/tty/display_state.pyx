@@ -17,7 +17,7 @@ cdef class display_state:
         self.foreground         = self.default_foreground
         self.background         = self.default_background
 
-        self.set_scroll_region(0,self.height-1)
+        self.set_scroll_region(0,self.height)
 
 
     cdef set_scroll_region(self,top,bottom):
