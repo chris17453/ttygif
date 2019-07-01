@@ -245,7 +245,7 @@ cdef class lzw_encode:
         
         memcpy(     &self.compresses.data.as_uchars[self.data_pos], 
                     &self.chunk.data.as_uchars[0],
-                    self.chunk_pos])
+                    self.chunk_pos)
 
         #for i in xrange(0,self.chunk_pos):
         #  self.compressed[self.data_pos]=self.chunk[i]
