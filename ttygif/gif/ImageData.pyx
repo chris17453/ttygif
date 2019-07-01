@@ -243,7 +243,7 @@ cdef class lzw_encode:
         self.data_pos+=1
         
         
-        memcpy(     &self.compresses.data.as_uchars[self.data_pos], 
+        memcpy(     &self.compressed.data.as_uchars[self.data_pos], 
                     &self.chunk.data.as_uchars[0],
                     self.chunk_pos)
 
