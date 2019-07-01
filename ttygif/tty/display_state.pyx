@@ -12,6 +12,7 @@ cdef class display_state:
         self.height             = height
         self.reverse_video      = None
         self.bold               = None            
+        self.text_mode          = None            
         self.default_foreground = 15
         self.default_background = 0
         self.foreground         = self.default_foreground
@@ -19,6 +20,11 @@ cdef class display_state:
 
         self.set_scroll_region(0,self.height-1)
 
+    cdef text_mode_on(self):
+        self.text_mode=True
+
+    cdef text_mode_off(self):
+        self.text_mode=None
 
     cdef set_scroll_region(self,top,bottom):
         self.scroll             = 0
@@ -33,12 +39,13 @@ cdef class display_state:
             self.cursor_x=self.width-1
 
         if self.cursor_y<self.scroll_top:
-            self.scroll-=self.scroll_top-self.cursor_y #negative
+            if self.text_mode:
+                self.scroll-=self.scroll_top-self.cursor_y #negative
             self.cursor_y=self.scroll_top
             
         if self.cursor_y>self.scroll_bottom:
-            print self.cursor_y,self.scroll_bottom
-            self.scroll+=self.cursor_y-self.scroll_bottom #positive
+            if self.text_mode:
+                self.scroll+=self.cursor_y-self.scroll_bottom #positive
             self.cursor_y=self.scroll_bottom
 
 
@@ -55,9 +62,9 @@ cdef class display_state:
         self.cursor_x-=distance
         self.check_bounds()
 
-    cdef cursor_right(self,int distance,wrap=None):
+    cdef cursor_right(self,int distance):
         self.cursor_x+=distance
-        if wrap:
+        if self.text_mode:
             if self.cursor_x>=self.width:
                 self.cursor_x=0
                 self.cursor_down(1)
