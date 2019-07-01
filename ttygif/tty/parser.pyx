@@ -132,48 +132,6 @@ cdef class term_parser:
         self.info(groups)
 
     cdef process_CSI(self,command,params):
-
-        #    x  A   CUU       Move cursor up the indicated # of rows.
-        #    x  B   CUD       Move cursor down the indicated # of rows.
-        #    x  C   CUF       Move cursor right the indicated # of columns.
-        #    x  D   CUB       Move cursor left the indicated # of columns.
-        #    x  E   CNL       Move cursor down the indicated # of rows, to column 1.
-        #    x  F   CPL       Move cursor up the indicated # of rows, to column 1.
-        #    x  G   CHA       Move cursor to indicated column in current row.
-        #    x  H   CUP       Move cursor to the indicated row, column (origin at 1,1).
-        #    x  J   ED        Erase display (default: from cursor to end of display).
-        #    x                ESC [ 1 J: erase from start to cursor.
-        #    x                ESC [ 2 J: erase whole display.
-        #    x                ESC [ 3 J: erase whole display including scroll-back
-        #    x                           buffer (since Linux 3.0).
-        #    x  K   EL        Erase line (default: from cursor to end of line).
-        #    x                ESC [ 1 K: erase from start of line to cursor.
-        #    x                ESC [ 2 K: erase whole line.
-        #    x  L   IL        Insert the indicated # of blank lines.
-        #    x  P   DCH       Delete the indicated # of characters on current line.
-        #    x  X   ECH       Erase the indicated # of characters on current line.
-        #    x  d   VPA       Move cursor to the indicated row, current column.
-        #    x  f   HVP       Move cursor to the indicated row, column.
-        #    y  h   SM        Set Mode (see below).
-        #    y  l   RM        Reset Mode (see below).
-        #    x  m   SGR       Set attributes (see below).
-        #    x  `   HPA       Move cursor to indicated column in current row.
-        #    x  s   ?         Save cursor location.
-        #    x  u   ?         Restore cursor location.
-        #       @   ICH       Insert the indicated # of blank characters.
-        #       M   DL        Delete the indicated # of lines.
-        #       a   HPR       Move cursor right the indicated # of columns.
-        #       c   DA        Answer ESC [ ? 6 c: "I am a VT102".
-        #       e   VPR       Move cursor down the indicated # of rows.
-        #       g   TBC       Without parameter: clear tab stop at current position.
-        #                     ESC [ 3 g: delete all tab stops.
-        #       n   DSR       Status report (see below).
-        #       q   DECLL     Set keyboard LEDs.
-        #                     ESC [ 0 q: clear all LEDs
-        #                     ESC [ 1 q: set Scroll Lock LED
-        #                     ESC [ 2 q: set Num Lock LED
-        #                     ESC [ 3 q: set Caps Lock LED
-        #       r   DECSTBM   Set scrolling region; parameters are top and bottom row.
         cdef int param_len=len(params)
         cdef int value1=0
         cdef int value2=0
@@ -206,7 +164,7 @@ cdef class term_parser:
         elif command=='h':  self.cmd_set_mode(params)
         elif command=='l':  self.cmd_reset_mode(value1)
         elif command=='m':  self.cmd_process_colors(params)
-        elif command=='r':  self.cmd_DECSTBM(value1-1,value2-1)
+        #elif command=='r':  self.cmd_DECSTBM(value1-1,value2-1)
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value1-1)
@@ -430,8 +388,6 @@ cdef class term_parser:
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
         self.g.state.cursor_absolute(cp[0],cp[1])
-
-
     
     cdef cmd_HPV(self,x,y):
         self.g.state.cursor_absolute(x,y)
@@ -444,10 +400,9 @@ cdef class term_parser:
 
     cdef cmd_RCP(self):
         self.g.cursor_restore_position()
+   
     cdef cmd_VPA(self,position):
         self.g.state.cursor_absolute(0,position)
-
-
 
     cdef stream_2_sequence(self,text,timestamp,delay):
         # patterns for filtering out commands from the stream
@@ -513,24 +468,17 @@ cdef class term_parser:
         
         
         if self.has_escape(text[cursor:]):
-            #print ("EXTRA")
-            #print text[cursor:]
             self.extra_text=text[cursor:]
                 
         else:
-            #print ("NO EXTRA")
-            #print text[cursor:]
             self.extra_text=""
-            #print("->",text[cursor:])
             self.add_text_sequence(text[cursor:],timestamp,0)
     
     
     cdef last_frame(self):
         self.add_text_sequence(self.extra_text,self.last_timestamp,0)
         self.extra_text=""
-    
-
-
+   
     cdef has_escape(self,text):
         for i in text:
             if ord(i)==0x1B:
@@ -556,26 +504,10 @@ cdef class term_parser:
     cdef add_text_sequence(self,text,timestamp,delay):
         if len(text)==0:
             return
-        #print "1",text
-        #remapped=[u' ']*len(text)
-        #for i in xrange(0,len(text)):
-        #    c=text[i]
-        #    r=chr(self.remap_character(c))
-        #    remapped[i]=r
-        #text="".join(remapped)
         text=[self.remap_character(i) for i in text]
-        #if self.debug_mode:
-        #    self.info ("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(text),len(text),timestamp))
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp,'delay':delay})
 
     cdef add_command_sequence(self,esc_type,command,params,groups,name,timestamp,delay):
-        #if self.debug_mode:
-        #    self.info("CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(
-        #                                        esc_type,
-        #                                        command,
-        #                                        params,
-        #                                        name,
-        #                                        timestamp))
         self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name,'timestamp':timestamp,'delay':delay})
 
     cdef debug_sequence(self):
@@ -593,3 +525,47 @@ cdef class term_parser:
                                                     item['timestamp']))
   
 
+
+
+
+ #    x  A   CUU       Move cursor up the indicated # of rows.
+        #    x  B   CUD       Move cursor down the indicated # of rows.
+        #    x  C   CUF       Move cursor right the indicated # of columns.
+        #    x  D   CUB       Move cursor left the indicated # of columns.
+        #    x  E   CNL       Move cursor down the indicated # of rows, to column 1.
+        #    x  F   CPL       Move cursor up the indicated # of rows, to column 1.
+        #    x  G   CHA       Move cursor to indicated column in current row.
+        #    x  H   CUP       Move cursor to the indicated row, column (origin at 1,1).
+        #    x  J   ED        Erase display (default: from cursor to end of display).
+        #    x                ESC [ 1 J: erase from start to cursor.
+        #    x                ESC [ 2 J: erase whole display.
+        #    x                ESC [ 3 J: erase whole display including scroll-back
+        #    x                           buffer (since Linux 3.0).
+        #    x  K   EL        Erase line (default: from cursor to end of line).
+        #    x                ESC [ 1 K: erase from start of line to cursor.
+        #    x                ESC [ 2 K: erase whole line.
+        #    x  L   IL        Insert the indicated # of blank lines.
+        #    x  P   DCH       Delete the indicated # of characters on current line.
+        #    x  X   ECH       Erase the indicated # of characters on current line.
+        #    x  d   VPA       Move cursor to the indicated row, current column.
+        #    x  f   HVP       Move cursor to the indicated row, column.
+        #    y  h   SM        Set Mode (see below).
+        #    y  l   RM        Reset Mode (see below).
+        #    x  m   SGR       Set attributes (see below).
+        #    x  `   HPA       Move cursor to indicated column in current row.
+        #    x  s   ?         Save cursor location.
+        #    x  u   ?         Restore cursor location.
+        #       @   ICH       Insert the indicated # of blank characters.
+        #       M   DL        Delete the indicated # of lines.
+        #       a   HPR       Move cursor right the indicated # of columns.
+        #       c   DA        Answer ESC [ ? 6 c: "I am a VT102".
+        #       e   VPR       Move cursor down the indicated # of rows.
+        #       g   TBC       Without parameter: clear tab stop at current position.
+        #                     ESC [ 3 g: delete all tab stops.
+        #       n   DSR       Status report (see below).
+        #       q   DECLL     Set keyboard LEDs.
+        #                     ESC [ 0 q: clear all LEDs
+        #                     ESC [ 1 q: set Scroll Lock LED
+        #                     ESC [ 2 q: set Num Lock LED
+        #                     ESC [ 3 q: set Caps Lock LED
+        #       r   DECSTBM   Set scrolling region; parameters are top and bottom row.
