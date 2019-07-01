@@ -220,7 +220,7 @@ cdef class cast2gif:
                 new_frame=None
                 frame+=1
                
-                v.render_underlay(self.underlay,0)
+                #v.render_underlay(self.underlay,0)
                 v.render()
                
                 old_data=data
