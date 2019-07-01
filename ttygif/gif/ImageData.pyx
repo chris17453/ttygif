@@ -6,7 +6,7 @@
 
 from cpython cimport array
 from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
-from libc.string cimport memset,memcopy
+from libc.string cimport memset,memcpy
 
 
 class ImageData:
