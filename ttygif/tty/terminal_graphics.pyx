@@ -160,43 +160,43 @@ cdef class terminal_graphics:
 
 
 
-    def render_underlay(self,underlay,frame):
-        self.underlay_flag=True
-        
-        for frame in underlay['frames']:
-            if frame['image'] and frame['descriptor']:
-                descriptor=frame['descriptor']
-                src_image =frame['image'].data
-                #print ("got stuff")
-                break
-        if None==descriptor or None == src_image:
-            self.underlay_flag=None
-            #print("BOM")
-            return
-        dst_x1=0
-        dst_y1=0
-        dst_x2=self.viewport_px_width-1
-        dst_y2=self.viewport_px_height-1
-        dst_width=self.viewport_px_width
-        dst_height=self.viewport_px_height
-        #print ("copy stuff")
-        memset(self.video.data.as_voidptr, self.background_color, self.video_length * sizeof(char))
-#        self.remap(underlay['global_color_table'].colors,src_image,self.color_table)
-        self.copy_image( src_image  = src_image,
-                    src_x1      = 0,
-                    src_y1      = 0,
-                    src_x2      = descriptor.Width-1,
-                    src_y2      = descriptor.Height-1,
-                    src_width  = descriptor.Width,
-                    src_height = descriptor.Height,
-                    dst_image  = self.video,
-                    dst_x1      = dst_x1,
-                    dst_y1      = dst_y1,
-                    dst_x2      = dst_x2,
-                    dst_y2      = dst_y2,
-                    dst_width  = dst_width,
-                    dst_height = dst_height)
-
+   # def render_underlay(self,underlay,frame):
+   #     self.underlay_flag=True
+   #     
+   #     for frame in underlay['frames']:
+   #         if frame['image'] and frame['descriptor']:
+   #             descriptor=frame['descriptor']
+   #             src_image =frame['image'].data
+   #             #print ("got stuff")
+   #             break
+   #     if None==descriptor or None == src_image:
+   #         self.underlay_flag=None
+   #         #print("BOM")
+   #         return
+   #     dst_x1=0
+   #     dst_y1=0
+   #     dst_x2=self.viewport_px_width-1
+   #     dst_y2=self.viewport_px_height-1
+   #     dst_width=self.viewport_px_width
+   #     dst_height=self.viewport_px_height
+   #     #print ("copy stuff")
+   #     memset(self.video.data.as_voidptr, self.background_color, self.video_length * sizeof(char))
+#  #      self.remap(underlay['global_color_table'].colors,src_image,self.color_table)
+   #     self.copy_image( src_image  = src_image,
+   #                 src_x1      = 0,
+   #                 src_y1      = 0,
+   #                 src_x2      = descriptor.Width-1,
+   #                 src_y2      = descriptor.Height-1,
+   #                 src_width  = descriptor.Width,
+   #                 src_height = descriptor.Height,
+   #                 dst_image  = self.video,
+   #                 dst_x1      = dst_x1,
+   #                 dst_y1      = dst_y1,
+   #                 dst_x2      = dst_x2,
+   #                 dst_y2      = dst_y2,
+   #                 dst_width  = dst_width,
+   #                 dst_height = dst_height)
+#
 
     cdef background_from_rgb(self,r,g,b):
         cdef int color=match_color_index(r,g,b,self.viewport.palette)
