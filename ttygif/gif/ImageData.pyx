@@ -4,14 +4,10 @@
 # cython: boundscheck=False
 # cython: wraparou1nd=False
 
-# xcython: linetrace=True
-
 from cpython cimport array
 from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
-from libc.string cimport memset
-import bitarray
+from libc.string cimport memset,memcopy
 
-# TODO block size -> self
 
 class ImageData:
     def __init__(self,stream):
@@ -27,8 +23,6 @@ class ImageData:
     def write(self):
         if None==self.image_data or len(self.image_data)==0:
             raise Exception("Image data empty")
-        
-    
         encoder=lzw_encode(self.image_data,self.min_code_size)
         self.stream.write_bytes(encoder.compressed)
         self.stream.write_byte(0)
@@ -207,19 +201,23 @@ cdef class lzw_encode:
     cdef uint32_t     min_code_size
     cdef uint32_t     code_size
     cdef uint32_t     chunk_fragment
+    
     def __init__(self,array.array image,min_code_size):
-      self.image      =image
-      self.byte      = 0
-      self.chunk     = array.array('B',[0]*256)
-      self.data_pos  = 1
-      self.bit_pos   = 0
-      self.chunk_pos = 0
-      #compress the image and render to array
-      self.min_code_size   =min_code_size
-      self.code_size       =min_code_size + 1       # because its the color table size pLus 1
-      self.chunk_fragment  =0
-      #first byte in array
+      self.image            = image
+      self.byte             = 0
+      self.chunk            = array.array('B',[0]*256)
+      self.data_pos         = 1
+      self.bit_pos          = 0
+      self.chunk_pos        = 0
+      
+      # compress the image and render to array
+      self.min_code_size    = min_code_size
+      self.code_size        = min_code_size + 1       # because its the color table size pLus 1
+      
+      # first byte in array
       self.compressed =array.array ('B',[self.min_code_size])
+      
+      # compress the image
       self.compress()
     
       
@@ -238,19 +236,20 @@ cdef class lzw_encode:
   
 
     cdef write_chunk(self):
-        self.chunk_fragment+=1
-        if self.chunk_pos==0:
-          raise Exception("Cannot write chunk of empty stream")
-        cdef int new_compressed_size = len(self.compressed)+self.chunk_pos+1
+        cdef uint32_t new_compressed_size = len(self.compressed)+self.chunk_pos+1
         array.resize(self.compressed,new_compressed_size)
         
         self.compressed[self.data_pos]=self.chunk_pos
         self.data_pos+=1
         
-        for i in xrange(0,self.chunk_pos):
-          #self.compressed[self.data_pos]=self.chunk_fragment
-          self.compressed[self.data_pos]=self.chunk[i]
-          self.data_pos+=1
+        
+        memcpy(     &self.compresses.data.as_uchars[self.data_pos], 
+                    &self.chunk.data.as_uchars[0],
+                    self.chunk_pos])
+
+        #for i in xrange(0,self.chunk_pos):
+        #  self.compressed[self.data_pos]=self.chunk[i]
+        #  self.data_pos+=1
 
         self.chunk_pos = 0
     
