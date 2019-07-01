@@ -74,8 +74,8 @@ cdef copy_image(image src_image,int src_x1,int src_y1,int src_x2,int src_y2,imag
         mode='simple'
     if mode=='simple':
         
-        for y in range(src_y1,src_y2):
-            for x in range(src_x1,src_x2):
+        for y in xrange(src_y1,src_y2):
+            for x in xrange(src_x1,src_x2):
                 pixel=src_image.get_pixel(x,y)
                 #print x,y,pixel
                 x3=x+dst_x1-src_x1
@@ -88,7 +88,7 @@ cdef shift_buffer(image src_image,int init_value):
     cdef int buffer_length=src_image.dimentions.length
     cdef int index=src_image.dimentions.width
     
-    for i in range(0,index):
+    for i in xrange(0,index):
         buffer.pop(0)
         buffer.pop(0)
         buffer.pop(0)
@@ -104,7 +104,7 @@ cdef match_color_index(r,g,b,palette):
     cdef int mb
     #print r,g,b
     color_table_len=len(palette)
-    for i in range(0,color_table_len,3):
+    for i in xrange(0,color_table_len,3):
         mr=palette[i]
         mg=palette[i+1]
         mb=palette[i+2]
@@ -127,7 +127,7 @@ cdef remap(src_palette,src_pixels,dst_palette):
     cdef int mr
     cdef int mg
     cdef int mb
-    for i in range(0,len(src_palette),3):
+    for i in xrange(0,len(src_palette),3):
         mr=src_palette[i]
         mg=src_palette[i+1]
         mb=src_palette[i+2]
@@ -136,7 +136,7 @@ cdef remap(src_palette,src_pixels,dst_palette):
 
     # reindex the pixels
     src_pixel_len=len(src_pixels)
-    for i in range(0,src_pixel_len):
+    for i in xrange(0,src_pixel_len):
         original_index=src_pixels[i]
         #replace src data pixel...
         src_pixels[i]=hash_map[original_index]

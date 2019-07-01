@@ -42,7 +42,7 @@ cdef class image:
             return self.data[pos]
         else:
             pixel=[0]*self.dimentions.bytes_per_pixel
-            for i in range(0,self.dimentions.bytes_per_pixel):
+            for i in xrange(0,self.dimentions.bytes_per_pixel):
                 pixel[i]=self.data[pos+i]
             return pixel
 
@@ -57,7 +57,7 @@ cdef class image:
         if self.dimentions.bytes_per_pixel==1:
             self.data[pos]=pixel
         else:
-            for i in range(0,self.dimentions.bytes_per_pixel):
+            for i in xrange(0,self.dimentions.bytes_per_pixel):
                 pix_byte=pixel[i]
                 self.data[pos+i]=pix_byte
     

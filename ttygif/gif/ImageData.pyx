@@ -224,132 +224,6 @@ class ImageData:
                 newPixels[dst:dst+width]=fromPixels
                 fromRow+=1
         return newPixels
-        
-
-
-
-
-class LZWDecompressionTable(object):
-    """LZW Decompression Code Table"""
-
-    def __init__(self, lzw_min):
-        self.lzw_min = lzw_min
-        self.codes = None
-        self.clear_code = None
-        self.end_code = None
-        self.next_code = None
-        self.reinitialize()
-
-    def reinitialize(self):
-        """Re-initialize the code table.
-        Should only be called (again) when you encounter a CLEAR CODE.
-        """
-        cdef int next_code = 2 ** self.lzw_min
-        self.codes = self._make_codes(next_code)
-        self.clear_code = self.codes[next_code] = next_code
-        self.end_code = self.codes[next_code + 1] = next_code + 1
-        self.next_code = next_code + 2
-
-    def _make_codes(self, next_code):
-        return {i: chr(i) for i in xrange(next_code)}
-
-    def __contains__(self, key):
-        try:
-            if self.codes[key]:
-                return key
-        except:
-            return None
-        return key in self.codes
-
-    def show(self):
-        """Print the code table."""
-        for key in sorted(self.codes):
-            print (key, '|', repr(self.codes[key]))
-
-    @property
-    def code_size(self):
-        """Returns the # bits required to represent the largest code so far."""
-        return (self.next_code - 1).bit_length()
-
-    @property
-    def next_code_size(self):
-        """Returns the # bits required to represent the next code."""
-        return self.next_code.bit_length()
-
-    def get(self, key):
-        """Returns the code associated with key."""
-        return self.codes[key]
-
-    def add(self, value):
-        """Maps the next largest code to value."""
-        self.codes[self.next_code] = value
-        self.next_code += 1
-
-
-class LZWCompressionTable(LZWDecompressionTable):
-    """LZW Compression Code Table"""
-
-    def _make_codes(self, next_code):
-        return {chr(i): i for i in xrange(next_code)}
-
-    def add(self, key):
-        """Maps key to the next largest code."""
-        self.codes[key] = self.next_code
-        self.next_code += 1
-
-
-def compress(data, lzw_min, max_code_size=12):
-    """Return compressed data using LZW."""
-    table = LZWCompressionTable(lzw_min)
-
-    def _compress():
-        # Always emit a CLEAR CODE first
-        yield table.get(table.clear_code)
-
-        prev = ''
-        for char in data:
-            c=chr(char)
-            if prev + c in table:
-                prev += c
-            else:
-                yield table.get(prev)
-                print [ord(i) for i in prev],  + ord(c)
-                table.add(prev + c)
-                prev = c
-
-                if table.next_code_size > max_code_size:
-                    yield table.get(table.clear_code)
-                    table.reinitialize()
-
-        if prev:
-            yield table.get(prev)
-
-        # Always emit an END OF INFORMATION CODE last
-        yield table.get(table.end_code)
-
-    # Pack variably-sized codes into bytes
-    codes = bitarray.bitarray(endian='little')
-    for code in _compress():
-        # Convert code to bits, and append it
-        #print code,table.code_size
-        codes.extend(            bin(code)
-                [2:].rjust(table.code_size, '0')[::-1])
-    return codes.tobytes()
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
 
 
 cdef class lzw_encode:
@@ -428,8 +302,8 @@ cdef class lzw_encode:
 
     cdef compress (self):
         cdef uint32_t     code_tree_len  = 256*4096
-        cdef array.array  codetree       = array.array('H')
-        array.resize(codetree,code_tree_len)
+        cdef array.array  code_map       = array.array('H')
+        array.resize(code_map,code_tree_len)
         cdef uint32_t     image_length   = len(self.image)
         cdef int32_t      min_code_size  = self.min_code_size    
         cdef uint32_t     clear_code     = 1<<self.min_code_size   # the code right after the color table
@@ -442,7 +316,7 @@ cdef class lzw_encode:
         cdef int32_t      tree_lookup    = 0
         cdef uint32_t     code_max       = 1 << self.code_size
 
-        memset(codetree.data.as_voidptr,0,codetree.itemsize*code_tree_len)
+        memset(code_map.data.as_voidptr,0,code_map.itemsize*code_tree_len)
         self.write_code(clear_code)
         
         #compression loop
@@ -452,13 +326,13 @@ cdef class lzw_encode:
           if current_code < 0:
               current_code = next_value
   
-          elif codetree[current_code*256+next_value]:
+          elif code_map[current_code*256+next_value]:
 
-              current_code = codetree[current_code*256+next_value]
+              current_code = code_map[current_code*256+next_value]
   
           else:
               self.write_code(current_code)
-              codetree[current_code*256+next_value] = codes
+              code_map[current_code*256+next_value] = codes
               #increase curent bit depth if outsized
               if codes >= 1 << self.code_size:
                   self.code_size+=1
@@ -469,7 +343,7 @@ cdef class lzw_encode:
               if codes >= 4095:
                   #print ("clear",self.data_pos)
                   self.write_code(clear_code)
-                  memset(codetree.data.as_voidptr,0,codetree.itemsize*code_tree_len)
+                  memset(code_map.data.as_voidptr,0,code_map.itemsize*code_tree_len)
                   self.code_size = min_code_size + 1
                   codes= clear_code+2
               current_code = next_value

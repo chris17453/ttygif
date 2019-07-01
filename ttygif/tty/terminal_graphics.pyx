@@ -54,16 +54,16 @@ cdef class terminal_graphics:
         #print "len",length,top,bottom
         if 1==1:
             if length>0:
-                for y in range(top,bottom+1):
-                    for x in range(0,self.character_buffer.dimentions.width):
+                for y in xrange(top,bottom+1):
+                    for x in xrange(0,self.character_buffer.dimentions.width):
                         if y+length<top or y+length>bottom:
                             pixel=[self.state.foreground,self.state.background,0]
                         else:
                             pixel=self.character_buffer.get_pixel(x,y+length)
                         self.character_buffer.put_pixel(x,y,pixel)
             else:
-                for y in range(bottom,top-1):
-                    for x in range(0,self.character_buffer.dimentions.width):
+                for y in xrange(bottom,top-1):
+                    for x in xrange(0,self.character_buffer.dimentions.width):
                         if y+length<top or y+length>bottom:
                             pixel=[self.state.foreground,self.state.background,0]
                         else:
@@ -81,7 +81,7 @@ cdef class terminal_graphics:
         cdef int y=self.state.cursor_y
 
         if character>255:
-            err_msg="Charactrer out of range -{0}".format(character)
+            err_msg="Charactrer out of xrange -{0}".format(character)
             raise Exception(err_msg)
 
         if self.state.reverse_video:
@@ -140,8 +140,8 @@ cdef class terminal_graphics:
 
     cdef get_text(self):
         text=""
-        for y in range(0,self.character_buffer.dimentions.height):
-            for x in range(0,self.character_buffer.dimentions.width):
+        for y in xrange(0,self.character_buffer.dimentions.height):
+            for x in xrange(0,self.character_buffer.dimentions.width):
                 pixel=self.character_buffer.get_pixel(x,y)
                 character=pixel[2]
                 # convert empty's to spaces
@@ -224,8 +224,8 @@ cdef class terminal_graphics:
         cdef int y  =0
         cdef int character=0
 
-        for y in range(0,self.character_buffer.dimentions.height):
-            for x in range(0,self.character_buffer.dimentions.width):
+        for y in xrange(0,self.character_buffer.dimentions.height):
+            for x in xrange(0,self.character_buffer.dimentions.width):
                 pixel=self.character_buffer.get_pixel(x,y)
                 fg=pixel[0]
                 bg=pixel[1]

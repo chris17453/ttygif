@@ -33,7 +33,7 @@ cdef class term_parser:
         last_distance=-1
         mappeded_color=-1
         palette=self.g.character_buffer.palette
-        for i in range(0,len(palette),3):
+        for i in xrange(0,len(palette),3):
             mr=palette[i]
             mg=palette[i+1]
             mb=palette[i+2]
@@ -364,22 +364,22 @@ cdef class term_parser:
     cdef cmd_ED(self,mode):
         if mode==0:
             cp=self.g.state.cursor_get_position()
-            for x in range(0,self.g.state.cursor_x+1):
+            for x in xrange(0,self.g.state.cursor_x+1):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
-            for y in range(0,self.g.state.cursor_y):
-                for x in range(0,self.g.state.width):
+            for y in xrange(0,self.g.state.cursor_y):
+                for x in xrange(0,self.g.state.width):
                     self.g.state.cursor_absolute(x,y)
                     self.g.write(0)
             self.g.state.cursor_absolute(cp[0],cp[1])
         if mode==1:
             cp=self.g.state.cursor_get_position()
-            for x in range(self.g.state.cursor_x,self.g.state.width):
+            for x in xrange(self.g.state.cursor_x,self.g.state.width):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
 
-            for y in range(self.g.state.cursor_y+1,self.g.state.height):
-                for x in range(0,self.g.state.width):
+            for y in xrange(self.g.state.cursor_y+1,self.g.state.height):
+                for x in xrange(0,self.g.state.width):
                     self.g.state.cursor_absolute(x,y)
                     self.g.write(0)
 
@@ -392,15 +392,15 @@ cdef class term_parser:
         cp=self.g.state.cursor_get_position()
         #print ( "DEL",mode,cp)
         if mode==0:
-            for x in range(self.g.state.cursor_x,self.g.state.width):
+            for x in xrange(self.g.state.cursor_x,self.g.state.width):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
         elif mode==1:
-            for x in range(0,self.g.state.cursor_x+1):
+            for x in xrange(0,self.g.state.cursor_x+1):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
         elif mode==2:
-            for x in range(0,self.g.state.width):
+            for x in xrange(0,self.g.state.width):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
         self.g.state.cursor_absolute(cp[0],cp[1])
@@ -412,21 +412,21 @@ cdef class term_parser:
         cdef int width=self.g.state.width
         temp=[]
         #copy elements to buffer
-        for x2 in range(x+distance,width):
+        for x2 in xrange(x+distance,width):
             temp.append(self.g.character_buffer.get_pixel(x2,y))
 
         # Move line over x ammount
-        for x2 in range(0,len(temp)):
+        for x2 in xrange(0,len(temp)):
             c=temp[x2]
             self.g.character_buffer.put_pixel(x2+x,y,c)
         # clear the end of the line
-        for x2 in range(width-distance,width):
+        for x2 in xrange(width-distance,width):
             c=[self.g.state.foreground,self.g.state.background,0]
             self.g.character_buffer.put_pixel(x2,y,c)
 
     cdef cmd_ECH(self,distance):
         cp=self.g.state.cursor_get_position()
-        for x in range(self.g.state.cursor_x,self.g.state.cursor_x+distance):
+        for x in xrange(self.g.state.cursor_x,self.g.state.cursor_x+distance):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
         self.g.state.cursor_absolute(cp[0],cp[1])
@@ -558,7 +558,7 @@ cdef class term_parser:
             return
         #print "1",text
         #remapped=[u' ']*len(text)
-        #for i in range(0,len(text)):
+        #for i in xrange(0,len(text)):
         #    c=text[i]
         #    r=chr(self.remap_character(c))
         #    remapped[i]=r

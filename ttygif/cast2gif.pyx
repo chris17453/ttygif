@@ -51,7 +51,7 @@ cdef class cast2gif:
         if self.debug:
             print(self.ascii_safe(text))
 
-    def get_frame_bounding_diff(self,array.array frame1,array.array frame2,int width,int height):
+    cdef get_frame_bounding_diff(self,array.array frame1,array.array frame2,int width,int height):
         if frame1==None or frame2==None:
             return {'min_x':0,'min_y':0,'max_x':width-1,'max_y':height-1,'width':width,'height':height}
         cdef int pos=0
@@ -60,8 +60,8 @@ cdef class cast2gif:
         cdef int max_x=0
         cdef int max_y=0
         cdef same=1
-        for y in range(0,height):
-            for x in range(0,width):
+        for y in xrange(0,height):
+            for x in xrange(0,width):
                 if frame1[pos]!=frame2[pos]:
                     same=0
                     if x<min_x:
@@ -113,7 +113,7 @@ cdef class cast2gif:
             sys.stdout.flush()    
 
     def update_timestamps(self):
-        for i in range(0,len(self.stream['events'])):
+        for i in xrange(0,len(self.stream['events'])):
             self.stream['events'][i][0]=float(self.stream['events'][i][0])*self.dilation
 
     def __init__(self,cast_file,gif_file,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None,underlay=None):
@@ -191,7 +191,7 @@ cdef class cast2gif:
         new_frame=None
         self.aggregate_timestamp=0
         text=""
-        for event_index in range(0,self.event_length):
+        for event_index in xrange(0,self.event_length):
             self.show_percent(index)
             event=self.stream['events'][event_index]
             v.add_event(event)
@@ -276,7 +276,7 @@ cdef class cast2gif:
         cdef int data_pos
         cdef int dest_frame_po
         cdef void *src=data.data.as_voidptr
-        for y in range(diff['min_y'],diff['max_y']+1):
+        for y in xrange(diff['min_y'],diff['max_y']+1):
             data_pos= y*width+diff['min_x']
             dest_frame_pos= (y-diff['min_y'])*diff['width']
             memcpy(
