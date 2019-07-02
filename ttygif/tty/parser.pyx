@@ -270,7 +270,7 @@ cdef class term_parser:
         cdef int CR=13     # x Carriage return
         #cdef int sx=self.g.state.cursor_x
         #cdef int sy=self.g.state.cursor_y
-        self.g.state.text_mode_on()
+        self.g.state.text_mode_off()
         for character in event['data']:
             char_ord=ord(character)
             if char_ord<32:
@@ -571,3 +571,10 @@ cdef class term_parser:
         #                     ESC [ 2 q: set Num Lock LED
         #                     ESC [ 3 q: set Caps Lock LED
         #       r   DECSTBM   Set scrolling region; parameters are top and bottom row.
+
+# CSI ? 25 h	DECTCEM Shows the cursor, from the VT320.
+# CSI ? 25 l	DECTCEM Hides the cursor.
+# CSI ? 1049 h	Enable alternative screen buffer
+# CSI ? 1049 l	Disable alternative screen buffer
+# CSI ? 2004 h	Turn on bracketed paste mode. Text pasted into the terminal will be surrounded by ESC [200~ and ESC [201~, and characters in it should not be treated as commands (for example in Vim).[20] From Unix terminal emulators.
+# CSI ? 2004 l	Turn off bracketed paste mode.
