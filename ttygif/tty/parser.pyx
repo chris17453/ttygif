@@ -168,8 +168,8 @@ cdef class term_parser:
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value1-1)               # abs
-        
-
+        elif command=='?h': self.DECCODE_RESET(params)
+        elif command=='?l': self.DECCODE_RESET(params)
         
         #elif command=='e': 
         #    if self.debug_mode:
@@ -178,6 +178,14 @@ cdef class term_parser:
         
         else: self.info("Impliment: {0}-{1}".format(command,params))
 
+    cdef DECCODE_RESET(self,parameters):
+        if  parameters[0]=='7':
+            self.g.state.autowrap_on(True)
+
+    cdef DECCODE_SET(self,parameters):
+        if  parameters[0]=='7':
+            self.g.state.autowrap_off(None)
+   
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
             self.g.state.set_foreground(self.g.state.default_foreground)
@@ -285,8 +293,10 @@ cdef class term_parser:
                 elif char_ord==CR:
                     self.g.state.cursor_down(1)
             else:
+                if self.g.state.pending_wrap:
+                    self.g.state.cursor_right(1)
+                    
                 self.g.write(char_ord)
-                 
                 self.g.state.cursor_right(1)
             
             while self.g.state.scroll!=0:
@@ -461,7 +471,7 @@ cdef class term_parser:
                 #        DEC Private Mode (DECSET/DECRST) sequences
                 elif paramstring and len(paramstring)>0 and paramstring[0]=='?':
                     command='?'+command
-                    params=[paramstring[1:].split(';')]
+                    params=paramstring[1:].split(';')
                 else:
                     
                     params = tuple(int(p) for p in paramstring.split(';') if len(p) != 0)

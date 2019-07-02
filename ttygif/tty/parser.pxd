@@ -29,7 +29,8 @@ cdef class term_parser:
     cdef process_G0(self,groups)
     cdef process_G1(self,groups)
     cdef process_CSI(self,command,params)
-  
+    cdef DECCODE_SET(self,parameters)
+    cdef DECCODE_RESET(self,parameters)
     cdef cmd_set_mode(self,cmd)
     cdef cmd_reset_mode(self,cmd)
     cdef cmd_process_colors(self,params)

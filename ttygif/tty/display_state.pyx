@@ -13,8 +13,10 @@ cdef class display_state:
         self.reverse_video      = None
         self.bold               = None            
         self.text_mode          = None            
+        self.autowrap           = None            
         self.default_foreground = 15
         self.default_background = 0
+        self pending_wrap       = None
         self.foreground         = self.default_foreground
         self.background         = self.default_background
 
@@ -26,12 +28,22 @@ cdef class display_state:
     cdef text_mode_off(self):
         self.text_mode=None
 
+    cdef autowrap_on(self):
+        self.autowrap=True
+        
+    cdef autowrap_off(self):
+        self.autowrap=None
+
     cdef set_scroll_region(self,top,bottom):
         self.scroll             = 0
         self.scroll_top         = top
         self.scroll_bottom      = bottom
 
     cdef check_bounds(self):
+        if self.pending_wrap:
+            if self.cursor_x!=self.width-1 or self.cursor_y!=self.height-1 or self.autowrap!=True:
+                self.pending_wrap=None
+
         if self.cursor_x<0:
             self.cursor_x=0
 
@@ -48,8 +60,6 @@ cdef class display_state:
                 self.scroll+=self.cursor_y-self.scroll_bottom #positive
             self.cursor_y=self.scroll_bottom
 
-
-
     cdef cursor_up(self,int distance):
         self.cursor_y-=distance
         self.check_bounds()
@@ -63,13 +73,16 @@ cdef class display_state:
         self.check_bounds()
 
     cdef cursor_right(self,int distance):
-        self.cursor_x+=distance
-        if self.text_mode:
-            if self.cursor_x>=self.width:
-                self.cursor_x=0
-                self.cursor_down(1)
+        if self.pending_wrap==None and self.autowrap and self.cursor_x==self.width-1 and self.cursor_y==self.height-1:
+            self.pending_wrap=True
         else:
-            self.check_bounds()
+            self.cursor_x+=distance
+            if self.text_mode:
+                if self.cursor_x>=self.width:
+                    self.cursor_x=0
+                    self.cursor_down(1)
+            else:
+                self.check_bounds()
 
     cdef cursor_absolute_x(self,position):
         self.cursor_x=position

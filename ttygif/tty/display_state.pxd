@@ -20,9 +20,14 @@ cdef class display_state:
     cdef public object          reverse_video
     cdef public object          bold 
     cdef public object          text_mode
+    cdef public object          autowrap
+    cdef public object          pending_wrap
+            
         
     cdef text_mode_on(self)
     cdef text_mode_off(self)
+    cdef autowrap_on(self)
+    cdef autowrap_off(self)
     cdef set_scroll_region(self,top,bottom)
     cdef check_bounds(self)
     cdef cursor_up(self,int distance)
