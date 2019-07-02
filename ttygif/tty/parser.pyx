@@ -270,7 +270,7 @@ cdef class term_parser:
         cdef int CR=13     # x Carriage return
         #cdef int sx=self.g.state.cursor_x
         #cdef int sy=self.g.state.cursor_y
-        self.g.state.text_mode_off()
+        self.g.state.text_mode_on()
         for character in event['data']:
             char_ord=ord(character)
             if char_ord<32:
@@ -283,6 +283,7 @@ cdef class term_parser:
                     self.g.state.cursor_down(1)
             else:
                 self.g.write(char_ord)
+                 
                 self.g.state.cursor_right(1)
             
             while self.g.state.scroll!=0:
