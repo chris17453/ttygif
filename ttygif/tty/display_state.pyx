@@ -16,7 +16,7 @@ cdef class display_state:
         self.autowrap           = None            
         self.default_foreground = 15
         self.default_background = 0
-        self pending_wrap       = None
+        self.pending_wrap       = None
         self.foreground         = self.default_foreground
         self.background         = self.default_background
 
