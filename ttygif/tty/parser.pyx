@@ -180,11 +180,11 @@ cdef class term_parser:
 
     cdef DECCODE_RESET(self,parameters):
         if  parameters[0]=='7':
-            self.g.state.autowrap_on(True)
+            self.g.state.autowrap_on()
 
     cdef DECCODE_SET(self,parameters):
         if  parameters[0]=='7':
-            self.g.state.autowrap_off(None)
+            self.g.state.autowrap_off())
    
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
@@ -295,7 +295,7 @@ cdef class term_parser:
             else:
                 if self.g.state.pending_wrap:
                     self.g.state.cursor_right(1)
-                    
+
                 self.g.write(char_ord)
                 self.g.state.cursor_right(1)
             
