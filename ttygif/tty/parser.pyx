@@ -168,6 +168,22 @@ cdef class term_parser:
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value1-1)               # abs
+        
+t-(23, 0, 0)
+?9-[[u'1049']]
+?7-[[u'7']]
+?1-[[u'1']]
+?1-[[u'1']]
+?5-[[u'25']]
+?0-[[u'1000']]
+?1-[[u'1']]
+?0-[[u'1000']]
+?2-[[u'12']]
+?5-[[u'25']]
+?9-[[u'1049']]
+?1-[[u'1']]
+
+        
         #elif command=='e': 
         #    if self.debug_mode:
         #        self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(value,x,y))
@@ -457,7 +473,7 @@ cdef class term_parser:
                         params = params + (1,)
                 #        DEC Private Mode (DECSET/DECRST) sequences
                 elif paramstring and len(paramstring)>0 and paramstring[0]=='?':
-                    command='?'+paramstring[-1]
+                    command='?'+command
                     params=[paramstring[1:].split(';')]
                 else:
                     
