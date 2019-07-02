@@ -169,19 +169,6 @@ cdef class term_parser:
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value1-1)               # abs
         
-t-(23, 0, 0)
-?9-[[u'1049']]
-?7-[[u'7']]
-?1-[[u'1']]
-?1-[[u'1']]
-?5-[[u'25']]
-?0-[[u'1000']]
-?1-[[u'1']]
-?0-[[u'1000']]
-?2-[[u'12']]
-?5-[[u'25']]
-?9-[[u'1049']]
-?1-[[u'1']]
 
         
         #elif command=='e': 
