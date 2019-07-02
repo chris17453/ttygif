@@ -153,21 +153,21 @@ cdef class term_parser:
         elif command=='D':  self.cmd_CUB(value1)
         elif command=='E':  self.cmd_CNL(value1)
         elif command=='F':  self.cmd_CPL(value1)
-        elif command=='G':  self.cmd_CHA(value1-1)
-        elif command=='H':  self.cmd_CUP(value2-1,value1-1)
+        elif command=='G':  self.cmd_CHA(value1-1)               # abs
+        elif command=='H':  self.cmd_CUP(value2-1,value1-1)      # abs
         elif command=='J':  self.cmd_ED(value1)
         elif command=='K':  self.cmd_EL(value1)
         elif command=='P':  self.cmd_DCH(value1)
         elif command=='X':  self.cmd_ECH(value1)
-        elif command=='d':  self.cmd_VPA(value1-1)
-        elif command=='f':  self.cmd_HPV(value2-1,value1-1)
+        elif command=='d':  self.cmd_VPA(value1-1)               # abs
+        elif command=='f':  self.cmd_HPV(value2-1,value1-1)      # abs
         elif command=='h':  self.cmd_set_mode(params)
         elif command=='l':  self.cmd_reset_mode(value1)
         elif command=='m':  self.cmd_process_colors(params)
         elif command=='r':  self.cmd_DECSTBM(value1-1,value2-1)
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
-        elif command=='`':  self.cmd_HPA(value1-1)
+        elif command=='`':  self.cmd_HPA(value1-1)               # abs
         #elif command=='e': 
         #    if self.debug_mode:
         #        self.info("Cursor Down rows:{0},x:{1:<2},y:{2:<2}".format(value,x,y))
@@ -457,7 +457,8 @@ cdef class term_parser:
                         params = params + (1,)
                 #        DEC Private Mode (DECSET/DECRST) sequences
                 elif paramstring and len(paramstring)>0 and paramstring[0]=='?':
-                    params=['?',paramstring[1:]]
+                    command='?'+paramstring[-1]
+                    params=[paramstring[1:].split(';')]
                 else:
                     
                     params = tuple(int(p) for p in paramstring.split(';') if len(p) != 0)
