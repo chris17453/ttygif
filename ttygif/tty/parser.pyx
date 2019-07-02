@@ -184,7 +184,7 @@ cdef class term_parser:
 
     cdef DECCODE_SET(self,parameters):
         if  parameters[0]=='7':
-            self.g.state.autowrap_off())
+            self.g.state.autowrap_off()
    
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
