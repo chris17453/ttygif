@@ -82,3 +82,7 @@ caca:
 
 compile:	
 	@python -m ttygif.cli --input assets/cast/234628.cast --output assets/encode/234628.gif --fps 12
+
+pika:
+	@python -m ttygif.cli --input assets/cast/236096.cast --output assets/encode/236096.gif --fps 12
+	
