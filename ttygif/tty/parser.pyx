@@ -160,7 +160,7 @@ cdef class term_parser:
         elif command=='P':  self.cmd_DCH(value1)
         elif command=='X':  self.cmd_ECH(value1)
         elif command=='d':  self.cmd_VPA(value1-1)               # abs
-        elif command=='f':  self.cmd_HPV(value2-1,value1-1)      # abs
+        elif command=='f':  self.cmd_HVP(value2-1,value1-1)      # abs
         elif command=='h':  self.cmd_set_mode(params)
         elif command=='l':  self.cmd_reset_mode(value1)
         elif command=='m':  self.cmd_process_colors(params)
@@ -416,7 +416,7 @@ cdef class term_parser:
                 self.g.write(0)
         self.g.state.cursor_absolute(cp[0],cp[1])
     
-    cdef cmd_HPV(self,x,y):
+    cdef cmd_HVP(self,x,y):
         self.g.state.cursor_absolute(x,y)
 
     cdef cmd_HPA(self,x):
