@@ -96,6 +96,8 @@ ls -lhatsR | ttygif --output 232377.gif --fps=0 --dilate .5
 | CSI  | ^[     s | SCP      | Save Cursor Position            |
 | CSI  | ^[     u | RCP      | Restore Cursor Position         |
 | DEC  | ^[ n;m r | DECSTBM  | Set Top and Bottom Margins      |
+| DEC  | ^[? 7  h | DECAWM   | Auto Wrap Mode / Set            |
+| DEC  | ^[? 7  l | DECAWM   | Auto Wrap Mode / Reset          |
 | DEC  | ^[ 25  h | DECTCEM  | Text Cursor Enable Mode / Set   |
 | DEC  | ^[ 25  l | DECTCEM  | Text Cursor Enable Mode / Reset |
 | DEC  | ^[?1049h |          | Alternate Screen / Set          |
