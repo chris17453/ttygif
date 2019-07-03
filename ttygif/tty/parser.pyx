@@ -179,12 +179,14 @@ cdef class term_parser:
         else: self.info("Impliment: {0}-{1}".format(command,params))
 
     cdef DECCODE_RESET(self,parameters):
+        print "RESET",parameters
         if  parameters[0]=='7':
             self.g.state.autowrap_on()
         if  parameters[0]=='1049':
             self.g.alternate_screen_on()
 
     cdef DECCODE_SET(self,parameters):
+        print "SET",parameters
         if  parameters[0]=='7':
             self.g.state.autowrap_off()
 
