@@ -51,18 +51,28 @@ cdef class terminal_graphics:
 
     cdef alternate_screen_on(self):
         cdef image temp_image
+        cdef state temp_state
         if self.display_alt_screen==None:
             temp_image=self.screen
             self.screen=self.alt_screen
             self.alt_screen=temp_image
         
+            temp_state=self.state
+            self.state=self.alt_state
+            self.alt_state=temp_state
+        
 
     cdef alternate_screen_off(self):
         cdef image temp_image
+        cdef state temp_state
         if self.display_alt_screen==True:
             temp_image=self.screen
             self.screen=self.alt_screen
             self.alt_screen=temp_image
+
+            temp_state=self.state
+            self.state=self.alt_state
+            self.alt_state=temp_state
 
     cdef scroll_buffer(self):
         cdef int top=self.state.scroll_top
