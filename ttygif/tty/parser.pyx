@@ -279,8 +279,7 @@ cdef class term_parser:
         cdef int BS=8     # x Backspace
         cdef int LF=10     # x Line feed
         cdef int CR=13     # x Carriage return
-        #cdef int sx=self.g.state.cursor_x
-        #cdef int sy=self.g.state.cursor_y
+        
         self.g.state.text_mode_on()
         for character in event['data']:
             char_ord=ord(character)
@@ -290,10 +289,11 @@ cdef class term_parser:
                 elif char_ord==LF:
                     self.g.state.cursor_absolute_x(0)
                     self.g.state.cursor_down(1)
-                elif char_ord==CR:
-                    self.g.state.cursor_down(1)
+                #elif char_ord==CR:
+                #    self.g.state.cursor_down(1)
             else:
                 if self.g.state.pending_wrap:
+                    self.g.state.pending_wrap:
                     self.g.state.cursor_right(1)
 
                 self.g.write(char_ord)
@@ -302,8 +302,7 @@ cdef class term_parser:
             while self.g.state.scroll!=0:
                 self.g.scroll_buffer()
         self.g.state.text_mode_off()
-        #print "Start",sx,sy,"End",self.g.state.cursor_x,self.g.state.cursor_y
-    
+        
 
     cdef cmd_DECSTBM(self,int top,int bottom):
         self.g.state.set_scroll_region(top,bottom)
