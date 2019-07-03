@@ -51,7 +51,7 @@ cdef class terminal_graphics:
 
     cdef alternate_screen_on(self):
         cdef image temp_image
-        cdef state temp_state
+        cdef display_state temp_state
         if self.display_alt_screen==None:
             temp_image=self.screen
             self.screen=self.alt_screen
@@ -64,7 +64,7 @@ cdef class terminal_graphics:
 
     cdef alternate_screen_off(self):
         cdef image temp_image
-        cdef state temp_state
+        cdef display_state temp_state
         if self.display_alt_screen==True:
             temp_image=self.screen
             self.screen=self.alt_screen
