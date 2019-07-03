@@ -50,8 +50,9 @@ cdef class terminal_graphics:
 
 
     cdef alternate_screen_on(self):
+        cdef image temp_image
         if self.display_alt_screen==None:
-            cdef image temp_image=self.screen
+            temp_image=self.screen
             self.screen=alt.screen
             self.alt_screen=image
         
