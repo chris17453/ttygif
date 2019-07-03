@@ -53,7 +53,7 @@ cdef class terminal_graphics:
         cdef image temp_image
         if self.display_alt_screen==None:
             temp_image=self.screen
-            self.screen=alt.screen
+            self.screen=self.alt_screen
             self.alt_screen=image
         
 
@@ -61,7 +61,7 @@ cdef class terminal_graphics:
         cdef image temp_image
         if self.display_alt_screen==True:
             temp_image=self.screen
-            self.screen=alt.screen
+            self.screen=self.alt_screen
             self.alt_screen=image
 
     cdef scroll_buffer(self):
