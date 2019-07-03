@@ -32,7 +32,7 @@ cdef class term_parser:
     cdef rgb_to_palette(self,r,g,b):
         last_distance=-1
         mappeded_color=-1
-        palette=self.g.character_buffer.palette
+        palette=self.g.screen.palette
         for i in xrange(0,len(palette),3):
             mr=palette[i]
             mg=palette[i+1]
@@ -181,10 +181,15 @@ cdef class term_parser:
     cdef DECCODE_RESET(self,parameters):
         if  parameters[0]=='7':
             self.g.state.autowrap_on()
+        if  parameters[0]=='1049':
+            self.g.alternate_screen_on()
 
     cdef DECCODE_SET(self,parameters):
         if  parameters[0]=='7':
             self.g.state.autowrap_off()
+
+        if  parameters[0]=='1049':
+            self.g.alternate_screen_off()
    
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
@@ -357,7 +362,7 @@ cdef class term_parser:
             self.g.state.cursor_absolute(cp[0],cp[1])
 
         if mode==2:
-            self.g.character_buffer.clear(self.g.state.background)
+            self.g.screen.clear(self.g.state.background)
 
     cdef cmd_EL(self,mode):
         cp=self.g.state.cursor_get_position()
@@ -384,16 +389,16 @@ cdef class term_parser:
         temp=[]
         #copy elements to buffer
         for x2 in xrange(x+distance,width):
-            temp.append(self.g.character_buffer.get_pixel(x2,y))
+            temp.append(self.g.screen.get_pixel(x2,y))
 
         # Move line over x ammount
         for x2 in xrange(0,len(temp)):
             c=temp[x2]
-            self.g.character_buffer.put_pixel(x2+x,y,c)
+            self.g.screen.put_pixel(x2+x,y,c)
         # clear the end of the line
         for x2 in xrange(width-distance,width):
             c=[self.g.state.foreground,self.g.state.background,0]
-            self.g.character_buffer.put_pixel(x2,y,c)
+            self.g.screen.put_pixel(x2,y,c)
 
     cdef cmd_ECH(self,distance):
         cp=self.g.state.cursor_get_position()

@@ -13,9 +13,15 @@ cdef class terminal_graphics:
     cdef array.array    data
     cdef font           font
     cdef image          viewport
-    cdef image          character_buffer
+    cdef image          screen
+    cdef image          alt_screen
     cdef display_state  state
+    cdef display_state  alt_state
+    cdef object         alt_screen
 
+
+    cdef alternate_screen_on(self)
+    cdef alternate_screen_off(self)
     cdef write(self,int character)
     cdef draw_string(self,x,y,data)
     cdef scroll_buffer(self)
@@ -24,5 +30,6 @@ cdef class terminal_graphics:
     cdef foreground_from_rgb(self,r,g,b)
     cdef background_from_rgb(self,r,g,b)
     cdef set_foreground(self,color)
+    cdef set_background(self,color)
     cdef set_background(self,color)
     cdef render(self)

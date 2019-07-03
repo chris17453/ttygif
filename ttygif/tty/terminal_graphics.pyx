@@ -24,7 +24,7 @@ cdef class terminal_graphics:
         cdef int px_height
         cdef int char_width
         cdef int char_height
-
+        
         # define displays by chaaracters on screen        
         if character_width>-1 and character_height>-1:
             char_width  =character_width
@@ -41,12 +41,26 @@ cdef class terminal_graphics:
             char_height = viewport_height / image_font.font_width
             
         palette=create_default_palette()
-        self.state           = display_state(char_width,char_height)
-        self.character_buffer= image(3,char_width ,char_height ,palette,0                    )
-        self.viewport        = image(1,px_width   ,px_height   ,palette,self.state.background)
+        self.state      = display_state(char_width,char_height)
+        self.alt_state  = display_state(char_width,char_height)
+        self.screen     = image(3,char_width ,char_height ,palette,0                    )
+        self.alt_screen = image(3,char_width ,char_height ,palette,0                    )
+        self.viewport   = image(1,px_width   ,px_height   ,palette,self.state.background)
+        self.alt_screen = None
 
 
-        # set default screen state
+    cdef alternate_screen_on(self):
+        if self.alt_screen==None:
+            cdef image temp_image=self.screen
+            self.screen=alt.screen
+            self.alt_screen=image
+        
+
+    cdef alternate_screen_off(self):
+        if self.alt_screen=True:
+            cdef image temp_image=self.screen
+            self.screen=alt.screen
+            self.alt_screen=image
 
     cdef scroll_buffer(self):
         cdef int top=self.state.scroll_top
@@ -56,20 +70,20 @@ cdef class terminal_graphics:
         if 1==1:
             if length>0:
                 for y in xrange(top,bottom+1):
-                    for x in xrange(0,self.character_buffer.dimentions.width):
+                    for x in xrange(0,self.screen.dimentions.width):
                         if y+length<top or y+length>bottom:
                             pixel=[self.state.foreground,self.state.background,0]
                         else:
-                            pixel=self.character_buffer.get_pixel(x,y+length)
-                        self.character_buffer.put_pixel(x,y,pixel)
+                            pixel=self.screen.get_pixel(x,y+length)
+                        self.screen.put_pixel(x,y,pixel)
             else:
                 for y in xrange(bottom,top-1):
-                    for x in xrange(0,self.character_buffer.dimentions.width):
+                    for x in xrange(0,self.screen.dimentions.width):
                         if y+length<top or y+length>bottom:
                             pixel=[self.state.foreground,self.state.background,0]
                         else:
-                            pixel=self.character_buffer.get_pixel(x,y+length)
-                        self.character_buffer.put_pixel(x,y,pixel)
+                            pixel=self.screen.get_pixel(x,y+length)
+                        self.screen.put_pixel(x,y,pixel)
             
         self.state.scroll=0
         #cdef int row_pos=buffer_length-src_image.dimentions.stride
@@ -90,7 +104,7 @@ cdef class terminal_graphics:
         else:
             pix=[self.state.foreground,self.state.background,character]    
         #print("PIX",pix)
-        self.character_buffer.put_pixel(x,y,pix)
+        self.screen.put_pixel(x,y,pix)
 
     cdef draw_string(self,x,y,data):
         for i in data:
@@ -141,9 +155,9 @@ cdef class terminal_graphics:
 
     cdef get_text(self):
         text=""
-        for y in xrange(0,self.character_buffer.dimentions.height):
-            for x in xrange(0,self.character_buffer.dimentions.width):
-                pixel=self.character_buffer.get_pixel(x,y)
+        for y in xrange(0,self.screen.dimentions.height):
+            for x in xrange(0,self.screen.dimentions.width):
+                pixel=self.screen.get_pixel(x,y)
                 character=pixel[2]
                 # convert empty's to spaces
                 if character<32:
@@ -221,9 +235,9 @@ cdef class terminal_graphics:
         cdef int y  =0
         cdef int character=0
 
-        for y in xrange(0,self.character_buffer.dimentions.height):
-            for x in xrange(0,self.character_buffer.dimentions.width):
-                pixel=self.character_buffer.get_pixel(x,y)
+        for y in xrange(0,self.screen.dimentions.height):
+            for x in xrange(0,self.screen.dimentions.width):
+                pixel=self.screen.get_pixel(x,y)
                 fg=pixel[0]
                 bg=pixel[1]
                 character=pixel[2]
