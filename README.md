@@ -48,25 +48,25 @@ optional arguments:
 ## cast file to gif
 
 ```bash
-ttygif --input  232377.cast --output 232377.gif --fps=33
+ttygif --input  232377.cast --output ls_pipe.gif --fps=33
 ```
 
 ## pipe to gif
 
 ```bash
-ls -lhatsR | ttygif --output 232377.gif --fps=0
+ls -lhatsR | ttygif --output ls_pipe.gif --fps=0
 ```
 
 ## slow down gif
 
 ```bash
-ls -lhatsR | ttygif --output 232377.gif --fps=0 --dilate 10
+ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate 10
 ```
 
 ## speed up gif
 
 ```bash
-ls -lhatsR | ttygif --output 232377.gif --fps=0 --dilate .5
+ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
 ```
 
 
