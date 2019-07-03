@@ -46,18 +46,18 @@ cdef class terminal_graphics:
         self.screen     = image(3,char_width ,char_height ,palette,0                    )
         self.alt_screen = image(3,char_width ,char_height ,palette,0                    )
         self.viewport   = image(1,px_width   ,px_height   ,palette,self.state.background)
-        self.alt_screen = None
+        self.display_alt_screen = None
 
 
     cdef alternate_screen_on(self):
-        if self.alt_screen==None:
+        if self.display_alt_screen==None:
             cdef image temp_image=self.screen
             self.screen=alt.screen
             self.alt_screen=image
         
 
     cdef alternate_screen_off(self):
-        if self.alt_screen=True:
+        if self.display_alt_screen==True:
             cdef image temp_image=self.screen
             self.screen=alt.screen
             self.alt_screen=image

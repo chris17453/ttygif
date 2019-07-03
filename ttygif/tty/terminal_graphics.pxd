@@ -17,7 +17,7 @@ cdef class terminal_graphics:
     cdef image          alt_screen
     cdef display_state  state
     cdef display_state  alt_state
-    cdef object         alt_screen
+    cdef object         display_alt_screen
 
 
     cdef alternate_screen_on(self)
