@@ -1,6 +1,6 @@
 # ttygif
 
-A self contained asciicast data file to gif conversion utility
+A fast stdio to gif conversion utility, that works with pipes and asciicast files.
 
 ## install
 
@@ -15,6 +15,7 @@ ttygif is self contained with no dependencys other than python. GIF encoding
 and termal emulation are both implimented with internal cython code. The 
 terminal font is embeded within the code. All you need to get ttygif to work
 is a c compiler, python and its development libs. ttygif is a cython project.
+
 
 ## usage
 
@@ -69,16 +70,36 @@ ls -lhatsR | ttygif --output 232377.gif --fps=0 --dilate .5
 ```
 
 
-### Finished Features
+### ESCAPE CODE SUPPORT
 
-- ansi escape string parsing CSI, OSC and basic Control Characters
-- standard I/O
-- colors, default term, and rgb
-- cursor positioning
-- erase line modes 1,2,3
-- erase screen
-- r,g,b palette mapping to curent palette
-- piped stdout with auto cast generation/emulated timestamps
+- the letters n and m in the middle of the escape sequence are numeric substitutions
+- ignore whitespace
+
+| Type |          | Code     | Name                            |
+|------|----------|----------|---------------------------------|
+| CSI  | ^[ n   A | CUU      | Cursor up                       |
+| CSI  | ^[ n   B | CUD      | Cursor down                     |
+| CSI  | ^[ n   C | CUF      | Cursor Forward                  |
+| CSI  | ^[ n   D | CUB      | Cursor Back                     |
+| CSI  | ^[ n   E | CNL      | Cursor Next Line                |
+| CSI  | ^[ n   F | CPL      | Cursor Previous Line            |
+| CSI  | ^[ n   G | CHA      | Cursor Horizontal Absolute      |
+| CSI  | ^[ n;m H | CUP      | Cursor Position                 |
+| CSI  | ^[ n   J | ED       | Erase Display                   |
+| CSI  | ^[ n   K | EL       | Erase Line                      |
+| CSI  | ^[ n   P | DCH      | Delete Character                |
+| CSI  | ^[ n   X | ECH      | Erase Character                 |
+| CSI  | ^[ n   d | VPA      | Vertical Position Absolute      |
+| CSI  | ^[ n   ` | HPA      | Horizontal Position Absolute    |
+| CSI  | ^[ n;m f | HVP      | Horizontal / Vertical position  |
+| CSI  | ^[ n;m m |          | Set Text Attributes             |
+| CSI  | ^[     s | SCP      | Save Cursor Position            |
+| CSI  | ^[     u | RCP      | Restore Cursor Position         |
+| DEC  | ^[ n;m r | DECSTBM  | Set Top and Bottom Margins      |
+| DEC  | ^[ 25  h | DECTCEM  | Text Cursor Enable Mode / Set   |
+| DEC  | ^[ 25  l | DECTCEM  | Text Cursor Enable Mode / Reset |
+| DEC  | ^[?1049h |          | Alternate Screen / Set          |
+| DEC  | ^[?1049l |          | Alternate Screen / Reset        |
 
 
 ### Features still left to handle
@@ -93,13 +114,7 @@ ls -lhatsR | ttygif --output 232377.gif --fps=0 --dilate .5
 - palette flags, monochrome,  grayscale, system, custom, count [n]<256
 - gif color consoladataion, for lower bit count (<8) compression 
 - asciicast v1 support
-- gif error handeling
-- file io error handeling
-- cursor position saving
 - cursor emulation
-- erase screen with default bg color
-- overflow on cursor position out of bounds
-- cythonic definitions for speed improvment - Mostly Done
 - image underlay (branding)
 - image overlay (branding)
 - cliping
@@ -111,16 +126,10 @@ ls -lhatsR | ttygif --output 232377.gif --fps=0 --dilate .5
 - frames, windows 95, x11, mac, fedora, gnome, cinnamon
 - start and end frames, with delays
 
-### Profile Times
 
-- minimal speed gains have been put into place about 40% original speed increase
-- an additional 20-30% boost once I update to cythonic variables
-- 38% drawing characters
-- 23% converting stream text to bufer
-- 18% frame bounding for giff diff's
-- 14% compressing image frames
-- 07% other
+## The benchmark for speed
 
+- A medium density 60 second screen recording can be rendered to gif in less than 5 seconds.
 
 ## ttygif-assets
 
