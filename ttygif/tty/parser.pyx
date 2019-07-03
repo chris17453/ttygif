@@ -293,7 +293,6 @@ cdef class term_parser:
                 #    self.g.state.cursor_down(1)
             else:
                 if self.g.state.pending_wrap:
-                    self.g.state.pending_wrap:
                     self.g.state.cursor_right(1)
 
                 self.g.write(char_ord)
