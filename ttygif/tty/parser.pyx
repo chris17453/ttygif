@@ -287,10 +287,9 @@ cdef class term_parser:
                 if  char_ord==BS:
                     self.g.state.cursor_left(1)
                 elif char_ord==LF:
-                    self.g.state.cursor_absolute_x(0)
                     self.g.state.cursor_down(1)
                 elif char_ord==CR:
-                    self.g.state.cursor_down(1)
+                    self.g.state.cursor_absolute_x(0)
             else:
                 if self.g.state.pending_wrap:
                     self.g.state.cursor_right(1)
