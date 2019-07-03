@@ -22,8 +22,11 @@ cdef class display_state:
     cdef public object          text_mode
     cdef public object          autowrap
     cdef public object          pending_wrap
+    cdef public object          display_cursor
             
         
+    cdef show_cursor(self)
+    cdef hide_cursor(self)
     cdef text_mode_on(self)
     cdef text_mode_off(self)
     cdef autowrap_on(self)

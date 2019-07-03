@@ -39,6 +39,13 @@ cdef class display_state:
         self.scroll_top         = top
         self.scroll_bottom      = bottom
 
+
+    cdef show_cursor(self):
+        self.display_cursor=True
+
+    cdef hide_cursor(self):
+        self.display_cursor=None
+
     cdef check_bounds(self):
         if self.pending_wrap:
             if self.cursor_x!=self.width-1 or self.cursor_y!=self.height-1 or self.autowrap!=True:

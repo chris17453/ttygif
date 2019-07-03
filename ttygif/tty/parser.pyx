@@ -182,6 +182,10 @@ cdef class term_parser:
         print "RESET",parameters
         if  parameters[0]=='7':
             self.g.state.autowrap_on()
+
+        if  parameters[0]=='25':
+            self.g.state.show_cursor()
+
         if  parameters[0]=='1049':
             self.g.alternate_screen_on()
 
@@ -189,6 +193,9 @@ cdef class term_parser:
         print "SET",parameters
         if  parameters[0]=='7':
             self.g.state.autowrap_off()
+
+        if  parameters[0]=='25':
+            self.g.state.hide_cursor()
 
         if  parameters[0]=='1049':
             self.g.alternate_screen_off()
