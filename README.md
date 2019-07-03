@@ -107,12 +107,11 @@ ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
 ### Features still left to handle
 
 - documentation
-- embed event stream in gif as control header data
-- output piped stream as cast file
-- time period ( capture partial recording based on time stamps x-y)
-- add progress bar to top/bottom of gif with n of y H:M:I:S
 - font generation app
 - font mapping for utf 8,16,13 characters to base 256 map
+- embed event stream in gif as control header data
+- time period ( capture partial recording based on time stamps x-y)
+- add progress bar to top/bottom of gif with n of y H:M:I:S
 - palette flags, monochrome,  grayscale, system, custom, count [n]<256
 - gif color consoladataion, for lower bit count (<8) compression 
 - asciicast v1 support
