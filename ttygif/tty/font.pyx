@@ -77,6 +77,8 @@ cdef class font:
                         width=int(res)
                         char_data=True
                         char_y=0
+                        print("Resizing {0}".format(len(self.graphic)+width*height))
+                        array.resize(self.graphic,len(self.graphic)+width*height)
 
             
     
