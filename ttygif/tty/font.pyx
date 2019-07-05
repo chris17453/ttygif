@@ -20,7 +20,7 @@ cdef class font:
 
         script_path = os.path.dirname(os.path.abspath( __file__ ))
 
-        font_file=open(os.path.join(script_path,'font',name+".fd")) 
+        font_file=open(os.path.join(script_path,'fonts',name+".fd")) 
         font_data=font_file.read()
         in_header=True
         char_data=None
