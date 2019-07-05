@@ -71,6 +71,7 @@ cdef class font:
                             self.graphic[pos]=1
                     if char_y==self.height:
                         char_data=None
+                        char_y=0
                 else:
                     res=self.get_var(line,'char')
                     if res:
