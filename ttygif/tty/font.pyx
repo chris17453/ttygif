@@ -27,7 +27,6 @@ cdef class font:
         char_data=None
         char_y=0
         self.graphic=array.array('B')
-        print len(self.graphic)
         for line in font_data:
             #print line
             line=line.strip()
@@ -59,9 +58,7 @@ cdef class font:
                     self.charset=int(res)
                     in_header=None
             else:
-                print "X",line
                 if char_data:
-                    print "C",line
                     for i in range(0,self.width):
                         c=line[i]
                         pos=char*self.width*self.height+char_y*self.width+i
@@ -78,14 +75,11 @@ cdef class font:
                     if res:
                         char=int(res)
                         self.offset[char]=self.width*self.height*char
-
                     res=self.get_var(line,'width')
                     if res:
                         self.width=int(res)
-                        print ("width: {0}".format(self.width))
                         char_data=True
                         char_y=0
-                        print("Resizing {0}".format(len(self.graphic)+self.width*self.height))
                         array.resize(self.graphic,len(self.graphic)+self.width*self.height)
 
             
