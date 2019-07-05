@@ -28,6 +28,7 @@ cdef class font:
         self.graphic=array.array('B')
         for line in font_data:
             #print line
+            line=line.strip()
             if line.isspace()==True:
                 continue
             if in_header:
