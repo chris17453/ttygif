@@ -130,7 +130,7 @@ cdef class terminal_graphics:
         
         for fy in xrange(0,self.font.height):
             for fx in xrange(0,self.font.width):
-                screen_pos=x*self.font.width+fx+(fy*self.font.height+y)*self.viewport.dimentions.width
+                screen_pos=x*self.font.width+fx+(fy+self.font.height*y)*self.viewport.dimentions.width
                 pixel=self.font.graphic[char_pos]
                 if pixel!=0:
                     self.viewport.data[screen_pos]=foreground_color
