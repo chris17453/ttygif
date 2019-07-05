@@ -55,8 +55,7 @@ cdef class font:
                     print "no header"
             else:
                 if char_data:
-                    print "data"
-                    
+                    print line,width
                     for i in range(0,width):
                         c=line[i]
                         if c=='x':
