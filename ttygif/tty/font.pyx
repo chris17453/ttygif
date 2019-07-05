@@ -29,7 +29,7 @@ cdef class font:
         for line in font_data:
             #print line
             line=line.strip()
-            if line.isspace()==True:
+            if not line:
                 continue
             if in_header:
                 if line[0]=='#':
