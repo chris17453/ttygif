@@ -28,7 +28,7 @@ cdef class font:
         char_data=None
         char_y=0
         self.graphic=array.array('B')
-        for line in font_data
+        for line in font_data:
             if not line:
                 continue
             if in_header:
