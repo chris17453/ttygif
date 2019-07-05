@@ -29,16 +29,16 @@ cdef class terminal_graphics:
         if character_width>-1 and character_height>-1:
             char_width  =character_width
             char_height =character_height
-            px_width    =character_width  * image_font.font_width
-            px_height   =character_height * image_font.font_height
+            px_width    =character_width  * image_font.width
+            px_height   =character_height * image_font.height
         
         # define displays by screen dimentions and calculate characters
         else:
             px_width    =viewport_width
             px_height   =viewport_height
 
-            char_width  = viewport_width  / image_font.font_height
-            char_height = viewport_height / image_font.font_width
+            char_width  = viewport_width  / image_font.height
+            char_height = viewport_height / image_font.width
             
         palette=create_default_palette()
         self.state      = display_state(char_width,char_height)
