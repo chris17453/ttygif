@@ -20,7 +20,8 @@ cdef class terminal_emulator:
 
     cdef init(self,width,height,char_width,char_height,debug):
         #cdef font internal_font=font("Bm437_PhoenixEGA_9x14")
-        cdef font internal_font=font("Bm437_ATI_9x16")
+        #cdef font internal_font=font("Bm437_ATI_9x16")
+        cdef font internal_font=font("Bm437_Wyse700a")
         
         self.terminal_graphics= terminal_graphics(character_width = char_width,
                                                  character_height = char_height,
