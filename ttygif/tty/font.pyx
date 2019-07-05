@@ -11,15 +11,13 @@ cdef class font:
         self.name=name
         self.pointsize=0
         self.height=0
+        self.width=0
         self.ascent=0
         self.inleading=0
         self.exleading=0
-        self.offset=[]
+        self.offset=[0]*256
 
-        for i in range(0,256):
-            self.offset=i*width*height
 
-        
         script_path = os.path.dirname(os.path.abspath( __file__ ))
 
         font_file=open(os.path.join(script_path,name+".fd")) 
@@ -67,6 +65,8 @@ cdef class font:
                     res=self.get_var(line,'char')
                     if res:
                         char=int(res)
+                        self.offset[char]=self.width*self.height
+
                     res=self.get_var(line,'width')
                     if res:
                         width=int(res)
