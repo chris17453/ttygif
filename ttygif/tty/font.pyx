@@ -26,6 +26,7 @@ cdef class font:
         char_data=None
         char_y=0
         self.graphic=array.array('B')
+        print len(self.graphic)
         for line in font_data:
             #print line
             line=line.strip()
