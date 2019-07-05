@@ -4,7 +4,7 @@
 # cython: language_level=2
 
 from cpython cimport array
-
+import os
 
 cdef class font:
     def __cinit__(self,name):
