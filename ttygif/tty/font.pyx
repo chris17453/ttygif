@@ -28,7 +28,7 @@ cdef class font:
         self.graphic=array.array('B')
         for line in font_data:
             #print line
-            if not line:
+            if line.isspace()==True:
                 continue
             if in_header:
                 if line[0]=='#':
@@ -52,7 +52,6 @@ cdef class font:
                 if res:
                     charset=int(res)
                     in_header=None
-                    print "no header"
             else:
                 if char_data:
                     print line,width
