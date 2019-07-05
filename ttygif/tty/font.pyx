@@ -65,8 +65,10 @@ cdef class font:
                     for i in range(0,self.width):
                         c=line[i]
                         if c=='x':
-                            self.graphic[char*self.width*self.height+char_y*self.width]=1
-                    char+=1
+                            pos=char*self.width*self.height+char_y*self.width+i
+                            print pos,len(self.graphic)
+
+                            self.graphic[pos]=1
                     if char_y==self.height:
                         char_data=None
                 else:
