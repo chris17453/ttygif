@@ -46,7 +46,7 @@ extensions = [
     Extension("ttygif.tools.passthrough"                ,[prefix+"./ttygif/tools/passthrough"              +ext ], define_macros=[('CYTHON_TRACE', '1')]),
     # graphical rendering
     Extension("ttygif.tty.font"                         ,[prefix+"./ttygif/tty/font"                       +ext2], define_macros=[('CYTHON_TRACE', '1')]),
-    Extension("ttygif.tty.fonts"                        ,[prefix+"./ttygif/tty/fonts"                      +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+#    Extension("ttygif.tty.fonts"                        ,[prefix+"./ttygif/tty/fonts"                      +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.terminal_emulator"            ,[prefix+"./ttygif/tty/terminal_emulator"          +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.terminal_graphics"            ,[prefix+"./ttygif/tty/terminal_graphics"          +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.graphics"                     ,[prefix+"./ttygif/tty/graphics"                   +ext2], define_macros=[('CYTHON_TRACE', '1')]),

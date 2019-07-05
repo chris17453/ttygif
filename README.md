@@ -1,6 +1,15 @@
 # ttygif
 
-A fast stdio to gif conversion utility, that works with pipes and asciicast files.
+A full featured text to gif conversion utility, that just works.
+
+## Why use ttygif?
+
+- its fast, and easy to install
+- can be used with a pipe
+- it can be scripted
+- it can read asciicast files
+- it runs headless
+- perfect fit for CI/CD
 
 ## install
 

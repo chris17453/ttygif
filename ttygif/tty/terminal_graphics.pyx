@@ -123,47 +123,21 @@ cdef class terminal_graphics:
             self.draw_character(ord(i),x,y,0,0,15)
             x+=1
 
-    cdef draw_character(self,int character,int x,int y,int offset,int foreground_color,int background_color):
-        cdef int fs            = self.font.width
-        cdef int fw            = self.font.font_width
-        cdef int fh            = self.font.font_height
-        cdef int fox           = self.font.offset_x
-        cdef int foy           = self.font.offset_y
-        cdef int fsx           = self.font.spacing_x
-        cdef int fsy           = self.font.spacing_y
-        cdef int transparent   = self.font.transparent
-        cdef int cx            = int(character%self.font.chars_per_line)
-        cdef int cy            = int(character/self.font.chars_per_line)
-        cdef int pre_x         = fox+cx*fw
-        cdef int pre_y         = foy+cy*fh*fs
-        cdef int pre           = pre_x+pre_y
-        cdef int sy            = fh+fsy
-        cdef int sx            = fw+fsx
-        cdef int screen_pos    = sx*x+sy*y*self.viewport.dimentions.stride
-        cdef int char_pos      = pre
-        cdef int fx            = 0
-        cdef int fy            = 0
-        cdef int new_line_stride      =self.viewport.dimentions.stride-(fw+fsx)
-        cdef int new_char_line_stride =fs-(fw+fsx)
+    cdef draw_character(self,int character,int x,int y,int foreground_color,int background_color):
+        cdef int screen_pos    
+        cdef int char_pos  =self.font.offset[character]
         cdef uint8_t  pixel
-        loop=True
-        while loop:
-            pixel=self.font.graphic[char_pos]
-            if pixel!=transparent:
-                self.viewport.data[screen_pos]=foreground_color
-            else:
-                if background_color!=0:
-                    self.viewport.data[screen_pos]=background_color
-            char_pos+=1
-            fx+=1
-            screen_pos+=1
-            if fx==sx:
-                fx=0
-                fy+=1
-                char_pos+=new_char_line_stride
-                screen_pos+=new_line_stride
-                if fy==sy:
-                    loop=None
+        
+        for fy in xrange(0,self.font.height):
+            for fx in xrange(0,self.font.width):
+                screen_pos=x+fx+(fy+y)*self.px_width
+                pixel=self.font.graphic[char_pos]
+                if pixel!=transparent:
+                    self.viewport.data[screen_pos]=foreground_color
+                else:
+                    if background_color!=0:
+                        self.viewport.data[screen_pos]=background_color
+                char_pos+=1
 
     cdef get_text(self):
         text=""
@@ -253,7 +227,7 @@ cdef class terminal_graphics:
                 fg=pixel[0]
                 bg=pixel[1]
                 character=pixel[2]
-                self.draw_character(character,x,y,0,fg,bg)
+                self.draw_character(character,x,y,fg,bg)
   
     # convert the text stream to a text formated grid
 #    cdef debug(self): 
