@@ -76,7 +76,7 @@ cdef class font:
                     res=self.get_var(line,'char')
                     if res:
                         char=int(res)
-                        self.offset[char]=self.width*self.height
+                        self.offset[char]=self.width*self.height*char
 
                     res=self.get_var(line,'width')
                     if res:
