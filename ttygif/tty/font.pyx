@@ -56,7 +56,7 @@ cdef class font:
                     charset=int(res)
                     in_header=None
             else:
-                print "X",line,width
+                print "X",line
                 if char_data:
                     print "C",line
                     for i in range(0,width):
