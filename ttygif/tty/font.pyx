@@ -30,6 +30,8 @@ cdef class font:
             #print line
             line=line.strip()
             if not line:
+                char_data=None
+                char_y=0
                 continue
             if in_header:
                 if line[0]=='#':
@@ -82,6 +84,5 @@ cdef class font:
         if index>=0:
             res=line[index+len(var):]
             res=res.strip()
-            print res
             return res
         return None
