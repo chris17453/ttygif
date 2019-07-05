@@ -22,8 +22,8 @@ cdef class terminal_emulator:
         #cdef font internal_font=font("Bm437_PhoenixEGA_9x14")
         #cdef font internal_font=font("Bm437_ATI_9x16")
         #cdef font internal_font=font("Bm437_Wyse700a")
-        
-        cdef font internal_font=font("Bm437_VTech_BIOS")
+        cdef font internal_font=font("Bm437_Verite_9x14")
+        #cdef font internal_font=font("Bm437_VTech_BIOS")
         #huge
         #cdef font internal_font=font("Bm437_Wyse700a-2y")
         
