@@ -14,5 +14,6 @@ cdef class font:
     cdef int          ascent
     cdef int          inleading
     cdef int          exleading
+    cdef int          charset
     cdef array.array  graphic
     cdef object       offset

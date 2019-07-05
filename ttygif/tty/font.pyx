@@ -15,6 +15,7 @@ cdef class font:
         self.ascent=0
         self.inleading=0
         self.exleading=0
+        self.charset=0
         self.offset=[0]*256
 
 
