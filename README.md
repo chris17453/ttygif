@@ -78,6 +78,69 @@ ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate 10
 ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
 ```
 
+## Supported fonts
+All fonts came from [https://int10h.org/oldschool-pc-fonts](https://int10h.org/oldschool-pc-fonts/)
+copyright FON conversion © 2015 VileR, license: CC BY-SA 4.0
+
+ttygif supports the "fd" font format. Basicly text files.
+All .FON files have been exported to fd files for portability.
+All fonts are copyright of their perspective owners, not me.
+
+- Bm437_AMI_BIOS
+- Bm437_AmstradPC1512
+- Bm437_ATI_8x14
+- Bm437_ATI_8x16
+- Bm437_ATI_8x8
+- Bm437_ATI_9x14
+- Bm437_ATI_9x16
+- Bm437_ATI_SmallW_6x8
+- Bm437_ATT_PC6300
+- Bm437_CompaqThin_8x14
+- Bm437_CompaqThin_8x16
+- Bm437_CompaqThin_8x8
+- Bm437_DTK_BIOS
+- Bm437_IBM_3270pc
+- Bm437_IBM_BIOS
+- Bm437_IBM_CGA
+- Bm437_IBM_CGAthin
+- Bm437_IBM_Conv
+- Bm437_IBM_EGA8
+- Bm437_IBM_EGA9
+- Bm437_IBM_ISO8
+- Bm437_IBM_ISO9
+- Bm437_IBM_MDA
+- Bm437_IBM_PGC
+- Bm437_IBM_PS2thin1
+- Bm437_IBM_PS2thin2
+- Bm437_IBM_PS2thin3
+- Bm437_IBM_PS2thin4
+- Bm437_IBM_VGA8
+- Bm437_IBM_VGA9
+- Bm437_ITT_BIOS
+- Bm437_Kaypro2K
+- Bm437_Phoenix_BIOS
+- Bm437_PhoenixEGA_8x14
+- Bm437_PhoenixEGA_8x16
+- Bm437_PhoenixEGA_8x8
+- Bm437_PhoenixEGA_9x14
+- Bm437_TandyNew_225
+- Bm437_TandyNew_Mono
+- Bm437_TandyNew_TV
+- Bm437_TandyOld_225
+- Bm437_TandyOld_TV
+- Bm437_ToshibaLCD_8x16
+- Bm437_ToshibaLCD_8x8
+- Bm437_Verite_8x14
+- Bm437_Verite_8x16
+- Bm437_Verite_8x8
+- Bm437_Verite_9x14
+- Bm437_Verite_9x16
+- Bm437_VGA_SquarePx
+- Bm437_VTech_BIOS
+- Bm437_Wyse700a-2y
+- Bm437_Wyse700a
+- Bm437_Wyse700b-2y
+
 
 ### ESCAPE CODE SUPPORT
 
@@ -116,7 +179,6 @@ ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
 ### Features still left to handle
 
 - documentation
-- font generation app
 - font mapping for utf 8,16,13 characters to base 256 map
 - embed event stream in gif as control header data
 - time period ( capture partial recording based on time stamps x-y)
