@@ -69,6 +69,7 @@ cdef class font:
                             self.graphic[pos]=1
                         else:
                             self.graphic[pos]=0
+                    char_y+=1
                     if char_y==self.height:
                         char_data=None
                         char_y=0
