@@ -81,7 +81,8 @@ cdef class font:
     def get_var(self,line,var):
         index=line.find(var)
         if index>=0:
-            res=line[index+len(var)]
+            res=line[index+len(var):]
             res=res.strip()
+            print res
             return res
         return None
