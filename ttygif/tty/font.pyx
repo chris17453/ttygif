@@ -39,31 +39,32 @@ cdef class font:
                     continue
                 res=self.get_var(line,'pointsize')
                 if res:
-                    pointsize=int(res)
+                    self.pointsize=int(res)
                 res=self.get_var(line,'height')
                 if res:
-                    height=int(res)
+                    self.fheight=int(res)
+                    print ("Height: {0}".format(self.height))
                 res=self.get_var(line,'ascent')
                 if res:
-                    ascent=int(res)
+                    self.ascent=int(res)
                 res=self.get_var(line,'inleading')
                 if res:
-                    inleading=int(res)
+                    self.inleading=int(res)
                 res=self.get_var(line,'exleading')
                 if res:
-                    exleading=int(res)
+                    self.exleading=int(res)
                 res=self.get_var(line,'charset')
                 if res:
-                    charset=int(res)
+                    self.charset=int(res)
                     in_header=None
             else:
                 print "X",line
                 if char_data:
                     print "C",line
-                    for i in range(0,width):
+                    for i in range(0,self.width):
                         c=line[i]
                         if c=='x':
-                            self.graphic[char*width*height+char_y*width]=1
+                            self.graphic[char*self.width*self.height+char_y*self.width]=1
                     char+=1
                     if char_y==height:
                         char_data=None
@@ -75,11 +76,12 @@ cdef class font:
 
                     res=self.get_var(line,'width')
                     if res:
-                        width=int(res)
+                        slef.width=int(res)
+                        print ("width: {0}".format(self.width))
                         char_data=True
                         char_y=0
-                        print("Resizing {0}".format(len(self.graphic)+width*height))
-                        array.resize(self.graphic,len(self.graphic)+width*height)
+                        print("Resizing {0}".format(len(self.graphic)+self.width*self.height))
+                        array.resize(self.graphic,len(self.graphic)+self.width*self.height)
 
             
     
