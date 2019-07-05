@@ -206,10 +206,6 @@ ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
 
 The following resources are located in the [ttygif-assets](https://github.com/chris17453/ttygif-assets) repo
 
-### Term Font
-
-![DOS VGA FONT](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/examples/src_gifs/VGA_8x19font.gif)
-
 ### Examples
 some random pics from the asciinema.org website, and my computer
 
