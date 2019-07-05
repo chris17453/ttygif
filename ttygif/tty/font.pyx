@@ -76,7 +76,7 @@ cdef class font:
 
                     res=self.get_var(line,'width')
                     if res:
-                        slef.width=int(res)
+                        self.width=int(res)
                         print ("width: {0}".format(self.width))
                         char_data=True
                         char_y=0
