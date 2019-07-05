@@ -21,9 +21,9 @@ pip install ttygif --user
 ## It's portable
 
 ttygif is self contained with no dependencys other than python. GIF encoding 
-and termal emulation are both implimented with internal cython code. The 
-terminal font is embeded within the code. All you need to get ttygif to work
-is a c compiler, python and its development libs. ttygif is a cython project.
+and termal emulation are both implimented with internal cython code. No system 
+fonts are required.  All you need to get ttygif to work is a c compiler,
+python and its development libs. ttygif is a cython project.
 
 
 ## usage
@@ -79,12 +79,11 @@ ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
 ```
 
 ## Supported fonts
-All fonts came from [https://int10h.org/oldschool-pc-fonts](https://int10h.org/oldschool-pc-fonts/)
-copyright FON conversion © 2015 VileR, license: CC BY-SA 4.0
-
-ttygif supports the "fd" font format. Basicly text files.
-All .FON files have been exported to fd files for portability.
-All fonts are copyright of their perspective owners, not me.
+- All fonts came from [https://int10h.org/oldschool-pc-fonts](https://int10h.org/oldschool-pc-fonts/)
+- copyright FON conversion © 2015 VileR, license: CC BY-SA 4.0
+- ttygif supports the "fd" font format. Basicly text files.
+- All .FON files have been exported to fd files for portability.
+- All fonts are copyright of their perspective owners, not me.
 
 - Bm437_AMI_BIOS
 - Bm437_AmstradPC1512
