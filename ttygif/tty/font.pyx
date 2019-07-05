@@ -42,7 +42,7 @@ cdef class font:
                     self.pointsize=int(res)
                 res=self.get_var(line,'height')
                 if res:
-                    self.fheight=int(res)
+                    self.height=int(res)
                     print ("Height: {0}".format(self.height))
                 res=self.get_var(line,'ascent')
                 if res:
