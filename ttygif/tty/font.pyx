@@ -49,7 +49,7 @@ cdef class font:
                 res=self.get_var(line,'exleading')
                 if res:
                     exleading=int(res)
-                res=self.get_var(line,'charset'):
+                res=self.get_var(line,'charset')
                 if res:
                     charset=int(res)
                     in_header=None
@@ -64,10 +64,10 @@ cdef class font:
                     if char_y==height:
                         char_data=None
                 else:
-                    res=self.get_var(line,'char'):
+                    res=self.get_var(line,'char')
                     if res:
                         char=int(res)
-                    res=self.get_var(line,'width'):
+                    res=self.get_var(line,'width')
                     if res:
                         width=int(res)
                         char_data=True
