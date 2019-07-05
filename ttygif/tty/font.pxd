@@ -7,17 +7,12 @@ from cpython cimport array
 
 
 cdef class font:
-    cdef str        name
-    cdef int        chars_per_line
-    cdef int        lines         
-    cdef int        width         
-    cdef int        height        
-    cdef int        font_width    
-    cdef int        font_height   
-    cdef int        spacing_x     
-    cdef int        spacing_y     
-    cdef int        offset_x      
-    cdef int        offset_y      
-    cdef public  array.array color_table
-    cdef int        transparent
-    cdef public array.array graphic
+    cdef str          name
+    cdef int          pointsize
+    cdef int          height
+    cdef int          width
+    cdef int          ascent
+    cdef int          inleading
+    cdef int          exleading
+    cdef array.array  graphic
+    cdef object       offset
