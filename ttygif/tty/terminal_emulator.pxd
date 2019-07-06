@@ -15,7 +15,7 @@ cdef class terminal_emulator:
     cdef public object debug_mode
 
 
-    cdef init(self,width,heigh,char_width,char_height,debug)
+    cdef init(self,width,heigh,char_width,char_height,font_name,debug)
     cdef add_event(self,event)
     cdef render(self)
     cdef get(self)
