@@ -20,7 +20,7 @@ cdef class terminal_emulator:
         self.init(width,height,char_width,char_height,debug)
 
     cdef init(self,width,height,char_width,char_height,debug):
-        default_Font='Verite_9x16'
+        default_font='Verite_9x16'
         cdef font internal_font
 
         if font_name==None:
