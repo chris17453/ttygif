@@ -17,7 +17,7 @@ cdef class terminal_emulator:
     cdef public object default_font
 
 
-    cdef init(self,width,heigh,char_width,char_height,font_name,debug)
+    cdef init(self,width,heigh,char_width,char_height,debug)
     cdef add_event(self,event)
     cdef render(self)
     cdef get(self)
