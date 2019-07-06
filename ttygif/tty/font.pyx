@@ -21,7 +21,7 @@ cdef class font:
 
         script_path = os.path.dirname(os.path.abspath( __file__ ))
 
-        if os.path.exists(os.path.join(script_path,'fonts',name+".fd")==False:
+        if os.path.exists(os.path.join(script_path,'fonts',name+".fd"))==False:
             raise Exception("Invalid font")
         
         font_file=open(os.path.join(script_path,'fonts',name+".fd")) 
