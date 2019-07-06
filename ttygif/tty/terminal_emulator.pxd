@@ -13,6 +13,8 @@ cdef class terminal_emulator:
     cdef public terminal_graphics    terminal_graphics
     cdef public object underlay_flag
     cdef public object debug_mode
+    cdef public object font_name
+    cdef public object default_font
 
 
     cdef init(self,width,heigh,char_width,char_height,font_name,debug)
