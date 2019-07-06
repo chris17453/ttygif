@@ -13,21 +13,23 @@ from .font cimport font
 # main interface for terminal emulation
 cdef class terminal_emulator:
     
-    def __cinit__(self,width=640,height=480,char_width=None,char_height=None,debug=None):
+    def __cinit__(self,width=640,height=480,char_width=None,char_height=None,font_name=None,debug=None):
+    
         self.debug_mode      =debug
         self.underlay_flag   =None
         self.init(width,height,char_width,char_height,debug)
 
     cdef init(self,width,height,char_width,char_height,debug):
-        #cdef font internal_font=font("Bm437_PhoenixEGA_9x14")
-        #cdef font internal_font=font("Bm437_ATI_9x16")
-        cdef font internal_font=font("Bm437_Verite_9x16")
-        #cdef font internal_font=font("Bm437_Wyse700a")
-        #cdef font internal_font=font("Bm437_Verite_9x14")
-        #cdef font internal_font=font("Bm437_ToshibaLCD_8x16")
-        #cdef font internal_font=font("Bm437_VTech_BIOS")
-        #huge
-        #cdef font internal_font=font("Bm437_Wyse700a-2y")
+        default_Font='Verite_9x16'
+        cdef font internal_font
+
+        if font_name==None:
+            font_name=default_font
+
+        try:
+            internal_font=font(font_name)
+        except Exception:
+            internal_font=font(default_font)
         
 
         self.terminal_graphics= terminal_graphics(character_width = char_width,

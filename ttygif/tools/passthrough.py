@@ -28,7 +28,7 @@ def read_stdin():
             timestamp=round(time.time(),8)-ts
             #print timestamp
             events.append([timestamp,'o',o])
-        print len(events)
+        #print len(events)
     except KeyboardInterrupt:
 
         sys.stdout.flush()
