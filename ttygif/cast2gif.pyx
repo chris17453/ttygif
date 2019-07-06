@@ -134,6 +134,7 @@ cdef class cast2gif:
         self.aggregate_timestamp=0
         self.minimal_interval=.03
         self.font_name=font_name
+        print ("FN",font_name)
         
         if underlay:
             underlay_image=decode(underlay)

@@ -17,14 +17,16 @@ cdef class font:
         self.exleading=0
         self.charset=0
         self.offset=[0]*256
-
+        
+        path=os.path.join(script_path,'fonts',name+".fd")
+        
 
         script_path = os.path.dirname(os.path.abspath( __file__ ))
 
-        if os.path.exists(os.path.join(script_path,'fonts',name+".fd"))==False:
+        if os.path.exists(path)==False:
             raise Exception("Invalid font")
         
-        font_file=open(os.path.join(script_path,'fonts',name+".fd")) 
+        font_file=open(path) 
         font_data=font_file.readlines()
         in_header=True
         char_data=None
