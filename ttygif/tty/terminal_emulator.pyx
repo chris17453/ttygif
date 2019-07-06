@@ -17,12 +17,14 @@ cdef class terminal_emulator:
     
         self.debug_mode      =debug
         self.underlay_flag   =None
-        self.init(width,height,char_width,char_height,debug)
         self.default_font    ='Verite_9x16'
         if font_name==None:
             font_name=self.default_font
         self.font_name       =font_name
 
+
+
+        self.init(width,height,char_width,char_height,debug)
     cdef init(self,width,height,char_width,char_height,debug):
         cdef font internal_font
 
