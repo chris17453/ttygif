@@ -28,12 +28,13 @@ cdef class cast2gif:
     cdef object dilation 
     cdef object minimal_interval
     cdef object underlay
-    cdef int underlay_x1
-    cdef int underlay_y1
-    cdef int underlay_x2
-    cdef int underlay_y2
-    cdef int underlay_mode
-    cdef int underlay_frame
+    cdef int    underlay_x1
+    cdef int    underlay_y1
+    cdef int    underlay_x2
+    cdef int    underlay_y2
+    cdef int    underlay_mode
+    cdef int    underlay_frame
+    cdef object font_name
     
     # last frame created timestamp
     cdef double timestamp 
