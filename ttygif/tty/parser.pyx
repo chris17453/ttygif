@@ -102,7 +102,7 @@ cdef class term_parser:
         for event in self.sequence[self.sequence_pos:]:
             new_sequence_pos+=1
             if   event['type']=='text': 
-                print event
+                #print event
                 self.cmd_render_text(event)
                 continue
             print event
