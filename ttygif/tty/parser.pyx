@@ -345,11 +345,16 @@ cdef class term_parser:
             
 
             elif char_ord<32:
+                
                 if  char_ord==BS:
+                    print ("left")
                     self.g.state.cursor_left(1)
                 elif char_ord==LF:
+                    print ("down")
                     self.g.state.cursor_down(1)
                 elif char_ord==CR:
+                    print ("return")
+                    
                     self.g.state.cursor_absolute_x(0)
             else:
                 if self.g.state.pending_wrap:
