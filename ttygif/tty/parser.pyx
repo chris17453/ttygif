@@ -198,7 +198,7 @@ cdef class term_parser:
         else: self.info("Impliment: {0}-{1}".format(command,params))
 
    
-    cdef DECSET(self,int code):
+    cdef cmd_DECSET(self,int code):
         #print "SET",parameters
         if    code==7:
             self.g.state.autowrap_on()
@@ -213,7 +213,7 @@ cdef class term_parser:
             self.cmd_bracketed_paste_on()
             print ("bracketed_paste on")
 
-    cdef DECRST(self,int code):
+    cdef cmd_DECRST(self,int code):
         #print "RESET",parameters
         if  code==7:
             self.g.state.autowrap_off()
