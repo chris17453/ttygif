@@ -21,6 +21,7 @@ class image:
 
 
     def write(self):
+        self.internal_pos=self.stream.pos
         if None==self.image_data or len(self.image_data)==0:
             raise Exception("Image data empty")
         print  ("MinCodeSize",self.min_code_size)
@@ -65,7 +66,7 @@ class image:
      
     def debug(self):
       print("ImageData")
-      #print("  Start Offset:  {0:02X}".format(self.internal_pos))
+      print("  Start Offset:  {0:02X}".format(self.internal_pos))
       #print("  DataLength:    {0:02X}".format(self.DataLength))
       #print("  MIN_BYTE_SIZE: {0:02X}".format(self.LWZ_MIN_BYTE_SIZE))
       #print("  Data Len:      {0}".format(len(self.data)))
