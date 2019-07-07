@@ -284,12 +284,18 @@ cdef class term_parser:
             if params[1]==2:
                 self.g.foreground_from_rgb(params[2],params[3],params[4])
             if params[1]==5:
-                self.g.set_foreground(params[2])
+                if params[2]>=self.g.theme.colors:
+                    self.g.set_foreground(self.g.state.default_foreground)
+                else:
+                    self.g.set_foreground(params[2])
         elif 48 in params:
                 if params[1]==2:
                     self.g.background_from_rgb(params[2],params[3],params[4])
                 if params[1]==5:
-                    self.g.set_background(params[2])
+                    if params[2]>=self.g.theme.colors:
+                        self.g.set_background(self.g.state.default_background)
+                    else:
+                        self.g.set_background(params[2])
         else:
             for cmd in params:
                 self.cmd_set_mode(cmd)

@@ -14,7 +14,6 @@ cdef class theme:
         self.default_background=0
         self.default_foreground=15
         self.palette=array.array('B')
-        array.resize(self.palette,256*3)
         cdef int a,b,c,index
         index=0
 
@@ -53,6 +52,7 @@ cdef class theme:
                 res=self.get_var(line,'colors')
                 if res:
                     self.colors=int(res)
+                    array.resize(self.palette,self.colors*3)
                     in_header=None
             else:
                     tokens=line.split(' ')

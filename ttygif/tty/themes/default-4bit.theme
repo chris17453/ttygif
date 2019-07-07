@@ -1,0 +1,25 @@
+# default theme
+name               default-4bit
+background         0
+foreground         15
+default_background 0
+default_foreground 15
+
+colors 16
+# colors 1-16 (0-15)
+0   0   0   
+128 0   0   
+0   128 0   
+128 128 0 
+0   0   128   
+128 0   128   
+0   128 128   
+192 192 192 
+128 128 128   
+255 0   0   
+0   255 0   
+255 255 0 
+0   0   255  
+255 0   255   
+0   255 255   
+255 255 255 
