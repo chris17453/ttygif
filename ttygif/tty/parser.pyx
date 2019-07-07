@@ -111,6 +111,11 @@ cdef class term_parser:
             if self.bracketed_paste:
                 if  self.no_codes:
                     if esc_type=='CSI' and  command=='~':  
+                        param_len=len(params)
+                        value1=0
+                        if param_len>0:
+                            if isinstance(params[0],int):
+                                value1=params[0]
                         self.cmd_BRACKET_PASTE(value1)
                     else:
                         self.cmd_render_text(event)
