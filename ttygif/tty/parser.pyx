@@ -108,7 +108,7 @@ cdef class term_parser:
             esc_type =event['esc_type']
             groups   =event['groups']
 
-            if self.bracketed_paste 
+            if self.bracketed_paste:
                 if  self.no_codes:
                     if esc_type=='CSI' and  command=='~':  
                         self.cmd_BRACKET_PASTE(value1)
