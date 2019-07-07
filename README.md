@@ -264,8 +264,6 @@ These are ideas that just pop in my head, or are gathered via discussion.
 - embed event stream in gif as control header data
 - time period ( capture partial recording based on time stamps x-y)
 - add progress bar to top/bottom of gif with n of y H:M:I:S
-- palette flags, monochrome,  grayscale, system, custom, count [n]<256
-- gif color consoladataion, for lower bit count (<8) compression 
 - asciicast v1 support
 - cursor emulation
 - image underlay (branding)
@@ -275,7 +273,6 @@ These are ideas that just pop in my head, or are gathered via discussion.
 - logging with ansi stripping
 - split gif every n seconds or size
 - export as frames, png
-- palette theme/solarized/bright/microsoft
 - frames/borders, windows 95, x11, mac, fedora, gnome, cinnamon
 - lead in and outtro frames, with delays
 - output as webm/mp4
