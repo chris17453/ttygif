@@ -30,7 +30,8 @@ cdef class theme:
         in_header=True
         for line in theme_data:
             #print line
-            line=line.strip().replace("  "," ")
+            line=line.replace("\t"," ")
+            line=line.strip()
             if not line:
                 continue
             if line[0]=='#':
