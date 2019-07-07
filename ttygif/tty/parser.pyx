@@ -162,7 +162,7 @@ cdef class term_parser:
                 value2=params[1]
 
         
-        
+
         #print "\n"+command,value1,value1,params,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
         
         if   command=='A':  self.cmd_CUU(value1)
@@ -187,8 +187,8 @@ cdef class term_parser:
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value1-1)               # abs
         elif command=='~':  self.cmd_BRACKETED_PASTE(value1)               # abs
-        elif command=='?h': self.DECCODE_SET(value1)
-        elif command=='?l': self.DECCODE_RESET(value1)
+        elif command=='?h': self.cmd_DECSET(value1)
+        elif command=='?l': self.cmd_DECRST(value1)
         
         #elif command=='e': 
         #    if self.debug_mode:
@@ -198,7 +198,7 @@ cdef class term_parser:
         else: self.info("Impliment: {0}-{1}".format(command,params))
 
    
-    cdef DECCODE_SET(self,int code):
+    cdef DECSET(self,int code):
         #print "SET",parameters
         if    code==7:
             self.g.state.autowrap_on()
@@ -213,7 +213,7 @@ cdef class term_parser:
             self.cmd_bracketed_paste_on()
             print ("bracketed_paste on")
 
-    cdef DECCODE_RESET(self,int code):
+    cdef DECRST(self,int code):
         #print "RESET",parameters
         if  code==7:
             self.g.state.autowrap_off()
@@ -612,18 +612,66 @@ cdef class term_parser:
         print ("Sequence List")
         print ("Count:{0}".format(len(self.sequence)))
         cdef int i=0
+        
         for item in self.sequence:
             if item['type']=='text':
-                print("{3:05X} Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(item['data']),len(item['data']),item['timestamp'],i))
+                print("{3:05x} Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(item['data']),len(item['data']),item['timestamp'],i))
             else:
-                print("{5:05x} CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(item['esc_type'],
-                                                    item['command'],
-                                                    item['params'],
-                                                    item['name'],
-                                                    item['timestamp'],i))
+                self.debug_event(item,i)
             i+=1
   
 
+    cdef debug_event(self,event,index):
+        commands=[
+                    ['CSI','A' ,[1]   ,'CUU'             ],
+                    ['CSI','B' ,[1]   ,'CUD'             ],
+                    ['CSI','C' ,[1]   ,'CUF'             ],
+                    ['CSI','D' ,[1]   ,'CUB'             ],
+                    ['CSI','E' ,[1]   ,'CNL'             ],
+                    ['CSI','F' ,[1]   ,'CPL'             ],
+                    ['CSI','G' ,[3]   ,'CHA'             ],
+                    ['CSI','H' ,[3,4] ,'CUP'             ],
+                    ['CSI','J' ,[1]   ,'ED'              ],
+                    ['CSI','K' ,[1]   ,'EL'              ],
+                    ['CSI','P' ,[1]   ,'DCH'             ],
+                    ['CSI','X' ,[1]   ,'ECH'             ],
+                    ['CSI','d' ,[3,]  ,'VPA'             ],
+                    ['CSI','f' ,[3,4] ,'HVP'             ],
+                    ['CSI','h' ,[1]   ,'set_mode'        ],
+                    ['CSI','l' ,[1]   ,'reset_mode'      ],
+                    ['CSI','m' ,[1]   ,'process_colors'  ],
+                    ['CSI','r' ,[3,4] ,'DECSTBM'         ],
+                    ['CSI','s' ,[0]   ,'SCP'             ],
+                    ['CSI','u' ,[0]   ,'RCP'             ],
+                    ['CSI','`' ,[3]   ,'HPA'             ],
+                    ['CSI','~' ,[1]   ,'BRACKETED_PASTE' ],
+                    ['CSI','?h',[1]   ,'DECSET'          ],
+                    ['CSI','?l',[1]   ,'DECRST'          ],
+            ]
+        for cmd in commands:
+            if cmd[1]==event['command'] and event['esc_type']==cmd[0]:
+                param=[]
+                for i in len(cmd[2]):
+                    if i==0:
+                        param.append("")
+                    if i==1:
+                            param.append(params[0])
+                    if i==2:
+                            param.append(params[1])
+                    if i==3:
+                            param.append(params[0]-1)
+                    if i==4:
+                            param.append(params[1]-1)
+
+                print("{2:06x} :{0}({1})".format(cmd[3],",".join(param),index))
+                return
+                
+
+        print("{5:05x} CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(event['esc_type'],
+                                            event['command'],
+                                            event['params'],
+                                            event['name'],
+                                            event['timestamp'],index))
 
 
 

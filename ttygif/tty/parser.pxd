@@ -70,4 +70,6 @@ cdef class term_parser:
     cdef add_text_sequence(self,text,timestamp,delay)
     cdef add_command_sequence(self,esc_type,command,params,groups,name,timestamp,delay,text=?)
     cdef debug_sequence(self)
+    cdef debug_event(self,event,index)
+    
 
