@@ -10,7 +10,7 @@ start_nocode=u"\033[200~"
 end_nocode=u"\033[201~"
 #print(bracketed_paste_start)
 
-for i in range(0,256):
+for i in range(0,128):
     o.append(u'{0}'.format(chr(i).decode('cp437')))     # 0X{0:02X}
     if i!=0:
         if i%32==0  or i==255:
