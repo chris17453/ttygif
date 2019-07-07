@@ -358,7 +358,7 @@ cdef class term_parser:
             char_ord=ord(character)
             
             if self.no_codes==True:
-                print ("NC")
+                print ("NC",char_ord)
                 if self.g.state.pending_wrap:
                     self.g.state.cursor_right(1)
 
