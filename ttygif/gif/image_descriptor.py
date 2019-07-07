@@ -23,6 +23,7 @@ class image_descriptor:
         self.unpack()
 
     def write(self):
+        self.internal_position=self.stream.pos
         self.pack()
         self.stream.write_byte(self.Separator)
         self.stream.write_word(self.Left     )
