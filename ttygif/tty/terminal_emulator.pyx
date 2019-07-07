@@ -5,7 +5,7 @@
 
 from cpython cimport array
 from .parser cimport term_parser
-from .terminal_graphics import terminal_graphics
+from .terminal_graphics cimport terminal_graphics
 from .font cimport font
 
 
@@ -41,7 +41,7 @@ cdef class terminal_emulator:
                                                  viewport_height  = height,
                                                  image_font       = internal_font)
 
-        self.parser          = term_parser(debug_mode=debug,terminal_graphics=self.terminal_graphics)
+        self.parser          = term_parser(debug_mode=debug,terminal_graphics=self.terminal_graphics,,no_codes=no_codes)
         
    
     # this pre computes the regex into commands and stores into an array
