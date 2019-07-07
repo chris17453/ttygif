@@ -120,7 +120,7 @@ cdef class term_parser:
                         self.cmd_BRACKETED_PASTE(value1)
                         continue
                     else:
-                        self.cmd_render_text(event)
+                        self.cmd_render_text({'data':event['text']})
                         continue
     
             
@@ -200,7 +200,7 @@ cdef class term_parser:
 
    
     cdef DECCODE_SET(self,parameters):
-        print "SET",parameters
+        #print "SET",parameters
         if  parameters[0]=='7':
             self.g.state.autowrap_on()
 
@@ -214,7 +214,7 @@ cdef class term_parser:
             self.cmd_bracketed_paste_on()
 
     cdef DECCODE_RESET(self,parameters):
-        print "RESET",parameters
+        #print "RESET",parameters
         if  parameters[0]=='7':
             self.g.state.autowrap_off()
 
@@ -234,16 +234,16 @@ cdef class term_parser:
         self.bracketed_paste=True
 
     cdef cmd_BRACKETED_PASTE(self,value):
-        print "eh"
+        #print "eh"
             
         if self.bracketed_paste:
             if value==200:
                 self.no_codes=True
-                print ("codes OFF")
+                #print ("codes OFF")
 
             if value==201:
                 self.no_codes=None
-                print ("codes ON")
+                #print ("codes ON")
         
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
