@@ -197,8 +197,8 @@ cdef class term_parser:
         else: self.info("Impliment: {0}-{1}".format(command,params))
 
    
-    cdef DECCODE_RESET(self,parameters):
-        print "RESET",parameters
+    cdef DECCODE_SET(self,parameters):
+        print "SET",parameters
         if  parameters[0]=='7':
             self.g.state.autowrap_on()
 
@@ -211,8 +211,8 @@ cdef class term_parser:
         if  parameters[0]=='2004':
             self.cmd_bracketed_paste_on()
 
-    cdef DECCODE_SET(self,parameters):
-        print "SET",parameters
+    cdef DECCODE_RESET(self,parameters):
+        print "RESET",parameters
         if  parameters[0]=='7':
             self.g.state.autowrap_off()
 
