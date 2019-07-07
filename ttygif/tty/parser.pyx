@@ -185,7 +185,7 @@ cdef class term_parser:
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value1-1)               # abs
-        elif command=='~':  self.cmd_BRACKET_PASTE(value1)               # abs
+        elif command=='~':  self.cmd_BRACKETED_PASTE(value1)               # abs
         elif command=='?h': self.DECCODE_SET(params)
         elif command=='?l': self.DECCODE_RESET(params)
         
