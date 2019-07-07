@@ -249,11 +249,11 @@ cdef class term_parser:
         if self.bracketed_paste:
             if value==200:
                 self.no_codes=True
-                #print ("codes OFF")
+                print ("codes OFF")
 
             if value==201:
                 self.no_codes=None
-                #print ("codes ON")
+                print ("codes ON")
         
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
