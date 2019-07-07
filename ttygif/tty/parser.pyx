@@ -636,7 +636,7 @@ cdef class term_parser:
                     ['CSI','f' ,[3,4] ,'HVP'             ],
                     ['CSI','h' ,[1]   ,'set_mode'        ],
                     ['CSI','l' ,[1]   ,'reset_mode'      ],
-                    ['CSI','m' ,[1]   ,'process_colors'  ],
+                    ['CSI','m' ,[1]   ,'COL'  ],
                     ['CSI','r' ,[3,4] ,'DECSTBM'         ],
                     ['CSI','s' ,[0]   ,'SCP'             ],
                     ['CSI','u' ,[0]   ,'RCP'             ],
