@@ -11,6 +11,7 @@ start_nocode=u"\033[200~"
 end_nocode=u"\033[201~"
 #print bracketed_paste_start.encode('latin-1'),
 
+print ""
 print(bracketed_paste_start+" Font: {0}\r".format(name))
 
 

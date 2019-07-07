@@ -189,7 +189,7 @@ ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
 - VTech_BIOS
 - ![VTech_BIOS](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/VTech_BIOS.gif)
 - Wyse700a-2y
-- ![Wyse700-2y](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/Wyse700-2y.gif)
+- ![Wyse700a-2y](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/Wyse700a-2y.gif)
 - Wyse700a
 - ![Wyse700a](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/Wyse700a.gif)
 - Wyse700b-2y
