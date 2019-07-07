@@ -30,7 +30,7 @@ cdef class theme:
         in_header=True
         for line in theme_data:
             #print line
-            line=line.strip()
+            line=line.strip().replace("  "," ")
             if not line:
                 continue
             if line[0]=='#':
@@ -54,7 +54,7 @@ cdef class theme:
                     self.colors=int(res)
                     in_header=None
             else:
-                    tokens=line.replace("  "," ").split(' ')
+                    tokens=line.split(' ')
                     print line,tokens
                     a=int(tokens[0])
                     b=int(tokens[1])
