@@ -152,16 +152,21 @@ cdef class term_parser:
         cdef int param_len=len(params)
         cdef int value1=0
         cdef int value2=0
-        if command=='r':
-            print "DEC",params
 
-        
+        # Defaults        
         if param_len>0:
             if isinstance(params[0],int):
                 value1=params[0]
+            else:
+                if command=='r':
+                    value1=1
+
         if param_len>1: 
             if isinstance(params[1],int):
                 value2=params[1]
+            else:
+                if command=='r':
+                    value2=self.g.state.height-1
 
         
 

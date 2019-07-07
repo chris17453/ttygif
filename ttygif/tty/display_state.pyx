@@ -84,11 +84,12 @@ cdef class display_state:
         
         if self.pending_wrap==None and self.autowrap and self.cursor_x==self.width-1 and self.cursor_y==self.height-1:
             self.pending_wrap=True
+            print ("PENDING YO",self.cursor_x,self.cursor_y)
         else:
             self.cursor_x+=distance
             if self.text_mode:
                 if self.cursor_x>=self.width:
-                    print self.cursor_x,self.cursor_y,self.pending_wrap,self.autowrap 
+                    print "DOWN!",self.cursor_x,self.cursor_y,self.pending_wrap,self.autowrap 
                     self.cursor_x=0
                     self.cursor_down(1)
             else:
