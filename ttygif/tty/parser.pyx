@@ -101,7 +101,7 @@ cdef class term_parser:
         for event in self.sequence[self.sequence_pos:]:
             new_sequence_pos+=1
             if   event['type']=='text': 
-                self.cmd_render_text(event)
+                #self.cmd_render_text(event)
                 continue
             
             params   =event['params']
@@ -118,7 +118,6 @@ cdef class term_parser:
                     #    self.cmd_render_text(event)
                     #    continue
     
-            print "regular"
                                     
             if   esc_type=='OSC'      : self.procces_OSC(groups)
             elif esc_type=='SINGLE'   : self.process_SINGLE(groups[1])
@@ -503,7 +502,7 @@ cdef class term_parser:
             params=None
             esc_type=None
             groups=match.groups()
-            print groups
+            #print groups
                 
             if groups[0]:
                 esc_type='SINGLE'
