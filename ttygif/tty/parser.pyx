@@ -521,7 +521,7 @@ cdef class term_parser:
             elif groups[12]:
                 esc_type='CSI'
                 command=groups[12][:-1]
-                params=int(groups[13][0:-1])
+                params=[int(groups[13][0:-1])]
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
             elif groups[8]:
                 esc_type='CSI'
