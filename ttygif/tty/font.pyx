@@ -38,9 +38,9 @@ cdef class font:
                 char_data=None
                 char_y=0
                 continue
+            if line[0]=='#':
+                continue
             if in_header:
-                if line[0]=='#':
-                    continue
                 res=self.get_var(line,'pointsize')
                 if res:
                     self.pointsize=int(res)

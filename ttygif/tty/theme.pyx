@@ -33,9 +33,9 @@ cdef class theme:
             line=line.strip()
             if not line:
                 continue
+            if line[0]=='#':
+                continue
             if in_header:
-                if line[0]=='#':
-                    continue
                 res=self.get_var(line,'background')
                 if res:
                     self.background=int(res)

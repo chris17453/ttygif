@@ -1,11 +1,11 @@
 # default theme
-name               = default
-background         = 0
-foreground         = 15
-default_background = 0
-default_foreground = 15
+name               default
+background         0
+foreground         15
+default_background 0
+default_foreground 15
 
-colors=256
+colors 256
 # colors 1-16 (0-15)
 0   0   0   
 128 0   0   
