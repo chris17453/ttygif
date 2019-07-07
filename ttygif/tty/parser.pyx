@@ -363,11 +363,11 @@ cdef class term_parser:
                     self.g.state.cursor_absolute_x(0)
             else:
                 if self.g.state.pending_wrap:
-                    print ("PENDING!")
                     self.g.state.cursor_right(1)
                 self.g.write(char_ord)
                 self.g.state.cursor_right(1)
             while self.g.state.scroll!=0:
+                print("Scroll at {0:005x}".format(self.sequence_pos))
                 self.g.scroll_buffer()
         self.g.state.text_mode_off()
         
@@ -607,15 +607,17 @@ cdef class term_parser:
         print ("============")
         print ("Sequence List")
         print ("Count:{0}".format(len(self.sequence)))
+        int i=0
         for item in self.sequence:
             if item['type']=='text':
-                print("Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(item['data']),len(item['data']),item['timestamp']))
+                print("{3:05X} Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(item['data']),len(item['data']),item['timestamp'],i))
             else:
-                print("CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(item['esc_type'],
+                print("{4:05x} CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(item['esc_type'],
                                                     item['command'],
                                                     item['params'],
                                                     item['name'],
-                                                    item['timestamp']))
+                                                    item['timestamp'],i))
+            i+=1
   
 
 
