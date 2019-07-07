@@ -119,7 +119,6 @@ class encode_gif:
           color_table_flag=0
           color_table_size=0
 
-        print ("color_table_size",color_table_size)
         return {'table':color_table,
                 'flag':color_table_flag,
                 'size':color_table_size }
@@ -154,7 +153,7 @@ class encode_gif:
 
         
         imagedata=ImageData(self.stream)
-        imagedata.new(data=image_data)
+        imagedata.new(data=image_data,min_code_size=self.GlobalColorTableSize)
 
         if self.debug:
           gce.debug()
