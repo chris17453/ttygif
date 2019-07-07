@@ -43,12 +43,19 @@ class encode_gif:
         for frame in self.frames:
             if frame['gce']: 
               frame['gce'].write()
+              if self.debug: frame['gce'].debug()
+
             if frame['descriptor']:
               frame['descriptor'].write()
+              if self.debug: frame['descriptor'].debug()
+
             if frame['color_table']:
               frame['color_table'].write()
+              if self.debug: frame['color_table'].debug()
+            
             if frame['image']:
               frame['image'].write()
+              if self.debug: frame['image'].debug()
 
         # write terminator
         self.trailer.write()
@@ -155,7 +162,7 @@ class encode_gif:
         imagedata=ImageData(self.stream)
         imagedata.new(data=image_data,min_code_size=self.header.GlobalColorTableSize)
 
-        if self.debug:
+        if self.debug and self.auto:
           gce.debug()
           descriptor.debug()
           if local_color_table:
