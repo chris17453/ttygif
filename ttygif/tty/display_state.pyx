@@ -81,12 +81,14 @@ cdef class display_state:
         self.check_bounds()
 
     cdef cursor_right(self,int distance):
+        
         if self.pending_wrap==None and self.autowrap and self.cursor_x==self.width-1 and self.cursor_y==self.height-1:
             self.pending_wrap=True
         else:
             self.cursor_x+=distance
             if self.text_mode:
                 if self.cursor_x>=self.width:
+                    print self.cursor_x,self.cursor_y,self.pending_wrap,self.autowrap 
                     self.cursor_x=0
                     self.cursor_down(1)
             else:
