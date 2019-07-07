@@ -357,7 +357,7 @@ cdef class term_parser:
         for character in event['data']:
             char_ord=ord(character)
             
-            if self.no_codes:
+            if self.no_codes==True:
                 if self.g.state.pending_wrap:
                     self.g.state.cursor_right(1)
 
