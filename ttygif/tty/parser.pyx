@@ -110,7 +110,7 @@ cdef class term_parser:
             groups   =event['groups']
 
             if self.bracketed_paste:
-                print("IN BP MODE"))
+                print("IN BP MODE")
                 if  self.no_codes:
                     print("IN NO CODE MODE")
                     if esc_type=='CSI' and  command=='~':  
