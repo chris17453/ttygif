@@ -616,7 +616,7 @@ cdef class term_parser:
             if item['type']=='text':
                 print("{3:05X} Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(item['data']),len(item['data']),item['timestamp'],i))
             else:
-                print("{4:05x} CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(item['esc_type'],
+                print("{5:05x} CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(item['esc_type'],
                                                     item['command'],
                                                     item['params'],
                                                     item['name'],
