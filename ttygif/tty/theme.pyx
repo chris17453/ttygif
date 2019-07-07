@@ -31,6 +31,7 @@ cdef class theme:
         for line in theme_data:
             #print line
             line=line.replace("\t"," ")
+            line=line.replace("  "," ")
             line=line.strip()
             if not line:
                 continue
