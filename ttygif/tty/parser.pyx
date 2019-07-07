@@ -353,7 +353,15 @@ cdef class term_parser:
         for character in event['data']:
             char_ord=ord(character)
             
-            if char_ord<32 and self.no_codes==None:
+            if self.no_codes:
+                if self.g.state.pending_wrap:
+                    self.g.state.cursor_right(1)
+
+                self.g.write(char_ord)
+                self.g.state.cursor_right(1)
+            
+
+            elif char_ord<32:
                 if  char_ord==BS:
                     self.g.state.cursor_left(1)
                 elif char_ord==LF:
