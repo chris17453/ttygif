@@ -114,15 +114,7 @@ cdef class term_parser:
                     print esc_type,command
                     
                     if esc_type=='CSI' and  command=='~':  
-                        print ("BRA")
-                        param_len=len(params)
-                        value1=0
-                        if param_len>0:
-                            if isinstance(params[0],int):
-                                value1=params[0]
-                        
-                        self.cmd_BRACKETED_PASTE(value1)
-                        print  "ARB"
+                        self.process_CSI(command,params)
                         continue
                     else:
                         print "rendering things NO CODE"
