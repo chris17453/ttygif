@@ -118,6 +118,7 @@ cdef class term_parser:
                             if isinstance(params[0],int):
                                 value1=params[0]
                         self.cmd_BRACKETED_PASTE(value1)
+                        continue
                     else:
                         self.cmd_render_text(event)
                         continue
