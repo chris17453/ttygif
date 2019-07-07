@@ -58,8 +58,8 @@ cdef class theme:
                     tokens=line.split(' ')
                     print line,tokens
                     a=int(tokens[0])
-                    b=int(tokens[2])
-                    c=int(tokens[4])
+                    b=int(tokens[1])
+                    c=int(tokens[2])
                     self.palette[index+0]=a
                     self.palette[index+1]=b
                     self.palette[index+2]=c
