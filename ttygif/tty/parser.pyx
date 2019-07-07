@@ -122,7 +122,7 @@ cdef class term_parser:
                                 value1=params[0]
                         
                         self.cmd_BRACKETED_PASTE(value1)
-                        
+                        print  "ARB"
                         continue
                     else:
                         print "rendering things NO CODE"
