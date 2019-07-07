@@ -607,7 +607,7 @@ cdef class term_parser:
         print ("============")
         print ("Sequence List")
         print ("Count:{0}".format(len(self.sequence)))
-        int i=0
+        cdef int i=0
         for item in self.sequence:
             if item['type']=='text':
                 print("{3:05X} Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(item['data']),len(item['data']),item['timestamp'],i))
