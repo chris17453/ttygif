@@ -24,7 +24,6 @@ class image:
         self.internal_pos=self.stream.pos
         if None==self.image_data or len(self.image_data)==0:
             raise Exception("Image data empty")
-        print  ("MinCodeSize",self.min_code_size)
         encoder=lzw_encode(self.image_data,self.min_code_size)
         self.stream.write_bytes(encoder.compressed)
         self.stream.write_byte(0)
