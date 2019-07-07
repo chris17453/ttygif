@@ -39,6 +39,8 @@ cdef class term_parser:
     cdef cmd_BRACKETED_PASTE(self,value)
     cdef cmd_set_mode(self,cmd)
     cdef cmd_reset_mode(self,cmd)
+    cdef set_foreground(self,color)
+    cdef set_background(self,color)
     cdef cmd_process_colors(self,params)
     cdef cmd_render_text(self,event)
     cdef cmd_DECSTBM(self,int top,int bottom)
