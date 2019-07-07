@@ -21,7 +21,6 @@ cdef class terminal_emulator:
         if font_name==None:
             font_name=self.default_font
         self.font_name       =font_name
-        self.no_codes        =no_codes
         self.theme           =theme
 
         self.init(width,height,char_width,char_height,debug)
