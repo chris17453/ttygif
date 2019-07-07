@@ -16,7 +16,7 @@ for i in range(0,128):
         if i%32==0  or i==255:
                 #print o
                 print start_nocode , 
-                print u"".join(o)
+                print u"".join(o) ,
                 print end_nocode ,
                 print u"\r\n" , 
                 o=[]
