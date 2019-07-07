@@ -127,7 +127,6 @@ cdef class terminal_graphics:
         cdef int screen_pos    
         cdef int char_pos  =self.font.offset[character]
         cdef uint8_t  pixel
-        print x,y,character
         for fy in xrange(0,self.font.height):
             for fx in xrange(0,self.font.width):
                 screen_pos=x*self.font.width+fx+(fy+self.font.height*y)*self.viewport.dimentions.width
