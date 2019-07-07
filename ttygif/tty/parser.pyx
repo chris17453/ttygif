@@ -175,8 +175,8 @@ cdef class term_parser:
         elif command=='H':  self.cmd_CUP(value2-1,value1-1)      # abs
         elif command=='J':  self.cmd_ED(value1)
         elif command=='K':  self.cmd_EL(value1)
-        elif command=='P':  self.cmd_DCH(value1)
-        elif command=='X':  self.cmd_ECH(value1)
+        elif command=='X':  self.cmd_DCH(value1)
+        elif command=='P':  self.cmd_ECH(value1)
         elif command=='d':  self.cmd_VPA(value1-1)               # abs
         elif command=='f':  self.cmd_HVP(value2-1,value1-1)      # abs
         elif command=='h':  self.cmd_set_mode(params)
@@ -205,13 +205,10 @@ cdef class term_parser:
             print ("autowrap on")
         elif  code==25:
             self.g.state.show_cursor()
-            print ("show cursor on")
         elif  code==1049:
             self.g.alternate_screen_on()
-            print ("alternate_screen_on")
         elif  code==2004:
             self.cmd_bracketed_paste_on()
-            print ("bracketed_paste on")
 
     cdef cmd_DECRST(self,int code):
         #print "RESET",parameters
@@ -220,13 +217,10 @@ cdef class term_parser:
             print ("autowrap off")
         elif code==25:
             self.g.state.hide_cursor()
-            print ("show cursor off")
         elif code==1049:
             self.g.alternate_screen_off()
-            print ("alternate_screen_off")
         elif code==2004:
             self.cmd_bracketed_paste_off()
-            print ("bracketed_paste off")
    
     cdef cmd_bracketed_paste_off(self):
         self.bracketed_paste=None
@@ -296,10 +290,8 @@ cdef class term_parser:
 
     cdef set_background(self,color):
         if color>=self.g.theme.colors:
-            print ("over max bg color",color,self.g.theme.colors)
             self.g.set_background(self.g.state.default_background)
         else:
-
             self.g.set_background(color)
 
     cdef cmd_process_colors(self,params):
