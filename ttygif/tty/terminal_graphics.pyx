@@ -10,13 +10,14 @@ from .graphics cimport match_color_index, create_default_palette
 from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
 from .image cimport image
 from .font cimport font
+from .theme cimport theme as theme_loader
 from .display_state cimport display_state
 
 
 cdef class terminal_graphics:
 
 
-    def __cinit__(self,int character_width=-1,int character_height=-1,theme='default',
+    def __cinit__(self,int character_width=-1,int character_height=-1,theme_name='default',
                        int viewport_width=-1,int viewport_height=-1 ,font image_font=None):
         self.font               = image_font
 
@@ -40,7 +41,7 @@ cdef class terminal_graphics:
             char_width  = viewport_width  / image_font.height
             char_height = viewport_height / image_font.width
 
-        self.theme      =load_theme(theme)
+        self.theme      =theme_loader(theme_name)
         self.state      = display_state(char_width,char_height,theme=self.theme)
         self.alt_state  = display_state(char_width,char_height,theme=self.theme)
         self.screen     = image(3,char_width ,char_height ,theme.palette,0                )

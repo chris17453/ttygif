@@ -111,7 +111,7 @@ def cli_main():
                     width=args.width,
                     underlay=args.underlay,
                     font_name=args.font,
-                    theme=args.theme)
+                    theme_name=args.theme)
         except KeyboardInterrupt:
             print("\nProcessing Aborted...")
             sys.exit()

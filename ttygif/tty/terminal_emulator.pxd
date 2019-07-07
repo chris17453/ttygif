@@ -15,7 +15,7 @@ cdef class terminal_emulator:
     cdef public object debug_mode
     cdef public object font_name
     cdef public object default_font
-    cdef public object theme
+    cdef public object theme_name
 
 
     cdef init(self,width,heigh,char_width,char_height,debug)

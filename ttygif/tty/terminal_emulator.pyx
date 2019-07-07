@@ -13,7 +13,7 @@ from .font cimport font
 # main interface for terminal emulation
 cdef class terminal_emulator:
     
-    def __cinit__(self,width=640,height=480,char_width=None,char_height=None,font_name=None,theme=None,debug=None):
+    def __cinit__(self,width=640,height=480,char_width=None,char_height=None,font_name=None,theme_name=None,debug=None):
     
         self.debug_mode      =debug
         self.underlay_flag   =None
@@ -21,7 +21,7 @@ cdef class terminal_emulator:
         if font_name==None:
             font_name=self.default_font
         self.font_name       =font_name
-        self.theme           =theme
+        self.theme_name      =theme_name
 
         self.init(width,height,char_width,char_height,debug)
     
@@ -39,7 +39,7 @@ cdef class terminal_emulator:
                                                  viewport_width   = width,
                                                  viewport_height  = height,
                                                  image_font       = internal_font,
-                                                 theme            = self.theme)
+                                                 theme_name       = self.theme_name)
 
         self.parser          = term_parser(debug_mode=debug,terminal_graphics=self.terminal_graphics)
         
