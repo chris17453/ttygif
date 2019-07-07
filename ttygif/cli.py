@@ -111,7 +111,7 @@ def cli_main():
                     width=args.width,
                     underlay=args.underlay,
                     font=args.font,
-                    no_codes=args.nocodes)
+                    no_codes=args.no_codes)
         except KeyboardInterrupt:
             print("\nProcessing Aborted...")
             sys.exit()
