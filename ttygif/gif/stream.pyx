@@ -138,7 +138,7 @@ cdef class DataStream:
         ba.append(word & 0xFF)
         ba.append((word>>8) & 0xFF)
         self.file_object.write(ba)
-        self.pos+=1
+        self.pos+=2
 
     def write_string(self,string,length):
         ba=bytearray()
