@@ -15,7 +15,7 @@ class ImageData:
         self.internal_pos=self.stream.pos
 
 
-    def new(self,min_code_size=8,data=None):
+    def new(self,min_code_size=2,data=None):
         self.image_data=data
         self.min_code_size=min_code_size
 
