@@ -602,7 +602,7 @@ cdef class term_parser:
         if len(text)==0:
             return
         text=[self.remap_character(i) for i in text]
-        self.sequence.append({'type':'text','data':text,'timestamp':timestamp,'delay':delay})
+        self.sequence.append({'type':'text','command':'text','data':text,'timestamp':timestamp,'delay':delay})
 
     cdef add_command_sequence(self,esc_type,command,params,groups,name,timestamp,delay,text=None):
         self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name,'timestamp':timestamp,'delay':delay,'data':text})
@@ -646,8 +646,7 @@ cdef class term_parser:
                     ['CSI','?l',[1]   ,'DECRST'          ],
             ]
         if event['type']=='text':
-            txt="{2:6x} {3:3.5f} : text('{0},{1}')".format( self.ascii_safe(event['data']),len(event['data']),index, event['timestamp'] ) 
-            print(txt)
+            print("{2:6x} {3:3.5f} : text('{0},{1}')".format(self.ascii_safe(event['data']),len(event['data']),index, event['timestamp'] ) )
             return
         for cmd in commands:
             if cmd[1]==event['command'] and event['esc_type']==cmd[0]:
