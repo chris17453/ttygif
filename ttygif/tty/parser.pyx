@@ -152,7 +152,9 @@ cdef class term_parser:
         cdef int param_len=len(params)
         cdef int value1=0
         cdef int value2=0
-        
+        if command=='r':
+            print "DEC",params
+
         
         if param_len>0:
             if isinstance(params[0],int):
@@ -175,9 +177,10 @@ cdef class term_parser:
         elif command=='H':  self.cmd_CUP(value2-1,value1-1)      # abs
         elif command=='J':  self.cmd_ED(value1)
         elif command=='K':  self.cmd_EL(value1)
-        elif command=='X':  self.cmd_DCH(value1)
-        elif command=='P':  self.cmd_ECH(value1)
+        elif command=='P':  self.cmd_DCH(value1)
+        elif command=='X':  self.cmd_ECH(value1)
         elif command=='d':  self.cmd_VPA(value1-1)               # abs
+        elif command=='`':  self.cmd_HPA(value1-1)               # abs
         elif command=='f':  self.cmd_HVP(value2-1,value1-1)      # abs
         elif command=='h':  self.cmd_set_mode(params)
         elif command=='l':  self.cmd_reset_mode(value1)
@@ -185,7 +188,6 @@ cdef class term_parser:
         elif command=='r':  self.cmd_DECSTBM(value1-1,value2-1)
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
-        elif command=='`':  self.cmd_HPA(value1-1)               # abs
         elif command=='~':  self.cmd_BRACKETED_PASTE(value1)               # abs
         elif command=='?h': self.cmd_DECSET(value1)
         elif command=='?l': self.cmd_DECRST(value1)
