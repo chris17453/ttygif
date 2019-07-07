@@ -35,7 +35,7 @@ cdef class cast2gif:
     cdef int    underlay_mode
     cdef int    underlay_frame
     cdef object font_name
-    cdef object no_codes
+    cdef object theme_name
     
     
     # last frame created timestamp
@@ -120,7 +120,7 @@ cdef class cast2gif:
         for i in xrange(0,len(self.stream['events'])):
             self.stream['events'][i][0]=float(self.stream['events'][i][0])*self.dilation
 
-    def __init__(self,cast_file,gif_file,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None,underlay=None,font_name=None,no_codes=None):
+    def __init__(self,cast_file,gif_file,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None,underlay=None,font_name=None,theme_name=None):
         self.dilation=dilation
         self.cast_file= cast_file
         self.gif_file= gif_file
@@ -136,7 +136,7 @@ cdef class cast2gif:
         self.aggregate_timestamp=0
         self.minimal_interval=.03
         self.font_name=font_name
-        self.no_codes=no_codes
+        self.theme_name=theme_name
         
         if underlay:
             underlay_image=decode(underlay)
@@ -176,7 +176,7 @@ cdef class cast2gif:
         g=encode_gif(self.loop_count,debug=self.debug)
         
 
-        v=terminal_emulator(char_width=self.width,char_height=self.height,font_name=self.font_name,no_codes=self.no_codes,debug=self.debug)
+        v=terminal_emulator(char_width=self.width,char_height=self.height,font_name=self.font_name,theme_name=self.theme_name,debug=self.debug)
         dim=v.get_dimentions()
         g.create(width=dim.width,height=dim.height,filename=self.gif_file,default_palette=True)
 
