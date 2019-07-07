@@ -30,7 +30,7 @@ def cli_main():
     parser.add_argument('--record',    help='output generated cast data to file', metavar='FILE')
     parser.add_argument('--font',      help='which internal font to use', metavar='NAME')
     
-    parser.add_argument('--no-codes',  help='disable control codes',action='store_true')
+    parser.add_argument('--theme',     help='load custom theme/colors')
     parser.add_argument('--dilation',  help='process events at a faster or slower rate of time', default=1,metavar='RATE', type=float)
     parser.add_argument('--fps',       help='encode at (n) frames per second (0-25) 0=speed of cast file, min 3ms', default=0,metavar='FPS', type=int)
     parser.add_argument('--width',     help='change character width of gif, default is 80 or what is in the cast file',metavar='WIDTH', type=int)
@@ -111,7 +111,7 @@ def cli_main():
                     width=args.width,
                     underlay=args.underlay,
                     font_name=args.font,
-                    no_codes=args.no_codes)
+                    theme=args.theme)
         except KeyboardInterrupt:
             print("\nProcessing Aborted...")
             sys.exit()

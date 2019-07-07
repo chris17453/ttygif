@@ -16,7 +16,7 @@ from .display_state cimport display_state
 cdef class terminal_graphics:
 
 
-    def __cinit__(self,int character_width=-1,int character_height=-1,
+    def __cinit__(self,int character_width=-1,int character_height=-1,theme='default'
                        int viewport_width=-1,int viewport_height=-1 ,font image_font=None):
         self.font               = image_font
 
@@ -39,13 +39,13 @@ cdef class terminal_graphics:
 
             char_width  = viewport_width  / image_font.height
             char_height = viewport_height / image_font.width
-            
-        palette=create_default_palette()
-        self.state      = display_state(char_width,char_height)
-        self.alt_state  = display_state(char_width,char_height)
-        self.screen     = image(3,char_width ,char_height ,palette,0                    )
-        self.alt_screen = image(3,char_width ,char_height ,palette,0                    )
-        self.viewport   = image(1,px_width   ,px_height   ,palette,self.state.background)
+
+        self.theme      =load_theme(theme)
+        self.state      = display_state(char_width,char_height,theme=self.theme)
+        self.alt_state  = display_state(char_width,char_height,theme=self.theme)
+        self.screen     = image(3,char_width ,char_height ,theme.palette,0                )
+        self.alt_screen = image(3,char_width ,char_height ,theme.palette,0                )
+        self.viewport   = image(1,px_width   ,px_height   ,theme.palette,self.theme.background )
         self.display_alt_screen = None
 
 

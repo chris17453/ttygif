@@ -13,7 +13,7 @@ from .font cimport font
 # main interface for terminal emulation
 cdef class terminal_emulator:
     
-    def __cinit__(self,width=640,height=480,char_width=None,char_height=None,font_name=None,no_codes=None,debug=None):
+    def __cinit__(self,width=640,height=480,char_width=None,char_height=None,font_name=None,theme=None,debug=None):
     
         self.debug_mode      =debug
         self.underlay_flag   =None
@@ -22,10 +22,10 @@ cdef class terminal_emulator:
             font_name=self.default_font
         self.font_name       =font_name
         self.no_codes        =no_codes
-
-
+        self.theme           =theme
 
         self.init(width,height,char_width,char_height,debug)
+    
     cdef init(self,width,height,char_width,char_height,debug):
         cdef font internal_font
 
@@ -39,9 +39,10 @@ cdef class terminal_emulator:
                                                  character_height = char_height,
                                                  viewport_width   = width,
                                                  viewport_height  = height,
-                                                 image_font       = internal_font)
+                                                 image_font       = internal_font,
+                                                 theme            = self.theme)
 
-        self.parser          = term_parser(debug_mode=debug,terminal_graphics=self.terminal_graphics,no_codes=self.no_codes)
+        self.parser          = term_parser(debug_mode=debug,terminal_graphics=self.terminal_graphics)
         
    
     # this pre computes the regex into commands and stores into an array

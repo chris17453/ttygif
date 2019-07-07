@@ -50,6 +50,7 @@ extensions = [
     Extension("ttygif.tty.display_state"                ,[prefix+"./ttygif/tty/display_state"              +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.image"                        ,[prefix+"./ttygif/tty/image"                      +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.parser"                       ,[prefix+"./ttygif/tty/parser"                     +ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ttygif.tty.theme"                        ,[prefix+"./ttygif/tty/theme"                      +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.terminal_graphics"            ,[prefix+"./ttygif/tty/terminal_graphics"          +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.terminal_emulator"            ,[prefix+"./ttygif/tty/terminal_emulator"          +ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ttygif.tty.graphics"                     ,[prefix+"./ttygif/tty/graphics"                   +ext2], define_macros=[('CYTHON_TRACE', '1')]),

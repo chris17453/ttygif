@@ -11,13 +11,13 @@ import re
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 cdef class term_parser:
-    def __init__(self,terminal_graphics terminal_graphics,no_codes=None,debug_mode=None):
+    def __init__(self,terminal_graphics terminal_graphics,debug_mode=None):
         self.debug_mode=debug_mode
         self.sequence=[]
         self.sequence_pos=0
         self.last_timestamp=0
         self.extra_text=""
-        self.no_codes=no_codes
+        self.no_codes=None
         self.bracketed_paste=None
         self.g=terminal_graphics
 
@@ -335,16 +335,7 @@ cdef class term_parser:
         self.g.state.text_mode_on()
         for character in event['data']:
             char_ord=ord(character)
-            
-            if self.no_codes==True:
-                if self.g.state.pending_wrap:
-                    self.g.state.cursor_right(1)
-
-                self.g.write(char_ord)
-                self.g.state.cursor_right(1)
-            
-
-            elif char_ord<32:
+            if char_ord<32 and self.no_codes==None:
                 if  char_ord==BS:
                     self.g.state.cursor_left(1)
                 elif char_ord==LF:
@@ -354,10 +345,8 @@ cdef class term_parser:
             else:
                 if self.g.state.pending_wrap:
                     self.g.state.cursor_right(1)
-
                 self.g.write(char_ord)
                 self.g.state.cursor_right(1)
-            
             while self.g.state.scroll!=0:
                 self.g.scroll_buffer()
         self.g.state.text_mode_off()
