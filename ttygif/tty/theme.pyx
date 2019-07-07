@@ -15,7 +15,7 @@ cdef class theme:
         self.default_foreground=15
         self.palette=array.array('B')
         array.resize(self.palette,256*3)
-        cdef int a,b,c        
+        cdef int a,b,c,index=0
 
         script_path = os.path.dirname(os.path.abspath( __file__ ))
         
@@ -24,11 +24,10 @@ cdef class theme:
         if os.path.exists(path)==False:
             raise Exception("Invalid theme file")
         
-        font_file=open(path) 
-        font_data=font_file.readlines()
+        theme_file=open(path) 
+        theme_data=theme_file.readlines()
         in_header=True
-        self.graphic=array.array('B')
-        for line in font_data:
+        for line in theme_data:
             #print line
             line=line.strip()
             if not line:
@@ -38,17 +37,16 @@ cdef class theme:
                     continue
                 res=self.get_var(line,'background')
                 if res:
-                    self.pointsize=int(res)
+                    self.background=int(res)
                 res=self.get_var(line,'foreground')
                 if res:
-                    self.height=int(res)
-                    print ("Height: {0}".format(self.height))
+                    self.foreground=int(res)
                 res=self.get_var(line,'default_foreground')
                 if res:
-                    self.ascent=int(res)
+                    self.default_foreground=int(res)
                 res=self.get_var(line,'default_background')
                 if res:
-                    self.inleading=int(res)
+                    self.default_background=int(res)
 
                 res=self.get_var(line,'colors')
                 if res:
