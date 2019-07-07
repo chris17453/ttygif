@@ -54,7 +54,7 @@ cdef class theme:
                     self.colors=int(res)
                     in_header=None
             else:
-                    tokens=line.split(' ')
+                    tokens=line.replace("  "," ").split(' ')
                     print line,tokens
                     a=int(tokens[0])
                     b=int(tokens[1])
