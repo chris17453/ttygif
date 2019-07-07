@@ -113,7 +113,10 @@ cdef class term_parser:
                 print("IN BP MODE")
                 if  self.no_codes:
                     print("IN NO CODE MODE")
+                    print esc_type,'~'
+                    
                     if esc_type=='CSI' and  command=='~':  
+                        print ("BRA")
                         param_len=len(params)
                         value1=0
                         if param_len>0:
