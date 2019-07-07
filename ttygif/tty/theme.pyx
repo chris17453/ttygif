@@ -55,7 +55,7 @@ cdef class theme:
                     in_header=None
             else:
                     tokens=line.split(' ')
-                    print line
+                    print line,tokens
                     a=int(tokens[0])
                     b=int(tokens[1])
                     c=int(tokens[2])
