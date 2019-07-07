@@ -23,6 +23,7 @@ class graphics_control_extension:
         self.unpack()  
 
     def write(self):
+        self.internal_position=self.stream.pos
         self.pack()
         self.stream.write_byte(self.Introducer)
         self.stream.write_byte(self.Label)
@@ -79,8 +80,8 @@ class graphics_control_extension:
     def debug(self):
         print("Graphics Control Extension Block")
         print("  Offset:               {0:02X}".format(self.internal_position))
-        print("  Introducer:           {0}".format(self.Introducer))
-        print("  Label:                {0}".format(self.Label))
+        print("  Introducer:           {0:02X}".format(self.Introducer))
+        print("  Label:                {0:02X}".format(self.Label))
         print("  BlockSize:            {0}".format(self.BlockSize))
         print("  Packed:               {0}".format(self.Packed))
         print("  DelayTime:            {0}".format(self.DelayTime))
