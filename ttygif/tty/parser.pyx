@@ -615,7 +615,7 @@ cdef class term_parser:
         
         for item in self.sequence:
             if item['type']=='text':
-                print("{3:05x} Text: '{0}' Length:{1} Timestamp:{2}".format(self.ascii_safe(item['data']),len(item['data']),item['timestamp'],i))
+                print("{2: 6x} {3:3.5f}} : text('{0},{1}')".format(self.ascii_safe(item['data'],len(item['data']),index,event['timestamp']))
             else:
                 self.debug_event(item,i)
             i+=1
@@ -652,13 +652,30 @@ cdef class term_parser:
             if cmd[1]==event['command'] and event['esc_type']==cmd[0]:
                 param=[]
                 for i in cmd[2]:
+                    
                     if i==0: param.append( "" )
-                    if i==1: param.append( "{0}".format(event['params'][0])   )
-                    if i==2: param.append( "{0}".format(event['params'][1])   )
-                    if i==3: param.append( "{0}".format(event['params'][0]-1) )
-                    if i==4: param.append( "{0}".format(event['params'][1]-1) )
+                    if i==1: 
+                        if len(event['params'])>=1:
+                            param.append( "{0}".format(event['params'][0])   ) 
+                        else: 
+                            param.append( "ERR" )
+                    if i==2: 
+                        if len(event['params'])>=2:
+                            param.append( "{0}".format(event['params'][1])   ) 
+                        else: 
+                            param.append( "ERR" )
+                    if i==3: 
+                        if len(event['params'])>=1:
+                            param.append( "{0}".format(event['params'][0]-1) ) 
+                        else: 
+                            param.append( "ERR" )
+                    if i==4: 
+                        if len(event['params'])>=2:
+                            param.append( "{0}".format(event['params'][1]-1) ) 
+                        else: 
+                            param.append( "ERR" )
 
-                print("{2:06x} :{0}({1})".format(cmd[3],",".join(param),index))
+                print("{2: 6x} {3:3.5f} : {0}({1})".format(cmd[3],",".join(param),index,event['timestamp']))
                 return
                 
 
