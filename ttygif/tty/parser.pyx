@@ -101,6 +101,10 @@ cdef class term_parser:
         for event in self.sequence[self.sequence_pos:]:
             new_sequence_pos+=1
             if   event['type']=='text': 
+                if self.no_codes:
+                    print "THERE ARE NO CODES"
+                else:
+                print "CODES!"
                 print ("TEXT",event['data'])
                 self.cmd_render_text(event)
                 continue
@@ -353,7 +357,7 @@ cdef class term_parser:
         for character in event['data']:
             char_ord=ord(character)
             
-            if self.no_codes==None:
+            if self.no_codes:
                 if self.g.state.pending_wrap:
                     self.g.state.cursor_right(1)
 
