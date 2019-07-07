@@ -614,10 +614,7 @@ cdef class term_parser:
         cdef int i=0
         
         for item in self.sequence:
-            if item['type']=='text':
-                print("{2: 6x} {3:3.5f} : text('{0},{1}')".format(self.ascii_safe(item['data'],len(item['data']),index, item['timestamp']) )  )
-            else:
-                self.debug_event(item,i)
+            self.debug_event(item,i)
             i+=1
   
 
@@ -648,6 +645,9 @@ cdef class term_parser:
                     ['CSI','?h',[1]   ,'DECSET'          ],
                     ['CSI','?l',[1]   ,'DECRST'          ],
             ]
+        if event['type']==text:
+            txt="{2:6x} {3:3.5f} : text('{0},{1}')".format(self.ascii_safe(event['data'],len(event['data']),index, event['timestamp']) ) 
+            print(text)
         for cmd in commands:
             if cmd[1]==event['command'] and event['esc_type']==cmd[0]:
                 param=[]
