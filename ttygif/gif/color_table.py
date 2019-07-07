@@ -39,7 +39,6 @@ class gif_color_table:
     def new(self,palette=None):
         self.colors=[]
         if palette:
-            print("using palette",len(palette))
             self.colors=palette
         else:
             color_table=[  # 16 System Colors

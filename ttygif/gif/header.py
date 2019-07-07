@@ -48,11 +48,11 @@ class gif_header:
         self.Packed                 = 0
         self.BackgroundColor        = 0
         self.AspectRatio            = 0
-        self.GlobalColorTableSize   = 6
+        self.GlobalColorTableSize   = 0
         self.ColorTableSortFlag     = 0
         self.ColorResolution        = 1
         self.GlobalColorTableFlag   = 1
-        self.GlobalColorTableLength = 256
+        self.GlobalColorTableLength = 0
 
         self.pack()
 
