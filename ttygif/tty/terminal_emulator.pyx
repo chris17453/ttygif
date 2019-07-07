@@ -55,6 +55,9 @@ cdef class terminal_emulator:
 
     cdef last_frame(self):
         self.parser.last_frame()
+
+    cdef debug_sequence(self):
+        self.parser.debug_sequence()
     # this is for returning screen data to other functions
     cdef get(self):
         return {    
