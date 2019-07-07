@@ -68,6 +68,8 @@ class gif_header:
         self.Packed+=self.ColorResolution      <<4
         self.Packed+=self.ColorTableSortFlag   <<3
         self.Packed+=self.GlobalColorTableSize
+        self.GlobalColorTableLength  = 1 << (self.GlobalColorTableSize + 1)
+
         
         
 
