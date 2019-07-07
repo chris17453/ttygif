@@ -110,6 +110,8 @@ class encode_gif:
           self.header.write()
           if default_palette or palette:
             self.global_color_table.write()
+            if self.debug: self.global_color_table.debug()
+
 
         
     # STEP 2 adding a global palette to the gif 

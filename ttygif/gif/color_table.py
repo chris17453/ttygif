@@ -33,6 +33,7 @@ class gif_color_table:
             self.colors.append(color)
 
     def write(self):
+        self.internal_position=self.stream.pos
         for color in self.colors:
             self.stream.write_byte(color)
 
