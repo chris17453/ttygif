@@ -74,6 +74,10 @@ examples:
 	# htop animaiton
 	@python -m ttygif.cli --input assets/cast/test.cast --output assets/encode/test.gif --fps 0
 
+
+raytrace:
+	@python -m ttygif.cli --input assets/cast/174524.cast --output assets/encode/174524.gif --fps 12
+	
 tetris:
 	@python -m ttygif.cli --input assets/cast/232377.cast --output assets/encode/232377.gif --fps 12
 
