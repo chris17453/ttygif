@@ -162,22 +162,19 @@ class encode_gif:
         imagedata=ImageData(self.stream)
         imagedata.new(data=image_data,min_code_size=self.header.GlobalColorTableSize)
 
-        if self.debug and self.auto:
-          gce.debug()
-          descriptor.debug()
-          if local_color_table:
-              local_color_table.debug()
-          imagedata.debug()
-
         if self.auto:
             if gce:
               gce.write()
+              if self.debug: gce.debug()
             if descriptor:
               descriptor.write()
+              if self.debug:  descriptor.debug()
             if local_color_table:
               local_color_table.write()
+              if self.debug: local_color_table.debug()
             if imagedata:
               imagedata.write()
+              if self.debug: imagedata.debug()
 
 
 
