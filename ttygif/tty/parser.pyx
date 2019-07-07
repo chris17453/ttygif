@@ -117,13 +117,17 @@ cdef class term_parser:
                         if param_len>0:
                             if isinstance(params[0],int):
                                 value1=params[0]
+                        
                         self.cmd_BRACKETED_PASTE(value1)
+                        
                         continue
                     else:
-                        self.cmd_render_text({'data':event['text']})
+                        print "rendering things NO CODE"
+                        self.cmd_render_text(event)
                         continue
     
-            
+            print "regular"
+                                    
             if   esc_type=='OSC'      : self.procces_OSC(groups)
             elif esc_type=='SINGLE'   : self.process_SINGLE(groups[1])
             elif esc_type=='CHAR_SET' : self.process_CHAR_SET(groups[3])
@@ -590,7 +594,7 @@ cdef class term_parser:
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp,'delay':delay})
 
     cdef add_command_sequence(self,esc_type,command,params,groups,name,timestamp,delay,text=None):
-        self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name,'timestamp':timestamp,'delay':delay,'text':text})
+        self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name,'timestamp':timestamp,'delay':delay,'data':text})
 
     cdef debug_sequence(self):
         print ("============")
