@@ -11,8 +11,8 @@ for i in range(32,256):
         o.append(u'{0}'.format(chr(i).decode('cp437')))     # 0X{0:02X}
     if i!=0:
         if i%32==0  or i==255:
-                print o
-                print u"...".join(o)+u"\r"
+                #print o
+                print u"".join(o)+u"\r"
                 o=[]
 
 

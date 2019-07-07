@@ -110,7 +110,7 @@ def cli_main():
                     height=args.height,
                     width=args.width,
                     underlay=args.underlay,
-                    font=args.font,
+                    font_name=args.font,
                     no_codes=args.no_codes)
         except KeyboardInterrupt:
             print("\nProcessing Aborted...")
