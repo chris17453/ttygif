@@ -52,7 +52,7 @@ cdef class term_parser:
       #print character
         #print character
         cdef int c=ord(character)
-        character=character.encode('latin-1')
+        #character=character.encode('latin-1')
         cdef int replacment_char=ord('*')
         if c>255:
             if c==8216:
