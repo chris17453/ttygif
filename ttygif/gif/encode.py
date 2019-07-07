@@ -163,7 +163,7 @@ class encode_gif:
 
         
         imagedata=image(self.stream)
-        imagedata.new(data=image_data,min_code_size=self.header.GlobalColorTableSize)
+        imagedata.new(data=image_data,min_code_size=self.header.GlobalColorTableSize+1)
 
         if self.auto:
             if gce:
