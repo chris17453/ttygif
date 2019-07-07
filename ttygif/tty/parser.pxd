@@ -14,6 +14,8 @@ cdef class term_parser:
     cdef int               sequence_pos
     cdef object            extra_text
     cdef object            no_codes
+    cdef object            bracketed_paste
+        
     cdef terminal_graphics g
     cdef double            last_timestamp
     

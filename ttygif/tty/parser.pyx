@@ -18,6 +18,7 @@ cdef class term_parser:
         self.last_timestamp=0
         self.extra_text=""
         self.no_codes=no_codes
+        self.bracketed_paste=None
         self.g=terminal_graphics
 
     cdef ascii_safe(self,text):
@@ -107,6 +108,14 @@ cdef class term_parser:
             esc_type =event['esc_type']
             groups   =event['groups']
 
+            if self.bracketed_paste 
+                if  self.no_codes:
+                    if esc_type=='CSI' and  command=='~':  
+                        self.cmd_BRACKET_PASTE(value1)
+                    else:
+                        self.cmd_render_text(event)
+                        continue
+    
             
             if   esc_type=='OSC'      : self.procces_OSC(groups)
             elif esc_type=='SINGLE'   : self.process_SINGLE(groups[1])
@@ -146,7 +155,9 @@ cdef class term_parser:
                 value2=params[1]
 
         
+        
         #print "\n"+command,value1,value1,params,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
+        
         
         if   command=='A':  self.cmd_CUU(value1)
         elif command=='B':  self.cmd_CUD(value1)
@@ -169,6 +180,7 @@ cdef class term_parser:
         elif command=='s':  self.cmd_SCP()
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value1-1)               # abs
+        elif command=='~':  self.cmd_BRACKET_PASTE(value1)               # abs
         elif command=='?h': self.DECCODE_RESET(params)
         elif command=='?l': self.DECCODE_RESET(params)
         
@@ -190,6 +202,9 @@ cdef class term_parser:
         if  parameters[0]=='1049':
             self.g.alternate_screen_on()
 
+        if  parameters[0]=='2004':
+            self.cmd_bracketed_paste_on()
+
     cdef DECCODE_SET(self,parameters):
         print "SET",parameters
         if  parameters[0]=='7':
@@ -200,7 +215,23 @@ cdef class term_parser:
 
         if  parameters[0]=='1049':
             self.g.alternate_screen_off()
+        
+        if  parameters[0]=='2004':
+            self.cmd_bracketed_paste_off()
    
+    cdef cmd_bracketed_paste_off(self):
+        self.bracketed_paste=None
+    
+    cdef cmd_bracketed_paste_on(self):
+        self.bracketed_paste=True
+
+    cdef cmd_BRACKETED_PASTE(self,value):
+        if self.bracketed_paste:
+            if value==200
+                self.no_codes=True
+            if value==201
+                self.no_codes=None
+        
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
             self.g.state.set_foreground(self.g.state.default_foreground)
@@ -494,7 +525,7 @@ cdef class term_parser:
                         elif command in 'ABCD':
                             params = (1,)
                 
-                self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay)
+                self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
         
         
         if self.has_escape(text[cursor:]):
@@ -537,8 +568,8 @@ cdef class term_parser:
         text=[self.remap_character(i) for i in text]
         self.sequence.append({'type':'text','data':text,'timestamp':timestamp,'delay':delay})
 
-    cdef add_command_sequence(self,esc_type,command,params,groups,name,timestamp,delay):
-        self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name,'timestamp':timestamp,'delay':delay})
+    cdef add_command_sequence(self,esc_type,command,params,groups,name,timestamp,delay,text=None):
+        self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name,'timestamp':timestamp,'delay':delay,'text':text})
 
     cdef debug_sequence(self):
         print ("============")
