@@ -545,7 +545,7 @@ cdef class term_parser:
                 #        DEC Private Mode (DECSET/DECRST) sequences
                 elif paramstring and len(paramstring)>0 and paramstring[0]=='?':
                     command='?'+command
-                    params=int(paramstring[1:])
+                    params=[int(paramstring[1:])]
                 else:
                     
                     params = tuple(int(p) for p in paramstring.split(';') if len(p) != 0)
