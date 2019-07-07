@@ -55,7 +55,7 @@ cdef class terminal_graphics:
         cdef image temp_image
         cdef display_state temp_state
         if self.display_alt_screen==None:
-            display_alt_screen=True
+            self.display_alt_screen=True
             temp_image=self.screen
             self.screen=self.alt_screen
             self.alt_screen=temp_image
@@ -71,7 +71,7 @@ cdef class terminal_graphics:
         cdef display_state temp_state
         print ("ALT: OFF?")
         if self.display_alt_screen==True:
-            display_alt_screen=None
+            self.display_alt_screen=None
             temp_image=self.screen
             self.screen=self.alt_screen
             self.alt_screen=temp_image
