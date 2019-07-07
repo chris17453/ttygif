@@ -84,61 +84,62 @@ ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
 - ttygif supports the "fd" font format. Basicly text files.
 - All .FON files have been exported to fd files for portability.
 - All fonts are copyright of their perspective owners, not me.
+- default font=Verite_9x16
 
-- Bm437_AMI_BIOS
-- Bm437_AmstradPC1512
-- Bm437_ATI_8x14
-- Bm437_ATI_8x16
-- Bm437_ATI_8x8
-- Bm437_ATI_9x14
-- Bm437_ATI_9x16
-- Bm437_ATI_SmallW_6x8
-- Bm437_ATT_PC6300
-- Bm437_CompaqThin_8x14
-- Bm437_CompaqThin_8x16
-- Bm437_CompaqThin_8x8
-- Bm437_DTK_BIOS
-- Bm437_IBM_3270pc
-- Bm437_IBM_BIOS
-- Bm437_IBM_CGA
-- Bm437_IBM_CGAthin
-- Bm437_IBM_Conv
-- Bm437_IBM_EGA8
-- Bm437_IBM_EGA9
-- Bm437_IBM_ISO8
-- Bm437_IBM_ISO9
-- Bm437_IBM_MDA
-- Bm437_IBM_PGC
-- Bm437_IBM_PS2thin1
-- Bm437_IBM_PS2thin2
-- Bm437_IBM_PS2thin3
-- Bm437_IBM_PS2thin4
-- Bm437_IBM_VGA8
-- Bm437_IBM_VGA9
-- Bm437_ITT_BIOS
-- Bm437_Kaypro2K
-- Bm437_Phoenix_BIOS
-- Bm437_PhoenixEGA_8x14
-- Bm437_PhoenixEGA_8x16
-- Bm437_PhoenixEGA_8x8
-- Bm437_PhoenixEGA_9x14
-- Bm437_TandyNew_225
-- Bm437_TandyNew_Mono
-- Bm437_TandyNew_TV
-- Bm437_TandyOld_225
-- Bm437_TandyOld_TV
-- Bm437_ToshibaLCD_8x16
-- Bm437_ToshibaLCD_8x8
-- Bm437_Verite_8x14
-- Bm437_Verite_8x16
-- Bm437_Verite_8x8
-- Bm437_Verite_9x14
-- Bm437_Verite_9x16
-- Bm437_VGA_SquarePx
-- Bm437_VTech_BIOS
-- Bm437_Wyse700a-2y
-- Bm437_Wyse700a
-- Bm437_Wyse700b-2y
+- AMI_BIOS
+- AmstradPC1512
+- ATI_8x14
+- ATI_8x16
+- ATI_8x8
+- ATI_9x14
+- ATI_9x16
+- ATI_SmallW_6x8
+- ATT_PC6300
+- CompaqThin_8x14
+- CompaqThin_8x16
+- CompaqThin_8x8
+- DTK_BIOS
+- IBM_3270pc
+- IBM_BIOS
+- IBM_CGA
+- IBM_CGAthin
+- IBM_Conv
+- IBM_EGA8
+- IBM_EGA9
+- IBM_ISO8
+- IBM_ISO9
+- IBM_MDA
+- IBM_PGC
+- IBM_PS2thin1
+- IBM_PS2thin2
+- IBM_PS2thin3
+- IBM_PS2thin4
+- IBM_VGA8
+- IBM_VGA9
+- ITT_BIOS
+- Kaypro2K
+- Phoenix_BIOS
+- PhoenixEGA_8x14
+- PhoenixEGA_8x16
+- PhoenixEGA_8x8
+- PhoenixEGA_9x14
+- TandyNew_225
+- TandyNew_Mono
+- TandyNew_TV
+- TandyOld_225
+- TandyOld_TV
+- ToshibaLCD_8x16
+- ToshibaLCD_8x8
+- Verite_8x14
+- Verite_8x16
+- Verite_8x8
+- Verite_9x14
+- Verite_9x16
+- VGA_SquarePx
+- VTech_BIOS
+- Wyse700a-2y
+- Wyse700a
+- Wyse700b-2y
 
 
 ### ESCAPE CODE SUPPORT
@@ -173,6 +174,8 @@ ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
 | DEC  | ^[ 25  l | DECTCEM  | Text Cursor Enable Mode / Reset |
 | DEC  | ^[?1049h |          | Alternate Screen / Set          |
 | DEC  | ^[?1049l |          | Alternate Screen / Reset        |
+|      | ^[?2004h |          | Enable Bracket Paste Mode       |
+|      | ^[?2004l |          | Disable Bracket Paste Mode      |
 
 
 ### Features still left to handle

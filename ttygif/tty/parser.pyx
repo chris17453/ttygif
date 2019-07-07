@@ -115,9 +115,9 @@ cdef class term_parser:
                     if esc_type=='CSI' and  command=='~':  
                         self.process_CSI(command,params)
                         continue
-                    #else:
-                    #    self.cmd_render_text(event)
-                    #    continue
+                    else:
+                        self.cmd_render_text(event)
+                        continue
     
                                     
             if   esc_type=='OSC'      : self.procces_OSC(groups)
