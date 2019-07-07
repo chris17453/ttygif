@@ -24,4 +24,5 @@ cdef class terminal_emulator:
     cdef get(self)
     cdef get_dimentions(self)
     cdef last_frame(self)
+    cdef debug_sequence(self)
     cdef save_screen(self)
