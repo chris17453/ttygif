@@ -646,7 +646,7 @@ cdef class term_parser:
                     ['CSI','?l',[1]   ,'DECRST'          ],
             ]
         if event['type']==text:
-            txt="{2:6x} {3:3.5f} : text('{0},{1}')".format(self.ascii_safe(event['data'],len(event['data']),index, event['timestamp']) ) 
+            txt="{2:6x} {3:3.5f} : text('{0},{1}')".format( self.ascii_safe(event['data']),len(event['data']),index, event['timestamp']) ) 
             print(text)
         for cmd in commands:
             if cmd[1]==event['command'] and event['esc_type']==cmd[0]:
