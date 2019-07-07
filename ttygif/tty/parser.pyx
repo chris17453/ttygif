@@ -205,11 +205,11 @@ cdef class term_parser:
         elif  code==1049:
             self.g.alternate_screen_on()
             print ("alternate_screen_on")
-        elif  ==2004:
+        elif  code==2004:
             self.cmd_bracketed_paste_on()
             print ("bracketed_paste on")
 
-    cdef DECCODE_RESET(self,code):
+    cdef DECCODE_RESET(self,int code):
         #print "RESET",parameters
         if  code==7:
             self.g.state.autowrap_off()
