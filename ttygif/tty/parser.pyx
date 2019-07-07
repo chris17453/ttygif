@@ -481,12 +481,12 @@ cdef class term_parser:
 
     cdef stream_2_sequence(self,text,timestamp,delay):
         # patterns for filtering out commands from the stream
-        ANSI_SINGLE   ='[\001b|\033]([cDEHMZ78>=])'
-        ANSI_CHAR_SET = '[\001b|\033]\\%([@G*])'
-        ANSI_G0       = '[\001b|\033]\\(([B0UK])'
-        ANSI_G1       = '[\001b|\033]\\)([B0UK])'
-        ANSI_CSI_RE   = '[\001b|\033]\\[((?:\\d|;|<|>|=|\?)*)([a-zA-Z])\002?'
-        BRACKET_PASTE = '[\001b|\033]\\[(20[0-1]~)'
+        ANSI_SINGLE   ='[\033]([cDEHMZ78>=])'
+        ANSI_CHAR_SET = '[\033]\\%([@G*])'
+        ANSI_G0       = '[\033]\\(([B0UK])'
+        ANSI_G1       = '[\033]\\)([B0UK])'
+        ANSI_CSI_RE   = '[\033]\\[((?:\\d|;|<|>|=|\?)*)([a-zA-Z])\002?'
+        BRACKET_PASTE = '[\033]\\[(20[0-1]~)'
         # guessed on this one
         #ANSI_OSC_777_REGEX='[\0x1b|\033]\]777[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)'
         ANSI_OSC ='(?:\001?\\]|\x9d).*?(?:\001?\\\\|[\a\x9c])'
