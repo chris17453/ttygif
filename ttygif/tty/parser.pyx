@@ -183,8 +183,8 @@ cdef class term_parser:
         elif command=='u':  self.cmd_RCP()
         elif command=='`':  self.cmd_HPA(value1-1)               # abs
         elif command=='~':  self.cmd_BRACKETED_PASTE(value1)               # abs
-        elif command=='?h': self.DECCODE_SET(params)
-        elif command=='?l': self.DECCODE_RESET(params)
+        elif command=='?h': self.DECCODE_SET(value1)
+        elif command=='?l': self.DECCODE_RESET(value1)
         
         #elif command=='e': 
         #    if self.debug_mode:
@@ -194,33 +194,35 @@ cdef class term_parser:
         else: self.info("Impliment: {0}-{1}".format(command,params))
 
    
-    cdef DECCODE_SET(self,parameters):
+    cdef DECCODE_SET(self,int code):
         #print "SET",parameters
-        if  parameters[0]=='7':
+        if    code==7:
             self.g.state.autowrap_on()
-
-        if  parameters[0]=='25':
+            print ("autowrap on")
+        elif  code==25:
             self.g.state.show_cursor()
-
-        if  parameters[0]=='1049':
+            print ("show cursor on")
+        elif  code==1049:
             self.g.alternate_screen_on()
-
-        if  parameters[0]=='2004':
+            print ("alternate_screen_on")
+        elif  ==2004:
             self.cmd_bracketed_paste_on()
+            print ("bracketed_paste on")
 
-    cdef DECCODE_RESET(self,parameters):
+    cdef DECCODE_RESET(self,code):
         #print "RESET",parameters
-        if  parameters[0]=='7':
+        if  code==7:
             self.g.state.autowrap_off()
-
-        if  parameters[0]=='25':
+            print ("autowrap off")
+        elif code==25:
             self.g.state.hide_cursor()
-
-        if  parameters[0]=='1049':
+            print ("show cursor off")
+        elif code==1049:
             self.g.alternate_screen_off()
-        
-        if  parameters[0]=='2004':
+            print ("alternate_screen_off")
+        elif code==2004:
             self.cmd_bracketed_paste_off()
+            print ("bracketed_paste off")
    
     cdef cmd_bracketed_paste_off(self):
         self.bracketed_paste=None
@@ -543,7 +545,7 @@ cdef class term_parser:
                 #        DEC Private Mode (DECSET/DECRST) sequences
                 elif paramstring and len(paramstring)>0 and paramstring[0]=='?':
                     command='?'+command
-                    params=paramstring[1:].split(';')
+                    params=int(paramstring[1:])
                 else:
                     
                     params = tuple(int(p) for p in paramstring.split(';') if len(p) != 0)
