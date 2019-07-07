@@ -651,7 +651,7 @@ cdef class term_parser:
         for cmd in commands:
             if cmd[1]==event['command'] and event['esc_type']==cmd[0]:
                 param=[]
-                for i in len(cmd[2]):
+                for i in cmd[2]:
                     if i==0:
                         param.append("")
                     if i==1:
