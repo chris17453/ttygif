@@ -9,17 +9,18 @@ bracketed_paste_start="\033[?2004h"
 start_nocode=u"\033[200~"
 end_nocode=u"\033[201~"
 print(bracketed_paste_start)
-o=[u"{0:3}".format(0)]
+o=["{0:03} ".format(0)]
 for i in range(0,256):
     
-    uch=u" {0}".format(unichr(i))
-    o.append(uch )
-    if len(o)==17 or i==255:
+    o.append(unichr(i))
+    
+    if len(o)==33 or i==255:
+            o.append(" {0:03}".format(i))
             print start_nocode , 
-            print u"".join(o),
+            print "".join(o).encode('latin-1'),
             print end_nocode ,
             print u"\r\n" , 
-            o=[u"{0:3}".format(i)]
+            o=["{0:03} ".format(i+1)]
     
 
 print(bracketed_paste_end)
