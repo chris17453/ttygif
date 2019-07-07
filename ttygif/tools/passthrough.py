@@ -25,6 +25,7 @@ def read_stdin():
             #if sys.stdin.closed:
 
             o= sys.stdin.readline()
+            print o
             timestamp=round(time.time(),8)-ts
             #print timestamp
             events.append([timestamp,'o',o])
