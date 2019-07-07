@@ -52,6 +52,7 @@ cdef class term_parser:
       #print character
         #print character
         cdef int c=ord(character)
+        character=character.encode('latain-1')
         cdef int replacment_char=ord('*')
         if c>255:
             if c==8216:
@@ -101,6 +102,7 @@ cdef class term_parser:
         for event in self.sequence[self.sequence_pos:]:
             new_sequence_pos+=1
             if   event['type']=='text': 
+                print event
                 self.cmd_render_text(event)
                 continue
             
@@ -159,7 +161,6 @@ cdef class term_parser:
         
         
         #print "\n"+command,value1,value1,params,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
-        print command,"GO",params
         
         if   command=='A':  self.cmd_CUU(value1)
         elif command=='B':  self.cmd_CUD(value1)
@@ -345,16 +346,11 @@ cdef class term_parser:
             
 
             elif char_ord<32:
-                
                 if  char_ord==BS:
-                    print ("left")
                     self.g.state.cursor_left(1)
                 elif char_ord==LF:
-                    print ("down")
                     self.g.state.cursor_down(1)
                 elif char_ord==CR:
-                    print ("return")
-                    
                     self.g.state.cursor_absolute_x(0)
             else:
                 if self.g.state.pending_wrap:
