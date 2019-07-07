@@ -104,7 +104,7 @@ cdef class term_parser:
                 if self.no_codes:
                     print "THERE ARE NO CODES"
                 else:
-                print "CODES!"
+                    print "CODES!"
                 print ("TEXT",event['data'])
                 self.cmd_render_text(event)
                 continue
