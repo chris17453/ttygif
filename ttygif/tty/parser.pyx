@@ -101,11 +101,6 @@ cdef class term_parser:
         for event in self.sequence[self.sequence_pos:]:
             new_sequence_pos+=1
             if   event['type']=='text': 
-                if self.no_codes==True:
-                    print "THERE ARE NO CODES"
-                else:
-                    print "CODES!"
-                print ("TEXT",event['data'])
                 self.cmd_render_text(event)
                 continue
             
@@ -115,9 +110,7 @@ cdef class term_parser:
             groups   =event['groups']
 
             if self.bracketed_paste:
-                print("IN BP MODE")
                 if  self.no_codes:
-                    print("IN NO CODE MODE")
                     print esc_type,command
                     
                     if esc_type=='CSI' and  command=='~':  
@@ -253,11 +246,9 @@ cdef class term_parser:
         if self.bracketed_paste:
             if value==200:
                 self.no_codes=True
-                print ("codes OFF")
 
             if value==201:
                 self.no_codes=None
-                print ("codes ON")
         
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
@@ -358,7 +349,6 @@ cdef class term_parser:
             char_ord=ord(character)
             
             if self.no_codes==True:
-                print ("NC",char_ord,self.g.state.cursor_x,self.g.state.cursor_y)
                 if self.g.state.pending_wrap:
                     self.g.state.cursor_right(1)
 
@@ -367,7 +357,6 @@ cdef class term_parser:
             
 
             elif char_ord<32:
-                print ("C<")
                 if  char_ord==BS:
                     self.g.state.cursor_left(1)
                 elif char_ord==LF:
@@ -375,7 +364,6 @@ cdef class term_parser:
                 elif char_ord==CR:
                     self.g.state.cursor_absolute_x(0)
             else:
-                print ("C")
                 if self.g.state.pending_wrap:
                     self.g.state.cursor_right(1)
 

@@ -18,7 +18,7 @@ for i in range(0,128):
                 print start_nocode , 
                 print u"".join(o)
                 print end_nocode ,
-                print u"\r" , 
+                print u"\r\n" , 
                 o=[]
 
 print(bracketed_paste_end)
