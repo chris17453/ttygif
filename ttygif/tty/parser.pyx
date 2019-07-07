@@ -225,17 +225,22 @@ cdef class term_parser:
             self.cmd_bracketed_paste_off()
    
     cdef cmd_bracketed_paste_off(self):
+        print ("BPOFF")
         self.bracketed_paste=None
     
     cdef cmd_bracketed_paste_on(self):
+        print ("BPON")
         self.bracketed_paste=True
 
     cdef cmd_BRACKETED_PASTE(self,value):
         if self.bracketed_paste:
             if value==200:
                 self.no_codes=True
+                print ("codes OFF")
+
             if value==201:
                 self.no_codes=None
+                print ("codes ON")
         
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
