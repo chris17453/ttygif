@@ -116,7 +116,7 @@ cdef class term_parser:
                         if param_len>0:
                             if isinstance(params[0],int):
                                 value1=params[0]
-                        self.cmd_BRACKET_PASTE(value1)
+                        self.cmd_BRACKETED_PASTE(value1)
                     else:
                         self.cmd_render_text(event)
                         continue
@@ -226,11 +226,9 @@ cdef class term_parser:
             self.cmd_bracketed_paste_off()
    
     cdef cmd_bracketed_paste_off(self):
-        print ("BPOFF")
         self.bracketed_paste=None
     
     cdef cmd_bracketed_paste_on(self):
-        print ("BPON")
         self.bracketed_paste=True
 
     cdef cmd_BRACKETED_PASTE(self,value):
