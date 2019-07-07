@@ -27,6 +27,7 @@ class application_extension:
 
 
     def write(self):
+        self.self.internal_position=self.stream.pos
         self.stream.write_byte(self.Introducer)
         self.stream.write_byte(self.Label)
         self.stream.write_byte(self.BlockSize)

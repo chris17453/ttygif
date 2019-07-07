@@ -81,6 +81,7 @@ class encode_gif:
         
         if self.auto:
           self.application_extension.write()
+          if self.debug: self.application_extension.debug()
         
         self.frames=[]
         
