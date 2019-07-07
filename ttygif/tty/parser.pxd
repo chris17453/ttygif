@@ -62,6 +62,6 @@ cdef class term_parser:
     cdef has_escape(self,text)
     cdef add_event(self,event)
     cdef add_text_sequence(self,text,timestamp,delay)
-    cdef add_command_sequence(self,esc_type,command,params,groups,name,timestamp,delay)
+    cdef add_command_sequence(self,esc_type,command,params,groups,name,timestamp,delay,text)
     cdef debug_sequence(self)
 
