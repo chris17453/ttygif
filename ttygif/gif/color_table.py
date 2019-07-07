@@ -23,7 +23,7 @@ class gif_color_table:
         elif colors_len>8  : size=3
         elif colors_len>4  : size=2
         elif colors_len>0  : size=1
-        return size-1
+        return size+1
             
     def read(self,entries):
         self.internal_position=self.stream.pos
