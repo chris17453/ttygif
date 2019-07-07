@@ -20,6 +20,7 @@ cdef class term_parser:
         self.no_codes=None
         self.bracketed_paste=None
         self.g=terminal_graphics
+        self.current_sequence_position=0
 
     cdef ascii_safe(self,text):
         return ''.join([i if ord(i) < 128 else '*' for i in text])
@@ -99,7 +100,9 @@ cdef class term_parser:
     cdef render_to_buffer(self):
 
         new_sequence_pos=self.sequence_pos #self.sequence_pos:
+        
         for event in self.sequence[self.sequence_pos:]:
+            self.current_sequence_position=new_sequence_pos
             new_sequence_pos+=1
             if   event['type']=='text': 
                 #print event
@@ -126,6 +129,7 @@ cdef class term_parser:
             elif esc_type=='G0'       : self.process_G0(groups[5])
             elif esc_type=='G1'       : self.process_G1(groups[7])
             elif esc_type=='CSI'      : self.process_CSI(command,params)
+            
         self.sequence_pos=new_sequence_pos
 
     # TODO STUBS
@@ -367,7 +371,7 @@ cdef class term_parser:
                 self.g.write(char_ord)
                 self.g.state.cursor_right(1)
             while self.g.state.scroll!=0:
-                print("Scroll at {0:005x}".format(self.sequence_pos))
+                print("Scroll at {0:005x}".format(self.current_sequence_position))
                 self.g.scroll_buffer()
         self.g.state.text_mode_off()
         
