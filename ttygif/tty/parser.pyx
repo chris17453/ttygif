@@ -11,7 +11,7 @@ import re
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 cdef class term_parser:
-    def __init__(self,terminal_graphics terminal_graphics,no_codes=None,debug_mode=None):
+    cdef __cinit__(self,terminal_graphics terminal_graphics,no_codes=None,debug_mode=None):
         self.debug_mode=debug_mode
         self.sequence=[]
         self.sequence_pos=0
