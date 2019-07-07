@@ -7,7 +7,7 @@
 from .stream import DataStream
 from .header import gif_header
 from .image_descriptor import image_descriptor
-from .ImageData import ImageData
+from .image import image
 from .graphics_control_extension import graphics_control_extension
 from .application_extension import application_extension
 from .CommentExtension import CommentExtension
@@ -162,7 +162,7 @@ class encode_gif:
         descriptor.new(Left=left,Top=top,Width=width,Height=height,LocalColorTableFlag=LocalColorTableFlag,LocalColorTableSize=LocalColorTableSize)
 
         
-        imagedata=ImageData(self.stream)
+        imagedata=image(self.stream)
         imagedata.new(data=image_data,min_code_size=self.header.GlobalColorTableSize)
 
         if self.auto:

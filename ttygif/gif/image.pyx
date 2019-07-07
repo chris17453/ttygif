@@ -9,7 +9,7 @@ from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
 from libc.string cimport memset,memcpy
 
 
-class ImageData:
+class image:
     def __init__(self,stream):
         self.stream=stream
         self.internal_pos=self.stream.pos

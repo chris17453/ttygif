@@ -8,7 +8,7 @@ from .stream cimport DataStream
 #from .stream import DataStream
 from .header import gif_header
 from .image_descriptor import image_descriptor
-from .ImageData import ImageData
+from .image import image
 from .graphics_control_extension import graphics_control_extension
 from .application_extension import application_extension
 from .CommentExtension import CommentExtension
@@ -247,7 +247,7 @@ cdef class decode:
     cdef load_image_data(self,pixels,interlace,width):
         try:
             self.stream.pin()
-            imagedata=ImageData(self.stream)
+            imagedata=image(self.stream)
             imagedata.read(pixels,interlace,width)
             if self.debug:
                 imagedata.debug()
