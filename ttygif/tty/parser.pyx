@@ -234,6 +234,8 @@ cdef class term_parser:
         self.bracketed_paste=True
 
     cdef cmd_BRACKETED_PASTE(self,value):
+        print "eh"
+            
         if self.bracketed_paste:
             if value==200:
                 self.no_codes=True
