@@ -25,6 +25,7 @@ cdef class terminal_graphics:
         cdef int px_height
         cdef int char_width
         cdef int char_height
+
         
         # define displays by chaaracters on screen        
         if character_width>-1 and character_height>-1:
@@ -54,6 +55,7 @@ cdef class terminal_graphics:
         cdef image temp_image
         cdef display_state temp_state
         if self.display_alt_screen==None:
+            display_alt_screen=True
             temp_image=self.screen
             self.screen=self.alt_screen
             self.alt_screen=temp_image
@@ -67,6 +69,7 @@ cdef class terminal_graphics:
         cdef image temp_image
         cdef display_state temp_state
         if self.display_alt_screen==True:
+            display_alt_screen=None
             temp_image=self.screen
             self.screen=self.alt_screen
             self.alt_screen=temp_image
