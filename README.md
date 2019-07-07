@@ -63,9 +63,9 @@ Colors are lmited to what is available in any given theme. If a color is out of 
 - default-2bit  (monochrome palette)
 - dark
 
-# file size
+## file size
 
-gif's are not the best compresed video format, however I strived to give ttygif the ability the format would allow.
+Gif's are not the best compresed video format, however ttygif has all ability the format allows.
 Bit reduction results in slightly smaller files For example The folowing table is made from the htop example:
 
 - Specs: 79 frames at 1 FPS for 13.5 seconds
@@ -76,8 +76,6 @@ Bit reduction results in slightly smaller files For example The folowing table i
 |  16    | 4         | 175k | 7.5%   |
    2     | 2         | 133k | 29.7%  |
 
-79 frames at
-  256 colors (8bit)=189k, the same gif at 4 bit is 175k and 133l at 2 bit.
 
 ## cast file to gif
 
