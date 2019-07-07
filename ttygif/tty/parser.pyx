@@ -655,13 +655,13 @@ cdef class term_parser:
                     if i==0:
                         param.append("")
                     if i==1:
-                            param.append(param[0])
+                            param.append(event['params'][0])
                     if i==2:
-                            param.append(param[1])
+                            param.append(event['params'][1])
                     if i==3:
-                            param.append(param[0]-1)
+                            param.append(event['params'][0]-1)
                     if i==4:
-                            param.append(param[1]-1)
+                            param.append(event['params'][1]-1)
 
                 print("{2:06x} :{0}({1})".format(cmd[3],",".join(param),index))
                 return
