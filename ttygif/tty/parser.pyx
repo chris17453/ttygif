@@ -209,7 +209,6 @@ cdef class term_parser:
         #print "SET",parameters
         if    code==7:
             self.g.state.autowrap_on()
-            print ("autowrap on")
         elif  code==25:
             self.g.state.show_cursor()
         elif  code==1049:
@@ -221,7 +220,6 @@ cdef class term_parser:
         #print "RESET",parameters
         if  code==7:
             self.g.state.autowrap_off()
-            print ("autowrap off")
         elif code==25:
             self.g.state.hide_cursor()
         elif code==1049:
