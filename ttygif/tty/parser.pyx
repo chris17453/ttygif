@@ -240,8 +240,8 @@ cdef class term_parser:
         
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
-            self.g.state.set_foreground(self.g.state.default_foreground)
-            self.g.state.set_background(self.g.state.default_background)
+            self.set_foreground(self.g.state.default_foreground)
+            self.set_background(self.g.state.default_background)
             self.g.state.bold=None
             self.g.state.reverse_video=None
         elif cmd==1:
@@ -251,21 +251,25 @@ cdef class term_parser:
         elif cmd==27:
             self.g.state.reverse_video=None
         elif cmd>=30 and cmd<=37:
-            self.g.state.set_foreground(cmd-30)
+            
             if self.g.state.bold:
-                self.g.state.set_foreground(self.g.state.foreground+8)
+                self.set_foreground(self.g.state.foreground+8)
+            else:
+                self.set_foreground(cmd-30)
+                
         elif cmd==39:
-            self.g.state.set_foreground(self.g.state.default_foreground)
+            self.set_foreground(self.g.state.default_foreground)
         elif cmd>=40 and cmd<=47:
-            self.g.state.background=cmd-40
             if self.g.state.bold:
-                self.g.state.set_background(self.g.state.backround+8)
+                self.set_background(self.g.state.background+8)
+            else:
+                self.set_background(cmd-30)
         elif cmd==49:
-            self.g.state.set_background(self.g.state.default_background)
+            self.set_background(self.g.state.default_background)
         elif cmd>=90 and cmd<=97:
-            self.g.state.set_foreground(cmd-90+8)
+            self.set_foreground(cmd-90+8)
         elif cmd>=100 and cmd<=107:
-            self.g.state.set_background(cmd-100+8)
+            self.set_background(cmd-100+8)
 
     cdef cmd_reset_mode(self,cmd):
         if cmd==0:
@@ -278,24 +282,29 @@ cdef class term_parser:
         elif cmd==7:
             self.g.state.reverse_video=None
 
+    cdef set_foreground(self,color):
+        if color>=self.g.theme.colors:
+            self.g.set_foreground(self.g.state.default_foreground)
+        else:
+            self.g.set_foreground(color)
+
+    cdef set_background(self,color):
+        if color>=self.g.theme.colors:
+            self.g.set_background(self.g.state.default_background)
+        else:
+            self.g.set_background(color)
 
     cdef cmd_process_colors(self,params):
         if 38 in params:
             if params[1]==2:
                 self.g.foreground_from_rgb(params[2],params[3],params[4])
             if params[1]==5:
-                if params[2]>=self.g.theme.colors:
-                    self.g.set_foreground(self.g.state.default_foreground)
-                else:
-                    self.g.set_foreground(params[2])
+                    self.set_foreground(params[2])
         elif 48 in params:
                 if params[1]==2:
                     self.g.background_from_rgb(params[2],params[3],params[4])
                 if params[1]==5:
-                    if params[2]>=self.g.theme.colors:
-                        self.g.set_background(self.g.state.default_background)
-                    else:
-                        self.g.set_background(params[2])
+                    self.set_background(params[2])
         else:
             for cmd in params:
                 self.cmd_set_mode(cmd)
