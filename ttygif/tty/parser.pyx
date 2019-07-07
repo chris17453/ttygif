@@ -290,8 +290,10 @@ cdef class term_parser:
 
     cdef set_background(self,color):
         if color>=self.g.theme.colors:
+            print ("over max bg color",color,self.g.theme.colors)
             self.g.set_background(self.g.state.default_background)
         else:
+
             self.g.set_background(color)
 
     cdef cmd_process_colors(self,params):
