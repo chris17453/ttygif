@@ -16,7 +16,7 @@ from .display_state cimport display_state
 cdef class terminal_graphics:
 
 
-    def __cinit__(self,int character_width=-1,int character_height=-1,theme='default'
+    def __cinit__(self,int character_width=-1,int character_height=-1,theme='default',
                        int viewport_width=-1,int viewport_height=-1 ,font image_font=None):
         self.font               = image_font
 
