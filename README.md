@@ -232,10 +232,12 @@ ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
 |      | ^[?2004l |          | Disable Bracket Paste Mode      |
 
 
-### Features still left to handle
+### Features I'd like to add
+
+These are ideas that just pop in my head, or are gathered via discussion.
 
 - documentation
-- font mapping for utf 8,16,13 characters to base 256 map
+- font /codepage mapping for utf 8,16,13 characters to base 256 map
 - embed event stream in gif as control header data
 - time period ( capture partial recording based on time stamps x-y)
 - add progress bar to top/bottom of gif with n of y H:M:I:S
@@ -248,16 +250,17 @@ ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
 - cliping
 - origin x,y
 - logging with ansi stripping
-- split every n seconds or size
-- export as frames
-- theme/solarized/bright/microsoft
-- frames, windows 95, x11, mac, fedora, gnome, cinnamon
-- start and end frames, with delays
-
+- split gif every n seconds or size
+- export as frames, png
+- palette theme/solarized/bright/microsoft
+- frames/borders, windows 95, x11, mac, fedora, gnome, cinnamon
+- lead in and outtro frames, with delays
+- output as webm/mp4
 
 ## The benchmark for speed
 
-- A medium density 60 second screen recording can be rendered to gif in less than 5 seconds.
+- A medium density 60 second screen recording can be rendered to gif in less than 5-8 seconds,
+- tested on a 2012'ish 4 ghz 8 core amd running 1866 memory with ssd's and Fedora 29
 
 ## ttygif-assets
 
