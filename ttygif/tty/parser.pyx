@@ -652,16 +652,11 @@ cdef class term_parser:
             if cmd[1]==event['command'] and event['esc_type']==cmd[0]:
                 param=[]
                 for i in cmd[2]:
-                    if i==0:
-                        param.append("")
-                    if i==1:
-                            param.append(event['params'][0])
-                    if i==2:
-                            param.append(event['params'][1])
-                    if i==3:
-                            param.append(event['params'][0]-1)
-                    if i==4:
-                            param.append(event['params'][1]-1)
+                    if i==0: param.append( "" )
+                    if i==1: param.append( "{0}".format(event['params'][0])   )
+                    if i==2: param.append( "{0}".format(event['params'][1])   )
+                    if i==3: param.append( "{0}".format(event['params'][0]-1) )
+                    if i==4: param.append( "{0}".format(event['params'][1]-1) )
 
                 print("{2:06x} :{0}({1})".format(cmd[3],",".join(param),index))
                 return
