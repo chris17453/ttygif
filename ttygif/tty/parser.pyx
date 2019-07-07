@@ -615,7 +615,7 @@ cdef class term_parser:
         
         for item in self.sequence:
             if item['type']=='text':
-                print("{2: 6x} {3:3.5f} : text('{0},{1}')".format(self.ascii_safe(item['data'],len(item['data']),index,event['timestamp'])))
+                print("{2: 6x} {3:3.5f} : text('{0},{1}')".format(self.ascii_safe(item['data'],len(item['data']),index, item['timestamp']) )  )
             else:
                 self.debug_event(item,i)
             i+=1
