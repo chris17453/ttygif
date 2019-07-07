@@ -15,7 +15,8 @@ cdef class theme:
         self.default_foreground=15
         self.palette=array.array('B')
         array.resize(self.palette,256*3)
-        cdef int a,b,c,index=0
+        cdef int a,b,c,index
+        index=0
 
         script_path = os.path.dirname(os.path.abspath( __file__ ))
         
