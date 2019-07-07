@@ -103,6 +103,7 @@ cdef class term_parser:
             if   event['type']=='text': 
                 self.cmd_render_text(event)
                 continue
+            
             params   =event['params']
             command  =event['command']
             esc_type =event['esc_type']
@@ -482,10 +483,11 @@ cdef class term_parser:
         ANSI_G0       = '[\001b|\033]\\(([B0UK])'
         ANSI_G1       = '[\001b|\033]\\)([B0UK])'
         ANSI_CSI_RE   = '[\001b|\033]\\[((?:\\d|;|<|>|=|\?)*)([a-zA-Z])\002?'
+        BRACKET_PASTE = '[\001b|\033]\\[20[0-1]~'
         # guessed on this one
         #ANSI_OSC_777_REGEX='[\0x1b|\033]\]777[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)'
         ANSI_OSC ='(?:\001?\\]|\x9d).*?(?:\001?\\\\|[\a\x9c])'
-        ESC_SEQUENCES=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE,ANSI_OSC]
+        ESC_SEQUENCES=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE,ANSI_OSC,BRACKET_PASTE]
         ANSI_REGEX="("+")|(".join(ESC_SEQUENCES)+")"
         ANSI=re.compile(ANSI_REGEX)
         cursor=0
