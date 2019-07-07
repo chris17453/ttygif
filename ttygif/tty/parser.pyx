@@ -101,7 +101,7 @@ cdef class term_parser:
         for event in self.sequence[self.sequence_pos:]:
             new_sequence_pos+=1
             if   event['type']=='text': 
-                if self.no_codes:
+                if self.no_codes==True:
                     print "THERE ARE NO CODES"
                 else:
                     print "CODES!"
@@ -358,6 +358,7 @@ cdef class term_parser:
             char_ord=ord(character)
             
             if self.no_codes==True:
+                print ("NC")
                 if self.g.state.pending_wrap:
                     self.g.state.cursor_right(1)
 
@@ -366,6 +367,7 @@ cdef class term_parser:
             
 
             elif char_ord<32:
+                print ("C<")
                 if  char_ord==BS:
                     self.g.state.cursor_left(1)
                 elif char_ord==LF:
@@ -373,6 +375,7 @@ cdef class term_parser:
                 elif char_ord==CR:
                     self.g.state.cursor_absolute_x(0)
             else:
+                print ("C")
                 if self.g.state.pending_wrap:
                     self.g.state.cursor_right(1)
 
