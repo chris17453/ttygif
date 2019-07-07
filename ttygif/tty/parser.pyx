@@ -105,7 +105,7 @@ cdef class term_parser:
                 print event
                 self.cmd_render_text(event)
                 continue
-            
+            print event
             params   =event['params']
             command  =event['command']
             esc_type =event['esc_type']
