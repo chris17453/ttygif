@@ -46,7 +46,7 @@ cdef class terminal_graphics:
         self.alt_state  = display_state(char_width,char_height,user_theme=self.theme)
         self.screen     = image(3,char_width ,char_height ,self.theme.palette,0                )
         self.alt_screen = image(3,char_width ,char_height ,self.theme.palette,0                )
-        self.viewport   = image(1,px_width   ,px_height   ,self.theme.palette,self.theme.background )
+        self.viewport   = image(1,px_width   ,px_height   ,self.theme.palette,self.state.background)
         self.display_alt_screen = None
 
 

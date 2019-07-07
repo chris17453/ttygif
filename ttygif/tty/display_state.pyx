@@ -15,7 +15,7 @@ cdef class display_state:
         self.bold               = None            
         self.text_mode          = None            
         self.autowrap           = None            
-        self.foreground         = user_theme.background
+        self.foreground         = user_theme.foreground
         self.background         = user_theme.background
         self.default_foreground = user_theme.default_foreground
         self.default_background = user_theme.default_background
