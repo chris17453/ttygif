@@ -63,11 +63,13 @@ cdef class terminal_graphics:
             temp_state=self.state
             self.state=self.alt_state
             self.alt_state=temp_state
+            print ("ALT: ON")
         
 
     cdef alternate_screen_off(self):
         cdef image temp_image
         cdef display_state temp_state
+        print ("ALT: OFF?")
         if self.display_alt_screen==True:
             display_alt_screen=None
             temp_image=self.screen
@@ -77,6 +79,7 @@ cdef class terminal_graphics:
             temp_state=self.state
             self.state=self.alt_state
             self.alt_state=temp_state
+            print ("ALT: OFF")
 
     cdef scroll_buffer(self):
         cdef int top=self.state.scroll_top
