@@ -520,8 +520,8 @@ cdef class term_parser:
                 params=[groups[11]]
             elif groups[13]:
                 esc_type='CSI'
-                command=groups[11][-1]
-                params=int(groups[12][:-1])
+                command=groups[11][:-1]
+                params=int(groups[12][0:-1])
             
             elif groups[8]:
                 esc_type='CSI'
