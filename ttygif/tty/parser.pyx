@@ -227,9 +227,9 @@ cdef class term_parser:
 
     cdef cmd_BRACKETED_PASTE(self,value):
         if self.bracketed_paste:
-            if value==200
+            if value==200:
                 self.no_codes=True
-            if value==201
+            if value==201:
                 self.no_codes=None
         
     cdef cmd_set_mode(self,cmd):
