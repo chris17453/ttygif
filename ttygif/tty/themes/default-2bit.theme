@@ -1,9 +1,9 @@
 # default theme
 name               default-2bit
-background         1
-foreground         0
-default_background 1
-default_foreground 0
+background         0
+foreground         1
+default_background 0
+default_foreground 1
 
 colors 2
 0   0   0   
