@@ -54,6 +54,15 @@ optional arguments:
   --debug          show debuging statistics (default: None)
 ```
 
+## themes
+
+Colors are lmited to what is available in any given theme. If a color is out of bounds for background or foreground, the default is used.
+
+- default (256 color xterm palette)
+- default-4bit  (16 colorxterm palette)
+- default-2bit  (monochrome palette)
+- dark
+
 ## cast file to gif
 
 ```bash
