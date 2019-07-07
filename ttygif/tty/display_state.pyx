@@ -2,10 +2,11 @@
 # cython: linetrace=True
 # cython: binding=True
 # cython: language_level=2
+from theme cimport theme
 
 cdef class display_state:
 
-    def __cinit__(self,int width,int height):
+    def __cinit__(self,int width,int height,theme user_theme):
         self.cursor_x           = 0
         self.cursor_y           = 0
         self.width              = width
@@ -14,11 +15,11 @@ cdef class display_state:
         self.bold               = None            
         self.text_mode          = None            
         self.autowrap           = None            
-        self.default_foreground = 15
-        self.default_background = 0
+        self.foreground         = user_theme.background
+        self.background         = user_theme.background
+        self.default_foreground = user_theme.default_foreground
+        self.default_background = user_theme.default_background
         self.pending_wrap       = None
-        self.foreground         = self.default_foreground
-        self.background         = self.default_background
 
         self.set_scroll_region(0,self.height-1)
 
