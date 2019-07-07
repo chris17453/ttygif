@@ -111,15 +111,12 @@ cdef class term_parser:
 
             if self.bracketed_paste:
                 if  self.no_codes:
-                    print esc_type,command
-                    
                     if esc_type=='CSI' and  command=='~':  
                         self.process_CSI(command,params)
                         continue
-                    else:
-                        print "rendering things NO CODE"
-                        self.cmd_render_text(event)
-                        continue
+                    #else:
+                    #    self.cmd_render_text(event)
+                    #    continue
     
             print "regular"
                                     
