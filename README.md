@@ -323,9 +323,12 @@ shows various applications randnomly do not obey values from 1ms to  10ms.
 When your cursor is on the last position of the screen, any printed character causes
 a wrap, which initiates a scroll up, unless auto wrap mode is on (DECAWM).
 
-I've noticed that asciicast deems to always operate in autowrap mode, if the last 
-character is at the bottom right most position, the page does not scroll, unless 
-written past this position.
+I've noticed that asciicast deems to always operate in autowrap mode. If the cursor is on 
+the bottom right most position, and you write a character to that position, the cursor does 
+not autowrap and cause scroll. It should unless DECAWM is on. Writing a character forces a 
+cursor position update, which in turn forces scroll from that position.
+
+So fat its a harmess hack, but we will see.
 
 I"ll keep testing, and If i find this a asciicast issue, I'll put in an override mode 
 for those files only.
