@@ -110,6 +110,7 @@ def cli_main():
                     height=args.height,
                     width=args.width,
                     underlay=args.underlay,
+                    overlay=args.overlay,
                     font_name=args.font,
                     theme_name=args.theme)
         except KeyboardInterrupt:

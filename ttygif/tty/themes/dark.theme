@@ -5,6 +5,49 @@ foreground         15
 default_background 4
 default_foreground 15
 
+# moves the screen by an offset, usefull for overlays
+border_left        15
+border_top         15
+border_right       15
+border_bottom      15
+
+
+
+
+# layer          underlay/overlay 
+# file           space.gif  the path of the file to use in this layer
+# mode           center     center the image on the center of this image
+# mode           stretch    stretch the image over this image, aspect ratio may diverge
+# mode           tile       tile the image starting at 0,0
+# mode           none       palce the image as is at coords, 0,0
+# mode           9-slice    convert a gif into a scalable image format
+# image_anchor   5          the anchor point for the layer in a grid of 3x3 numbered 1-9  5=center 
+# frame_anchor   5          the anchor point for the frame in a grid of 3x3 numbered 1-9  5=center
+
+9slice-x1      
+9slice-x2      
+9slice-y1      
+9slice-y2      
+# x1,x2,y1,y2 r=width-1,b=height-1 (r/b auto)
+# 0,0   x1,0    x2,0   r,0
+# 0,y1  x1,y1   x2,y1  r,y1
+# 0,y2  x1,y2   x2,y2  r,y2
+# 0,b   x1,b    x2,b   r,b
+
+
+layer            underlay
+file             space.gif             
+mode             none
+image_anchor     1
+frame_anchor     1
+
+layer            overlay
+file             banner.gif             
+mode             none
+image_anchor     1
+frame_anchor     1
+
+
 colors 256
 # colors 1-16 (0-15)
 0   0   0   
