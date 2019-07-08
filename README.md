@@ -318,19 +318,18 @@ ttygif moves all trailing unformed escape codes to the next event.
 the gif techincal minimum for internal delays is 1ms. I default to 3ms. Testing
 shows various applications randnomly do not obey values from 1ms to  10ms.
 
-## Maybe I'm wrong.
+## Compatability issues...  Maybe I'm wrong.
 
 When your cursor is on the last position of the screen, any printed character causes
 a wrap, which initiates a scroll up, unless auto wrap mode is on (DECAWM).
 
 I've noticed that asciicast deems to always operate in autowrap mode. If the cursor is on 
 the bottom right most position, and you write a character to that position, the cursor does 
-not autowrap and cause scroll. It should unless DECAWM is on. Writing a character forces a 
-cursor position update, which in turn forces scroll from that position.
+not autowrap and cause scroll. It should unless DECAWM is on. 
 
-So fat its a harmess hack, but we will see.
+So far its a harmess hack, but we will see.
 
-I"ll keep testing, and If i find this a asciicast issue, I'll put in an override mode 
+I"ll keep testing, and If I find this a asciicast issue, I'll put in an override mode 
 for those files only.
 
 
