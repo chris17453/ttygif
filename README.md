@@ -1,6 +1,6 @@
 # ttygif
 
-A full featured text to gif conversion utility, that just works.
+A full featured text to gif conversion utility, that just works. It's in beta, so expect rough edges.
 
 ## Why use ttygif?
 
