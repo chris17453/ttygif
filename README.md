@@ -317,3 +317,7 @@ asciicast may split data between events, causing escape codes not to be recognis
 ttygif moves all trailing unformed escape codes to the next event.
 the gif techincal minimum for internal delays is 1ms. I default to 3ms. Testing
 shows various applications randnomly do not obey values from 1ms to  10ms.
+
+I've also noticed that asciicast deems to always operate in autowrap mode, if the last character is at the bottom right most position, the page does not scroll, unless written past this position.
+
+This go's against what I know about terminal emulation and screen buffers, however detailed reading of the excape codes and extensive testing of cast file agree with this.

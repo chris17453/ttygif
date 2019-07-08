@@ -368,7 +368,7 @@ cdef class term_parser:
                 self.g.write(char_ord)
                 self.g.state.cursor_right(1)
             while self.g.state.scroll!=0:
-                print("Scroll at {0:005x}".format(self.current_sequence_position))
+                #print("Scroll at {0:005x}".format(self.current_sequence_position))
                 self.g.scroll_buffer()
         self.g.state.text_mode_off()
         
