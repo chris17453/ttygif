@@ -9,11 +9,11 @@ import json
 
 cdef class layer:
     cdef __cint__(self):
-    self.int         z_index=0
-    self.str         file=''
-    self.str         mode=''
-    self.rect        outer=rect(0,0,0,0)
-    self.rect        inner=rect(0,0,0,0)
+    self.z_index=0
+    self.file=''
+    self.mode=''
+    self.outer=rect(0,0,0,0)
+    self.inner=rect(0,0,0,0)
 
 
 cdef class theme:
@@ -62,6 +62,7 @@ cdef class theme:
         theme_file=open(path) 
         theme_data=theme_file.readlines()
 
+        layer=None
         section=''
         for line in theme_data:
             line=" ".join(line.split())
