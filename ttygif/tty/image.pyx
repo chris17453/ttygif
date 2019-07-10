@@ -196,7 +196,7 @@ cdef class image:
         src_8=rect(inner.left+1  ,inner.bottom  ,inner.right-1  ,outer.bottom)
         src_9=rect(inner.right   ,inner.bottom  ,outer.right    ,outer.bottom)
 
-        rect dst_outer=dst
+        cdef rect dst_outer=dst
         rect dst_inner=rect(dst.left+src_1.width-1,dst.top+src_1.height-1,dst.right-src_9.width+1,dst.bottom-src_9.height+1)
 
         dst_1=rect(dst_outer.left    ,dst_outer.top     ,dst_inner.left     ,dst_inner.top)
