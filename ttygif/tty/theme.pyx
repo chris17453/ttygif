@@ -112,7 +112,7 @@ cdef class theme:
                     self.padding_bottom=int(value)
 
             elif section=='layer':
-                elif key=='layer':
+                if   key=='layer':
                     layer=layer()
                 elif key=='depth':
                     layer.depth=int(value)
