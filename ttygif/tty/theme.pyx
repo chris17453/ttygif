@@ -72,8 +72,6 @@ cdef class layer:
         self.mode=''
         self.outer=rect(0,0,0,0)
         self.inner=rect(0,0,0,0)
-    def debug(self):
-        for
 
 
 cdef class theme:
