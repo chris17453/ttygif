@@ -1,57 +1,9 @@
 # default theme
-name               dark
-background         4
+name               default
+background         0
 foreground         15
-default_background 4
+default_background 0
 default_foreground 15
-
-# moves the screen by an offset, usefull for overlays
-# padding_left        auto will pad based on 9 slice inner, otherwise 0
-# padding_top         auto will pad based on 9 slice inner, otherwise 0
-# padding_right       auto will pad based on 9 slice inner, otherwise 0
-# padding_bottom      auto will pad based on 9 slice inner, otherwise 0
-
-padding_left        auto
-padding_top         auto
-padding_right       auto
-padding_bottom      auto
-
-
-
-
-# layer          underlay/overlay 
-# file           space.gif  the path of the file to use in this layer
-# mode           center     center the image on the center of this image
-# mode           stretch    stretch the image over this image, aspect ratio may diverge
-# mode           tile       tile the image starting at 0,0
-# mode           none       palce the image as is at coords, 0,0
-# mode           9-slice    convert a gif into a scalable image format
-#                  outer-left       9 slice coors, auto will give 0
-#                  outer-top        9 slice coors, auto will give 0
-#                  outer-right      9 slice coors, auto will give max width-1
-#                  outer-bottom     9 slice coors, auto will give max height-1
-#                  inner-left       9 slice coors, auto will symetrically split 
-#                  inner-top        9 slice coors, auto will symetrically split 
-#                  inner-right      9 slice coors, auto will symetrically split 
-#                  inner-bottom     9 slice coors, auto will symetrically split 
-
-# image_anchor   5          the anchor point for the layer in a grid of 3x3 numbered 1-9  5=center 
-# frame_anchor   5          the anchor point for the frame in a grid of 3x3 numbered 1-9  5=center
-
-
-layer            -1
-file             windows7-dialog.gif             
-mode             9slice
-outer-left       auto
-outer-top        auto
-outer-right      auto
-outer-bottom     auto
-inner-left       32
-inner-top        7    
-inner-right      624
-inner-bottom     297
-
-
 
 colors 256
 # colors 1-16 (0-15)
