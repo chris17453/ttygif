@@ -40,3 +40,7 @@ cdef class image:
     cdef get_pixel(self,int x,int y)
     cdef put_pixel(self,int x,int y,pixel)
     cdef clear(self,int init_value)
+    cdef copy(self,image dst_image,rect src,point dst)
+    cdef copy_scale(self,image dst_image,rect src,rect dst)
+    cdef copy_tile(self,image dst_image,rect src,rect dst)
+    cdef copy_9slice(self,image dst_image,rect outer,rect inner,rect dst)
