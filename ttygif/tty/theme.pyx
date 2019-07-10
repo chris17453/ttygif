@@ -77,7 +77,7 @@ cdef class theme:
             if 'value' in res:
                 value=res['value']
                 if value=='auto':
-                    value='-1':
+                    value='-1'
 
             else:
                 if section=='layer':
