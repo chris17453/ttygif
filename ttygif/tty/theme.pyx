@@ -8,7 +8,7 @@ import os
 import json
 
 cdef class layer:
-    cdef __cint__(self):
+    def __cint__(self):
         self.z_index=0
         self.file=''
         self.mode=''
