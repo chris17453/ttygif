@@ -199,7 +199,7 @@ cdef class image:
         cdef rect   dst_9=rect(dst_inner.right   ,dst_inner.bottom  ,dst_outer.right    ,dst_outer.bottom)
 
         cdef point  p1=rec1.point1()
-        cdef point  p2=rec3.point1()
+        cdef point  p3=rec3.point1()
         cdef point  p7=rec7.point1()
         cdef point  p9=rec9.point1()
 
