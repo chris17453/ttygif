@@ -206,6 +206,7 @@ cdef class theme:
                     self.palette[index+1]=b
                     self.palette[index+2]=c
                     index+=3
+        print ("HI")
         print(factory_json().dumps(self))
     
     def get_var(self,line,var):
