@@ -33,28 +33,28 @@ cdef class rect:
         self.height =bottom-top+1
         self.width  =right-left+1
 
-    def percent_x(self,float x):
+    cdef percent_x(self,float x):
         cdef float percent=x/float(self.width)
         return percent
 
-    def percent_y(self,float y):
+    cdef percent_y(self,float y):
         cdef float percent=y/float(self.height)
         return percent
 
-    def get_x_percent(self,float x):
+    cdef get_x_percent(self,float x):
         cdef float pos=x*float(self.width)
-        int calc_x=int(pos)+self.left
+        cdef int   calc_x=int(pos)+self.left
         return calc_x
 
-    def get_y_percent(self,float y):
+    cdef get_y_percent(self,float y):
         cdef float pos=y*float(self.height)
-        int calc_y=int(pos)+self.top
+        cdef int   calc_y=int(pos)+self.top
         return calc_y
 
-    def point1(self):
+    cdef point1(self):
         return point(self.left,self.top)
 
-    def point2(self):
+    cdef point2(self):
         return point(self.right,self.bottom)
 
 cdef class point:
