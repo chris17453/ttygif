@@ -13,6 +13,10 @@ cdef class bounds:
     cdef public int length
     cdef public int bytes_per_pixel
 
+cdef class point:
+    cdef int left
+    cdef int top
+
 cdef class rect:
     cdef int left
     cdef int top

@@ -17,14 +17,6 @@ cdef class bounds:
         self.bytes_per_pixel =bytes_per_pixel
 
 cdef class rect:
-    cdef int left
-    cdef int top
-    cdef int right
-    cdef int bottom
-    cdef int width
-    cdef int height
-    
-
     def __cinit__(self,int left,int top,int right,int bottom):
         self.left   =left
         self.top    =top
@@ -58,9 +50,6 @@ cdef class rect:
         return point(self.right,self.bottom)
 
 cdef class point:
-    cdef int left
-    cdef int top
-
     def __cinit__(self,int left,int top):
         self.left   =left
         self.top    =top
@@ -186,33 +175,33 @@ cdef class image:
         # stretch 5 or omit...
 
 
-        src_1=rect(outer.left    ,outer.top     ,inner.left     ,inner.top)
-        src_2=rect(inner.left+1  ,outer.top     ,inner.right-1  ,inner.top)
-        src_3=rect(inner.right   ,outer.top     ,outer.right    ,inner.top)
-        src_4=rect(outer.left    ,inner.top+1   ,inner.left     ,inner.bottom-1)
-        src_5=rect(inner.left+1  ,inner.top+1   ,inner.right-1  ,inner.bottom-1)
-        src_6=rect(inner.right   ,inner.top+1   ,outer.right    ,inner.bottom-1)
-        src_7=rect(outer.left    ,inner.bottom  ,inner.left     ,outer.bottom)
-        src_8=rect(inner.left+1  ,inner.bottom  ,inner.right-1  ,outer.bottom)
-        src_9=rect(inner.right   ,inner.bottom  ,outer.right    ,outer.bottom)
+        cdef rect   src_1=rect(outer.left    ,outer.top     ,inner.left     ,inner.top)
+        cdef rect   src_2=rect(inner.left+1  ,outer.top     ,inner.right-1  ,inner.top)
+        cdef rect   src_3=rect(inner.right   ,outer.top     ,outer.right    ,inner.top)
+        cdef rect   src_4=rect(outer.left    ,inner.top+1   ,inner.left     ,inner.bottom-1)
+        cdef rect   src_5=rect(inner.left+1  ,inner.top+1   ,inner.right-1  ,inner.bottom-1)
+        cdef rect   src_6=rect(inner.right   ,inner.top+1   ,outer.right    ,inner.bottom-1)
+        cdef rect   src_7=rect(outer.left    ,inner.bottom  ,inner.left     ,outer.bottom)
+        cdef rect   src_8=rect(inner.left+1  ,inner.bottom  ,inner.right-1  ,outer.bottom)
+        cdef rect   src_9=rect(inner.right   ,inner.bottom  ,outer.right    ,outer.bottom)
 
-        cdef rect dst_outer=dst
-        rect dst_inner=rect(dst.left+src_1.width-1,dst.top+src_1.height-1,dst.right-src_9.width+1,dst.bottom-src_9.height+1)
+        cdef rect   dst_outer=dst
+        cdef rect   dst_inner=rect(dst.left+src_1.width-1,dst.top+src_1.height-1,dst.right-src_9.width+1,dst.bottom-src_9.height+1)
 
-        dst_1=rect(dst_outer.left    ,dst_outer.top     ,dst_inner.left     ,dst_inner.top)
-        dst_2=rect(dst_inner.left+1  ,dst_outer.top     ,dst_inner.right-1  ,dst_inner.top)
-        dst_3=rect(dst_inner.right   ,dst_outer.top     ,dst_outer.right    ,dst_inner.top)
-        dst_4=rect(dst_outer.left    ,dst_inner.top+1   ,dst_inner.left     ,dst_inner.bottom-1)
-        dst_5=rect(dst_inner.left+1  ,dst_inner.top+1   ,dst_inner.right-1  ,dst_inner.bottom-1)
-        dst_6=rect(dst_inner.right   ,dst_inner.top+1   ,dst_outer.right    ,dst_inner.bottom-1)
-        dst_7=rect(dst_outer.left    ,dst_inner.bottom  ,dst_inner.left     ,dst_outer.bottom)
-        dst_8=rect(dst_inner.left+1  ,dst_inner.bottom  ,dst_inner.right-1  ,dst_outer.bottom)
-        dst_9=rect(dst_inner.right   ,dst_inner.bottom  ,dst_outer.right    ,dst_outer.bottom)
+        cdef rect   dst_1=rect(dst_outer.left    ,dst_outer.top     ,dst_inner.left     ,dst_inner.top)
+        cdef rect   dst_2=rect(dst_inner.left+1  ,dst_outer.top     ,dst_inner.right-1  ,dst_inner.top)
+        cdef rect   dst_3=rect(dst_inner.right   ,dst_outer.top     ,dst_outer.right    ,dst_inner.top)
+        cdef rect   dst_4=rect(dst_outer.left    ,dst_inner.top+1   ,dst_inner.left     ,dst_inner.bottom-1)
+        cdef rect   dst_5=rect(dst_inner.left+1  ,dst_inner.top+1   ,dst_inner.right-1  ,dst_inner.bottom-1)
+        cdef rect   dst_6=rect(dst_inner.right   ,dst_inner.top+1   ,dst_outer.right    ,dst_inner.bottom-1)
+        cdef rect   dst_7=rect(dst_outer.left    ,dst_inner.bottom  ,dst_inner.left     ,dst_outer.bottom)
+        cdef rect   dst_8=rect(dst_inner.left+1  ,dst_inner.bottom  ,dst_inner.right-1  ,dst_outer.bottom)
+        cdef rect   dst_9=rect(dst_inner.right   ,dst_inner.bottom  ,dst_outer.right    ,dst_outer.bottom)
 
-        p1=rec1.point1()
-        p2=rec3.point1()
-        p7=rec7.point1()
-        p9=rec9.point1()
+        cdef point  p1=rec1.point1()
+        cdef point  p2=rec3.point1()
+        cdef point  p7=rec7.point1()
+        cdef point  p9=rec9.point1()
 
         self.copy(dst,src_1, p1)
         self.copy(dst,src_3, p3)
