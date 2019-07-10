@@ -9,11 +9,11 @@ import json
 
 cdef class layer:
     cdef __cint__(self):
-    self.z_index=0
-    self.file=''
-    self.mode=''
-    self.outer=rect(0,0,0,0)
-    self.inner=rect(0,0,0,0)
+        self.z_index=0
+        self.file=''
+        self.mode=''
+        self.outer=rect(0,0,0,0)
+        self.inner=rect(0,0,0,0)
 
 
 cdef class theme:
