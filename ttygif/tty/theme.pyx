@@ -106,13 +106,13 @@ cdef class theme:
                 elif key=='default_background':
                     self.default_background=int(value)
                 elif key=='padding_left':
-                    self.padding_left=int(value)
+                    self.padding.left=int(value)
                 elif key=='padding_right':
-                    self.padding_right=int(value)
+                    self.padding.right=int(value)
                 elif key=='padding_top':
-                    self.padding_top=int(value)
+                    self.padding.top=int(value)
                 elif key=='padding_bottom':
-                    self.padding_bottom=int(value)
+                    self.padding.bottom=int(value)
 
             elif section=='layer':
                 if   key=='layer':
