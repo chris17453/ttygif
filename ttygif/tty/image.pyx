@@ -198,10 +198,10 @@ cdef class image:
         cdef rect   dst_8=rect(dst_inner.left+1  ,dst_inner.bottom  ,dst_inner.right-1  ,dst_outer.bottom)
         cdef rect   dst_9=rect(dst_inner.right   ,dst_inner.bottom  ,dst_outer.right    ,dst_outer.bottom)
 
-        cdef point  p1=rec1.point1()
-        cdef point  p3=rec3.point1()
-        cdef point  p7=rec7.point1()
-        cdef point  p9=rec9.point1()
+        cdef point  p1=dst_1.point1()
+        cdef point  p3=dst_3.point1()
+        cdef point  p7=dst_7.point1()
+        cdef point  p9=dst_9.point1()
 
         self.copy(dst,src_1, p1)
         self.copy(dst,src_3, p3)
