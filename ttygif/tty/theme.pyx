@@ -159,7 +159,7 @@ cdef class theme:
                     self.palette[index+2]=c
                     index+=3
         print ("HI")
-        print(pickle..dumps(self))
+        print(pickle.dumps(self))
     
     def get_var(self,line,var):
         index=line.find(var)
