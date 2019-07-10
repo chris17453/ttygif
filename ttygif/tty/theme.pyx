@@ -5,7 +5,7 @@
 from cpython cimport array
 from image cimport rect
 import os
-import pickle
+import types
 
 class factory_json:
     def dumps(self,data):
@@ -47,7 +47,7 @@ class factory_json:
                 partial.append(self.render(item,depth=depth+1))
             if len(partial)>0:
                 fragment+=array_template.format(",".join(map(str, partial)))
-        elif isinstance(obj,class):
+        elif isinstance(obj, (type, types.ClassType)):
             items=self.props(obj)
             for item in items:
                 partial.append(tuple_template.format(item,self.render( obj[item],depth=depth+1)))
