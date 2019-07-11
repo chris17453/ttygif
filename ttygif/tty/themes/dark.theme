@@ -49,8 +49,8 @@ outer-top        1
 outer-right      633
 outer-bottom     306
 inner-left       7
-inner-top        32    
-inner-right      625
+inner-top        31   
+inner-right      627
 inner-bottom     299
 
 layer
@@ -62,7 +62,7 @@ top              auto
 right            auto
 bottom           auto
 dst-left        -105
-dst-top          1    
+dst-top          0  
 
 
 
