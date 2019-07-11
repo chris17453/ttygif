@@ -13,7 +13,7 @@ cdef class factory_json:
         return output_string
 
 
-    def props(cls):   
+    def props(self,cls):   
         return [i for i in cls.__dict__.keys() if i[:1] != '_']
 
     def render(self,obj,depth=0):
