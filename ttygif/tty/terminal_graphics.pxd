@@ -6,7 +6,7 @@
 from cpython cimport array
 from .image  cimport image
 from .font   cimport font
-from .theme  cimport theme
+from .theme  cimport theme,layer
 from .display_state cimport display_state
 
 
@@ -33,4 +33,5 @@ cdef class terminal_graphics:
     cdef set_foreground(self,color)
     cdef set_background(self,color)
     cdef set_background(self,color)
+    cdef copy(self,layer temp)
     cdef render(self)
