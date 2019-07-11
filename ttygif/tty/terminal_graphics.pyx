@@ -42,7 +42,7 @@ cdef class terminal_graphics:
             char_width  = viewport_width  / image_font.height
             char_height = viewport_height / image_font.width
 
-        self.theme      =theme_loader(theme_name)
+        self.theme      = theme_loader(theme_name)
         self.state      = display_state(char_width,char_height,user_theme=self.theme)
         self.alt_state  = display_state(char_width,char_height,user_theme=self.theme)
         self.screen     = image(3,char_width ,char_height ,self.theme.palette,0                )
@@ -222,7 +222,7 @@ cdef class terminal_graphics:
         if temp==None:
             return
         if  temp.mode=="9slice":
-            temp.image.copy_9slice(self.viewport,temp.outer,temp.inner,self.viewport.get_rect())
+            temp.image.copy_9slice(self.viewport,temp.outer,temp.inner,self.viewport.get_rect(),temp.mode)
         elif temp.mode=="copy":
             temp.image.copy(self.viewport,temp.bounds,temp.dst)
 
