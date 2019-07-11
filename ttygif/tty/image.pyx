@@ -115,7 +115,7 @@ cdef class image:
     cdef clear(self,int init_value):
         memset(self.data.data.as_voidptr, init_value, self.dimentions.length )
 
-    cdef match_color_index(self,r,g,b):
+    cdef match_color_index(self,int r,int g,int b):
         last_distance=-1
         mapped_color=-1
         cdef int mr
@@ -148,7 +148,7 @@ cdef class image:
             for x in xrange(0,src.width):
                 pixel=self.get_pixel(x+src.left,y+src.top)
                 
-                pixel=self.match_color_index(dst_image.palette[pixel*3],dst_image.palette[pixel*3+1],dst_image.palette[pixel*3+2])
+                pixel=dst_image.match_color_index(self.palette[pixel*3],self.palette[pixel*3+1],self.palette[pixel*3+2])
                 dst_image.put_pixel(dst.left+x,dst.top+y,pixel)
 
 
