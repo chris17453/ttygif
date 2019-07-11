@@ -165,11 +165,13 @@ cdef class image:
         cdef int y
         if dst.left<0:
             dst.left+=dst_image.dimentions.width-1
+            dst.right+=dst.left
         if dst.top<0:
             dst.top+=dst_image.dimentions.height-1
-        print("COPY")
-        dst.debug()
-        src.debug()
+            dst.bottom+=dst.top
+        #print("COPY")
+        #dst.debug()
+        #src.debug()
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel(x+src.left,y+src.top)

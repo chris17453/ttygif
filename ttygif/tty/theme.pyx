@@ -85,10 +85,10 @@ cdef class theme:
         if temp.inner.bottom ==-1: temp.inner.bottom=temp.outer.get_y_percent(33)
         if temp.bounds.left  ==-1: temp.bounds.left=0
         if temp.bounds.top   ==-1: temp.bounds.top=0
-        if temp.bounds.right ==-1: temp.bounds.right=temp.image.dimentions.width-1
-        if temp.bounds.bottom==-1: temp.bounds.bottom=temp.image.dimentions.height-1
-        if temp.dst.left     ==-1: temp.dst.left=(temp.bounds.right-temp.bounds.left)*-1
-        if temp.dst.top      ==-1: temp.dst.top=(temp.bounds.bottom-temp.bounds.top)*-1
+        if temp.bounds.right ==-1: temp.bounds.right  =temp.image.dimentions.width-1
+        if temp.bounds.bottom==-1: temp.bounds.bottom =temp.image.dimentions.height-1
+        if temp.dst.left     ==-1: temp.dst.left      =(temp.bounds.right-temp.bounds.left)*-1
+        if temp.dst.top      ==-1: temp.dst.top       =(temp.bounds.bottom-temp.bounds.top)*-1
 
     cdef auto(self):
         if self.layer1:
