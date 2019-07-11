@@ -44,7 +44,7 @@ cdef class image:
     cdef create_buffer(self,size,init_value)
     cdef get_position(self,int x,int y)
     cdef get_pixel(self,int x,int y)
-    cdef put_pixel(self,int x,int y,pixel)
+    cdef put_pixel(self,int x,int y,int r,int g,int b)
     cdef put_pixel_rgb(self,int x,int y,pixel)
     cdef clear(self,int init_value)
     cdef match_color_index(self,int r,int g,int b)

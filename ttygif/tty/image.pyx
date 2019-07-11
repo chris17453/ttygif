@@ -129,8 +129,8 @@ cdef class image:
                 pix_byte=pixel[i]
                 self.data[pos+i]=pix_byte
 
-    cdef put_pixel_rgb(self,int x,int y,pixel):
-        pixel=self.match_color_index(self.palette[pixel*3],self.palette[pixel*3+1],self.palette[pixel*3+2])
+    cdef put_pixel_rgb(self,int x,int y,int r,int g,int b):
+        pixel=self.match_color_index(r,g,b)
         self.put_pixel(x,y,pixel)
 
     
@@ -168,6 +168,9 @@ cdef class image:
     cdef copy(self,image dst_image,rect src,point dst):
         cdef int x
         cdef int y
+        cdef int r
+        cdef int g
+        cdef int b
         if dst.left<0:
             dst.left+=dst_image.dimentions.width-1
             #dst.right+=dst.left
@@ -180,7 +183,10 @@ cdef class image:
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel(x+src.left,y+src.top)
-                dst_image.put_pixel_rgb(dst.left+x,dst.top+y,pixel)
+                r=self.palette[pixel*3+0]
+                g=self.palette[pixel*3+1]
+                b=self.palette[pixel*3+2]
+                dst_image.put_pixel_rgb(dst.left+x,dst.top+y,r,g,b)
 
 
     # strech src to fir dest
