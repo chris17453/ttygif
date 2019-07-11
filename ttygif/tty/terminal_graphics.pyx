@@ -47,7 +47,7 @@ cdef class terminal_graphics:
         self.alt_state  = display_state(char_width,char_height,user_theme=self.theme)
         self.screen     = image(3,char_width ,char_height ,self.theme.palette,0                )
         self.alt_screen = image(3,char_width ,char_height ,self.theme.palette,0                )
-        self.viewport   = image(1,px_width   ,px_height   ,self.theme.palette,self.state.background)
+        self.viewport   = image(1,px_width+theme.padding.left+theme.padding.right   ,px_height + theme.padding.top+theme.padding.bottom,self.theme.palette,self.state.background)
         self.display_alt_screen = None
 
 
@@ -133,7 +133,7 @@ cdef class terminal_graphics:
         cdef uint8_t  pixel
         for fy in xrange(0,self.font.height):
             for fx in xrange(0,self.font.width):
-                screen_pos=x*self.font.width+fx+(fy+self.font.height*y)*self.viewport.dimentions.width
+                screen_pos=self.theme.padding.left+x*self.font.width+fx+(self.theme.padding.top+fy+self.font.height*y)*self.viewport.dimentions.width
                 pixel=self.font.graphic[char_pos]
                 if pixel==1:
                     self.viewport.data[screen_pos]=foreground_color
