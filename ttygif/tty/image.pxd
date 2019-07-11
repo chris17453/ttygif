@@ -51,6 +51,7 @@ cdef class image:
     cdef remap_image(self,array.array palette)
     cdef match_color_index(self,int r,int g,int b)
     cdef copy(self,image dst_image,rect src,point dst)
+    cdef copy_remap(self,image dst_image,rect src,point dst)
     cdef copy_scale(self,image dst_image,rect src,rect dst)
     cdef copy_tile(self,image dst_image,rect src,rect dst)
     cdef copy_9slice(self,image dst_image,rect outer,rect inner,rect dst,str mode)

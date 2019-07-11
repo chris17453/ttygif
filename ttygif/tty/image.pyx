@@ -142,7 +142,7 @@ cdef class image:
         cdef point dst=src.point1()
 
         cdef image tmp=image(self.dimentions.bytes_per_pixel,self.dimentions.width,self.dimentions.height,palette,0)
-        self.copy(tmp,src,dst)
+        self.copy_remap(tmp,src,dst)
         self.data=tmp.data
         self.palette=tmp.palette
 
@@ -175,7 +175,7 @@ cdef class image:
 
 
     # plain copy 1-1
-    cdef copy(self,image dst_image,rect src,point dst):
+cdef copy(self,image dst_image,rect src,point dst):
         cdef int x
         cdef int y
         cdef int r
@@ -205,6 +205,33 @@ cdef class image:
                 #dst_image.put_pixel_rgb(dst.left+x,dst.top+y,r,g,b)
                 dst_image.put_pixel(dst.left+x,dst.top+y,pixel)
 
+  cdef copy_remap(self,image dst_image,rect src,point dst):
+        cdef int x
+        cdef int y
+        cdef int r
+        cdef int g
+        cdef int b
+
+        if dst.left==-1:
+            dst.left=dst_image.dimentions.width-1-(src.right-src.left)
+            #dst.right+=dst.left
+        if dst.top==-1:
+            dst.top=dst_image.dimentions.height-1-(src.bottom-src.top)
+
+
+        if dst.left<0:
+            dst.left+=dst_image.dimentions.width-1
+        if dst.top<0:
+            dst.top+=dst_image.dimentions.height-1
+
+        for y in xrange(0,src.height):
+            for x in xrange(0,src.width):
+                pixel=self.get_pixel(x+src.left,y+src.top)
+                r=self.palette[pixel*3+0]
+                g=self.palette[pixel*3+1]
+                b=self.palette[pixel*3+2]
+                dst_image.put_pixel_rgb(dst.left+x,dst.top+y,r,g,b)
+                
 
     # strech src to fir dest
     cdef copy_scale(self,image dst_image,rect src,rect dst):
