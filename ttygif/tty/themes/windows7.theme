@@ -70,17 +70,6 @@ bottom           auto
 dst-left        -105
 dst-top          0  
 
-#layer
-#depth           -1
-#file             alert.gif             
-#mode             copy
-#left             auto
-#top              auto
-#right            auto
-#bottom           auto
-#dst-left        -1
-#dst-top         -1  
-
 
 palette
 colors 256
