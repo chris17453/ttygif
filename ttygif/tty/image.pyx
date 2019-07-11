@@ -214,15 +214,15 @@ cdef class image:
         cdef point  p7=dst_7.point1()
         cdef point  p9=dst_9.point1()
 
-        self.copy(dst,src_1, p1)
-        self.copy(dst,src_3, p3)
-        self.copy(dst,src_7, p7)
-        self.copy(dst,src_9, p9)
+        self.copy(dst_image,src_1, p1)
+        self.copy(dst_image,src_3, p3)
+        self.copy(dst_image,src_7, p7)
+        self.copy(dst_image,src_9, p9)
 
-        self.copy_tile(dst,src_2, dst_2)
-        self.copy_tile(dst,src_4, dst_4)
-        self.copy_tile(dst,src_6, dst_6)
-        self.copy_tile(dst,src_8, dst_8)
+        self.copy_tile(dst_image,src_2, dst_2)
+        self.copy_tile(dst_image,src_4, dst_4)
+        self.copy_tile(dst_image,src_6, dst_6)
+        self.copy_tile(dst_image,src_8, dst_8)
     
     cdef debug(self):
         print("Image")
