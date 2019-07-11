@@ -218,7 +218,7 @@ cdef class terminal_graphics:
         self.state.background=color
     
     cdef copy(self,layer temp):
-        it temp==None:
+        if temp==None:
             return
         if  temp.mode=="9slice":
             temp.image.copy_9slice(self.viewport,temp.outer,temp.inner,self.viewport.get_rect())
