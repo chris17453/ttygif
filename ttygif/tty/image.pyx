@@ -199,11 +199,6 @@ cdef class image:
                 pixel=self.get_pixel(x+src.left,y+src.top)
                 if pixel==self.transparent:
                     continue
-                #r=self.palette[pixel*3+0]
-                #g=self.palette[pixel*3+1]
-                #b=self.palette[pixel*3+2]
-                #dst_image.put_pixel_rgb(dst.left+x,dst.top+y,r,g,b)
-                print dst.left+x
                 dst_image.put_pixel(dst.left+x,dst.top+y,pixel)
 
     cdef copy_remap(self,image dst_image,rect src,point dst):
@@ -336,10 +331,10 @@ cdef class image:
         self.copy_tile(dst_image,src_6, dst_6)
         self.copy_tile(dst_image,src_8, dst_8)
 
-        if mode=='scale':
-            self.copy_scale(dst_image,src_5,dst_5)
-        elif mode=='tile':
-            self.copy_tile(dst_image,src_5, dst_5)
+        #if mode=='scale':
+        #    self.copy_scale(dst_image,src_5,dst_5)
+        #elif mode=='tile':
+        #    self.copy_tile(dst_image,src_5, dst_5)
 
        # print "src"
        # src_1.debug()
