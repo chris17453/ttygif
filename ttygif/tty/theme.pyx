@@ -11,7 +11,7 @@ import types
 
 
 cdef class layer:
-    def __cint__(self):
+    cdef __cint__(self):
         self.z_index=0
         self.name=''
         self.file=''
@@ -142,8 +142,8 @@ cdef class theme:
             elif section=='layer':
                 if   key=='layer':
                     theme_layer=layer()
-                    theme_layer.inner=rect(0,0,0,0)
-                    theme_layer.outer=rect(0,0,0,0)
+                    #theme_layer.inner=rect(0,0,0,0)
+                    #theme_layer.outer=rect(0,0,0,0)
                 
                 elif key=='depth':
                     theme_layer.z_index=int(value)
