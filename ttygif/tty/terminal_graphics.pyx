@@ -220,7 +220,10 @@ cdef class terminal_graphics:
     
     cdef render(self):
         #if None==self.underlay_flag:
-        self.viewport.clear(self.state.default_background);
+        if self.theme.layer1:
+            self.theme.layer1.copy_9slice(self.viewport,self.theme.layer1.inner,self.theme.layer1.outer,self.viewport.get_rect())
+        else:
+            self.viewport.clear(self.state.default_background);
         cdef int fg =0
         cdef int bg =0
         cdef int x  =0
