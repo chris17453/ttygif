@@ -25,7 +25,9 @@ cdef class layer:
         print("  z_index: {0}".format(self.z_index))
         print("  file:    {0}".format(self.file))
         print("  mode:    {0}".format(self.mode))
+        print("Outer: ")
         self.outer.debug()
+        print("Inner: ")
         self.inner.debug()
         
 
@@ -159,11 +161,10 @@ cdef class theme:
                 elif key=='inner-bottom':
                     layer.inner_bottom=int(value)
             
-            elif section=='colors':
+            elif section=='palette':
                 if key=='colors':
                     self.colors=int(res)
                     array.resize(self.palette,self.colors*3)
-                    in_header=None
                 else:
                     tokens=line.split(' ')
                     #print line,tokens
@@ -181,7 +182,7 @@ cdef class theme:
         print("foreground:  {0}".format(self.foreground))
         print("default_background:  {0}".format(self.default_background))
         print("default_foreground:  {0}".format(self.default_foreground))
-        print("colors:  {0}".format(self.colors))
+        print("colors:              {0}".format(self.colors))
         self.padding.debug()
         
         if self.layer1:
