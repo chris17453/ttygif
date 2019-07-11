@@ -96,10 +96,19 @@ cdef class theme:
 
     cdef auto(self):
         if self.layer1:
-            self.update_layer(self.layer1)            
+            self.update_layer(self.layer1)
 
         if self.layer2:
-            self.update_layer(self.layer2)            
+            self.update_layer(self.layer2)
+
+        if self.layer3:
+            self.update_layer(self.layer3)
+
+        if self.layer4:
+            self.update_layer(self.layer4)
+
+        if self.layer5:
+            self.update_layer(self.layer5)
 
     cdef init(self):
         cdef int a,b,c,index

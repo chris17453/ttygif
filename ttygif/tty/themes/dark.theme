@@ -35,7 +35,13 @@ bottom      8
 #                  inner-top        9 slice coords, auto will symetrically split 
 #                  inner-right      9 slice coords, auto will symetrically split 
 #                  inner-bottom     9 slice coords, auto will symetrically split 
-
+# mode           copy
+# left             auto    will generate bounds based on image size
+# top              auto    will generate bounds based on image size
+# right            auto    will generate bounds based on image size
+# bottom           auto    will generate bounds based on image size
+# dst-left         auto    
+# dst-top          auto 
 # image_anchor   5          the anchor point for the layer in a grid of 3x3 numbered 1-9  5=center 
 # frame_anchor   5          the anchor point for the frame in a grid of 3x3 numbered 1-9  5=center
 
