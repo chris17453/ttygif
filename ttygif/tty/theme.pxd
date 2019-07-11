@@ -36,4 +36,5 @@ cdef class theme:
     cdef layer       layer4
     cdef layer       layer5
     cdef init(self)
+    cdef update_layer(self, layer temp)
     cdef auto(self)

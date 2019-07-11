@@ -72,62 +72,30 @@ cdef class theme:
         self.palette=array.array('B')
         self.padding=rect(0,0,0,0)
         self.init()
-    cdef auto(self):
-        #if padding.left==-1:
-        #    padding.left=0
-        #if padding.right==-1:
-        #    padding.right=0
-        #if padding.top==-1:
-        #    padding.top=0
-        #if padding.bottom==-1:
-        #    padding.bottom=0
+    
+    cdef update_layer(self, layer temp):
+        temp.load_file()
+        if temp.outer.left   ==-1: temp.outer.left=self.padding.left
+        if temp.outer.top    ==-1: temp.outer.top=self.padding.top
+        if temp.outer.right  ==-1: temp.outer.right=temp.image.dimentions.width-1
+        if temp.outer.bottom ==-1: temp.outer.bottom=temp.image.dimentions.height-1
+        if temp.inner.left   ==-1: temp.inner.left=temp.outer.get_x_percent(33)
+        if temp.inner.top    ==-1: temp.inner.top=temp.outer.get_y_percent(33)
+        if temp.inner.right  ==-1: temp.inner.right=temp.outer.get_x_percent(66)
+        if temp.inner.bottom ==-1: temp.inner.bottom=temp.outer.get_y_percent(33)
+        if temp.bounds.left  ==-1: temp.bounds.left=0
+        if temp.bounds.top   ==-1: temp.bounds.top=0
+        if temp.bounds.right ==-1: temp.bounds.right=temp.image.dimentions.width-1
+        if temp.bounds.bottom==-1: temp.bounds.bottom=temp.image.dimentions.height-1
+        if temp.dst.left     ==-1: temp.dst.left=(temp.bounds.right-temp.bounds.left)*-1
+        if temp.dst.top      ==-1: temp.dst.top=(temp.bounds.bottom-temp.bounds.top)*-1
 
+    cdef auto(self):
         if self.layer1:
-            self.layer1.load_file()
-            if self.layer1.outer.left==-1:
-               self.layer1.outer.left=self.padding.left
-            if self.layer1.outer.top==-1:
-               self.layer1.outer.top=self.padding.top
-            if self.layer1.outer.right==-1:
-               self.layer1.outer.right=self.layer1.image.dimentions.width-1
-            if self.layer1.outer.bottom==-1:
-               self.layer1.outer.bottom=self.layer1.image.dimentions.height-1
-            if self.layer1.inner.left==-1:
-               self.layer1.inner.left=self.layer1.outer.get_x_percent(33)
-            if self.layer1.inner.top==-1:
-               self.layer1.inner.top=self.layer1.outer.get_y_percent(33)
-            if self.layer1.inner.right==-1:
-               self.layer1.inner.right=self.layer1.outer.get_x_percent(66)
-            if self.layer1.inner.bottom==-1:
-               self.layer1.inner.bottom=self.layer1.outer.get_y_percent(33)
-            if self.layer1.dst.left==-1:
-               self.layer1.dst.left=(self.layer1.bounds.right-self.layer1.bounds.left)*-1
-            if self.layer1.dst.top==-1:
-               self.layer1.dst.top=(self.layer1.bounds.bottom-self.layer1.bounds.top)*-1
+            update_layer(self.layer1)            
 
         if self.layer2:
-            self.layer2.load_file()
-            if self.layer2.outer.left==-1:
-               self.layer2.outer.left=self.padding.left
-            if self.layer2.outer.top==-1:
-               self.layer2.outer.top=self.padding.top
-            if self.layer2.outer.right==-1:
-               self.layer2.outer.right=self.layer2.image.dimentions.width-1
-            if self.layer2.outer.bottom==-1:
-               self.layer2.outer.bottom=self.layer2.image.dimentions.height-1
-            if self.layer2.inner.left==-1:
-               self.layer2.inner.left=self.layer2.outer.get_x_percent(33)
-            if self.layer2.inner.top==-1:
-               self.layer2.inner.top=self.layer2.outer.get_y_percent(33)
-            if self.layer2.inner.right==-1:
-               self.layer2.inner.right=self.layer2.outer.get_x_percent(66)
-            if self.layer2.inner.bottom==-1:
-               self.layer2.inner.bottom=self.layer2.outer.get_y_percent(33)
-            if self.layer2.dst.left==-1:
-               self.layer2.dst.left=(self.layer2.bounds.right-self.layer2.bounds.left)*-1
-            if self.layer2.dst.top==-1:
-               self.layer2.dst.top=(self.layer2.bounds.bottom-self.layer2.bounds.top)*-1
-            
+            update_layer(self.layer2)            
 
     cdef init(self):
         cdef int a,b,c,index
