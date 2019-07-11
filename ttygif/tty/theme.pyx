@@ -169,19 +169,19 @@ cdef class theme:
                 elif key=='colors':
                     self.colors=int(value)
                     array.resize(self.palette,self.colors*3)
-#                else:
-#                
-#                    tokens=line.split(' ')
-#                    #print line,tokens
-#                    a=int(tokens[0])
-#                    b=int(tokens[1])
-#                    c=int(tokens[2])
-#                    self.palette[index+0]=a
-#                    self.palette[index+1]=b
-#                    self.palette[index+2]=c
-#                    index+=3
-#    
-#
+                else:
+                
+                    tokens=line.split(' ')
+                    #print line,tokens
+                    a=int(tokens[0])
+                    b=int(tokens[1])
+                    c=int(tokens[2])
+                    self.palette[index+0]=a
+                    self.palette[index+1]=b
+                    self.palette[index+2]=c
+                    index+=3
+    
+
         print("name:        {0}".format(self.name))
         print("background:  {0}".format(self.background))
         print("foreground:  {0}".format(self.foreground))

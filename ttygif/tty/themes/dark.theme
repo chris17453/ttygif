@@ -40,7 +40,7 @@ bottom      auto
 
 
 layer
-depth           -1
+depth           -2
 file             windows7-dialog.gif             
 mode             9slice
 outer-left       auto
