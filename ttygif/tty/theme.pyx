@@ -70,6 +70,7 @@ cdef class theme:
         self.default_foreground=15
         self.palette=array.array('B')
         self.padding=rect(0,0,0,0)
+        self.transparent=-1
         self.init()
     
     cdef update_layer(self, layer temp):

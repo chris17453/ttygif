@@ -28,6 +28,7 @@ cdef class theme:
     cdef int         foreground
     cdef int         default_background
     cdef int         default_foreground
+    cdef int         transparent
     cdef int         colors
     cdef array.array palette
     cdef rect        padding
