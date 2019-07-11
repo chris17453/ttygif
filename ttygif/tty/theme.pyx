@@ -44,7 +44,7 @@ cdef class theme:
         self.padding=rect(0,0,0,0)
         self.init()
      
-    cdef init(self,path):
+    cdef init(self):
         cdef int a,b,c,index
         index=0
 
