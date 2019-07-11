@@ -42,7 +42,7 @@ cdef class layer:
                 if frame['gc'].TransparentColorFlag==0:
                     self.image.transparent=-1
                 if frame['gc'].TransparentColorFlag==1:
-                    self.image.transparent=frame['gc'].CoorIndex
+                    self.image.transparent=frame['gc'].ColorIndex
 
 
         
