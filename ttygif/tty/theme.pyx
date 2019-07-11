@@ -21,8 +21,14 @@ cdef class layer:
         self.inner=rect(0,0,0,0)
 
     cdef load_file(self,str file):
+        script_path = os.path.dirname(os.path.abspath( __file__ ))
+        path=os.path.join(script_path,'layers',file)
+        
+        if os.path.exists(path)==False:
+            raise Exception("Invalid image file")
+
         self.file=file
-        underlay_image=decode("layers/"+file)
+        underlay_image=decode(path)
         gif_raw=underlay_image.get()
         for frame in gif_raw:
             if frame['image']:
