@@ -175,7 +175,7 @@ cdef class image:
         if dst.left==-1:
             dst.left=dst_image.dimentions.width-1-(src.right-src.left)
             #dst.right+=dst.left
-        if dst.top=-1:
+        if dst.top==-1:
             dst.top=dst_image.dimentions.height-1(-src.bottom-src.top)
 
 
