@@ -175,7 +175,7 @@ cdef class image:
 
 
     # plain copy 1-1
-cdef copy(self,image dst_image,rect src,point dst):
+    cdef copy(self,image dst_image,rect src,point dst):
         cdef int x
         cdef int y
         cdef int r
@@ -205,7 +205,7 @@ cdef copy(self,image dst_image,rect src,point dst):
                 #dst_image.put_pixel_rgb(dst.left+x,dst.top+y,r,g,b)
                 dst_image.put_pixel(dst.left+x,dst.top+y,pixel)
 
-  cdef copy_remap(self,image dst_image,rect src,point dst):
+    cdef copy_remap(self,image dst_image,rect src,point dst):
         cdef int x
         cdef int y
         cdef int r
