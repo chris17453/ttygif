@@ -65,7 +65,7 @@ cdef class theme:
         self.palette=array.array('B')
         self.padding=rect(0,0,0,0)
         self.init()
-    cdef auto(self,int width,int height):
+    cdef auto(self):
         #if padding.left==-1:
         #    padding.left=0
         #if padding.right==-1:
