@@ -37,6 +37,7 @@ cdef class rect:
     cdef debug(self)
 
 cdef class image:
+    cdef int         transparent
     cdef array.array data
     cdef bounds      dimentions
     cdef array.array palette

@@ -191,6 +191,8 @@ cdef class image:
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel(x+src.left,y+src.top)
+                if pixel==self.transparent:
+                    continue
                 r=self.palette[pixel*3+0]
                 g=self.palette[pixel*3+1]
                 b=self.palette[pixel*3+2]
