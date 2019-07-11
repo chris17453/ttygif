@@ -269,7 +269,7 @@ cdef class theme:
         
         if not line: return None
         
-        line=" ".join().line.split() )
+        line=" ".join(line.split() )
         tokens=line.split()
         
         if   isinstance(tokens,list):
