@@ -135,13 +135,10 @@ cdef class theme:
         cdef layer theme_layer=None
         section=''
         for line in theme_data:
-            line=" ".join(line.split())
-            line=line.strip()
-            
             res=self.get_anyvar(line)
+            print res
             if res ==None:
                 continue
-            print section,line
             key=res['key']
             value=None
             if 'value' in res:
