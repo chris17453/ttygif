@@ -63,13 +63,13 @@ cdef class theme:
             if self.layer1.outer.bottom==-1:
                self.layer1.outer.bottom=height-self.padding.bottom-1
             if self.layer1.inner.left==-1:
-               self.layer1.inner.left=(self.layer1.outer.right-self.layer1.outer.left)*.33
+               self.layer1.inner.left=self.layer1.outer.get_x_percent(33)
             if self.layer1.inner.top==-1:
-               self.layer1.inner.top=(self.layer1.outer.bototm-self.layer1.outer.top)*.33
+               self.layer1.inner.top=self.layer1.outer.get_y_percent(33)
             if self.layer1.inner.right==-1:
-               self.layer1.inner.right=(self.layer1.outer.right-self.layer1.outer.left)*.66
+               self.layer1.inner.right=self.layer1.outer.get_x_percent(66)
             if self.layer1.inner.bottom==-1:
-               self.layer1.inner.bottom=(self.layer1.outer.bototm-self.layer1.outer.top)*.66
+               self.layer1.inner.bottom=self.layer1.outer.get_y_percent(33)
         self.debug()    
 
     cdef init(self):
