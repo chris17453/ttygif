@@ -124,6 +124,7 @@ cdef class image:
         cdef int mb
         #print r,g,b
         cdef int color_table_len=len(self.palette)
+        cdef int i
         for i in xrange(0,color_table_len,3):
             mr=self.palette[i]
             mg=self.palette[i+1]
