@@ -227,7 +227,7 @@ cdef class terminal_graphics:
 
 
     cdef render(self):
-        #self.copy(self.theme.layer1)
+        self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
         #self.copy(self.theme.layer3)
         #self.copy(self.theme.layer4)

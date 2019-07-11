@@ -174,9 +174,9 @@ cdef class image:
         if dst.top<0:
             dst.top+=dst_image.dimentions.height-1
             #dst.bottom+=dst.top
-        print("COPY")
-        dst.debug()
-        src.debug()
+        #print("COPY")
+        #dst.debug()
+        #src.debug()
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel(x+src.left,y+src.top)
