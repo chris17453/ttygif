@@ -59,10 +59,13 @@ Theming is based on the idea of branding your work for display in project reposi
 
 ### theme support
 
-- layers above and velow the terminal image
+- user directory. custom themes can be placed in the user directory under '~/.ttygif'
+- layers above and below the terminal image
 - transparency in layers
-- overlays can be 1:1, 9slice (scale and tiled),  scaled
+- layers can be 1:1, 9slice (scale and tiled)
+- layers support cropping and positioning
 - palettes are defined by themes
+- all layers are mapped to this palette
 
 ### shipped themes
 

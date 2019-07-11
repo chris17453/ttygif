@@ -14,7 +14,7 @@ default_foreground 15
 
 padding
 left        8
-top         32
+top         31
 right       8
 bottom      8
 
@@ -52,7 +52,7 @@ file             windows7-dialog.gif
 mode             9slice
 outer-left       0
 outer-top        1
-outer-right      633
+outer-right      634
 outer-bottom     306
 inner-left       7
 inner-top        31   
@@ -67,7 +67,7 @@ left             auto
 top              auto
 right            auto
 bottom           auto
-dst-left        -105
+dst-left        -110
 dst-top          0  
 
 
