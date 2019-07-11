@@ -32,4 +32,4 @@ cdef class theme:
     cdef layer       layer4
     cdef layer       layer5
     cdef init(self)
-    cdef auto(self,int width,int height)
+    cdef auto(self)
