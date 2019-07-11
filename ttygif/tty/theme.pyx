@@ -100,16 +100,16 @@ cdef class theme:
                     if self.layer1==None:
                         theme_layer.name="layer1"
                         self.layer1=theme_layer
-                    if self.layer2==None:
+                    elif self.layer2==None:
                         theme_layer.name="layer2"
                         self.layer2=theme_layer
-                    if self.layer3==None:
+                    elif self.layer3==None:
                         theme_layer.name="layer3"
                         self.layer3=theme_layer
-                    if self.layer4==None:
+                    elif self.layer4==None:
                         theme_layer.name="layer4"
                         self.layer4=theme_layer
-                    if self.layer5==None:
+                    elif self.layer5==None:
                         theme_layer.name="layer5"
                         self.layer5=theme_layer
                     theme_layer=None
