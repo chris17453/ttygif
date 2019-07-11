@@ -220,12 +220,12 @@ cdef class theme:
                 elif key=='colors':
                     self.colors=int(value)
                     array.resize(self.palette,self.colors*3)
-                else:
-                    tokens=line.split(' ')
+                if key=='array':
+                    #tokens=line.split(' ')
                     #print line,tokens
-                    a=int(tokens[0])
-                    b=int(tokens[1])
-                    c=int(tokens[2])
+                    a=int(value[0])
+                    b=int(value[1])
+                    c=int(value[2])
                     self.palette[index+0]=a
                     self.palette[index+1]=b
                     self.palette[index+2]=c
@@ -275,6 +275,7 @@ cdef class theme:
                 return {'key':tokens[0]}
             elif len(tokens)==2:
                 return {'key':tokens[0],'value':tokens[1]}
+            else return {'key':'array','value':tokens}
         elif isinstance(tokens,str):
                 return {'key':tokens}
         return None     
