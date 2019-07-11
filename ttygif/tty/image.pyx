@@ -117,7 +117,7 @@ cdef class image:
 
     cdef match_color_index(self,int r,int g,int b):
         cdef int last_distance=-1
-        cdef int mapped_color=-1
+        cdef int mapped_color=0
         cdef int color_distance
         cdef int mr
         cdef int mg
