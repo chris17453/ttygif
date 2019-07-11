@@ -217,12 +217,25 @@ cdef class terminal_graphics:
     cdef set_background(self,color):
         self.state.background=color
     
+    cdef copy(self,layer temp):
+        it temp==None:
+            return
+        if  temp.mode=="9slice":
+            temp.image.copy_9slice(self.viewport,temp.outer,temp.inner,self.viewport.get_rect())
+        elif temp.mode=="copy":
+            temp.image.copy(self.viewport,self.theme.bounds,temp.dst_point)
+
+
     cdef render(self):
-        #if None==self.underlay_flag:
-        if self.theme.layer1:
-            self.theme.layer1.image.copy_9slice(self.viewport,self.theme.layer1.outer,self.theme.layer1.inner,self.viewport.get_rect())
-        else:
+        self.copy(self.theme.layer1)
+        self.copy(self.theme.layer2)
+        self.copy(self.theme.layer3)
+        self.copy(self.theme.layer4)
+        self.copy(self.theme.layer5)
+        
+        if self.theme.layer1==None:
             self.viewport.clear(self.state.default_background);
+        
         cdef int fg =0
         cdef int bg =0
         cdef int x  =0

@@ -11,6 +11,10 @@ cdef class layer:
     cdef str         name
     cdef rect        outer
     cdef rect        inner
+    cdef rect        bounds
+    cdef point       dst
+
+
     cdef image       image
     cdef debug    (self)
     cdef load_file(self)

@@ -3,7 +3,7 @@
 # cython: language_level=2
 
 from cpython cimport array
-from image cimport rect
+from image cimport rect,point
 import os
 import types
 from ..gif.decode import decode
@@ -17,8 +17,12 @@ cdef class layer:
         self.name=''
         self.file=''
         self.mode=''
-        self.outer=rect(0,0,0,0)
-        self.inner=rect(0,0,0,0)
+        self.outer =rect(0,0,0,0)
+        self.inner =rect(0,0,0,0)
+        self.bounds=rect(0,0,0,0)
+        self.dst   =point(0,0)
+        
+        
 
     cdef load_file(self):
         script_path = os.path.dirname(os.path.abspath( __file__ ))
@@ -92,8 +96,39 @@ cdef class theme:
                self.layer1.inner.right=self.layer1.outer.get_x_percent(66)
             if self.layer1.inner.bottom==-1:
                self.layer1.inner.bottom=self.layer1.outer.get_y_percent(33)
+            if self.layer2.dst.left==-1:
+               self.layer2.dst.left=(self.bounds.right-self.bounds.left)*-1
+            if self.layer2.dst.top==-1:
+               self.layer2.dst.top=(self.bounds.bottom-self.bounds.top)*-1
+
+        if self.layer2:
+            self.layer2.load_file()
+            if self.layer2.outer.left==-1:
+               self.layer2.outer.left=self.padding.left
+            if self.layer2.outer.top==-1:
+               self.layer2.outer.top=self.padding.top
+            if self.layer2.outer.right==-1:
+               self.layer2.outer.right=self.layer2.image.dimentions.width-1
+            if self.layer2.outer.bottom==-1:
+               self.layer2.outer.bottom=self.layer2.image.dimentions.height-1
+            if self.layer2.inner.left==-1:
+               self.layer2.inner.left=self.layer2.outer.get_x_percent(33)
+            if self.layer2.inner.top==-1:
+               self.layer2.inner.top=self.layer2.outer.get_y_percent(33)
+            if self.layer2.inner.right==-1:
+               self.layer2.inner.right=self.layer2.outer.get_x_percent(66)
+            if self.layer2.inner.bottom==-1:
+               self.layer2.inner.bottom=self.layer2.outer.get_y_percent(33)
+            if self.layer2.dst.left==-1:
+               self.layer2.dst.left=(self.bounds.right-self.bounds.left)*-1
+            if self.layer2.dst.top==-1:
+               self.layer2.dst.top=(self.bounds.bottom-self.bounds.top)*-1
+            
+            
+
+
         print("AUTO")
-        self.layer1.debug()    
+        self.layer2.debug()    
 
     cdef init(self):
         cdef int a,b,c,index
@@ -191,7 +226,20 @@ cdef class theme:
                     theme_layer.inner.right=int(value)
                 elif key=='inner-bottom':
                     theme_layer.inner.bottom=int(value)
-            
+                elif key=='left':
+                    theme_layer.bounds.left=int(value)
+                elif key=='top':
+                    theme_layer.bounds.top=int(value)
+                elif key=='right':
+                    theme_layer.bounds.right=int(value)
+                elif key=='bottom':
+                    theme_layer.bounds.bottom=int(value)
+                elif key=='dst-left':
+                    theme_layer.dst.left=int(value)
+                elif key=='dst-top':
+                    theme_layer.dst.top=int(value)
+           
+
             elif section=='palette':
                 if   key=='palette':
                     continue

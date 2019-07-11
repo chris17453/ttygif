@@ -146,6 +146,11 @@ cdef class image:
     cdef copy(self,image dst_image,rect src,point dst):
         cdef int x
         cdef int y 
+        if dst.left<0:
+            dst.left+=dst_image.dimentions.width-1
+        if dst.top<0:
+            dst.top+=dst_image.dimentions.height-1
+
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel(x+src.left,y+src.top)
