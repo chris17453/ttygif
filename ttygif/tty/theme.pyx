@@ -136,7 +136,6 @@ cdef class theme:
         section=''
         for line in theme_data:
             res=self.get_anyvar(line)
-            print res
             if res ==None:
                 continue
             key=res['key']
@@ -230,7 +229,6 @@ cdef class theme:
                     self.palette[index+1]=b
                     self.palette[index+2]=c
                     index+=3
-                    print  index
     
 
         print("name:        {0}".format(self.name))
