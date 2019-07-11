@@ -97,9 +97,9 @@ cdef class theme:
             if self.layer1.inner.bottom==-1:
                self.layer1.inner.bottom=self.layer1.outer.get_y_percent(33)
             if self.layer1.dst.left==-1:
-               self.layer1.dst.left=(self.bounds.right-self.bounds.left)*-1
+               self.layer1.dst.left=(self.layer1.bounds.right-self.layer1.bounds.left)*-1
             if self.layer1.dst.top==-1:
-               self.layer1.dst.top=(self.bounds.bottom-self.bounds.top)*-1
+               self.layer1.dst.top=(self.layer1.bounds.bottom-self.layer1.bounds.top)*-1
 
         if self.layer2:
             self.layer2.load_file()
@@ -120,9 +120,9 @@ cdef class theme:
             if self.layer2.inner.bottom==-1:
                self.layer2.inner.bottom=self.layer2.outer.get_y_percent(33)
             if self.layer2.dst.left==-1:
-               self.layer2.dst.left=(self.bounds.right-self.bounds.left)*-1
+               self.layer2.dst.left=(self.layer2.bounds.right-self.layer2.bounds.left)*-1
             if self.layer2.dst.top==-1:
-               self.layer2.dst.top=(self.bounds.bottom-self.bounds.top)*-1
+               self.layer2.dst.top=(self.layer2.bounds.bottom-self.layer2.bounds.top)*-1
             
             self.layer2.debug()    
 
