@@ -100,6 +100,7 @@ cdef class theme:
 
             else:
                 if section=='layer':
+                    theme_layer.debug()
                     if self.layer1==None:
                         theme_layer.name="layer1"
                         self.layer1=theme_layer
