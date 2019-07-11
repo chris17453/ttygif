@@ -28,7 +28,6 @@ cdef class layer:
             print path
             raise Exception("Invalid image file")
 
-        self.file=file
         underlay_image=decode(path)
         gif_raw=underlay_image.get()
         for frame in gif_raw['frames']:
