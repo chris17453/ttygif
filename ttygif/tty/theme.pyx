@@ -149,18 +149,23 @@ cdef class theme:
                 if section=='layer':
                     if self.layer1==None:
                         theme_layer.name="layer1"
+                        self.auto()
                         self.layer1=theme_layer
                     elif self.layer2==None:
                         theme_layer.name="layer2"
+                        self.auto()
                         self.layer2=theme_layer
                     elif self.layer3==None:
                         theme_layer.name="layer3"
+                        self.auto()
                         self.layer3=theme_layer
                     elif self.layer4==None:
                         theme_layer.name="layer4"
+                        self.auto()
                         self.layer4=theme_layer
                     elif self.layer5==None:
                         theme_layer.name="layer5"
+                        self.auto()
                         self.layer5=theme_layer
                     #theme_layer=None
 
