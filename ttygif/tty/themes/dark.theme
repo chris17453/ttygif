@@ -12,10 +12,10 @@ default_foreground 15
 # padding_bottom      auto will pad based on 9 slice inner, otherwise 0
 
 padding
-left        auto
-top         auto
-right       auto
-bottom      auto
+left        0
+top         0
+right       0
+bottom      0
 
 
 

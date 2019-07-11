@@ -19,16 +19,16 @@ cdef class layer:
         self.outer=rect(0,0,0,0)
         self.inner=rect(0,0,0,0)
 
-    def debug(self):
+    cdef debug(self):
         print("Layer")
         print("  name:    {0}".format(self.z_index))
         print("  z_index: {0}".format(self.z_index))
         print("  file:    {0}".format(self.file))
         print("  mode:    {0}".format(self.mode))
         print("Outer: ")
-        #self.outer.debug()
+        self.outer.debug()
         print("Inner: ")
-        #self.inner.debug()
+        self.inner.debug()
         
 
 
