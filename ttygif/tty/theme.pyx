@@ -25,6 +25,7 @@ cdef class layer:
         path=os.path.join(script_path,'layers',file)
         
         if os.path.exists(path)==False:
+            print path
             raise Exception("Invalid image file")
 
         self.file=file
