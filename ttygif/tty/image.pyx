@@ -115,6 +115,30 @@ cdef class image:
     cdef clear(self,int init_value):
         memset(self.data.data.as_voidptr, init_value, self.dimentions.length )
 
+    cdef match_color_index(r,g,b):
+        last_distance=-1
+        mapped_color=-1
+        cdef int mr
+        cdef int mg
+        cdef int mb
+        #print r,g,b
+        color_table_len=len(self.palette)
+        for i in xrange(0,color_table_len,3):
+            mr=self.palette[i]
+            mg=self.palette[i+1]
+            mb=self.palette[i+2]
+            color_distance=(r-mr)*(r-mr)+(g-mg)*(g-mg)+(b-mb)*(b-mb)
+            if last_distance==-1 or color_distance<last_distance:
+                last_distance=color_distance
+                mapped_color=i/3
+
+        if mapped_color>255:
+            #print color_distance
+            raise Exception("Color value to high")
+
+        return mapped_color
+
+
 
     # plain copy 1-1
     cdef copy(self,image dst_image,rect src,point dst):
@@ -123,6 +147,8 @@ cdef class image:
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel(x+src.left,y+src.top)
+                
+                pixel=self.match_color_index(dst_image.palette[pixel*3],dst_image.palette[pixel*3+1],dst_image.palette[pixel*3+2])
                 dst_image.put_pixel(dst.left+x,dst.top+y,pixel)
 
 
@@ -145,6 +171,7 @@ cdef class image:
                 y3=src.get_y_percent(fy)
 
                 pixel=self.get_pixel(x3,y3)                
+                pixel=self.match_color_index(dst_image.palette[pixel*3],dst_image.palette[pixel*3+1],dst_image.palette[pixel*3+2])
                 dst_image.put_pixel(x+dst.left,y+dst.top,pixel)
 
     # tile src to dest
@@ -159,7 +186,9 @@ cdef class image:
                 y3=y%src.height+src.top
                 
                 pixel=self.get_pixel(x3,y3)
+                pixel=self.match_color_index(dst_image.palette[pixel*3],dst_image.palette[pixel*3+1],dst_image.palette[pixel*3+2])
                 dst_image.put_pixel(x+dst.left,y+dst.top,pixel)
+
 
 
 
