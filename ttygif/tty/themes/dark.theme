@@ -6,16 +6,17 @@ default_background 4
 default_foreground 15
 
 # moves the screen by an offset, usefull for overlays
-# padding_left        auto will pad based on 9 slice inner, otherwise 0
-# padding_top         auto will pad based on 9 slice inner, otherwise 0
-# padding_right       auto will pad based on 9 slice inner, otherwise 0
-# padding_bottom      auto will pad based on 9 slice inner, otherwise 0
+# padding     begins the padding section
+# left        auto will pad based on 9 slice inner, otherwise 0
+# top         auto will pad based on 9 slice inner, otherwise 0
+# right       auto will pad based on 9 slice inner, otherwise 0
+# bottom      auto will pad based on 9 slice inner, otherwise 0
 
 padding
-left        101
-top         20
-right       10
-bottom      20
+left        auto
+top         auto
+right       auto
+bottom      auto
 
 
 

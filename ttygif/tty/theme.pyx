@@ -43,7 +43,35 @@ cdef class theme:
         self.palette=array.array('B')
         self.padding=rect(0,0,0,0)
         self.init()
-     
+    cdef auto(self,int width,int height):
+        if padding.left==-1:
+            padding.left=0
+        if padding.right==-1:
+            padding.right=0
+        if padding.top==-1:
+            padding.top=0
+        if padding.bottom==-1:
+            padding.bottom=0
+
+        if self.layer1:
+            if self.layer1.outer.left==-1:
+               self.layer1.outer.left=self.padding.left
+            if self.layer1.outer.top==-1:
+               self.layer1.outer.top=self.padding.top
+            if self.layer1.outer.right==-1:
+               self.layer1.outer.right=width-self.padding.right-1
+            if self.layer1.outer.bottom==-1:
+               self.layer1.outer.bottom=height-self.padding.bottom-1
+            if self.layer1.inner.left==-1:
+               self.layer1.inner.left=(self.layer1.outer.right-self.layer1.outer.left)*.33
+            if self.layer1.inner.top==-1:
+               self.layer1.inner.top=(self.layer1.outer.bototm-self.layer1.outer.top)*.33
+            if self.layer1.inner.right==-1:
+               self.layer1.inner.right=(self.layer1.outer.right-self.layer1.outer.left).66
+            if self.layer1.inner.bottom==-1:
+               self.layer1.inner.bottom=(self.layer1.outer.bototm-self.layer1.outer.top)*.66
+        self.debug()    
+
     cdef init(self):
         cdef int a,b,c,index
         index=0
