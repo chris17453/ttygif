@@ -11,7 +11,7 @@ import types
 
 
 cdef class layer:
-    def __cint__(self):
+    def __int__(self):
         self.z_index=0
         self.name=''
         self.file=''
