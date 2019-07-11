@@ -71,6 +71,7 @@ class factory_json:
                 if len(partial)>0:
                     fragment+=object_template.format(",".join(map(str, partial))) 
             except:
+                print obj
                 pass
         else:
             fragment+=unk_template.format("UNK",obj)
