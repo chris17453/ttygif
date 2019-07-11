@@ -31,7 +31,7 @@ cdef class layer:
         self.file=file
         underlay_image=decode(path)
         gif_raw=underlay_image.get()
-        for frame in gif_raw:
+        for frame in gif_raw['frames']:
             if frame['image']:
                 atrribs=frame['descriptor']
                 self.image=image(1,atrribs.width,atrribs.height,gif_raw['global_color_table'],0)
