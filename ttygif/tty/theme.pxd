@@ -11,7 +11,6 @@ cdef class layer:
     cdef str         name
     cdef rect        outer
     cdef rect        inner
-    cdef __cinit__(self)
     cdef debug    (self)
 
     
