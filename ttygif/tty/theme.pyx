@@ -273,7 +273,8 @@ cdef class theme:
             if self.layer5: self.layer5.debug();
 
 
-    
+        self.auto()
+        
     def get_var(self,line,var):
         index=line.find(var)
         if index>=0:
