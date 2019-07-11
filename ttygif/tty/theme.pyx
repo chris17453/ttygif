@@ -61,7 +61,7 @@ cdef class factory_json:
         elif isinstance(obj, (type, types.ClassType)):
             partial=[]
             items=self.props(obj)
-            for item in items:
+            for item in obj:
                 partial.append(tuple_template.format(item,self.render( obj[item],depth=depth+1)))
             if len(partial)>0:
                 fragment+=object_template.format(",".join(map(str, partial))) 
@@ -74,7 +74,6 @@ cdef class factory_json:
                 if len(partial)>0:
                     fragment+=object_template.format(",".join(map(str, partial))) 
             except:
-                print obj
                 pass
         else:
             fragment+=unk_template.format("UNK",obj)
