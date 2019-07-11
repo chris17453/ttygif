@@ -23,7 +23,7 @@ cdef class layer:
     cdef load_file(self,str file):
         self.file=file
         underlay_image=decode("layers/"+file)
-        frames=underlay_image.get()
+        gif_raw=underlay_image.get()
         for frame in gif_raw:
             if frame['image']:
                 atrribs=frame['descriptor']
