@@ -8,6 +8,7 @@ import os
 import types
 from os.path import expanduser
 from ..gif.decode import decode
+from image import image
 
 
 
