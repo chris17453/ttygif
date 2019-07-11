@@ -13,15 +13,18 @@ import types
 cdef class layer:
     def __cint__(self):
         self.z_index=0
+        self.name=''
         self.file=''
         self.mode=''
         self.outer=rect(0,0,0,0)
         self.inner=rect(0,0,0,0)
 
     def debug(self):
-        print("z_index: {0}".format(self.z_index))
-        print("file:    {0}".format(self.file))
-        print("mode:    {0}".format(self.mode))
+        print("Layer")
+        print("  name:    {0}".format(self.z_index))
+        print("  z_index: {0}".format(self.z_index))
+        print("  file:    {0}".format(self.file))
+        print("  mode:    {0}".format(self.mode))
         self.outer.debug()
         self.inner.debug()
         
@@ -93,14 +96,19 @@ cdef class theme:
             else:
                 if section=='layer':
                     if self.layer1==None:
+                        layer.name="layer1"
                         self.layer1=layer
                     if self.layer2==None:
+                        layer.name="layer2"
                         self.layer2=layer
                     if self.layer3==None:
+                        layer.name="layer3"
                         self.layer3=layer
                     if self.layer4==None:
+                        layer.name="layer4"
                         self.layer4=layer
                     if self.layer5==None:
+                        layer.name="layer5"
                         self.layer5=layer
                     layer=None
 
