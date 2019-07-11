@@ -171,7 +171,7 @@ cdef class image:
                 y3=src.get_y_percent(fy)
 
                 pixel=self.get_pixel(x3,y3)                
-                pixel=self.match_color_index(dst_image.palette[pixel*3],dst_image.palette[pixel*3+1],dst_image.palette[pixel*3+2])
+                pixel=dst_image.match_color_index(self.palette[pixel*3],self.palette[pixel*3+1],self.palette[pixel*3+2])
                 dst_image.put_pixel(x+dst.left,y+dst.top,pixel)
 
     # tile src to dest
@@ -186,7 +186,7 @@ cdef class image:
                 y3=y%src.height+src.top
                 
                 pixel=self.get_pixel(x3,y3)
-                pixel=self.match_color_index(dst_image.palette[pixel*3],dst_image.palette[pixel*3+1],dst_image.palette[pixel*3+2])
+                pixel=dst_image.match_color_index(self.palette[pixel*3],self.palette[pixel*3+1],self.palette[pixel*3+2])
                 dst_image.put_pixel(x+dst.left,y+dst.top,pixel)
 
 
