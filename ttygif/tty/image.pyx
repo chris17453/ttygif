@@ -226,16 +226,16 @@ cdef class image:
 
 
        # print "src"
-       # src_1.debug()
-       # src_2.debug()
-       # src_3.debug()
-       # src_4.debug()
-       # src_5.debug()
-       # src_6.debug()
-       # src_7.debug()
-       # src_8.debug()
-       # src_9.debug()
-#
+        src_1.debug()
+        src_2.debug()
+        src_3.debug()
+        src_4.debug()
+        src_5.debug()
+        src_6.debug()
+        src_7.debug()
+        src_8.debug()
+        src_9.debug()
+        exit()
        # print "dst"
        # dst_1.debug()
        # dst_2.debug()

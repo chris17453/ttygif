@@ -48,8 +48,8 @@ outer-left       auto
 outer-top        auto
 outer-right      auto
 outer-bottom     auto
-inner-left       32
-inner-top        7    
+inner-left       7
+inner-top        32    
 inner-right      624
 inner-bottom     297
 
