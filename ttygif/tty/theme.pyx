@@ -25,7 +25,7 @@ cdef class layer:
         
         
 
-    cdef load_file(self,path):
+    cdef load_file(self,path,array.array palette):
         path=os.path.join(path,'layers',self.file) 
         if os.path.exists(path)==False:
             raise Exception("Invalid image file")
@@ -41,6 +41,8 @@ cdef class layer:
                     self.image.transparent=-1
                 if frame['gc'].TransparentColorFlag==1:
                     self.image.transparent=frame['gc'].ColorIndex
+                self.image.remap_image(palette)
+
 
 
     cdef debug(self):
@@ -75,7 +77,7 @@ cdef class theme:
     
     cdef update_layer(self, layer temp):
 
-        temp.load_file(self.path)
+        temp.load_file(self.path,palette)
         if temp.outer.left   ==-1: temp.outer.left=self.padding.left
         if temp.outer.top    ==-1: temp.outer.top=self.padding.top
         if temp.outer.right  ==-1: temp.outer.right=temp.image.dimentions.width-1

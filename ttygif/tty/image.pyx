@@ -137,6 +137,16 @@ cdef class image:
     cdef clear(self,int init_value):
         memset(self.data.data.as_voidptr, init_value, self.dimentions.length )
 
+    cdef remap_image(self,array.array palette):
+        cdef rect src=self.get_rect()
+        cdef point dst=src.get_point1()
+
+        image tmp=image(self.bytes_per_pixel,self.width,self.height,palette,self.init_value)
+        self.copy(tmp,src,dst)
+        self.data=tmp.data
+        self.palette=tmp.palette
+
+
     cdef match_color_index(self,int r,int g,int b):
         cdef double last_distance=-1
         cdef double color_distance
@@ -181,22 +191,19 @@ cdef class image:
 
         if dst.left<0:
             dst.left+=dst_image.dimentions.width-1
-            #dst.right+=dst.left
         if dst.top<0:
             dst.top+=dst_image.dimentions.height-1
-            #dst.bottom+=dst.top
-        #print("COPY")
-        #dst.debug()
-        #src.debug()
+
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel(x+src.left,y+src.top)
                 if pixel==self.transparent:
                     continue
-                r=self.palette[pixel*3+0]
-                g=self.palette[pixel*3+1]
-                b=self.palette[pixel*3+2]
-                dst_image.put_pixel_rgb(dst.left+x,dst.top+y,r,g,b)
+                #r=self.palette[pixel*3+0]
+                #g=self.palette[pixel*3+1]
+                #b=self.palette[pixel*3+2]
+                #dst_image.put_pixel_rgb(dst.left+x,dst.top+y,r,g,b)
+                dst_image.put_pixel(dst.left+x,dst.top+y,pixel)
 
 
     # strech src to fir dest
@@ -218,7 +225,7 @@ cdef class image:
                 y3=src.get_y_percent(fy)
 
                 pixel=self.get_pixel(x3,y3)                
-                pixel=dst_image.match_color_index(self.palette[pixel*3],self.palette[pixel*3+1],self.palette[pixel*3+2])
+                #pixel=dst_image.match_color_index(self.palette[pixel*3],self.palette[pixel*3+1],self.palette[pixel*3+2])
                 dst_image.put_pixel(x+dst.left,y+dst.top,pixel)
 
     # tile src to dest
@@ -233,7 +240,8 @@ cdef class image:
                 y3=y%src.height+src.top
                 
                 pixel=self.get_pixel(x3,y3)
-                pixel=dst_image.match_color_index(self.palette[pixel*3],self.palette[pixel*3+1],self.palette[pixel*3+2])
+                
+                #pixel=dst_image.match_color_index(self.palette[pixel*3],self.palette[pixel*3+1],self.palette[pixel*3+2])
                 dst_image.put_pixel(x+dst.left,y+dst.top,pixel)
 
 

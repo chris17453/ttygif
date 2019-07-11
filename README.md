@@ -51,17 +51,26 @@ optional arguments:
                    the cast file (default: None)
   --height HEIGHT  change character height of gif, default is 25 or what is in
                    the cast file (default: None)
-  --debug          show debuging statistics (default: None)
+  --debug          show debuging statistics (default: 
 ```
 
 ## themes
+Theming is based on the idea of branding your work for display in project repositories, ci/cd and online.
 
-Colors are lmited to what is available in any given theme. If a color is out of bounds for background or foreground, the default is used.
+### theme support
+
+- layers above and velow the terminal image
+- transparency in layers
+- overlays can be 1:1, 9slice (scale and tiled),  scaled
+- palettes are defined by themes
+
+### shipped themes
 
 - default (256 color xterm palette)
 - default-4bit  (16 colorxterm palette)
 - default-2bit  (monochrome palette)
-- dark
+- window7-dialog a frame windows style wrapped terminal
+
 
 ## file size
 
@@ -266,8 +275,6 @@ These are ideas that just pop in my head, or are gathered via discussion.
 - add progress bar to top/bottom of gif with n of y H:M:I:S
 - asciicast v1 support
 - cursor emulation
-- image underlay (branding)
-- image overlay (branding)
 - cliping
 - origin x,y
 - logging with ansi stripping
