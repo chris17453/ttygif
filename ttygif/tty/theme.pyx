@@ -67,7 +67,7 @@ cdef class theme:
             if self.layer1.inner.top==-1:
                self.layer1.inner.top=(self.layer1.outer.bototm-self.layer1.outer.top)*.33
             if self.layer1.inner.right==-1:
-               self.layer1.inner.right=(self.layer1.outer.right-self.layer1.outer.left).66
+               self.layer1.inner.right=(self.layer1.outer.right-self.layer1.outer.left)*.66
             if self.layer1.inner.bottom==-1:
                self.layer1.inner.bottom=(self.layer1.outer.bototm-self.layer1.outer.top)*.66
         self.debug()    
