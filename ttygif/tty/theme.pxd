@@ -13,7 +13,7 @@ cdef class layer:
     cdef rect        inner
     cdef image       image
     cdef debug    (self)
-    cdef load_file(self,str file)
+    cdef load_file(self)
 
     
 

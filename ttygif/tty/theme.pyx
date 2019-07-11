@@ -20,9 +20,9 @@ cdef class layer:
         self.outer=rect(0,0,0,0)
         self.inner=rect(0,0,0,0)
 
-    cdef load_file(self,str file):
+    cdef load_file(self):
         script_path = os.path.dirname(os.path.abspath( __file__ ))
-        path=os.path.join(script_path,'layers',file)
+        path=os.path.join(script_path,'layers',self.file)
         
         if os.path.exists(path)==False:
             print path
@@ -76,6 +76,7 @@ cdef class theme:
         #    padding.bottom=0
 
         if self.layer1:
+            self.layer1.load_file()
             if self.layer1.outer.left==-1:
                self.layer1.outer.left=self.padding.left
             if self.layer1.outer.top==-1:
@@ -198,7 +199,7 @@ cdef class theme:
                 elif key=='depth':
                     theme_layer.z_index=int(value)
                 elif key=='file':
-                    theme_layer.load_file(value)
+                    theme_layer.file=value
                 elif key=='mode':
                     theme_layer.mode=value
                 elif key=='outer-left':
