@@ -78,7 +78,7 @@ cdef class theme:
         theme_file=open(path) 
         theme_data=theme_file.readlines()
 
-        layer=None
+        theme_layer=None
         section=''
         for line in theme_data:
             line=" ".join(line.split())
@@ -98,21 +98,21 @@ cdef class theme:
             else:
                 if section=='layer':
                     if self.layer1==None:
-                        layer.name="layer1"
-                        self.layer1=layer
+                        theme_layer.name="layer1"
+                        self.layer1=theme_layer
                     if self.layer2==None:
-                        layer.name="layer2"
-                        self.layer2=layer
+                        theme_layer.name="layer2"
+                        self.layer2=theme_layer
                     if self.layer3==None:
-                        layer.name="layer3"
-                        self.layer3=layer
+                        theme_layer.name="layer3"
+                        self.layer3=theme_layer
                     if self.layer4==None:
-                        layer.name="layer4"
-                        self.layer4=layer
+                        theme_layer.name="layer4"
+                        self.layer4=theme_layer
                     if self.layer5==None:
-                        layer.name="layer5"
-                        self.layer5=layer
-                    layer=None
+                        theme_layer.name="layer5"
+                        self.layer5=theme_layer
+                    theme_layer=None
 
                 section=key
 
@@ -137,29 +137,29 @@ cdef class theme:
 
             elif section=='layer':
                 if   key=='layer':
-                    layer=layer()
+                    theme_layer=layer()
                 elif key=='depth':
-                    layer.depth=int(value)
+                    theme_layer.depth=int(value)
                 elif key=='file':
-                    layer.file=value
+                    theme_layer.file=value
                 elif key=='mode':
-                    layer.mode=value
+                    theme_layer.mode=value
                 elif key=='outer-left':
-                    layer.outer_left=int(value)
+                    theme_layer.outer_left=int(value)
                 elif key=='outer-top':
-                    layer.outer_top=int(value)
+                    theme_layer.outer_top=int(value)
                 elif key=='outer-right':
-                    layer.outer_right=int(value)
+                    theme_layer.outer_right=int(value)
                 elif key=='outer-bottom':
-                    layer.outer_bottom=int(value)
+                    theme_layer.outer_bottom=int(value)
                 elif key=='inner-left':
-                    layer.inner_left=int(value)
+                    theme_layer.inner_left=int(value)
                 elif key=='inner-top':
-                    layer.inner_top=int(value)
+                    theme_layer.inner_top=int(value)
                 elif key=='inner-right':
-                    layer.inner_right=int(value)
+                    theme_layer.inner_right=int(value)
                 elif key=='inner-bottom':
-                    layer.inner_bottom=int(value)
+                    theme_layer.inner_bottom=int(value)
             
             elif section=='palette':
                 if   key=='palette':
