@@ -39,7 +39,8 @@ padding_bottom      auto
 # frame_anchor   5          the anchor point for the frame in a grid of 3x3 numbered 1-9  5=center
 
 
-layer            -1
+layer
+depth           -1
 file             windows7-dialog.gif             
 mode             9slice
 outer-left       auto
