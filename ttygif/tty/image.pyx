@@ -123,6 +123,11 @@ cdef class image:
             for i in xrange(0,self.dimentions.bytes_per_pixel):
                 pix_byte=pixel[i]
                 self.data[pos+i]=pix_byte
+
+    cdef put_pixel_rgb(self,int x,int y,pixel):
+        pixel=self.match_color_index(self.palette[pixel*3],self.palette[pixel*3+1],self.palette[pixel*3+2])
+        self.put_pixel(x,y,pixel)
+
     
     cdef clear(self,int init_value):
         memset(self.data.data.as_voidptr, init_value, self.dimentions.length )
@@ -158,19 +163,19 @@ cdef class image:
     cdef copy(self,image dst_image,rect src,point dst):
         cdef int x
         cdef int y
-        if dst.left<0:
-            dst.left+=dst_image.dimentions.width-1
-        if dst.top<0:
-            dst.top+=dst_image.dimentions.height-1
+        cdef int dx=dst.left
+        cdef int dy=dst.top
+        if dx<0:
+            dx+=dst_image.dimentions.width-1
+        if dyp<0:
+            dy+=dst_image.dimentions.height-1
         print("COPY")
         dst.debug()
         src.debug()
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel(x+src.left,y+src.top)
-                
-                pixel=dst_image.match_color_index(self.palette[pixel*3],self.palette[pixel*3+1],self.palette[pixel*3+2])
-                dst_image.put_pixel(dst.left+x,dst.top+y,pixel)
+                dst_image.put_pixel_rgb(dx+x,dy+y,pixel)
 
 
     # strech src to fir dest
