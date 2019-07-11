@@ -272,6 +272,7 @@ ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
 These are ideas that just pop in my head, or are gathered via discussion.
 
 - documentation
+- draw string template for theme, title, overlay
 - font /codepage mapping for utf 8,16,13 characters to base 256 map
 - embed event stream in gif as control header data
 - time period ( capture partial recording based on time stamps x-y)

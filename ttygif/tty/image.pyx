@@ -243,28 +243,21 @@ cdef class image:
                 # percentage
                 fx=dst.percent_x(x)
                 fy=dst.percent_y(y)
-
                 x3=src.get_x_percent(fx)
                 y3=src.get_y_percent(fy)
-
                 pixel=self.get_pixel(x3,y3)                
-                #pixel=dst_image.match_color_index(self.palette[pixel*3],self.palette[pixel*3+1],self.palette[pixel*3+2])
                 dst_image.put_pixel(x+dst.left,y+dst.top,pixel)
 
     # tile src to dest
     cdef copy_tile(self,image dst_image,rect src,rect dst):
         cdef int x
         cdef int y 
-   
         for y in xrange(0,dst.height):
             for x in xrange(0,dst.width):
                 
                 x3=x%src.width+src.left
                 y3=y%src.height+src.top
-                
                 pixel=self.get_pixel(x3,y3)
-                
-                #pixel=dst_image.match_color_index(self.palette[pixel*3],self.palette[pixel*3+1],self.palette[pixel*3+2])
                 dst_image.put_pixel(x+dst.left,y+dst.top,pixel)
 
 
@@ -331,10 +324,10 @@ cdef class image:
         self.copy_tile(dst_image,src_6, dst_6)
         self.copy_tile(dst_image,src_8, dst_8)
 
-        #if mode=='scale':
-        #    self.copy_scale(dst_image,src_5,dst_5)
-        #elif mode=='tile':
-        #    self.copy_tile(dst_image,src_5, dst_5)
+        if mode=='scale':
+            self.copy_scale(dst_image,src_5,dst_5)
+        elif mode=='tile':
+            self.copy_tile(dst_image,src_5, dst_5)
 
        # print "src"
        # src_1.debug()

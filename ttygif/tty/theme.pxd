@@ -14,6 +14,7 @@ cdef class layer:
     cdef rect        bounds
     cdef point       dst
     cdef str         center
+    cdef str         copy_mode
 
 
     cdef image       image
