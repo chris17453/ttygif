@@ -92,10 +92,10 @@ cdef class theme:
 
     cdef auto(self):
         if self.layer1:
-            update_layer(self.layer1)            
+            self.update_layer(self.layer1)            
 
         if self.layer2:
-            update_layer(self.layer2)            
+            self.update_layer(self.layer2)            
 
     cdef init(self):
         cdef int a,b,c,index
