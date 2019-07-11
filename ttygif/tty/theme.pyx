@@ -77,7 +77,7 @@ cdef class theme:
         
         if os.path.exists(path)==False:
             raise Exception("Invalid theme file")
-        print("Theme: {0}".format(name))
+        print("Theme: {0}".format(self.name))
         theme_file=open(path) 
         theme_data=theme_file.readlines()
 
