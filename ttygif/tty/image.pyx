@@ -16,6 +16,14 @@ cdef class bounds:
         self.length          =self.stride*height
         self.bytes_per_pixel =bytes_per_pixel
 
+    cdef debug(self):
+        print("  height:  {0}".format(self.height))
+        print("  width:   {0}".format(self.width))
+        print("  stride:  {0}".format(self.stride))
+        print("  length:  {0}".format(self.length))
+        print("  bytes_per_pixel: {0}".format(self.bytes_per_pixel))
+
+
 cdef class rect:
     def __cinit__(self,int left,int top,int right,int bottom):
         self.left   =left
@@ -63,6 +71,10 @@ cdef class point:
     def __cinit__(self,int left,int top):
         self.left   =left
         self.top    =top
+    cdef debug(self):
+        print("POINT")
+        print("  left:   {0}".format(self.left))
+        print("  top:    {0}".format(self.top))
 
 # image class, holds image metrics, data and palette        
 cdef class image:

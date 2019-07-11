@@ -12,10 +12,13 @@ cdef class bounds:
     cdef public int stride
     cdef public int length
     cdef public int bytes_per_pixel
+    cdef debug(self):
 
 cdef class point:
     cdef int left
     cdef int top
+    cdef debug(self):
+
 
 cdef class rect:
     cdef int left
