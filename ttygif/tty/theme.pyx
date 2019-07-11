@@ -162,7 +162,9 @@ cdef class theme:
                     layer.inner_bottom=int(value)
             
             elif section=='palette':
-                if key=='colors':
+                if   key=='palette':
+                    continue
+                elif key=='colors':
                     self.colors=int(res)
                     array.resize(self.palette,self.colors*3)
                 else:
