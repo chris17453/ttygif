@@ -116,13 +116,14 @@ cdef class image:
         memset(self.data.data.as_voidptr, init_value, self.dimentions.length )
 
     cdef match_color_index(self,int r,int g,int b):
-        last_distance=-1
-        mapped_color=-1
+        cdef int last_distance=-1
+        cdef int mapped_color=-1
+        cdef int color_distance
         cdef int mr
         cdef int mg
         cdef int mb
         #print r,g,b
-        color_table_len=len(self.palette)
+        cdef int color_table_len=len(self.palette)
         for i in xrange(0,color_table_len,3):
             mr=self.palette[i]
             mg=self.palette[i+1]
