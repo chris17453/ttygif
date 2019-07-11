@@ -267,7 +267,9 @@ cdef class theme:
         # return if comment
         if line[0]=='#': return None
         
-        line=join" ".line.split()
+        if not line: return None
+        
+        line=" ".join().line.split() )
         tokens=line.split()
         
         if   isinstance(tokens,list):
