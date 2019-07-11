@@ -28,7 +28,7 @@ cdef class layer:
         print("Outer: ")
         #self.outer.debug()
         print("Inner: ")
-        self.inner.debug()
+        #self.inner.debug()
         
 
 
