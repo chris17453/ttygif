@@ -91,6 +91,7 @@ cdef class theme:
                self.layer1.inner.right=self.layer1.outer.get_x_percent(66)
             if self.layer1.inner.bottom==-1:
                self.layer1.inner.bottom=self.layer1.outer.get_y_percent(33)
+        print("AUTO")
         self.layer1.debug()    
 
     cdef init(self):

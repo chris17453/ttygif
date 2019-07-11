@@ -225,27 +225,27 @@ cdef class image:
         self.copy_tile(dst_image,src_8, dst_8)
 
 
-        print "src"
-        src_1.debug()
-        src_2.debug()
-        src_3.debug()
-        src_4.debug()
-        src_5.debug()
-        src_6.debug()
-        src_7.debug()
-        src_8.debug()
-        src_9.debug()
-
-        print "dst"
-        dst_1.debug()
-        dst_2.debug()
-        dst_3.debug()
-        dst_4.debug()
-        dst_5.debug()
-        dst_6.debug()
-        dst_7.debug()
-        dst_8.debug()
-        dst_9.debug()
+       # print "src"
+       # src_1.debug()
+       # src_2.debug()
+       # src_3.debug()
+       # src_4.debug()
+       # src_5.debug()
+       # src_6.debug()
+       # src_7.debug()
+       # src_8.debug()
+       # src_9.debug()
+#
+       # print "dst"
+       # dst_1.debug()
+       # dst_2.debug()
+       # dst_3.debug()
+       # dst_4.debug()
+       # dst_5.debug()
+       # dst_6.debug()
+       # dst_7.debug()
+       # dst_8.debug()
+       # dst_9.debug()
     
     cdef debug(self):
         print("Image")
