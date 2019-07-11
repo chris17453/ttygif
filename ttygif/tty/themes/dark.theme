@@ -44,7 +44,6 @@ layer
 depth           -2
 file             windows7-dialog.gif             
 mode             9slice
-
 outer-left       0
 outer-top        1
 outer-right      auto
@@ -62,8 +61,7 @@ left             527
 top              1
 right            632
 bottom           32
-
-dst-left       - 105
+dst-left        -105
 dst-top          1    
 
 
