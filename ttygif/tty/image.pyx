@@ -33,6 +33,11 @@ cdef class rect:
         self.height =bottom-top+1
         self.width  =right-left+1
 
+    cdef update(self):        
+        self.height =self.bottom-self.top+1
+        self.width  =self.right-self.left+1
+
+
     cdef percent_x(self,float x):
         cdef float percent=x/float(self.width)
         return percent
