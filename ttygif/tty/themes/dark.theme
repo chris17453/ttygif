@@ -11,11 +11,11 @@ default_foreground 15
 # padding_right       auto will pad based on 9 slice inner, otherwise 0
 # padding_bottom      auto will pad based on 9 slice inner, otherwise 0
 
-padding_left        auto
-padding_top         auto
-padding_right       auto
-padding_bottom      auto
-
+padding
+left        auto
+top         auto
+right       auto
+bottom      auto
 
 
 

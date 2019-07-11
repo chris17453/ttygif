@@ -126,40 +126,42 @@ cdef class theme:
                     self.default_foreground=int(value)
                 elif key=='default_background':
                     self.default_background=int(value)
-                elif key=='padding_left':
+            elif section=='padding':
+                elif key=='left':
                     self.padding.left=int(value)
-                elif key=='padding_right':
+                elif key=='right':
                     self.padding.right=int(value)
-                elif key=='padding_top':
+                elif key=='top':
                     self.padding.top=int(value)
-                elif key=='padding_bottom':
+                elif key=='bottom':
                     self.padding.bottom=int(value)
 
             elif section=='layer':
                 if   key=='layer':
                     theme_layer=layer()
-                elif key=='depth':
-                    theme_layer.z_index=int(value)
-                elif key=='file':
-                    theme_layer.file=value
-                elif key=='mode':
-                    theme_layer.mode=value
-                elif key=='outer-left':
-                    theme_layer.outer.left=int(value)
-                elif key=='outer-top':
-                    theme_layer.outer.top=int(value)
-                elif key=='outer-right':
-                    theme_layer.outer.right=int(value)
-                elif key=='outer-bottom':
-                    theme_layer.outer.bottom=int(value)
-                elif key=='inner-left':
-                    theme_layer.inner.left=int(value)
-                elif key=='inner-top':
-                    theme_layer.inner.top=int(value)
-                elif key=='inner-right':
-                    theme_layer.inner.right=int(value)
-                elif key=='inner-bottom':
-                    theme_layer.inner.bottom=int(value)
+                
+                #elif key=='depth':
+                #    theme_layer.z_index=int(value)
+                #elif key=='file':
+                #    theme_layer.file=value
+                #elif key=='mode':
+                #    theme_layer.mode=value
+                #elif key=='outer-left':
+                #    theme_layer.outer.left=int(value)
+                #elif key=='outer-top':
+                #    theme_layer.outer.top=int(value)
+                #elif key=='outer-right':
+                #    theme_layer.outer.right=int(value)
+                #elif key=='outer-bottom':
+                #    theme_layer.outer.bottom=int(value)
+                #elif key=='inner-left':
+                #    theme_layer.inner.left=int(value)
+                #elif key=='inner-top':
+                #    theme_layer.inner.top=int(value)
+                #elif key=='inner-right':
+                #    theme_layer.inner.right=int(value)
+                #elif key=='inner-bottom':
+                #    theme_layer.inner.bottom=int(value)
             
             elif section=='palette':
                 if   key=='palette':
@@ -187,16 +189,11 @@ cdef class theme:
         print("colors:              {0}".format(self.colors))
         self.padding.debug()
         
-        if self.layer1:
-            self.layer1.debug();
-        if self.layer2:
-            self.layer2.debug();
-        if self.layer3:
-            self.layer3.debug();
-        if self.layer4:
-            self.layer4.debug();
-        if self.layer5:
-            self.layer5.debug();
+        if self.layer1: self.layer1.debug();
+        if self.layer2: self.layer2.debug();
+        if self.layer3: self.layer3.debug();
+        if self.layer4: self.layer4.debug();
+        if self.layer5: self.layer5.debug();
 
 
     
