@@ -139,9 +139,9 @@ cdef class terminal_graphics:
                 pixel=self.font.graphic[char_pos]
                 if pixel==1:
                     self.viewport.data[screen_pos]=foreground_color
-                else:
-                    if background_color!=0:
-                        self.viewport.data[screen_pos]=background_color
+                #else:
+                #    if background_color!=0:
+                #        self.viewport.data[screen_pos]=background_color
                 char_pos+=1
 
     cdef get_text(self):
