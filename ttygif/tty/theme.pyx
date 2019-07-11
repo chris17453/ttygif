@@ -7,86 +7,6 @@ from image cimport rect
 import os
 import types
 
-cdef class factory_json:
-    def dumps(self,data):
-        output_string=self.render(data)
-        return output_string
-
-
-    def props(self,cls):   
-        if '__dict__' in cls:
-            return [i for i in cls.__dict__.keys() if i[:1] != '_']
-        return None
-
-    def render(self,obj,depth=0):
-        """json like output for python objects, very loose"""
-        unk_template='"???{0}???"'
-        str_template='"{0}"'
-        int_template="{0}"
-        float_template="{0}"
-        bool_template="{0}"
-        array_template='['+'{0}'+']'
-        tuple_template='"{0}":{1}'
-        object_template='{{'+'{0}'+'}}'
-        fragment=""
-        if isinstance(obj,__builtins__.__class__):
-                print "class"
-        
-        if None == obj:
-            return fragment
-
-        if isinstance(obj,str):
-            fragment+=str_template.format(obj)
-
-        elif isinstance(obj,int):
-            fragment+=int_template.format(obj)
-
-        elif isinstance(obj,float):
-            fragment+=float_template.format(obj)
-        
-        elif isinstance(obj,bool):
-            fragment+=bool_template.format(obj)
-        elif  isinstance(obj,list):
-            partial=[]
-            for item in obj:
-                partial.append(self.render(item,depth=depth+1))
-            if len(partial)>0:
-                fragment+=array_template.format(",".join(map(str, partial)))
-        
-        elif isinstance(obj,dict):
-            partial=[]
-            for item in obj:
-                partial.append(tuple_template.format(item,self.render(obj[item],depth=depth+1)))
-            if len(partial)>0:
-                fragment+=object_template.format(",".join(map(str, partial))) 
-
-        elif isinstance(obj, (type, types.ClassType)):
-            partial=[]
-            items=self.props(obj)
-            for item in obj:
-                partial.append(tuple_template.format(item,self.render( obj[item],depth=depth+1)))
-            if len(partial)>0:
-                fragment+=object_template.format(",".join(map(str, partial))) 
-
-        elif isinstance(obj,object):
-            partial=[]
-            try:
-                for item in obj:
-                    partial.append(tuple_template.format(item,self.render(obj[item],depth=depth+1)))
-                if len(partial)>0:
-                    fragment+=object_template.format(",".join(map(str, partial))) 
-            except:
-                items=self.props(obj)
-                for item in obj:
-                    partial.append(tuple_template.format(item,self.render( obj[item],depth=depth+1)))
-                if len(partial)>0:
-                    fragment+=object_template.format(",".join(map(str, partial))) 
-
-                pass
-        else:
-            fragment+=unk_template.format("UNK",obj)
-        return fragment
-
 
 
 
@@ -97,6 +17,14 @@ cdef class layer:
         self.mode=''
         self.outer=rect(0,0,0,0)
         self.inner=rect(0,0,0,0)
+        
+    def debug(self):
+        print("z_index: {0}".format(self.z_index))
+        print("file:    {0}".format(self.file))
+        print("mode:    {0}".format(self.mode))
+        self.outer.debug()
+        self.inner.debug()
+        
 
 
 cdef class theme:
@@ -239,8 +167,32 @@ cdef class theme:
                     self.palette[index+2]=c
                     index+=3
         print ("HI")
-        js=factory_json()
-        print(js.dumps(self))
+            cdef int         z_index
+    cdef str         file
+    cdef str         mode  
+    cdef rect        outer
+    cdef rect        inner
+    print("name:  {0}".format(self.name))
+    print("background:  {0}".format(self.background))
+    print("foreground:  {0}".format(self.foreground))
+    print("default_background:  {0}".format(self.default_background))
+    print("default_foreground:  {0}".format(self.default_foreground))
+    print("colors:  {0}".format(self.colors))
+
+    self.padding.debug()
+    
+    if self.layer1:
+        self.layer1.debug();
+    if self.layer2:
+        self.layer2.debug();
+    if self.layer3:
+        self.layer3.debug();
+    if self.layer4:
+        self.layer4.debug();
+    if self.layer5:
+        self.layer5.debug();
+
+
     
     def get_var(self,line,var):
         index=line.find(var)

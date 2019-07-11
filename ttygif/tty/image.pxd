@@ -30,6 +30,7 @@ cdef class rect:
     cdef get_y_percent(self,float y)
     cdef point1(self)
     cdef point2(self)
+    cdef debug(self)
 
 cdef class image:
     cdef array.array data

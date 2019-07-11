@@ -49,6 +49,16 @@ cdef class rect:
     cdef point2(self):
         return point(self.right,self.bottom)
 
+    cdef debug(self):
+        print("RECT"))
+        print("  left:   {0}".format(self.left))
+        print("  top:    {0}".format(self.top))
+        print("  right:  {0}".format(self.right))
+        print("  bottom: {0}".format(self.bottom))
+        print("  height: {0}".format(self.height))
+        print("  width:  {0}".format(self.width))
+
+
 cdef class point:
     def __cinit__(self,int left,int top):
         self.left   =left
@@ -152,8 +162,6 @@ cdef class image:
 
     # template image for adaptive scaling via grid and looping
     cdef copy_9slice(self,image dst_image,rect outer,rect inner,rect dst):
-    
-
         #grid 1 2 3   
         #grid 4 5 6
         #grid 7 8 9
