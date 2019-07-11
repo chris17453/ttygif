@@ -163,19 +163,17 @@ cdef class image:
     cdef copy(self,image dst_image,rect src,point dst):
         cdef int x
         cdef int y
-        cdef int dx=dst.left
-        cdef int dy=dst.top
-        if dx<0:
-            dx+=dst_image.dimentions.width-1
-        if dy<0:
-            dy+=dst_image.dimentions.height-1
+        if dst.left<0:
+            dst.left+=dst_image.dimentions.width-1
+        if dst.top<0:
+            dst.top+=dst_image.dimentions.height-1
         print("COPY")
         dst.debug()
         src.debug()
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel(x+src.left,y+src.top)
-                dst_image.put_pixel_rgb(dx+x,dy+y,pixel)
+                dst_image.put_pixel_rgb(dst.left+x,dst.top+y,pixel)
 
 
     # strech src to fir dest
