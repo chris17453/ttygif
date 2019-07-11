@@ -165,7 +165,7 @@ cdef class theme:
                 if   key=='palette':
                     continue
                 elif key=='colors':
-                    self.colors=int(res)
+                    self.colors=int(value)
                     array.resize(self.palette,self.colors*3)
                 else:
                     tokens=line.split(' ')
