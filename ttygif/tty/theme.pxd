@@ -2,7 +2,7 @@
 # cython: binding=True
 # cython: language_level=2
 from cpython cimport array
-from image cimport rect,image
+from image cimport rect,image,point
 
 cdef class layer:
     cdef int         z_index
