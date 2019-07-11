@@ -100,7 +100,6 @@ cdef class theme:
 
             else:
                 if section=='layer':
-                    theme_layer.debug()
                     if self.layer1==None:
                         theme_layer.name="layer1"
                         self.layer1=theme_layer
@@ -143,6 +142,8 @@ cdef class theme:
             elif section=='layer':
                 if   key=='layer':
                     theme_layer=layer()
+                    theme_layer.inner=rect(0,0,0,0)
+                    theme_layer.outer=rect(0,0,0,0)
                 
                 elif key=='depth':
                     theme_layer.z_index=int(value)
