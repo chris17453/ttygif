@@ -27,9 +27,8 @@ class factory_json:
         tuple_template='"{0}":{1}'
         object_template='{{'+'{0}'+'}}'
         fragment=""
-        for t in types:
-            if isinstance(obj, types.ModuleType):
-                print "MODULE"
+        if isinstance(obj,__builtins__.__class__):
+                print "class"
         if None == obj:
             return fragment
 
