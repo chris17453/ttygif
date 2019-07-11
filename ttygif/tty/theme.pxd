@@ -8,9 +8,10 @@ cdef class layer:
     cdef int         z_index
     cdef str         file
     cdef str         mode  
+    cdef str         name
     cdef rect        outer
     cdef rect        inner
-    
+
     
 
 cdef class theme:    
