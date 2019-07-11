@@ -26,7 +26,7 @@ cdef class layer:
         print("  file:    {0}".format(self.file))
         print("  mode:    {0}".format(self.mode))
         print("Outer: ")
-        self.outer.debug()
+        #self.outer.debug()
         print("Inner: ")
         self.inner.debug()
         
