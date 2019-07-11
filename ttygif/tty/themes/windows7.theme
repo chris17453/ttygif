@@ -58,6 +58,7 @@ inner-left       7
 inner-top        31   
 inner-right      627
 inner-bottom     299
+copy-mode        scale
 
 layer
 depth           -1
