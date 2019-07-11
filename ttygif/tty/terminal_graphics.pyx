@@ -229,11 +229,10 @@ cdef class terminal_graphics:
 
     cdef render(self):
         cdef int zindex=-10
+        self.viewport.clear(self.state.default_background);
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
         
-        if self.theme.layer1==None:
-            self.viewport.clear(self.state.default_background);
         
         cdef int fg =0
         cdef int bg =0
