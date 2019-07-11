@@ -14,9 +14,9 @@ default_foreground 15
 
 padding
 left        8
-top         33
-right       624
-bottom      296
+top         32
+right       8
+bottom      8
 
 
 
