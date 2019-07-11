@@ -240,7 +240,7 @@ cdef class image:
 
 
     # template image for adaptive scaling via grid and looping
-    cdef copy_9slice(self,image dst_image,rect outer,rect inner,rect dst):
+    cdef copy_9slice(self,image dst_image,rect outer,rect inner,rect dst,str mode):
         #grid 1 2 3   
         #grid 4 5 6
         #grid 7 8 9
@@ -300,6 +300,10 @@ cdef class image:
         self.copy_tile(dst_image,src_6, dst_6)
         self.copy_tile(dst_image,src_8, dst_8)
 
+        if mode=='scale':
+            self.copy_scale(dst_image,src_5,dst_5)
+        elif mode=='tile':
+            self.copy_tile(dst_image,src_5, dst_5)
 
        # print "src"
        # src_1.debug()
