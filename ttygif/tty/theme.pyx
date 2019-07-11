@@ -11,7 +11,7 @@ import types
 
 
 cdef class layer:
-    def __int__(self):
+    def __cint__(self):
         self.z_index=0
         self.name=''
         self.file=''
@@ -81,7 +81,7 @@ cdef class theme:
         theme_file=open(path) 
         theme_data=theme_file.readlines()
 
-        theme_layer=None
+        cdef layer theme_layer=None
         section=''
         for line in theme_data:
             line=" ".join(line.split())
