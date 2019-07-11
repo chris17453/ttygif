@@ -182,17 +182,17 @@ cdef class image:
         cdef int g
         cdef int b
 
-        #if dst.left==-1:
-        #    dst.left=dst_image.dimentions.width-1-(src.right-src.left)
-        #    #dst.right+=dst.left
-        #if dst.top==-1:
-        #    dst.top=dst_image.dimentions.height-1-(src.bottom-src.top)
+        if dst.left==-1:
+            dst.left=dst_image.dimentions.width-1-(src.right-src.left)
+            #dst.right+=dst.left
+        if dst.top==-1:
+            dst.top=dst_image.dimentions.height-1-(src.bottom-src.top)
 #
 #
-        #if dst.left<0:
-        #    dst.left+=dst_image.dimentions.width-1
-        #if dst.top<0:
-        #    dst.top+=dst_image.dimentions.height-1
+        if dst.left<0:
+            dst.left+=dst_image.dimentions.width-1
+        if dst.top<0:
+            dst.top+=dst_image.dimentions.height-1
 
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
@@ -337,7 +337,7 @@ cdef class image:
         #    self.copy_tile(dst_image,src_5, dst_5)
 
        # print "src"
-       # src_1.debug()
+        src_1.debug()
        # src_2.debug()
        # src_3.debug()
        # src_4.debug()
@@ -348,7 +348,7 @@ cdef class image:
        # src_9.debug()
        # exit()
        # print "dst"
-       # dst_1.debug()
+        dst_1.debug()
        # dst_2.debug()
        # dst_3.debug()
        # dst_4.debug()
