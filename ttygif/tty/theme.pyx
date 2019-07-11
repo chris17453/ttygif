@@ -96,10 +96,10 @@ cdef class theme:
                self.layer1.inner.right=self.layer1.outer.get_x_percent(66)
             if self.layer1.inner.bottom==-1:
                self.layer1.inner.bottom=self.layer1.outer.get_y_percent(33)
-            if self.layer2.dst.left==-1:
-               self.layer2.dst.left=(self.bounds.right-self.bounds.left)*-1
-            if self.layer2.dst.top==-1:
-               self.layer2.dst.top=(self.bounds.bottom-self.bounds.top)*-1
+            if self.layer1.dst.left==-1:
+               self.layer1.dst.left=(self.bounds.right-self.bounds.left)*-1
+            if self.layer1.dst.top==-1:
+               self.layer1.dst.top=(self.bounds.bottom-self.bounds.top)*-1
 
         if self.layer2:
             self.layer2.load_file()
@@ -127,7 +127,6 @@ cdef class theme:
             
 
 
-        print("AUTO")
         self.layer2.debug()    
 
     cdef init(self):
