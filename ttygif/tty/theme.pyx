@@ -54,6 +54,8 @@ cdef class layer:
         self.outer.debug()
         print("Inner: ")
         self.inner.debug()
+        print("Bounds: ")
+        self.bounds.debug()
         
 
 

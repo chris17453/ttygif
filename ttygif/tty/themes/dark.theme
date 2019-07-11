@@ -58,13 +58,13 @@ layer
 depth           -1
 file             windows7-dialog-controls.gif             
 mode             copy
-left            527
-top             1
-right           632
-bottom          32
+left             527
+top              1
+right            632
+bottom           32
 
-dst-left       -105
-dst-top        1    
+dst-left       - 105
+dst-top          1    
 
 
 
