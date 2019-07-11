@@ -36,6 +36,7 @@ cdef class image:
     cdef array.array data
     cdef bounds      dimentions
     cdef array.array palette
+    cdef get_rect(self)
     cdef create_buffer(self,size,init_value)
     cdef get_position(self,int x,int y)
     cdef get_pixel(self,int x,int y)

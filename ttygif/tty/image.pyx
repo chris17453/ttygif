@@ -73,6 +73,9 @@ cdef class image:
         if palette:
             self.palette   =palette
     
+    cdef get_rect(self):
+        return rect(0,0,self.dimentions.width-1,self.dimentions.height-1)
+
     cdef create_buffer(self,size,init_value):
         cdef array.array data=array.array('B')
         array.resize(data,size)
