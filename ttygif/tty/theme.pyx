@@ -145,21 +145,21 @@ cdef class theme:
                 elif key=='mode':
                     theme_layer.mode=value
                 elif key=='outer-left':
-                    theme_layer.outer_left=int(value)
+                    theme_layer.outer.left=int(value)
                 elif key=='outer-top':
-                    theme_layer.outer_top=int(value)
+                    theme_layer.outer.top=int(value)
                 elif key=='outer-right':
-                    theme_layer.outer_right=int(value)
+                    theme_layer.outer.right=int(value)
                 elif key=='outer-bottom':
-                    theme_layer.outer_bottom=int(value)
+                    theme_layer.outer.bottom=int(value)
                 elif key=='inner-left':
-                    theme_layer.inner_left=int(value)
+                    theme_layer.inner.left=int(value)
                 elif key=='inner-top':
-                    theme_layer.inner_top=int(value)
+                    theme_layer.inner.top=int(value)
                 elif key=='inner-right':
-                    theme_layer.inner_right=int(value)
+                    theme_layer.inner.right=int(value)
                 elif key=='inner-bottom':
-                    theme_layer.inner_bottom=int(value)
+                    theme_layer.inner.bottom=int(value)
             
             elif section=='palette':
                 if   key=='palette':
