@@ -34,7 +34,7 @@ cdef class layer:
         for frame in gif_raw['frames']:
             if frame['image']:
                 atrribs=frame['descriptor']
-                self.image=image(1,atrribs.Width,atrribs.Height,gif_raw['global_color_table'],0)
+                self.image=image(1,atrribs.Width,atrribs.Height,array.array('B',gif_raw['global_color_table'].colors),0)
                 self.image.data=frame['image']
 
         
