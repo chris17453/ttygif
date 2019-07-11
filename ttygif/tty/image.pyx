@@ -50,7 +50,7 @@ cdef class rect:
         return point(self.right,self.bottom)
 
     cdef debug(self):
-        print("RECT"))
+        print("RECT")
         print("  left:   {0}".format(self.left))
         print("  top:    {0}".format(self.top))
         print("  right:  {0}".format(self.right))
