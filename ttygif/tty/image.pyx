@@ -115,7 +115,7 @@ cdef class image:
     cdef clear(self,int init_value):
         memset(self.data.data.as_voidptr, init_value, self.dimentions.length )
 
-    cdef match_color_index(r,g,b):
+    cdef match_color_index(self,r,g,b):
         last_distance=-1
         mapped_color=-1
         cdef int mr
