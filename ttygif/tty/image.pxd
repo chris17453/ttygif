@@ -45,3 +45,4 @@ cdef class image:
     cdef copy_scale(self,image dst_image,rect src,rect dst)
     cdef copy_tile(self,image dst_image,rect src,rect dst)
     cdef copy_9slice(self,image dst_image,rect outer,rect inner,rect dst)
+    cdef debug(self)

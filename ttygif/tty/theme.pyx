@@ -6,6 +6,7 @@ from cpython cimport array
 from image cimport rect
 import os
 import types
+from ..gif.decode import decode
 
 
 
@@ -18,6 +19,19 @@ cdef class layer:
         self.mode=''
         self.outer=rect(0,0,0,0)
         self.inner=rect(0,0,0,0)
+
+    cdef load_file(self,str file):
+        self.file=file
+        underlay_image=decode("layers/"+file)
+        frames=underlay_image.get()
+        for frame in gif_raw:
+            if frame['image']:
+                atrribs=frame['descriptor']
+                self.image=image(1,attribs,width,attribs.height,gif_raw['global_color_table'],0)
+                self.image.data=frame['image']
+
+        
+
 
     cdef debug(self):
         print("Layer")
@@ -174,7 +188,7 @@ cdef class theme:
                 elif key=='depth':
                     theme_layer.z_index=int(value)
                 elif key=='file':
-                    theme_layer.file=value
+                    theme_layer.load_file(value)
                 elif key=='mode':
                     theme_layer.mode=value
                 elif key=='outer-left':
