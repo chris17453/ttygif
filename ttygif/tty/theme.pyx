@@ -28,8 +28,8 @@ class factory_json:
         object_template='{{'+'{0}'+'}}'
         fragment=""
         for t in types:
-            if isinstance(obj, (type,t)):
-                print t
+            if isinstance(obj, types.ModuleType):
+                print "MODULE"
         if None == obj:
             return fragment
 
