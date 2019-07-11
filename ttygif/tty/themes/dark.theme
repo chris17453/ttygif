@@ -56,7 +56,7 @@ inner-bottom     299
 
 layer
 depth           -1
-file             windows7-dialog.gif             
+file             windows7-dialog-controls.gif             
 mode             copy
 left            527
 top             1
