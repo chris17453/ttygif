@@ -224,7 +224,6 @@ cdef class theme:
                     self.colors=int(value)
                     array.resize(self.palette,self.colors*3)
                 else:
-                
                     tokens=line.split(' ')
                     #print line,tokens
                     a=int(tokens[0])
@@ -234,6 +233,7 @@ cdef class theme:
                     self.palette[index+1]=b
                     self.palette[index+2]=c
                     index+=3
+                    print  index
     
 
         print("name:        {0}".format(self.name))
