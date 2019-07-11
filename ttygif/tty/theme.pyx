@@ -141,7 +141,7 @@ cdef class theme:
             res=self.get_anyvar(line)
             if res ==None:
                 continue
-
+            print section,line
             key=res['key']
             value=None
             if 'value' in res:
