@@ -119,7 +119,7 @@ cdef class theme:
         path=os.path.join(script_path,'themes',self.name+".theme")
         if os.path.exists(path)==False:
         
-            home = os.path.join(expanduser("~"),'ttygif')
+            home = os.path.join(expanduser("~"),'.ttygif')
             path=os.path.join(home,'themes',self.name+".theme")
             self.path=home
         
