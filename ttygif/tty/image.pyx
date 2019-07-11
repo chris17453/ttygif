@@ -182,24 +182,24 @@ cdef class image:
         cdef int g
         cdef int b
 
-        if dst.left==-1:
-            dst.left=dst_image.dimentions.width-1-(src.right-src.left)
-            #dst.right+=dst.left
-        if dst.top==-1:
-            dst.top=dst_image.dimentions.height-1-(src.bottom-src.top)
-
-
-        if dst.left<0:
-            dst.left+=dst_image.dimentions.width-1
-        if dst.top<0:
-            dst.top+=dst_image.dimentions.height-1
+        #if dst.left==-1:
+        #    dst.left=dst_image.dimentions.width-1-(src.right-src.left)
+        #    #dst.right+=dst.left
+        #if dst.top==-1:
+        #    dst.top=dst_image.dimentions.height-1-(src.bottom-src.top)
+#
+#
+        #if dst.left<0:
+        #    dst.left+=dst_image.dimentions.width-1
+        #if dst.top<0:
+        #    dst.top+=dst_image.dimentions.height-1
 
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel(x+src.left,y+src.top)
                 if pixel==self.transparent:
                     continue
-                dst_image.put_pixel(x,dst.top+y,pixel)
+                dst_image.put_pixel(dst.left+x,dst.top+y,pixel)
 
     cdef copy_remap(self,image dst_image,rect src,point dst):
         cdef int x
