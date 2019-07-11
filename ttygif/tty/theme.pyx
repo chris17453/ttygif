@@ -139,7 +139,7 @@ cdef class theme:
                 if   key=='layer':
                     theme_layer=layer()
                 elif key=='depth':
-                    theme_layer.depth=int(value)
+                    theme_layer.z_index=int(value)
                 elif key=='file':
                     theme_layer.file=value
                 elif key=='mode':
