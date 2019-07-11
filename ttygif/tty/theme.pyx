@@ -17,7 +17,7 @@ cdef class layer:
         self.mode=''
         self.outer=rect(0,0,0,0)
         self.inner=rect(0,0,0,0)
-        
+
     def debug(self):
         print("z_index: {0}".format(self.z_index))
         print("file:    {0}".format(self.file))
@@ -166,12 +166,6 @@ cdef class theme:
                     self.palette[index+1]=b
                     self.palette[index+2]=c
                     index+=3
-        print ("HI")
-            cdef int         z_index
-    cdef str         file
-    cdef str         mode  
-    cdef rect        outer
-    cdef rect        inner
     print("name:  {0}".format(self.name))
     print("background:  {0}".format(self.background))
     print("foreground:  {0}".format(self.foreground))
