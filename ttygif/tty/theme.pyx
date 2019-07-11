@@ -44,14 +44,14 @@ cdef class theme:
         self.padding=rect(0,0,0,0)
         self.init()
     cdef auto(self,int width,int height):
-        if padding.left==-1:
-            padding.left=0
-        if padding.right==-1:
-            padding.right=0
-        if padding.top==-1:
-            padding.top=0
-        if padding.bottom==-1:
-            padding.bottom=0
+        #if padding.left==-1:
+        #    padding.left=0
+        #if padding.right==-1:
+        #    padding.right=0
+        #if padding.top==-1:
+        #    padding.top=0
+        #if padding.bottom==-1:
+        #    padding.bottom=0
 
         if self.layer1:
             if self.layer1.outer.left==-1:
