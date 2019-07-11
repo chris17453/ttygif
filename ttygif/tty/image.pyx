@@ -165,10 +165,10 @@ cdef class image:
         cdef int y
         if dst.left<0:
             dst.left+=dst_image.dimentions.width-1
-            dst.right+=dst.left
+            #dst.right+=dst.left
         if dst.top<0:
             dst.top+=dst_image.dimentions.height-1
-            dst.bottom+=dst.top
+            #dst.bottom+=dst.top
         #print("COPY")
         #dst.debug()
         #src.debug()
