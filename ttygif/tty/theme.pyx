@@ -140,28 +140,28 @@ cdef class theme:
                 if   key=='layer':
                     theme_layer=layer()
                 
-                #elif key=='depth':
-                #    theme_layer.z_index=int(value)
-                #elif key=='file':
-                #    theme_layer.file=value
-                #elif key=='mode':
-                #    theme_layer.mode=value
-                #elif key=='outer-left':
-                #    theme_layer.outer.left=int(value)
-                #elif key=='outer-top':
-                #    theme_layer.outer.top=int(value)
-                #elif key=='outer-right':
-                #    theme_layer.outer.right=int(value)
-                #elif key=='outer-bottom':
-                #    theme_layer.outer.bottom=int(value)
-                #elif key=='inner-left':
-                #    theme_layer.inner.left=int(value)
-                #elif key=='inner-top':
-                #    theme_layer.inner.top=int(value)
-                #elif key=='inner-right':
-                #    theme_layer.inner.right=int(value)
-                #elif key=='inner-bottom':
-                #    theme_layer.inner.bottom=int(value)
+                elif key=='depth':
+                    theme_layer.z_index=int(value)
+                elif key=='file':
+                    theme_layer.file=value
+                elif key=='mode':
+                    theme_layer.mode=value
+                elif key=='outer-left':
+                    theme_layer.outer.left=int(value)
+                elif key=='outer-top':
+                    theme_layer.outer.top=int(value)
+                elif key=='outer-right':
+                    theme_layer.outer.right=int(value)
+                elif key=='outer-bottom':
+                    theme_layer.outer.bottom=int(value)
+                elif key=='inner-left':
+                    theme_layer.inner.left=int(value)
+                elif key=='inner-top':
+                    theme_layer.inner.top=int(value)
+                elif key=='inner-right':
+                    theme_layer.inner.right=int(value)
+                elif key=='inner-bottom':
+                    theme_layer.inner.bottom=int(value)
             
             elif section=='palette':
                 if   key=='palette':
@@ -169,18 +169,19 @@ cdef class theme:
                 elif key=='colors':
                     self.colors=int(value)
                     array.resize(self.palette,self.colors*3)
-                else:
-                    tokens=line.split(' ')
-                    #print line,tokens
-                    a=int(tokens[0])
-                    b=int(tokens[1])
-                    c=int(tokens[2])
-                    self.palette[index+0]=a
-                    self.palette[index+1]=b
-                    self.palette[index+2]=c
-                    index+=3
-    
-
+#                else:
+#                
+#                    tokens=line.split(' ')
+#                    #print line,tokens
+#                    a=int(tokens[0])
+#                    b=int(tokens[1])
+#                    c=int(tokens[2])
+#                    self.palette[index+0]=a
+#                    self.palette[index+1]=b
+#                    self.palette[index+2]=c
+#                    index+=3
+#    
+#
         print("name:        {0}".format(self.name))
         print("background:  {0}".format(self.background))
         print("foreground:  {0}".format(self.foreground))
