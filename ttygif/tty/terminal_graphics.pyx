@@ -43,7 +43,6 @@ cdef class terminal_graphics:
             char_height = viewport_height / image_font.width
 
         self.theme      =theme_loader(theme_name)
-        self.theme.auto(px_width,px_height)
         self.state      = display_state(char_width,char_height,user_theme=self.theme)
         self.alt_state  = display_state(char_width,char_height,user_theme=self.theme)
         self.screen     = image(3,char_width ,char_height ,self.theme.palette,0                )
