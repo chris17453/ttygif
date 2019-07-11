@@ -203,6 +203,7 @@ cdef class image:
                 #g=self.palette[pixel*3+1]
                 #b=self.palette[pixel*3+2]
                 #dst_image.put_pixel_rgb(dst.left+x,dst.top+y,r,g,b)
+                print dst.left+x
                 dst_image.put_pixel(dst.left+x,dst.top+y,pixel)
 
     cdef copy_remap(self,image dst_image,rect src,point dst):
@@ -295,8 +296,7 @@ cdef class image:
         # COPY 1,3,7,9 
         # tile 2,4,6,8
         # stretch 5 or omit...
-        outer.debug()
-        inner.debug()
+        
 
         cdef rect   src_1=rect(outer.left    ,outer.top     ,inner.left     ,inner.top)
         cdef rect   src_2=rect(inner.left+1  ,outer.top     ,inner.right-1  ,inner.top)
