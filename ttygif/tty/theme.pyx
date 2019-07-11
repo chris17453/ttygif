@@ -167,7 +167,6 @@ cdef class theme:
                     elif self.layer5==None:
                         theme_layer.name="layer5"
                         self.layer5=theme_layer
-                    self.auto()
                     theme_layer=None
 
                 section=key
@@ -274,7 +273,7 @@ cdef class theme:
 
 
         self.auto()
-        
+
     def get_var(self,line,var):
         index=line.find(var)
         if index>=0:
