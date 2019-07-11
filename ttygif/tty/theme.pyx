@@ -150,6 +150,7 @@ cdef class theme:
                 elif key=='mode':
                     theme_layer.mode=value
                 elif key=='outer-left':
+                    print "o-l",value
                     theme_layer.outer.left=int(value)
                 elif key=='outer-top':
                     theme_layer.outer.top=int(value)
