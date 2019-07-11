@@ -141,7 +141,7 @@ cdef class image:
         cdef rect src=self.get_rect()
         cdef point dst=src.get_point1()
 
-        image tmp=image(self.bytes_per_pixel,self.width,self.height,palette,self.init_value)
+        cdef image tmp=image(self.bytes_per_pixel,self.width,self.height,palette,self.init_value)
         self.copy(tmp,src,dst)
         self.data=tmp.data
         self.palette=tmp.palette
