@@ -139,7 +139,7 @@ cdef class image:
 
     cdef remap_image(self,array.array palette):
         cdef rect src=self.get_rect()
-        cdef point dst=src.get_point1()
+        cdef point dst=src.point1()
 
         cdef image tmp=image(self.bytes_per_pixel,self.width,self.height,palette,self.init_value)
         self.copy(tmp,src,dst)
