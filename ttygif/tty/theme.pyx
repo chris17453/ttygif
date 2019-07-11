@@ -21,14 +21,17 @@ cdef class layer:
 
     cdef debug(self):
         print("Layer")
-        print("  name:    {0}".format(self.z_index))
+        print("  name:    {0}".format(self.name))
         print("  z_index: {0}".format(self.z_index))
         print("  file:    {0}".format(self.file))
         print("  mode:    {0}".format(self.mode))
         print("Outer: ")
-        self.outer.debug()
-        print("Inner: ")
-        self.inner.debug()
+        try:
+            self.outer.debug()
+            print("Inner: ")
+            self.inner.debug()
+        except Exception as ex:
+            print ex
         
 
 
