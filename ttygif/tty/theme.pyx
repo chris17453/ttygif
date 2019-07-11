@@ -275,7 +275,8 @@ cdef class theme:
                 return {'key':tokens[0]}
             elif len(tokens)==2:
                 return {'key':tokens[0],'value':tokens[1]}
-            else return {'key':'array','value':tokens}
+            else:
+                return {'key':'array','value':tokens}
         elif isinstance(tokens,str):
                 return {'key':tokens}
         return None     
