@@ -220,3 +220,6 @@ cdef class image:
         self.copy_tile(dst,src_4, dst_4)
         self.copy_tile(dst,src_6, dst_6)
         self.copy_tile(dst,src_8, dst_8)
+    
+    cdef debug(self):
+        print("Image")
