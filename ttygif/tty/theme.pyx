@@ -7,7 +7,7 @@ from image cimport rect
 import os
 import types
 
-class factory_json:
+cdef class factory_json:
     def dumps(self,data):
         output_string=self.render(data)
         return output_string
@@ -29,6 +29,7 @@ class factory_json:
         fragment=""
         if isinstance(obj,__builtins__.__class__):
                 print "class"
+        
         if None == obj:
             return fragment
 
