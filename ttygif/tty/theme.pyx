@@ -26,12 +26,9 @@ cdef class layer:
         print("  file:    {0}".format(self.file))
         print("  mode:    {0}".format(self.mode))
         print("Outer: ")
-        try:
-            self.outer.debug()
-            print("Inner: ")
-            self.inner.debug()
-        except Exception as ex:
-            print ex
+        self.outer.debug()
+        print("Inner: ")
+        self.inner.debug()
         
 
 
@@ -45,6 +42,9 @@ cdef class theme:
         self.default_foreground=15
         self.palette=array.array('B')
         self.padding=rect(0,0,0,0)
+        self.init()
+     
+    cdef init(self):
         cdef int a,b,c,index
         index=0
 

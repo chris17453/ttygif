@@ -29,4 +29,5 @@ cdef class theme:
     cdef layer       layer3
     cdef layer       layer4
     cdef layer       layer5
+    cdef init(self)
 
