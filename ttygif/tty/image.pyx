@@ -116,9 +116,9 @@ cdef class image:
         memset(self.data.data.as_voidptr, init_value, self.dimentions.length )
 
     cdef match_color_index(self,int r,int g,int b):
-        cdef int last_distance=-1
+        cdef double last_distance=-1
+        cdef double color_distance
         cdef int mapped_color=0
-        cdef int color_distance
         cdef int mr
         cdef int mg
         cdef int mb
