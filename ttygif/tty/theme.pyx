@@ -14,7 +14,9 @@ cdef class factory_json:
 
 
     def props(self,cls):   
-        return [i for i in cls.__dict__.keys() if i[:1] != '_']
+        if '__dict__' in cls:
+            return [i for i in cls.__dict__.keys() if i[:1] != '_']
+        return None
 
     def render(self,obj,depth=0):
         """json like output for python objects, very loose"""
