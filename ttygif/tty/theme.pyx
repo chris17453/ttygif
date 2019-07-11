@@ -98,6 +98,7 @@ cdef class theme:
     cdef auto(self):
         if self.layer1:
             self.update_layer(self.layer1)
+#            self.layer1.image.transparent=-1
 
         if self.layer2:
             self.update_layer(self.layer2)
@@ -180,6 +181,7 @@ cdef class theme:
                     self.default_background=int(value)
                 elif key=='transparent':
                     self.transparent=int(value)
+                    print ("transparent",self.transparent)
             elif section=='padding':
                 if   key=='left':
                     self.padding.left=int(value)
