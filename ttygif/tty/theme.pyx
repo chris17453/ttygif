@@ -150,7 +150,6 @@ cdef class theme:
                 elif key=='mode':
                     theme_layer.mode=value
                 elif key=='outer-left':
-                    print "o-l",value
                     theme_layer.outer.left=int(value)
                 elif key=='outer-top':
                     theme_layer.outer.top=int(value)
@@ -194,6 +193,10 @@ cdef class theme:
         print("colors:              {0}".format(self.colors))
         self.padding.debug()
         
+        print self.layer1.inner.left
+        print self.layer1.inner.top
+        print self.layer1.inner.right
+        print self.layer1.inner.bottom
         if self.layer1: self.layer1.debug();
         if self.layer2: self.layer2.debug();
         if self.layer3: self.layer3.debug();
