@@ -17,12 +17,13 @@ cdef class layer:
 
     cdef image       image
     cdef debug    (self)
-    cdef load_file(self)
+    cdef load_file(self,path)
 
     
 
 cdef class theme:    
     cdef str         name
+    cdef str         path
     cdef int         background
     cdef int         foreground
     cdef int         default_background

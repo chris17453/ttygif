@@ -6,6 +6,7 @@ from cpython cimport array
 from image cimport rect,point
 import os
 import types
+from os.path import expanduser
 from ..gif.decode import decode
 
 
@@ -24,12 +25,9 @@ cdef class layer:
         
         
 
-    cdef load_file(self):
-        script_path = os.path.dirname(os.path.abspath( __file__ ))
-        path=os.path.join(script_path,'layers',self.file)
-        
+    cdef load_file(self,path):
+        path=os.path.join(script_path,'layers',os.path.join(path,'layers',self.file) )
         if os.path.exists(path)==False:
-            print path
             raise Exception("Invalid image file")
 
         underlay_image=decode(path)
@@ -43,9 +41,6 @@ cdef class layer:
                     self.image.transparent=-1
                 if frame['gc'].TransparentColorFlag==1:
                     self.image.transparent=frame['gc'].ColorIndex
-
-
-        
 
 
     cdef debug(self):
@@ -78,7 +73,8 @@ cdef class theme:
         self.init()
     
     cdef update_layer(self, layer temp):
-        temp.load_file()
+
+        temp.load_file(self.path)
         if temp.outer.left   ==-1: temp.outer.left=self.padding.left
         if temp.outer.top    ==-1: temp.outer.top=self.padding.top
         if temp.outer.right  ==-1: temp.outer.right=temp.image.dimentions.width-1
@@ -119,9 +115,16 @@ cdef class theme:
         index=0
 
         script_path = os.path.dirname(os.path.abspath( __file__ ))
+        self.path=script_path
         path=os.path.join(script_path,'themes',self.name+".theme")
         if os.path.exists(path)==False:
-            raise Exception("Invalid theme file")
+        
+            home = os.path.join(expanduser("~"),'ttygif')
+            path=os.path.join(home,'themes',self.name+".theme")
+            self.path=home
+        
+            if os.path.exists(path)==False:
+                raise Exception("Invalid theme file")
   
         print("Theme: {0}".format(self.name))
         theme_file=open(path) 
@@ -242,20 +245,21 @@ cdef class theme:
                     index+=3
     
 
-        print("name:        {0}".format(self.name))
-        print("background:  {0}".format(self.background))
-        print("foreground:  {0}".format(self.foreground))
-        print("default_background:  {0}".format(self.default_background))
-        print("default_foreground:  {0}".format(self.default_foreground))
-        print("colors:              {0}".format(self.colors))
-        self.padding.debug()
+        if 0==1:
+            print("name:        {0}".format(self.name))
+            print("background:  {0}".format(self.background))
+            print("foreground:  {0}".format(self.foreground))
+            print("default_background:  {0}".format(self.default_background))
+            print("default_foreground:  {0}".format(self.default_foreground))
+            print("colors:              {0}".format(self.colors))
+            self.padding.debug()
+            
         
-       
-        if self.layer1: self.layer1.debug();
-        if self.layer2: self.layer2.debug();
-        if self.layer3: self.layer3.debug();
-        if self.layer4: self.layer4.debug();
-        if self.layer5: self.layer5.debug();
+            if self.layer1: self.layer1.debug();
+            if self.layer2: self.layer2.debug();
+            if self.layer3: self.layer3.debug();
+            if self.layer4: self.layer4.debug();
+            if self.layer5: self.layer5.debug();
 
 
     

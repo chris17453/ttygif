@@ -20,7 +20,7 @@ bottom      8
 
 
 
-# layer          underlay/overlay 
+# layer          underlay/overlay, you can only have 5 layers, layer 1,2 are underlays,3,4,5 are overlays. Drawn in that order
 # file           space.gif  the path of the file to use in this layer
 # mode           center     center the image on the center of this image
 # mode           stretch    stretch the image over this image, aspect ratio may diverge
@@ -70,16 +70,16 @@ bottom           auto
 dst-left        -105
 dst-top          0  
 
-layer
-depth           -1
-file             alert.gif             
-mode             copy
-left             auto
-top              auto
-right            auto
-bottom           auto
-dst-left        -1
-dst-top         -1  
+#layer
+#depth           -1
+#file             alert.gif             
+#mode             copy
+#left             auto
+#top              auto
+#right            auto
+#bottom           auto
+#dst-left        -1
+#dst-top         -1  
 
 
 palette
