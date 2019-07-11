@@ -128,7 +128,6 @@ cdef class theme:
             if self.layer2.dst.top==-1:
                self.layer2.dst.top=(self.layer2.bounds.bottom-self.layer2.bounds.top)*-1
             
-            self.layer2.debug()    
 
     cdef init(self):
         cdef int a,b,c,index
