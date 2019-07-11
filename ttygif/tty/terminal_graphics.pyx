@@ -228,7 +228,7 @@ cdef class terminal_graphics:
         cdef int x  =0
         cdef int y  =0
         cdef int character=0
-
+        return
         for y in xrange(0,self.screen.dimentions.height):
             for x in xrange(0,self.screen.dimentions.width):
                 pixel=self.screen.get_pixel(x,y)
