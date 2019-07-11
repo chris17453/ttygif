@@ -81,9 +81,9 @@ cdef class theme:
             if self.layer1.outer.top==-1:
                self.layer1.outer.top=self.padding.top
             if self.layer1.outer.right==-1:
-               self.layer1.outer.right=self.layer1.image.dimentions.width-self.padding.right-1
+               self.layer1.outer.right=self.layer1.image.dimentions.width-self.padding.right
             if self.layer1.outer.bottom==-1:
-               self.layer1.outer.bottom=self.layer1.image.dimentions.height-self.padding.bottom-1
+               self.layer1.outer.bottom=self.layer1.image.dimentions.height-self.padding.bottom
             if self.layer1.inner.left==-1:
                self.layer1.inner.left=self.layer1.outer.get_x_percent(33)
             if self.layer1.inner.top==-1:
