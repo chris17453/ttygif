@@ -27,6 +27,7 @@ cdef class rect:
     cdef int bottom
     cdef int width
     cdef int height
+    cdef update(self)
     cdef percent_x(self,float x)
     cdef percent_y(self,float y)
     cdef get_x_percent(self,float x)

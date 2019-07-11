@@ -89,6 +89,10 @@ cdef class theme:
         if temp.bounds.bottom==-1: temp.bounds.bottom =temp.image.dimentions.height-1
         if temp.dst.left     ==-1: temp.dst.left      =(temp.bounds.right-temp.bounds.left)*-1
         if temp.dst.top      ==-1: temp.dst.top       =(temp.bounds.bottom-temp.bounds.top)*-1
+        temp.outer.update()
+        temp.inner.update()
+        temp.bounds.update()
+
 
     cdef auto(self):
         if self.layer1:
