@@ -218,6 +218,7 @@ cdef class terminal_graphics:
         self.state.background=color
     
     cdef copy(self,layer temp):
+        
         if temp==None:
             return
         if  temp.mode=="9slice":
@@ -227,12 +228,10 @@ cdef class terminal_graphics:
 
 
     cdef render(self):
+        cdef int zindex=-10
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
-        #self.copy(self.theme.layer3)
-        #self.copy(self.theme.layer4)
-        #self.copy(self.theme.layer5)
-        #
+        
         if self.theme.layer1==None:
             self.viewport.clear(self.state.default_background);
         
@@ -249,6 +248,11 @@ cdef class terminal_graphics:
                 bg=pixel[1]
                 character=pixel[2]
                 self.draw_character(character,x,y,fg,bg)
+
+        self.copy(self.theme.layer3)
+        self.copy(self.theme.layer4)
+        self.copy(self.theme.layer5)
+        
   
     # convert the text stream to a text formated grid
 #    cdef debug(self): 
