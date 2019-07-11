@@ -167,7 +167,7 @@ cdef class image:
         cdef int dy=dst.top
         if dx<0:
             dx+=dst_image.dimentions.width-1
-        if dyp<0:
+        if dy<0:
             dy+=dst_image.dimentions.height-1
         print("COPY")
         dst.debug()
