@@ -181,7 +181,6 @@ cdef class theme:
                     self.default_background=int(value)
                 elif key=='transparent':
                     self.transparent=int(value)
-                    print ("transparent",self.transparent)
             elif section=='padding':
                 if   key=='left':
                     self.padding.left=int(value)
