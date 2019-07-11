@@ -99,41 +99,19 @@ cdef class theme:
         cdef int a,b,c,index
         index=0
 
-        keys=[
-        'background',
-        'foreground',
-        'default_foreground',
-        'default_background',
-        'padding_left',
-        'padding_right',
-        'padding_top',
-        'padding_bottom',
-        'layers',
-        'colors',
-        'depth',
-        'file',
-        'mode',
-        'outer-left',
-        'outer-top',
-        'outer-right',
-        'outer-bottom',
-        'inner-left',
-        'inner-top',
-        'inner-right',
-        'inner-bottom',]
-
         script_path = os.path.dirname(os.path.abspath( __file__ ))
-        
         path=os.path.join(script_path,'themes',self.name+".theme")
-        
         if os.path.exists(path)==False:
             raise Exception("Invalid theme file")
+  
         print("Theme: {0}".format(self.name))
         theme_file=open(path) 
         theme_data=theme_file.readlines()
 
         cdef layer theme_layer=None
         section=''
+  
+  
         for line in theme_data:
             res=self.get_anyvar(line)
             if res ==None:
@@ -149,25 +127,21 @@ cdef class theme:
                 if section=='layer':
                     if self.layer1==None:
                         theme_layer.name="layer1"
-                        self.auto()
                         self.layer1=theme_layer
                     elif self.layer2==None:
                         theme_layer.name="layer2"
-                        self.auto()
                         self.layer2=theme_layer
                     elif self.layer3==None:
                         theme_layer.name="layer3"
-                        self.auto()
                         self.layer3=theme_layer
                     elif self.layer4==None:
                         theme_layer.name="layer4"
-                        self.auto()
                         self.layer4=theme_layer
                     elif self.layer5==None:
                         theme_layer.name="layer5"
-                        self.auto()
                         self.layer5=theme_layer
-                    #theme_layer=None
+                    self.auto()
+                    theme_layer=None
 
                 section=key
 
