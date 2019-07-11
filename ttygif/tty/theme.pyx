@@ -65,10 +65,11 @@ class factory_json:
 
         elif isinstance(obj,object):
             partial=[]
-            for item in obj:
-                partial.append(tuple_template.format(item,self.render(obj[item],depth=depth+1)))
-            if len(partial)>0:
-                fragment+=object_template.format(",".join(map(str, partial))) 
+            if  iter(obj):
+                for item in obj:
+                    partial.append(tuple_template.format(item,self.render(obj[item],depth=depth+1)))
+                if len(partial)>0:
+                    fragment+=object_template.format(",".join(map(str, partial))) 
         else:
             fragment+=unk_template.format("UNK",obj)
         return fragment
