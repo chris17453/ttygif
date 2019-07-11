@@ -44,7 +44,7 @@ cdef class theme:
         self.padding=rect(0,0,0,0)
         self.init()
      
-    cdef init(self):
+    cdef init(self,path):
         cdef int a,b,c,index
         index=0
 
@@ -73,7 +73,7 @@ cdef class theme:
 
         script_path = os.path.dirname(os.path.abspath( __file__ ))
         
-        path=os.path.join(script_path,'themes',name+".theme")
+        path=os.path.join(script_path,'themes',self.name+".theme")
         
         if os.path.exists(path)==False:
             raise Exception("Invalid theme file")
