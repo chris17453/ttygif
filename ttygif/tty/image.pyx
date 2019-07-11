@@ -203,8 +203,6 @@ cdef class image:
         
         for y in xrange(0,src.height):
             dst_image.put_pixel(0,y,1)
-            dst_image.put_pixel(1,y,2)
-            dst_image.put_pixel(4,y,3)
 
     cdef copy_remap(self,image dst_image,rect src,point dst):
         cdef int x
