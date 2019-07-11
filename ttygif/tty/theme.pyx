@@ -166,25 +166,26 @@ cdef class theme:
                     self.palette[index+1]=b
                     self.palette[index+2]=c
                     index+=3
-    print("name:  {0}".format(self.name))
-    print("background:  {0}".format(self.background))
-    print("foreground:  {0}".format(self.foreground))
-    print("default_background:  {0}".format(self.default_background))
-    print("default_foreground:  {0}".format(self.default_foreground))
-    print("colors:  {0}".format(self.colors))
-
-    self.padding.debug()
     
-    if self.layer1:
-        self.layer1.debug();
-    if self.layer2:
-        self.layer2.debug();
-    if self.layer3:
-        self.layer3.debug();
-    if self.layer4:
-        self.layer4.debug();
-    if self.layer5:
-        self.layer5.debug();
+
+        print("name:        {0}".format(self.name))
+        print("background:  {0}".format(self.background))
+        print("foreground:  {0}".format(self.foreground))
+        print("default_background:  {0}".format(self.default_background))
+        print("default_foreground:  {0}".format(self.default_foreground))
+        print("colors:  {0}".format(self.colors))
+        self.padding.debug()
+        
+        if self.layer1:
+            self.layer1.debug();
+        if self.layer2:
+            self.layer2.debug();
+        if self.layer3:
+            self.layer3.debug();
+        if self.layer4:
+            self.layer4.debug();
+        if self.layer5:
+            self.layer5.debug();
 
 
     
