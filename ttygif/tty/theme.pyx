@@ -36,7 +36,6 @@ cdef class layer:
                 atrribs=frame['descriptor']
                 self.image=image(1,atrribs.Width,atrribs.Height,array.array('B',gif_raw['global_color_table'].colors),0)
                 self.image.data=frame['image'].data
-                self.theme.auto(atrribs.Width,atrribs.Height)
 
 
         
@@ -82,9 +81,9 @@ cdef class theme:
             if self.layer1.outer.top==-1:
                self.layer1.outer.top=self.padding.top
             if self.layer1.outer.right==-1:
-               self.layer1.outer.right=width-self.padding.right-1
+               self.layer1.outer.right=self.layer1.image.dimentions.width-self.padding.right-1
             if self.layer1.outer.bottom==-1:
-               self.layer1.outer.bottom=height-self.padding.bottom-1
+               self.layer1.outer.bottom=self.layer1.image.dimentions.height-self.padding.bottom-1
             if self.layer1.inner.left==-1:
                self.layer1.inner.left=self.layer1.outer.get_x_percent(33)
             if self.layer1.inner.top==-1:
