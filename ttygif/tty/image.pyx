@@ -200,6 +200,9 @@ cdef class image:
                 if pixel==self.transparent:
                     continue
                 dst_image.put_pixel(dst.left+x,dst.top+y,pixel)
+        
+        for y in xrange(0,src.height):
+            dst_image.put_pixel(0,y,1)
 
     cdef copy_remap(self,image dst_image,rect src,point dst):
         cdef int x
@@ -337,7 +340,7 @@ cdef class image:
         #    self.copy_tile(dst_image,src_5, dst_5)
 
        # print "src"
-        src_1.debug()
+       # src_1.debug()
        # src_2.debug()
        # src_3.debug()
        # src_4.debug()
@@ -348,7 +351,7 @@ cdef class image:
        # src_9.debug()
        # exit()
        # print "dst"
-        dst_1.debug()
+       # dst_1.debug()
        # dst_2.debug()
        # dst_3.debug()
        # dst_4.debug()
