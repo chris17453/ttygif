@@ -181,6 +181,8 @@ cdef class theme:
                     self.default_background=int(value)
                 elif key=='transparent':
                     self.transparent=int(value)
+                elif key=='font':
+                    self.font=value
             elif section=='padding':
                 if   key=='left':
                     self.padding.left=int(value)
@@ -229,6 +231,8 @@ cdef class theme:
                     theme_layer.dst.left=int(value)
                 elif key=='dst-top':
                     theme_layer.dst.top=int(value)
+                elif key=='center':
+                    theme_layer.center=value
            
 
             elif section=='palette':

@@ -428,7 +428,7 @@ cdef class term_parser:
             self.g.state.cursor_absolute(cp[0],cp[1])
 
         if mode==2:
-            self.g.screen.clear(self.g.state.background)
+            self.g.screen.clear(0)
 
     cdef cmd_EL(self,mode):
         cp=self.g.state.cursor_get_position()

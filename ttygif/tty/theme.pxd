@@ -13,6 +13,7 @@ cdef class layer:
     cdef rect        inner
     cdef rect        bounds
     cdef point       dst
+    cdef str         center
 
 
     cdef image       image
@@ -24,6 +25,7 @@ cdef class layer:
 cdef class theme:    
     cdef str         name
     cdef str         path
+    cdef str         font
     cdef int         background
     cdef int         foreground
     cdef int         default_background
