@@ -249,7 +249,7 @@ cdef class terminal_graphics:
                 fg=pixel[0]
                 bg=pixel[1]
                 character=pixel[2]
-                #self.draw_character(character,x,y,fg,bg)
+                self.draw_character(character,x,y,fg,bg)
 
         self.copy(self.theme.layer3)
         self.copy(self.theme.layer4)
