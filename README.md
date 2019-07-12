@@ -72,7 +72,8 @@ Theming is based on the idea of branding your work for display in project reposi
 - default (256 color xterm palette)
 - default-4bit  (16 colorxterm palette)
 - default-2bit  (monochrome palette)
-- window7-dialog a frame windows style wrapped terminal
+- windows7 (windows style wrapped terminal)
+- game (8 bit inspired frame)
 
 
 ## file size
