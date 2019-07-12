@@ -237,7 +237,6 @@ cdef class theme:
                     theme_layer.center=value
                 elif key=='copy-mode':
                     theme_layer.copy_mode=value
-                    print "copy",value
            
 
             elif section=='palette':
