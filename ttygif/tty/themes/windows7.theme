@@ -1,11 +1,11 @@
 # default theme
 name               dark
-background         4
+background         0
 foreground         15
-default_background 4
+default_background 0
 default_foreground 15
 
-transparent   4
+transparent   0
 
 # moves the screen by an offset, usefull for overlays
 # padding     begins the padding section
@@ -60,7 +60,7 @@ inner-left       7
 inner-top        31   
 inner-right      627
 inner-bottom     299
-copy-mode        scale
+copy-mode        none
 
 layer
 depth           -1

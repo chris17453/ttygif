@@ -302,6 +302,7 @@ The following resources are located in the [ttygif-assets](https://github.com/ch
 some random pics from the asciinema.org website, and my computer
 
 ## htop
+- with windows7 theme
 ![htop](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/encode/test.gif)
 
 ## pipe
@@ -311,6 +312,7 @@ some random pics from the asciinema.org website, and my computer
 ![asciicast-174524](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/encode/174524.gif)
 
 ## [term-tris dt cannon](https://asciinema.org/a/232377)
+- with game theme
 ![asciicast-232377](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/encode/232377.gif)
 
 ## [Denariusd compile on 30 cores!](https://asciinema.org/a/234628)
