@@ -325,10 +325,8 @@ cdef class image:
         self.copy_tile(dst_image,src_8, dst_8)
 
         if mode=='scale':
-            print "SCALE"
             self.copy_scale(dst_image,src_5,dst_5)
         elif mode=='tile':
-            print "TILE"
             self.copy_tile(dst_image,src_5, dst_5)
 
        # print "src"
