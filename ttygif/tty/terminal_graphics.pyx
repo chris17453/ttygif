@@ -125,8 +125,10 @@ cdef class terminal_graphics:
         self.screen.put_pixel(x,y,pix)
 
     cdef draw_string(self,x,y,data):
+        cdef uint8_t][3 element= [0,15,0]
         for i in data:
-            self.draw_character(x,y,[0,15,ord(i)])
+            element][2]=ord(i)
+            self.draw_character(x,y,element)
             x+=1
 
     cdef draw_character(self,int x,int y,uint8_t[3] element):
