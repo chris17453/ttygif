@@ -228,7 +228,6 @@ cdef class image:
 
     # plain copy 1-1
     cdef copy(self,image dst_image,rect src,point dst):
-        print("copy")
         cdef uint16_t x
         cdef uint16_t y
         cdef uint8_t r
@@ -255,13 +254,9 @@ cdef class image:
                 dst_image.put_pixel_1byte(dst.left+x,dst.top+y,pixel)
 
     cdef copy_remap(self,image dst_image,rect src,point dst):
-        print("remap")
         
         cdef uint16_t x
         cdef uint16_t y
-        cdef uint8_t r
-        cdef uint8_t g
-        cdef uint8_t b
         cdef uint8_t pixel
 
         if dst.left==-1:
@@ -279,16 +274,11 @@ cdef class image:
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel_1byte(x+src.left,y+src.top)
-                print x,y,pixel
-                r=self.palette[pixel*3+0]
-                g=self.palette[pixel*3+1]
-                b=self.palette[pixel*3+2]
-                dst_image.put_pixel_rgb(dst.left+x,dst.top+y,r,g,b)
+                dst_image.put_pixel_rgb(dst.left+x,dst.top+y,self.palette[pixel*3+0],self.palette[pixel*3+1],self.palette[pixel*3+2])
                 
 
     # strech src to fir dest
     cdef copy_scale(self,image dst_image,rect src,rect dst):
-        print("scale")
         cdef uint16_t x
         cdef uint16_t y 
         cdef uint16_t x3
@@ -310,7 +300,6 @@ cdef class image:
 
     # tile src to dest
     cdef copy_tile(self,image dst_image,rect src,rect dst):
-        print("tile")
         cdef uint16_t x
         cdef uint16_t y 
         cdef uint16_t x3
@@ -329,7 +318,6 @@ cdef class image:
 
     # template image for adaptive scaling via grid and looping
     cdef copy_9slice(self,image dst_image,rect outer,rect inner,rect dst,str mode):
-        print("9slice")
         #grid 1 2 3   
         #grid 4 5 6
         #grid 7 8 9

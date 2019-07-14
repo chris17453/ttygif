@@ -112,7 +112,7 @@ cdef class terminal_graphics:
     cdef write(self,int character):
         cdef int x=self.state.cursor_x
         cdef int y=self.state.cursor_y
-
+        uint8_t[3] pix
         if character>255:
             err_msg="Charactrer out of xrange -{0}".format(character)
             raise Exception(err_msg)
@@ -122,7 +122,7 @@ cdef class terminal_graphics:
         else:
             pix=[self.state.foreground,self.state.background,character]    
         #print("PIX",pix)
-        self.screen.put_pixel_1byte(x,y,pix)
+        self.screen.put_pixel_3byte(x,y,pix)
 
     cdef draw_string(self,x,y,data):
         cdef uint8_t[3] element= [0,15,0]
