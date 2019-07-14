@@ -134,8 +134,13 @@ cdef class image:
         self.put_pixel(x,y,pixel)
 
     
-    cdef clear(self,int init_value):
-        memset(self.data.data.as_voidptr, init_value, self.dimentions.length )
+    cdef clear(self,int[]  init_value):
+        cdef int index
+
+        for index in xrange(0,len(self.data,len(init_value))):
+            &self.data.data.as_uchars[index]=init_value
+            &self.data.data.as_uchars[index+1]=init_value
+            &self.data.data.as_uchars[index+2]=init_value
 
     cdef remap_image(self,array.array palette):
         cdef rect src=self.get_rect()
