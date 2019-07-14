@@ -140,8 +140,8 @@ cdef class terminal_graphics:
                 if pixel==1:
                     self.viewport.data[screen_pos]=foreground_color
                 else:
-                    #@if background_color!=self.theme.transparent:
-                    self.viewport.data[screen_pos]=background_color
+                    if background_color!=self.theme.transparent:
+                        self.viewport.data[screen_pos]=background_color
                 char_pos+=1
 
     cdef get_text(self):
@@ -187,8 +187,8 @@ cdef class terminal_graphics:
          #   self.viewport.clear(0);
         ##lse:
         cdef uint8_t[3] clear_pixel
-        clear_pixel[1]=self.state.foreground
-        clear_pixel[0]=self.state.background
+        clear_pixel[0]=self.state.foreground
+        clear_pixel[1]=self.state.background
         clear_pixel[2]=0
         self.viewport.clear(clear_pixel)
         self.copy(self.theme.layer1)
