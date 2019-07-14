@@ -125,7 +125,7 @@ cdef class image:
         
         if pos>=self.dimentions.length:
             self.dimentions.debug()
-            err="Get Pixel Out of Bounds {0} of {1}".format(pos,self.dimentions.length)
+            err="Get Pixel1b Out of Bounds {0} of {1}".format(pos,self.dimentions.length)
             raise Exception (err)
         
         return self.data[pos]
@@ -135,7 +135,7 @@ cdef class image:
         
         if pos+2>=self.dimentions.length:
             self.dimentions.debug()
-            err="Get Pixel Out of Bounds {0} of {1}".format(pos,self.dimentions.length)
+            err="Get Pixel3b Out of Bounds {0} of {1}".format(pos,self.dimentions.length)
             raise Exception (err)
         
         element[0]=self.data[pos]
@@ -232,17 +232,7 @@ cdef class image:
         cdef uint8_t g
         cdef uint8_t b
         cdef uint8_t pixel
-        if dst.left==-1:
-            dst.left=dst_image.dimentions.width-1-(src.right-src.left)
-            #dst.right+=dst.left
-        if dst.top==-1:
-            dst.top=dst_image.dimentions.height-1-(src.bottom-src.top)
-#
-#
-        if dst.left<0:
-            dst.left+=dst_image.dimentions.width-1
-        if dst.top<0:
-            dst.top+=dst_image.dimentions.height-1
+       
 
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
@@ -256,18 +246,6 @@ cdef class image:
         cdef uint16_t x
         cdef uint16_t y
         cdef uint8_t pixel
-
-        if dst.left==-1:
-            dst.left=dst_image.dimentions.width-1-(src.right-src.left)
-            #dst.right+=dst.left
-        if dst.top==-1:
-            dst.top=dst_image.dimentions.height-1-(src.bottom-src.top)
-
-
-        if dst.left<0:
-            dst.left+=dst_image.dimentions.width-1
-        if dst.top<0:
-            dst.top+=dst_image.dimentions.height-1
 
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
@@ -371,47 +349,43 @@ cdef class image:
         cdef rect   dst_8=rect(dst_inner.left+1  ,dst_inner.bottom  ,dst_inner.right-1  ,dst_outer.bottom)
         cdef rect   dst_9=rect(dst_inner.right   ,dst_inner.bottom  ,dst_outer.right    ,dst_outer.bottom)
 
-        cdef point  p1=dst_1.point1()
-        cdef point  p3=dst_3.point1()
-        cdef point  p7=dst_7.point1()
-        cdef point  p9=dst_9.point1()
-
-        self.copy(dst_image,src_1, p1)
-        self.copy(dst_image,src_3, p3)
-        self.copy(dst_image,src_7, p7)
-        self.copy(dst_image,src_9, p9)
-
+        self.copy     (dst_image,src_1, dst_1)
         self.copy_tile(dst_image,src_2, dst_2)
+        self.copy     (dst_image,src_3, dst_3)
         self.copy_tile(dst_image,src_4, dst_4)
+
         self.copy_tile(dst_image,src_6, dst_6)
+        self.copy     (dst_image,src_7, dst_7)
         self.copy_tile(dst_image,src_8, dst_8)
+        self.copy     (dst_image,src_9, dst_9)
+
 
         if mode=='scale':
             self.copy_scale(dst_image,src_5,dst_5)
         elif mode=='tile':
             self.copy_tile(dst_image,src_5, dst_5)
 
-       # print "src"
-       # src_1.debug()
-       # src_2.debug()
-       # src_3.debug()
-       # src_4.debug()
-       # src_5.debug()
-       # src_6.debug()
-       # src_7.debug()
-       # src_8.debug()
-       # src_9.debug()
-       # exit()
-       # print "dst"
-       # dst_1.debug()
-       # dst_2.debug()
-       # dst_3.debug()
-       # dst_4.debug()
-       # dst_5.debug()
-       # dst_6.debug()
-       # dst_7.debug()
-       # dst_8.debug()
-       # dst_9.debug()
-    
+
+  cdef copy_3slice(self,image dst_image,rect outer,rect inner,rect dst,str mode):
+        cdef rect   src_1=rect(outer.left    ,outer.top     ,inner.left     ,outer.bottom)
+        cdef rect   src_2=rect(inner.left+1  ,outer.top     ,inner.right-1  ,outer.bottom)
+        cdef rect   src_3=rect(inner.right   ,outer.top     ,outer.right    ,outer.bottom)
+
+        cdef rect   dst_outer=dst
+        cdef rect   dst_inner=rect(dst.left+src_1.width-1,dst.top, dst.right-src_3.width+1,dst.bottom)
+
+        cdef rect   dst_1=rect(dst_outer.left    ,dst_outer.top     ,dst_inner.left     ,dst_outer.bottom)
+        cdef rect   dst_2=rect(dst_inner.left+1  ,dst_outer.top     ,dst_inner.right-1  ,dst_outer.bottom)
+        cdef rect   dst_3=rect(dst_inner.right   ,dst_outer.top     ,dst_outer.right    ,dst_outer.bottom)
+
+        self.copy     (dst_image,src_1, dst_1)
+        self.copy     (dst_image,src_3, dst_3)
+
+        if mode=='scale':
+            self.copy_scale(dst_image,src_2,dst_2)
+        elif mode=='tile':
+            self.copy_tile(dst_image,src_2, dst_2)
+
+
     cdef debug(self):
         print("Image")
