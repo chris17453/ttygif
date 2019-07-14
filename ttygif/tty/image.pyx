@@ -156,8 +156,8 @@ cdef class image:
             self.data[pos]=pixel
         else:
             self.data[pos  ]=pixel[0]
-            self.data[pos+0]=pixel[1]
-            self.data[pos+1]=pixel[2]
+            self.data[pos+1]=pixel[1]
+            self.data[pos+2]=pixel[2]
 
     # put a pixel of X stride
     cdef void put_pixel_1byte(self,uint16_t x,uint16_t y,uint8_t pixel):
@@ -171,8 +171,8 @@ cdef class image:
     cdef void put_pixel_3byte(self,int x,int y,uint8_t[3] pixel):
         cdef uint32_t pos=self.get_position(x,y)
         self.data[pos  ]=pixel[0]
-        self.data[pos+0]=pixel[1]
-        self.data[pos+1]=pixel[2]
+        self.data[pos+1]=pixel[1]
+        self.data[pos+2]=pixel[2]
 
     cdef put_pixel_rgb(self,int x,int y,int r,int g,int b):
         pixel=self.match_color_index(r,g,b)
