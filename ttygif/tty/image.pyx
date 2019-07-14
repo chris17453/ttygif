@@ -134,7 +134,7 @@ cdef class image:
         self.put_pixel(x,y,pixel)
 
     
-    cdef clear(self,int[]  init_value):
+    cdef clear(self,uchar[]  init_value):
         cdef int index
 
         for index in xrange(0,len(self.data),len(init_value)):
