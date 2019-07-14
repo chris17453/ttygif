@@ -4,8 +4,8 @@
 from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
 
 cdef class display_state:
-    cdef uint8_t         width
-    cdef uint8_t         height
+    cdef uint16_t         width
+    cdef uint16_t         height
     cdef int             cursor_x
     cdef int             cursor_y
     cdef int             saved_cursor_x

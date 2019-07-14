@@ -5,7 +5,7 @@ foreground         1
 default_background 4
 default_foreground 1
 
-transparent   11
+transparent   115
 
 # moves the screen by an offset, usefull for overlays
 # padding     begins the padding section
