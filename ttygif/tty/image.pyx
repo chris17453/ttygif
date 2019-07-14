@@ -92,10 +92,10 @@ cdef class image:
         if palette:
             self.palette   =palette
     
-    cdef get_rect(self):
+    cdef rect get_rect(self):
         return rect(0,0,self.dimentions.width-1,self.dimentions.height-1)
 
-    cdef create_buffer(self,size,init_value):
+    cdef array.array create_buffer(self,size,init_value):
         cdef array.array data=array.array('B')
         array.resize(data,size)
         memset(data.data.as_voidptr, init_value, len(data) * sizeof(char))
@@ -134,19 +134,34 @@ cdef class image:
         element[2]=self.data[pos+1]
 
     # put a pixel of X stride
-    cdef put_pixel(self,int x,int y,pixel):
+    cdef void put_pixel(self,int x,int y,uint8_t[] pixel):
         cdef int pix_byte
         if x<0 or x>=self.dimentions.width:
             return
         if y<0 or y>=self.dimentions.height:
             return
-        cdef int pos=self.get_position(x,y)
+        cdef uint8_t pos=self.get_position(x,y)
         if self.dimentions.bytes_per_pixel==1:
             self.data[pos]=pixel
         else:
-            for i in xrange(0,self.dimentions.bytes_per_pixel):
-                pix_byte=pixel[i]
-                self.data[pos+i]=pix_byte
+            self.data[pos  ]=pixel[0]
+            self.data[pos+0]=pixel[1]
+            self.data[pos+1]=pixel[2]
+
+    # put a pixel of X stride
+    cdef void put_pixel_1byte(self,int x,int y,uint8_t pixel):
+        if x<0 or x>=self.dimentions.width:
+            return
+        if y<0 or y>=self.dimentions.height:
+            return
+        cdef uint8_t pos=self.get_position(x,y)
+        self.data[pos]=pixel
+
+    cdef void put_pixel_3byte(self,int x,int y,uint8_t[3] pixel):
+        cdef uint8_t pos=self.get_position(x,y)
+        self.data[pos  ]=pixel[0]
+        self.data[pos+0]=pixel[1]
+        self.data[pos+1]=pixel[2]
 
     cdef put_pixel_rgb(self,int x,int y,int r,int g,int b):
         pixel=self.match_color_index(r,g,b)
@@ -178,9 +193,9 @@ cdef class image:
         cdef double last_distance=-1
         cdef double color_distance
         cdef int mapped_color=0
-        cdef int mr
-        cdef int mg
-        cdef int mb
+        cdef uint8_t mr
+        cdef uint8_t mg
+        cdef uint8_t mb
         #print r,g,b
         cdef int color_table_len=len(self.palette)
         cdef int i
@@ -203,12 +218,12 @@ cdef class image:
 
     # plain copy 1-1
     cdef copy(self,image dst_image,rect src,point dst):
-        cdef int x
-        cdef int y
-        cdef int r
-        cdef int g
-        cdef int b
-
+        cdef uint8_t x
+        cdef uint8_t y
+        cdef uint8_t r
+        cdef uint8_t g
+        cdef uint8_t b
+        cdef uint8_t pixel
         if dst.left==-1:
             dst.left=dst_image.dimentions.width-1-(src.right-src.left)
             #dst.right+=dst.left
@@ -226,14 +241,15 @@ cdef class image:
                 pixel=self.get_pixel(x+src.left,y+src.top)
                 if pixel==self.transparent:
                     continue
-                dst_image.put_pixel(dst.left+x,dst.top+y,pixel)
+                dst_image.put_pixel_1byte(dst.left+x,dst.top+y,pixel)
 
     cdef copy_remap(self,image dst_image,rect src,point dst):
-        cdef int x
-        cdef int y
-        cdef int r
-        cdef int g
-        cdef int b
+        cdef uint8_t x
+        cdef uint8_t y
+        cdef uint8_t r
+        cdef uint8_t g
+        cdef uint8_t b
+        cdef uint8_t pixel
 
         if dst.left==-1:
             dst.left=dst_image.dimentions.width-1-(src.right-src.left)
@@ -253,17 +269,19 @@ cdef class image:
                 r=self.palette[pixel*3+0]
                 g=self.palette[pixel*3+1]
                 b=self.palette[pixel*3+2]
-                dst_image.put_pixel_rgb(dst.left+x,dst.top+y,r,g,b)
+                dst_image.put_pixel_rgb_1byte(dst.left+x,dst.top+y,r,g,b)
                 
 
     # strech src to fir dest
     cdef copy_scale(self,image dst_image,rect src,rect dst):
-        cdef int x
-        cdef int y 
-        cdef int x3
-        cdef int y3
+        cdef uint8_t x
+        cdef uint8_t y 
+        cdef uint8_t x3
+        cdef uint8_t y3
         cdef float fx
         cdef float fy
+        cdef uint8_t pixel
+
         
         for y in xrange(0,dst.height):
             for x in xrange(0,dst.width):
@@ -273,19 +291,21 @@ cdef class image:
                 x3=src.get_x_percent(fx)
                 y3=src.get_y_percent(fy)
                 pixel=self.get_pixel(x3,y3)                
-                dst_image.put_pixel(x+dst.left,y+dst.top,pixel)
+                dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
 
     # tile src to dest
     cdef copy_tile(self,image dst_image,rect src,rect dst):
-        cdef int x
-        cdef int y 
+        cdef uint8_t x
+        cdef uint8_t y 
+        cdef uint8_t pixel
+
         for y in xrange(0,dst.height):
             for x in xrange(0,dst.width):
                 
                 x3=x%src.width+src.left
                 y3=y%src.height+src.top
                 pixel=self.get_pixel(x3,y3)
-                dst_image.put_pixel(x+dst.left,y+dst.top,pixel)
+                dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
 
 
 

@@ -44,12 +44,13 @@ cdef class image:
     cdef bounds      dimentions
     cdef array.array palette
     cdef int         length
-    cdef get_rect(self)
-    cdef create_buffer(self,size,init_value)
+    cdef rect get_rect(self)
+    cdef array.array create_buffer(self,size,init_value)
     cdef uint8_t get_position(self,int x,int y)
     cdef get_pixel(self,int x,int y)
     cdef get_pixel_3byte(self,int x,int y,uint8_t[3] element)
-    cdef put_pixel(self,int x,int y,pixel)
+    cdef void put_pixel(self,int x,int y,pixel)
+    cdef void put_pixel_3byte(self,int x,int y,uint8_t[3] pixel)
     cdef put_pixel_rgb(self,int x,int y,int r,int g,int b)
     cdef clear(self,uint8_t[] pixel)
     cdef remap_image(self,array.array palette)
