@@ -195,8 +195,8 @@ cdef class terminal_graphics:
         self.copy(self.theme.layer2)
         
         
-        cdef uint8_t x  =0
-        cdef uint8_t y  =0
+        cdef uint16_t x  =0
+        cdef uint16_t y  =0
         try:
             for y in xrange(0,self.screen.dimentions.height):
                 for x in xrange(0,self.screen.dimentions.width):
