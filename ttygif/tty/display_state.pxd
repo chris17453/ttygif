@@ -4,27 +4,26 @@
 # cython: language_level=2
 
 cdef class display_state:
-    cdef public uint8_t         width
-    cdef public uint8_t         height
-    cdef public int             cursor_x
-    cdef public int             cursor_y
-    cdef public int             saved_cursor_x
-    cdef public int             saved_cursor_y
-    cdef public uint8_t         default_foreground
-    cdef public uint8_t         default_background
-    cdef public uint8_t         foreground
-    cdef public uint8_t         background
-    cdef public int             scroll
-    cdef public int             scroll_top
-    cdef public int             scroll_bottom
-    cdef public object          reverse_video
-    cdef public object          bold 
-    cdef public object          text_mode
-    cdef public object          autowrap
-    cdef public object          pending_wrap
-    cdef public object          display_cursor
-            
-        
+    cdef uint8_t         width
+    cdef uint8_t         height
+    cdef int             cursor_x
+    cdef int             cursor_y
+    cdef int             saved_cursor_x
+    cdef int             saved_cursor_y
+    cdef uint8_t         default_foreground
+    cdef uint8_t         default_background
+    cdef uint8_t         foreground
+    cdef uint8_t         background
+    cdef int             scroll
+    cdef int             scroll_top
+    cdef int             scroll_bottom
+    cdef object          reverse_video
+    cdef object          bold 
+    cdef object          text_mode
+    cdef object          autowrap
+    cdef object          pending_wrap
+    cdef object          display_cursor
+                 
     cdef show_cursor(self)
     cdef hide_cursor(self)
     cdef text_mode_on(self)
