@@ -188,11 +188,8 @@ cdef class terminal_graphics:
         #if self.state.default_background==self.theme.transparent:
          #   self.viewport.clear(0);
         ##lse:
-        cdef uint8_t[3] clear_pixel
-        clear_pixel[0]=0
-        clear_pixel[1]=0
-        clear_pixel[2]=0
-        cdef uint8_t[3] element
+        cdef uint8_t[3] clear_pixel=[0,0,0]
+        cdef uint8_t[3] element=[0,0,0]
         self.viewport.clear(clear_pixel)
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
