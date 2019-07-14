@@ -187,8 +187,8 @@ cdef class terminal_graphics:
          #   self.viewport.clear(0);
         ##lse:
         cdef uint8_t[3] clear_pixel
-        clear_pixel[0]=self.state.background
         clear_pixel[1]=self.state.foreground
+        clear_pixel[0]=self.state.background
         clear_pixel[2]=0
         self.viewport.clear(clear_pixel)
         self.copy(self.theme.layer1)
