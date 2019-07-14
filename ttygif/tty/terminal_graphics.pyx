@@ -122,7 +122,7 @@ cdef class terminal_graphics:
         else:
             pix=[self.state.foreground,self.state.background,character]    
         #print("PIX",pix)
-        self.screen.put_pixel(x,y,pix)
+        self.screen.put_pixel_1byte(x,y,pix)
 
     cdef draw_string(self,x,y,data):
         cdef uint8_t[3] element= [0,15,0]
@@ -200,6 +200,7 @@ cdef class terminal_graphics:
         try:
             for y in xrange(0,self.screen.dimentions.height):
                 for x in xrange(0,self.screen.dimentions.width):
+                    print x,y
                     self.screen.get_pixel_3byte(x,y,element)
                     self.draw_character(x,y,element)
         except Exception as ex:
