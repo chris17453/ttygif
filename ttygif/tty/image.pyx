@@ -322,6 +322,7 @@ cdef class image:
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
             y3+=1 
             if y3==src.height: y3=0
+            x3=0
 
 
 
