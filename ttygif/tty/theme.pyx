@@ -48,7 +48,7 @@ cdef class layer:
                     print ("W:H:",width,height)
                     self.image.copy_9slice(temp_image,self.outer,self.inner,temp_image.get_rect(),self.copy_mode)
                     self.image=temp_image
-                    self.copy_mode='tile'
+                    self.mode='copy'
 
 
     cdef debug(self):
