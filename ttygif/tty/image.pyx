@@ -125,7 +125,7 @@ cdef class image:
     cdef get_pixel_3byte(self,int x,int y,uint8_t[3] element):
         cdef int pos=x*self.dimentions.bytes_per_pixel+y*self.dimentions.stride
         
-        if pos+3>=self.dimentions.length:
+        if pos+2>=self.dimentions.length:
             self.dimentions.debug()
             err="Get Pixel Out of Bounds {0} of {1}".format(pos,self.dimentions.length)
             raise Exception (err)
