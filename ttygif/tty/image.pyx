@@ -304,8 +304,8 @@ cdef class image:
     cdef copy_tile(self,image dst_image,rect src,rect dst):
         cdef uint16_t x
         cdef uint16_t y 
-        cdef uint16_t x3
-        cdef uint16_t y3 
+        cdef uint16_t x3=0
+        cdef uint16_t y3=0 
         cdef uint8_t pixel
 
         for y in xrange(0,dst.height):
