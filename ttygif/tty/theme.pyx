@@ -265,7 +265,7 @@ cdef class theme:
 
         self.auto()
 
-        if 1==1:
+        if 1==0:
             print("name:                {0}".format(self.name))
             print("background:          {0}".format(self.background))
             print("foreground:          {0}".format(self.foreground))
@@ -280,7 +280,7 @@ cdef class theme:
             if self.layer3: self.layer3.debug();
             if self.layer4: self.layer4.debug();
             if self.layer5: self.layer5.debug();
-            exit(0)
+            #exit(0)
 
 
 
