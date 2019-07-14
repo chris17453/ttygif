@@ -121,7 +121,7 @@ cdef class image:
                 pixel[i]=self.data[pos+i]
             return pixel
 
-    cdef void get_pixel_1byte(self,int x,int y,uint8_t element):
+    cdef uint8_t  get_pixel_1byte(self,int x,int y):
         cdef uint8_t pos=x*self.dimentions.bytes_per_pixel+y*self.dimentions.stride
         
         if pos>=self.dimentions.length:
@@ -129,7 +129,7 @@ cdef class image:
             err="Get Pixel Out of Bounds {0} of {1}".format(pos,self.dimentions.length)
             raise Exception (err)
         
-        element=self.data[pos]
+        return self.data[pos]
     
     cdef void get_pixel_3byte(self,int x,int y,uint8_t[3] element):
         cdef uint8_t pos=x*self.dimentions.bytes_per_pixel+y*self.dimentions.stride
