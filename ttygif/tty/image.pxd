@@ -46,7 +46,7 @@ cdef class image:
     cdef int         length
     cdef get_rect(self)
     cdef create_buffer(self,size,init_value)
-    cdef get_position(self,int x,int y)
+    cdef uint8_t get_position(self,int x,int y)
     cdef get_pixel(self,int x,int y)
     cdef get_pixel_3byte(self,int x,int y,uint8_t[3] element)
     cdef put_pixel(self,int x,int y,pixel)
