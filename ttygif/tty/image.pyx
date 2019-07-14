@@ -310,15 +310,18 @@ cdef class image:
 
         for y in xrange(0,dst.height):
             for x in xrange(0,dst.width):
-                x3+=1 
-                if x3==src.width: x3=0
-                y3+=1 
-                if y3==src.height: y3=0
-
                 pixel=self.get_pixel_1byte(src.left+x3,src.top+y3)
+
+                if x3==src.width: 
+                    x3=0 
+                else: 
+                    x3+=1 
+
                 if pixel==self.transparent:
                     continue
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
+            y3+=1 
+            if y3==src.height: y3=0
 
 
 
