@@ -47,7 +47,7 @@ cdef class image:
     cdef get_pixel(self,int x,int y)
     cdef put_pixel(self,int x,int y,pixel)
     cdef put_pixel_rgb(self,int x,int y,int r,int g,int b)
-    cdef clear(self,int init_value)
+    cdef clear(self,int[] init_value)
     cdef remap_image(self,array.array palette)
     cdef match_color_index(self,int r,int g,int b)
     cdef copy(self,image dst_image,rect src,point dst)
