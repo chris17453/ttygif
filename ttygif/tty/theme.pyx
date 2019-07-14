@@ -263,10 +263,12 @@ cdef class theme:
                     index+=3
     
 
+        self.auto()
+
         if 1==1:
-            print("name:        {0}".format(self.name))
-            print("background:  {0}".format(self.background))
-            print("foreground:  {0}".format(self.foreground))
+            print("name:                {0}".format(self.name))
+            print("background:          {0}".format(self.background))
+            print("foreground:          {0}".format(self.foreground))
             print("default_background:  {0}".format(self.default_background))
             print("default_foreground:  {0}".format(self.default_foreground))
             print("colors:              {0}".format(self.colors))
@@ -280,7 +282,6 @@ cdef class theme:
             if self.layer5: self.layer5.debug();
 
 
-        self.auto()
 
     def get_var(self,line,var):
         index=line.find(var)
