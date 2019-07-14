@@ -30,7 +30,7 @@ cdef class layer:
         path=os.path.join(path,'layers',self.file) 
         if os.path.exists(path)==False:
             raise Exception("Invalid image file")
-
+        cdef image tmp_image
         underlay_image=decode(path)
         gif_raw=underlay_image.get()
         for frame in gif_raw['frames']:
