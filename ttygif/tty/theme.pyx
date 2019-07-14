@@ -45,6 +45,7 @@ cdef class layer:
                 self.image.remap_image(palette)
                 if self.mode=="scale":
                     temp_image=image(1,width,height,self.image.palette,0)
+                    print ("W:H:",width,height)
                     self.image.copy_9slice(temp_image,self.outer,self.inner,temp_image.get_rect(),self.copy_mode)
                     self.image=temp_image
                     self.copy_mode='tile'
