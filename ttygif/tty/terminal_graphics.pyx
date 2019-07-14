@@ -126,7 +126,7 @@ cdef class terminal_graphics:
 
     cdef draw_string(self,x,y,data):
         for i in data:
-            self.draw_character(ord(i),x,y,0,15)
+            self.draw_character(x,y,[0,15,ord(i)])
             x+=1
 
     cdef draw_character(self,int x,int y,uint8_t[3] element):
