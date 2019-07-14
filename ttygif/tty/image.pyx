@@ -175,7 +175,7 @@ cdef class image:
 
     cdef put_pixel_rgb(self,int x,int y,int r,int g,int b):
         pixel=self.match_color_index(r,g,b)
-        self.put_pixel(x,y,pixel)
+        self.put_pixel_1byte(x,y,pixel)
 
     
     cdef clear(self,uint8_t[]  pixel):
@@ -279,7 +279,7 @@ cdef class image:
                 r=self.palette[pixel*3+0]
                 g=self.palette[pixel*3+1]
                 b=self.palette[pixel*3+2]
-                dst_image.put_pixel_rgb_1byte(dst.left+x,dst.top+y,r,g,b)
+                dst_image.put_pixel_rgb(dst.left+x,dst.top+y,r,g,b)
                 
 
     # strech src to fir dest
