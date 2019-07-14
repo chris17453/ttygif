@@ -272,6 +272,8 @@ cdef class image:
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel_1byte(x+src.left,y+src.top)
+                if pixel==self.transparent:
+                    continue
                 dst_image.put_pixel_rgb(dst.left+x,dst.top+y,self.palette[pixel*3+0],self.palette[pixel*3+1],self.palette[pixel*3+2])
                 
 
@@ -294,6 +296,8 @@ cdef class image:
                 x3=src.get_x_percent(fx)
                 y3=src.get_y_percent(fy)
                 pixel=self.get_pixel_1byte(x3,y3)
+                if pixel==self.transparent:
+                    continue
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
 
     # tile src to dest
@@ -312,6 +316,8 @@ cdef class image:
                 if y3==src.height: y3=0
 
                 pixel=self.get_pixel_1byte(src.left+x3,src.top+y3)
+                if pixel==self.transparent:
+                    continue
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
 
 
