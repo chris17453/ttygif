@@ -27,6 +27,8 @@ cdef class theme:
     cdef str         name
     cdef str         path
     cdef str         font
+    cdef int         width
+    cdef int         height
     cdef int         background
     cdef int         foreground
     cdef int         default_background

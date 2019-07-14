@@ -43,7 +43,11 @@ cdef class layer:
                 if frame['gc'].TransparentColorFlag==1:
                     self.image.transparent=frame['gc'].ColorIndex
                 self.image.remap_image(palette)
-
+                if self.mode=="scale":
+                    tmp_image=image(1,width,height,self.image.palette,0)
+                    self.image.copy_9slice(tmp_image,self.outer,self.inner,tmep_image.get_rect(),self.copy_mode)
+                    self.image=tmp_image
+                    self.copy_mode='tile'
 
 
     cdef debug(self):
@@ -65,7 +69,9 @@ cdef class layer:
 
 cdef class theme:
     
-    def __cinit__(self,name):
+    def __cinit__(self,name,width,height):
+        self.width=width
+        self.height=height
         self.name=name
         self.background=0
         self.foreground=15
