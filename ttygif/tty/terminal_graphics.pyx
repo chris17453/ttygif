@@ -140,8 +140,8 @@ cdef class terminal_graphics:
                 if pixel==1:
                     self.viewport.data[screen_pos]=foreground_color
                 else:
-                    if background_color!=self.theme.transparent:
-                        self.viewport.data[screen_pos]=background_color
+                    #@if background_color!=self.theme.transparent:
+                    self.viewport.data[screen_pos]=background_color
                 char_pos+=1
 
     cdef get_text(self):
