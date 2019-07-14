@@ -140,9 +140,11 @@ cdef class image:
         cdef int index
         cdef int pixel_pos=0
         cdef int pixel_stride=len(pixel)
+        cdef uint8_t c=0
         for index in xrange(0,len(self.data),pixel_stride):
             for pixel_pos in xrange(0, pixel_stride):
-                self.data[index+pixel_pos]=pixel[pixel_pos]
+                c=pixel[pixel_pos]
+                self.data[index+pixel_pos]=c
             
     cdef remap_image(self,array.array palette):
         cdef rect src=self.get_rect()
