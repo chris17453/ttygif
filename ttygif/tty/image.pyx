@@ -209,8 +209,7 @@ cdef class image:
             dst.left+=dst_image.dimentions.width-1
         if dst.top<0:
             dst.top+=dst_image.dimentions.height-1
-        src.debug()
-        dst.debug()
+
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel(x+src.left,y+src.top)
