@@ -43,11 +43,7 @@ cdef class layer:
                 if frame['gc'].TransparentColorFlag==1:
                     self.image.transparent=frame['gc'].ColorIndex
                 self.image.remap_image(palette)
-                if self.mode=="9slice":
-                    temp_image=image(1,width,height,self.image.palette,0)
-                    self.image.copy_9slice(temp_image,self.outer,self.inner,temp_image.get_rect(),self.copy_mode)
-                    self.image=temp_image
-                    self.mode='copy'
+              
 
 
     cdef debug(self):
@@ -100,6 +96,7 @@ cdef class theme:
         if temp.bounds.bottom==-1: temp.bounds.bottom =temp.image.dimentions.height-1
         if temp.dst.left     ==-1: temp.dst.left      =(temp.bounds.right-temp.bounds.left)*-1
         if temp.dst.top      ==-1: temp.dst.top       =(temp.bounds.bottom-temp.bounds.top)*-1
+
         temp.outer.update()
         temp.inner.update()
         temp.bounds.update()
