@@ -50,7 +50,7 @@ cdef class image:
     cdef get_pixel(self,int x,int y)
     cdef void get_pixel_1byte(self,int x,int y,uint8_t element)
     cdef void get_pixel_3byte(self,int x,int y,uint8_t[3] element)
-    cdef put_pixel(self,int x,int y,pixel)
+    cdef void put_pixel(self,int x,int y,pixel)
     cdef void put_pixel_1byte(self,int x,int y,uint8_t pixel)
     cdef void put_pixel_3byte(self,int x,int y,uint8_t[3] pixel)
     cdef put_pixel_rgb(self,int x,int y,int r,int g,int b)
