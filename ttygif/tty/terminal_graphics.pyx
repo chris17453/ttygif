@@ -129,19 +129,19 @@ cdef class terminal_graphics:
             self.draw_character(ord(i),x,y,0,15)
             x+=1
 
-    cdef draw_character(self,int character,int x,int y,int foreground_color,int background_color):
+    cdef draw_character(self,int x,int y,uint8_t[3] element):
         cdef int screen_pos    
-        cdef int char_pos  =self.font.offset[character]
+        cdef int char_pos  =self.font.offset[element[2]]
         cdef uint8_t  pixel
         for fy in xrange(0,self.font.height):
             for fx in xrange(0,self.font.width):
                 screen_pos=self.theme.padding.left+x*self.font.width+fx+(self.theme.padding.top+fy+self.font.height*y)*self.viewport.dimentions.width
                 pixel=self.font.graphic[char_pos]
                 if pixel==1:
-                    self.viewport.data[screen_pos]=foreground_color
+                    self.viewport.data[screen_pos]=element[0]
                 else:
-                    if background_color!=self.theme.transparent:
-                        self.viewport.data[screen_pos]=background_color
+                    if element[1]=self.theme.transparent:
+                        self.viewport.data[screen_pos]=element[1]
                 char_pos+=1
 
     cdef get_text(self):
@@ -190,25 +190,19 @@ cdef class terminal_graphics:
         clear_pixel[0]=0
         clear_pixel[1]=0
         clear_pixel[2]=0
-        cdef uint8_t[3] pixel
+        cdef uint8_t[3] element
         self.viewport.clear(clear_pixel)
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
         
         
-        cdef int fg =0
-        cdef int bg =0
-        cdef int x  =0
-        cdef int y  =0
-        cdef int character=0
+        cdef uint8_t x  =0
+        cdef uint8_t y  =0
         
         for y in xrange(0,self.screen.dimentions.height):
             for x in xrange(0,self.screen.dimentions.width):
-                pixel=self.screen.get_pixel_3byte(x,y)
-                fg=pixel[0]
-                bg=pixel[1]
-                character=pixel[2]
-                self.draw_character(character,x,y,fg,bg)
+                element=self.screen.get_pixel_3byte(x,y)
+                self.draw_character(character,element)
 
         self.copy(self.theme.layer3)
         self.copy(self.theme.layer4)
