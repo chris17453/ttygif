@@ -229,8 +229,8 @@ cdef class image:
     # plain copy 1-1
     cdef copy(self,image dst_image,rect src,point dst):
         print("copy")
-        cdef uint8_t x
-        cdef uint8_t y
+        cdef uint16_t x
+        cdef uint16_t y
         cdef uint8_t r
         cdef uint8_t g
         cdef uint8_t b
@@ -257,8 +257,8 @@ cdef class image:
     cdef copy_remap(self,image dst_image,rect src,point dst):
         print("remap")
         
-        cdef uint8_t x
-        cdef uint8_t y
+        cdef uint16_t x
+        cdef uint16_t y
         cdef uint8_t r
         cdef uint8_t g
         cdef uint8_t b
@@ -289,10 +289,10 @@ cdef class image:
     # strech src to fir dest
     cdef copy_scale(self,image dst_image,rect src,rect dst):
         print("scale")
-        cdef uint8_t x
-        cdef uint8_t y 
-        cdef uint8_t x3
-        cdef uint8_t y3
+        cdef uint16_t x
+        cdef uint16_t y 
+        cdef uint16_t x3
+        cdef uint16_t y3
         cdef float fx
         cdef float fy
         cdef uint8_t pixel
@@ -311,10 +311,10 @@ cdef class image:
     # tile src to dest
     cdef copy_tile(self,image dst_image,rect src,rect dst):
         print("tile")
-        cdef uint8_t x
-        cdef uint8_t y 
-        cdef uint8_t x3
-        cdef uint8_t y3 
+        cdef uint16_t x
+        cdef uint16_t y 
+        cdef uint16_t x3
+        cdef uint16_t y3 
         cdef uint8_t pixel
 
         for y in xrange(0,dst.height):
