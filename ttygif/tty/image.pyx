@@ -102,7 +102,7 @@ cdef class image:
         return data
     
     cdef uint8_t get_position(self,int x,int y):
-        cdef uint_8_t pos=self.dimentions.stride*y+x*self.dimentions.bytes_per_pixel
+        cdef uint8_t pos=self.dimentions.stride*y+x*self.dimentions.bytes_per_pixel
         return pos
 
     # get a pixel of X stride
