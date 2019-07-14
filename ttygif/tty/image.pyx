@@ -135,7 +135,7 @@ cdef class image:
         pixel[1]=self.data[pos+0]
         pixel[2]=self.data[pos+1]
         
-        return pixel
+        return pixel[0],pixel[1],pixel[2]
 
     # put a pixel of X stride
     cdef put_pixel(self,int x,int y,pixel):
