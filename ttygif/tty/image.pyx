@@ -7,7 +7,7 @@
 # sets bounding paramaters for image transformations
 from cpython cimport array
 from libc.string cimport memset
-from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t,uchar
+from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
 
 
 cdef class bounds:
@@ -136,7 +136,7 @@ cdef class image:
         self.put_pixel(x,y,pixel)
 
     
-    cdef clear(self,uchar[]  pixel):
+    cdef clear(self,uint8_t[]  pixel):
         cdef int index
         cdef int pixel_pos=0
         cdef int pixel_stride=len(pixel)
