@@ -202,7 +202,7 @@ cdef class terminal_graphics:
         for y in xrange(0,self.screen.dimentions.height):
             for x in xrange(0,self.screen.dimentions.width):
                 element=self.screen.get_pixel_3byte(x,y)
-                self.draw_character(character,element)
+                self.draw_character(x,y,element)
 
         self.copy(self.theme.layer3)
         self.copy(self.theme.layer4)
