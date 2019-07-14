@@ -100,13 +100,13 @@ cdef class image:
         memset(data.data.as_voidptr, init_value, len(data) * sizeof(char))
         return data
     
-    cdef uint8_t get_position(self,int x,int y):
-        cdef uint8_t pos=self.dimentions.stride*y+x*self.dimentions.bytes_per_pixel
+    cdef uint32_t get_position(self,int x,int y):
+        cdef uint32_t pos=self.dimentions.stride*y+x*self.dimentions.bytes_per_pixel
         return pos
 
     # get a pixel of X stride
     cdef get_pixel(self,int x,int y):
-        cdef int pos=x*self.dimentions.bytes_per_pixel+y*self.dimentions.stride
+        cdef uint32_t pos=x*self.dimentions.bytes_per_pixel+y*self.dimentions.stride
         cdef uint8_t [3]  pixel=[0,0,0]
         cdef int i
         if pos>=self.dimentions.length:
@@ -121,7 +121,7 @@ cdef class image:
             return pixel
 
     cdef uint8_t  get_pixel_1byte(self,int x,int y):
-        cdef uint8_t pos=x*self.dimentions.bytes_per_pixel+y*self.dimentions.stride
+        cdef uint32_t pos=x*self.dimentions.bytes_per_pixel+y*self.dimentions.stride
         
         if pos>=self.dimentions.length:
             self.dimentions.debug()
@@ -131,7 +131,7 @@ cdef class image:
         return self.data[pos]
     
     cdef void get_pixel_3byte(self,int x,int y,uint8_t[3] element):
-        cdef uint8_t pos=x*self.dimentions.bytes_per_pixel+y*self.dimentions.stride
+        cdef uint32_t pos=x*self.dimentions.bytes_per_pixel+y*self.dimentions.stride
         
         if pos+2>=self.dimentions.length:
             self.dimentions.debug()
@@ -150,7 +150,7 @@ cdef class image:
         if y<0 or y>=self.dimentions.height:
             return
 
-        cdef uint8_t pos=self.dimentions.stride*y+x*self.dimentions.bytes_per_pixel
+        cdef uint32_t pos=self.dimentions.stride*y+x*self.dimentions.bytes_per_pixel
 
         if self.dimentions.bytes_per_pixel==1:
             self.data[pos]=pixel
@@ -165,11 +165,11 @@ cdef class image:
         #    return
         #if y<0 or y>=self.dimentions.height:
         #    return
-        cdef uint8_t pos=self.dimentions.stride*y+x*self.dimentions.bytes_per_pixel
+        cdef uint32_t pos=self.dimentions.stride*y+x*self.dimentions.bytes_per_pixel
         self.data[pos]=pixel
 
     cdef void put_pixel_3byte(self,int x,int y,uint8_t[3] pixel):
-        cdef uint8_t pos=self.get_position(x,y)
+        cdef uint32_t pos=self.get_position(x,y)
         self.data[pos  ]=pixel[0]
         self.data[pos+0]=pixel[1]
         self.data[pos+1]=pixel[2]
