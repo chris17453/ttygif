@@ -150,7 +150,9 @@ cdef class image:
             return
         if y<0 or y>=self.dimentions.height:
             return
-        cdef uint8_t pos=self.get_position(x,y)
+
+        cdef uint8_t pos=self.dimentions.stride*y+x*self.dimentions.bytes_per_pixel
+
         if self.dimentions.bytes_per_pixel==1:
             self.data[pos]=pixel
         else:
@@ -160,12 +162,12 @@ cdef class image:
 
     # put a pixel of X stride
     cdef void put_pixel_1byte(self,int x,int y,uint8_t pixel):
-        if x<0 or x>=self.dimentions.width:
-            return
-        if y<0 or y>=self.dimentions.height:
-            return
+        #if x<0 or x>=self.dimentions.width:
+        #    return
+        #if y<0 or y>=self.dimentions.height:
+        #    return
         cdef uint8_t pos=self.get_position(x,y)
-        self.data[pos]=pixel
+        self.data.data_as[pos]=pixel
 
     cdef void put_pixel_3byte(self,int x,int y,uint8_t[3] pixel):
         cdef uint8_t pos=self.get_position(x,y)
@@ -181,13 +183,10 @@ cdef class image:
     cdef clear(self,uint8_t[]  pixel):
         cdef int index
         cdef int pixel_pos=0
-        cdef uint8_t c=0
         cdef int pixel_stride=self.dimentions.bytes_per_pixel
         for index in xrange(0,len(self.data),pixel_stride):
             for pixel_pos in xrange(0, pixel_stride):
-                c=pixel[pixel_pos]
-                #print index+pixel_pos,index,pixel_pos,len(self.data),pixel_stride,pixel[pixel_pos]
-                self.data[index+pixel_pos]=c
+                self.data[index+pixel_pos]=pixel[pixel_pos]
             
     cdef remap_image(self,array.array palette):
         cdef rect src=self.get_rect()
