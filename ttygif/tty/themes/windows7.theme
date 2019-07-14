@@ -1,9 +1,9 @@
 # default theme
 name               dark
-background         4
-foreground         15
-default_background 0
-default_foreground 15
+background         15
+foreground         0
+default_background 15
+default_foreground 0
 
 transparent   0
 

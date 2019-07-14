@@ -108,6 +108,9 @@ cdef class image:
     # get a pixel of X stride
     cdef get_pixel(self,int x,int y):
         cdef int pos=x*self.dimentions.bytes_per_pixel+y*self.dimentions.stride
+        ifpos>=self.dimentions.length:
+            err="Get Pixel Out of Bounds {0} of {1}".format(pos,self.dimentions.length)
+            raise exception (errdimentions.length
         if self.dimentions.bytes_per_pixel==1:
             return self.data[pos]
         else:
