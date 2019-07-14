@@ -83,29 +83,55 @@ cdef class theme:
         temp.load_file(self.path,self.palette,self.width,self.height)
 
 
+        cdef int total_width =self.width -1
+        cdef int total_height=self.height-1
+
+        # the source  rectangle's
+        if temp.outer.left   ==-1: temp.outer.left    =temp.image.dimentions.width  -1
+        if temp.outer.top    ==-1: temp.outer.top     =temp.image.dimentions.height -1
+        if temp.outer.right  ==-1: temp.outer.right   =temp.image.dimentions.width  -1
+        if temp.outer.bottom ==-1: temp.outer.bottom  =temp.image.dimentions.height -1
+
+        if temp.inner.left   ==-1: temp.inner.left    =temp.outer.get_x_percent(33)
+        if temp.inner.top    ==-1: temp.inner.top     =temp.outer.get_y_percent(33)
+        if temp.inner.right  ==-1: temp.inner.right   =temp.outer.get_x_percent(66)
+        if temp.inner.bottom ==-1: temp.inner.bottom  =temp.outer.get_y_percent(33)
+
+        # the source  rectangle for COPY
+        if temp.bounds.left  ==-1: temp.bounds.left   +=temp.image.dimentions.width  -1
+        if temp.bounds.top   ==-1: temp.bounds.top    +=temp.image.dimentions.height -1
+        if temp.bounds.right ==-1: temp.bounds.right  +=temp.image.dimentions.width  -1
+        if temp.bounds.bottom==-1: temp.bounds.bottom +=temp.image.dimentions.height -1
+
+        # the destination rectangle
+        if temp.dst.right     <0 : temp.dst.right     +=total_width
+        if temp.dst.bottom    <0 : temp.dst.bottom    +=total_height
+        if temp.dst.left      <0 : temp.dst.left      +=total_width
+        if temp.dst.top       <0 : temp.dst.top       +=total_height
 
 
-        if temp.outer.left   ==-1: temp.outer.left=self.padding.left
-        if temp.outer.top    ==-1: temp.outer.top=self.padding.top
-        if temp.outer.right  ==-1: temp.outer.right=temp.image.dimentions.width-1
-        if temp.outer.bottom ==-1: temp.outer.bottom=temp.image.dimentions.height-1
-        if temp.inner.left   ==-1: temp.inner.left=temp.outer.get_x_percent(33)
-        if temp.inner.top    ==-1: temp.inner.top=temp.outer.get_y_percent(33)
-        if temp.inner.right  ==-1: temp.inner.right=temp.outer.get_x_percent(66)
-        if temp.inner.bottom ==-1: temp.inner.bottom=temp.outer.get_y_percent(33)
-        if temp.bounds.left  ==-1: temp.bounds.left=0
-        if temp.bounds.top   ==-1: temp.bounds.top=0
-        if temp.bounds.right ==-1: temp.bounds.right  =temp.image.dimentions.width-1
-        if temp.bounds.bottom==-1: temp.bounds.bottom =temp.image.dimentions.height-1
-        if temp.dst.left      <0 : temp.dst.left      +=self.width-(temp.bounds.right-temp.bounds.left)
-        if temp.dst.top       <0 : temp.dst.top       +=self.heigh-(temp.bounds.bottom-temp.bounds.top)
-        if temp.dst.right     <0 : temp.dst.right     +=self.width
-        if temp.dst.bottom    <0 : temp.dst.bottom    +=self.height
+#     |--------------|
+#     |l,t        r,t|
+#     |              |
+#     |              |
+#     |l,b        r,b|
+#     |--------------|
+
+#     Dest
+# n>=0 
+#   l,t,r,b=exact positioning
+# auto 
+#   l,t,r,b=total width-1
+
+# n<0, snaps to right,bottom with n padding
+#   l,t,r,b=total width-1-n
+
 
 
         temp.outer.update()
         temp.inner.update()
         temp.bounds.update()
+        temp.dst.update()
 
 
 
