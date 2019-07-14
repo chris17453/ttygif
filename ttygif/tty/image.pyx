@@ -122,7 +122,7 @@ cdef class image:
                 pixel[i]=self.data[pos+i]
             return pixel
 
-    cdef get_pixel_3byte(self,int x,int y,element):
+    cdef get_pixel_3byte(self,int x,int y,uint8_t[3] element):
         cdef int pos=x*self.dimentions.bytes_per_pixel+y*self.dimentions.stride
         
         if pos+3>=self.dimentions.length:
