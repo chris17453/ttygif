@@ -248,7 +248,7 @@ cdef class image:
 
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
-                pixel=self.get_pixel(x+src.left,y+src.top)
+                pixel=self.get_pixel_1byte(x+src.left,y+src.top)
                 if pixel==self.transparent:
                     continue
                 dst_image.put_pixel_1byte(dst.left+x,dst.top+y,pixel)
@@ -275,7 +275,7 @@ cdef class image:
 
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
-                pixel=self.get_pixel(x+src.left,y+src.top)
+                pixel=self.get_pixel_1byte(x+src.left,y+src.top)
                 r=self.palette[pixel*3+0]
                 g=self.palette[pixel*3+1]
                 b=self.palette[pixel*3+2]
@@ -300,21 +300,22 @@ cdef class image:
                 fy=dst.percent_y(y)
                 x3=src.get_x_percent(fx)
                 y3=src.get_y_percent(fy)
-                pixel=self.get_pixel(x3,y3)                
+                pixel=self.get_pixel_1byte(x3,y3)
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
 
     # tile src to dest
     cdef copy_tile(self,image dst_image,rect src,rect dst):
         cdef uint8_t x
         cdef uint8_t y 
+        cdef uint8_t x3
+        cdef uint8_t y3 
         cdef uint8_t pixel
 
         for y in xrange(0,dst.height):
             for x in xrange(0,dst.width):
-                
                 x3=x%src.width+src.left
                 y3=y%src.height+src.top
-                pixel=self.get_pixel(x3,y3)
+                pixel=self.get_pixel_1byte(x3,y3)
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
 
 

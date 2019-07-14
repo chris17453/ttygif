@@ -200,7 +200,7 @@ cdef class terminal_graphics:
         try:
             for y in xrange(0,self.screen.dimentions.height):
                 for x in xrange(0,self.screen.dimentions.width):
-                    print x,y
+                    
                     self.screen.get_pixel_3byte(x,y,element)
                     self.draw_character(x,y,element)
         except Exception as ex:
