@@ -140,7 +140,7 @@ cdef class image:
         cdef int index
         cdef int pixel_pos=0
         cdef uint8_t c=0
-        cdef int pixel_stride=self.bounds.bytes_per_pixel
+        cdef int pixel_stride=self.dimentions.bytes_per_pixel
         for index in xrange(0,len(self.data),pixel_stride):
             for pixel_pos in xrange(0, pixel_stride):
                 c=pixel[pixel_pos]
