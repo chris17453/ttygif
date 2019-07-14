@@ -135,9 +135,14 @@ cdef class terminal_graphics:
         cdef int screen_pos    
         cdef int char_pos  =self.font.offset[element[2]]
         cdef uint8_t  pixel
+        cdef int screen_base=self.theme.padding.left+fx+(self.theme.padding.top+fy)*self.viewport.dimentions.width
+        cdef int screen_base2=self.theme.padding.left+fx+(self.theme.padding.top+fy)*self.viewport.dimentions.width
+        #screen_pos=self.theme.padding.left+x*self.font.width+fx+(self.theme.padding.top+fy+self.font.height*y)*self.viewport.dimentions.width
+                
         for fy in xrange(0,self.font.height):
+            screen_base2=screen_base+self.font.height*y**self.viewport.dimentions.width
             for fx in xrange(0,self.font.width):
-                screen_pos=self.theme.padding.left+x*self.font.width+fx+(self.theme.padding.top+fy+self.font.height*y)*self.viewport.dimentions.width
+                screen_pos=screen_base2+x*self.font.width
                 pixel=self.font.graphic[char_pos]
                 if pixel==1:
                     self.viewport.data[screen_pos]=element[0]
