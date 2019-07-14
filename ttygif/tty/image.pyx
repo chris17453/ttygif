@@ -144,7 +144,7 @@ cdef class image:
         for index in xrange(0,len(self.data),pixel_stride):
             for pixel_pos in xrange(0, pixel_stride):
                 c=pixel[pixel_pos]
-                print index+pixel_pos,index,pixel_pos,len(self.data)
+                print index+pixel_pos,index,pixel_pos,len(self.data),pixel_stride
                 self.data[index+pixel_pos]=c
             
     cdef remap_image(self,array.array palette):

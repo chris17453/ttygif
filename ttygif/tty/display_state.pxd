@@ -4,16 +4,16 @@
 # cython: language_level=2
 
 cdef class display_state:
-    cdef public int             width
-    cdef public int             height
+    cdef public uint8_t         width
+    cdef public uint8_t         height
     cdef public int             cursor_x
     cdef public int             cursor_y
     cdef public int             saved_cursor_x
     cdef public int             saved_cursor_y
-    cdef public int             default_foreground
-    cdef public int             default_background
-    cdef public int             foreground
-    cdef public int             background
+    cdef public uint8_t         default_foreground
+    cdef public uint8_t         default_background
+    cdef public uint8_t         foreground
+    cdef public uint8_t         background
     cdef public int             scroll
     cdef public int             scroll_top
     cdef public int             scroll_bottom
