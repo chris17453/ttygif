@@ -84,6 +84,8 @@ cdef class theme:
     
     cdef update_layer(self, layer temp):
 
+        temp.load_file(self.path,self.palette,self.width,self.height)
+
         if temp.outer.left   ==-1: temp.outer.left=self.padding.left
         if temp.outer.top    ==-1: temp.outer.top=self.padding.top
         if temp.outer.right  ==-1: temp.outer.right=temp.image.dimentions.width-1
@@ -102,7 +104,6 @@ cdef class theme:
         temp.inner.update()
         temp.bounds.update()
 
-        temp.load_file(self.path,self.palette,self.width,self.height)
 
 
 
