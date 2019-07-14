@@ -144,7 +144,7 @@ cdef class image:
         element[2]=self.data[pos+1]
 
     # put a pixel of X stride
-    cdef void put_pixel(self,int x,int y,uint8_t[] pixel):
+    cdef void put_pixel(self,int x,int y,pixel):
         cdef int pix_byte
         if x<0 or x>=self.dimentions.width:
             return
