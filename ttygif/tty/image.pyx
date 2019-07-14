@@ -279,6 +279,7 @@ cdef class image:
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel_1byte(x+src.left,y+src.top)
+                print x,y,pixel
                 r=self.palette[pixel*3+0]
                 g=self.palette[pixel*3+1]
                 b=self.palette[pixel*3+2]
