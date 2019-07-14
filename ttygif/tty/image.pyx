@@ -306,9 +306,12 @@ cdef class image:
 
         for y in xrange(0,dst.height):
             for x in xrange(0,dst.width):
-                x3=x%src.width+src.left
-                y3=y%src.height+src.top
-                pixel=self.get_pixel_1byte(x3,y3)
+                x3+=1 
+                if x3==src.width: x3=0
+                y3+=1 
+                if y3==src.height: y3=0
+
+                pixel=self.get_pixel_1byte(src.left+x3,src.top+y3)
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
 
 
