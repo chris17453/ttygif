@@ -136,7 +136,7 @@ cdef class terminal_graphics:
         cdef int char_pos  =self.font.offset[element[2]]
         cdef uint8_t  pixel
         cdef int screen_base=self.theme.padding.left+fx+(self.theme.padding.top+fy)*self.viewport.dimentions.width
-        cdef int screen_base2=self.theme.padding.left+fx+(self.theme.padding.top+fy)*self.viewport.dimentions.width
+        cdef int screen_base2=0
         #screen_pos=self.theme.padding.left+x*self.font.width+fx+(self.theme.padding.top+fy+self.font.height*y)*self.viewport.dimentions.width
                 
         for fy in xrange(0,self.font.height):
