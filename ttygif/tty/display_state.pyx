@@ -1,5 +1,4 @@
 # cython: profile=True
-# cython: linetrace=True
 # cython: binding=True
 # cython: language_level=2
 from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t

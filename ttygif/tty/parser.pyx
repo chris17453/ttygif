@@ -1,5 +1,4 @@
 # cython: profile=True
-# cython: linetrace=True
 # cython: binding=True
 # cython: language_level=2
 
