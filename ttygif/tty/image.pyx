@@ -175,7 +175,7 @@ cdef class image:
         self.data[pos+2]=pixel[2]
 
     cdef put_pixel_rgb(self,int x,int y,int r,int g,int b):
-        pixel=self.match_color_index(r,g,b)
+        cdef uint8_t pixel=self.match_color_index(r,g,b)
         self.put_pixel_1byte(x,y,pixel)
 
     

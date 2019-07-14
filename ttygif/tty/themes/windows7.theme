@@ -1,11 +1,11 @@
 # default theme
-name               windows
-background         4
-foreground         1
-default_background 4
-default_foreground 1
+name               windows7
+background         15
+foreground         0
+default_background 15
+default_foreground 0
 
-transparent   115
+transparent   15
 
 # moves the screen by an offset, usefull for overlays
 # padding     begins the padding section
@@ -58,7 +58,7 @@ outer-right      634
 outer-bottom     306
 inner-left       7
 inner-top        31   
-inner-right      627
+inner-right      626
 inner-bottom     299
 copy-mode        tile
 
