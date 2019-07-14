@@ -7,6 +7,8 @@
 # sets bounding paramaters for image transformations
 from cpython cimport array
 from libc.string cimport memset
+from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t,uchar
+
 
 cdef class bounds:
     def __cinit__(self,int width,int height,int bytes_per_pixel=1):
