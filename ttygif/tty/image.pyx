@@ -366,7 +366,7 @@ cdef class image:
             self.copy_tile(dst_image,src_5, dst_5)
 
 
-  cdef copy_3slice(self,image dst_image,rect outer,rect inner,rect dst,str mode):
+    cdef copy_3slice(self,image dst_image,rect outer,rect inner,rect dst,str mode):
         cdef rect   src_1=rect(outer.left    ,outer.top     ,inner.left     ,outer.bottom)
         cdef rect   src_2=rect(inner.left+1  ,outer.top     ,inner.right-1  ,outer.bottom)
         cdef rect   src_3=rect(inner.right   ,outer.top     ,outer.right    ,outer.bottom)
