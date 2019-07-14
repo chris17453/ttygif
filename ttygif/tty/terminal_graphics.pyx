@@ -109,10 +109,10 @@ cdef class terminal_graphics:
         #memset(&src_image.data.data.as_uchars[row_pos],init_value,src_image.dimentions.length)        
 
     # write a character to the text buffer with the curent text attributes
-    cdef write(self,int character):
+    cdef write(self,uint8_t character):
         cdef int x=self.state.cursor_x
         cdef int y=self.state.cursor_y
-        cdef uint8_t[3]  pix
+        cdef uint8_t[3]  pix=[0,0,0]
         if character>255:
             err_msg="Charactrer out of xrange -{0}".format(character)
             raise Exception(err_msg)
