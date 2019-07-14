@@ -139,8 +139,8 @@ cdef class image:
             raise Exception (err)
         
         element[0]=self.data[pos]
-        element[1]=self.data[pos+0]
-        element[2]=self.data[pos+1]
+        element[1]=self.data[pos+1]
+        element[2]=self.data[pos+2]
 
     # put a pixel of X stride
     cdef void put_pixel(self,int x,int y,pixel):
