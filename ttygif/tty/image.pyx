@@ -134,14 +134,14 @@ cdef class image:
         self.put_pixel(x,y,pixel)
 
     
-    cdef clear(self,uchar[]  init_value):
+    cdef clear(self,uchar[]  pixel):
         cdef int index
-
+        cdef int pixel_pos=0
+        cdef int pixel_stride=len(init_value)
         for index in xrange(0,len(self.data),len(init_value)):
-            &self.data.data.as_uchars[index]=init_value
-            &self.data.data.as_uchars[index+1]=init_value
-            &self.data.data.as_uchars[index+2]=init_value
-
+            for pixel_pos in xrange(0, pixel_stride):
+                self.data[index+pixel_pos]=init_value[pixel_pos]
+            
     cdef remap_image(self,array.array palette):
         cdef rect src=self.get_rect()
         cdef point dst=src.point1()
