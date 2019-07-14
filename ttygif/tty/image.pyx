@@ -110,7 +110,7 @@ cdef class image:
         cdef int pos=x*self.dimentions.bytes_per_pixel+y*self.dimentions.stride
         if pos>=self.dimentions.length:
             err="Get Pixel Out of Bounds {0} of {1}".format(pos,self.dimentions.length)
-            raise exception (err)
+            raise Exception (err)
         if self.dimentions.bytes_per_pixel==1:
             return self.data[pos]
         else:
