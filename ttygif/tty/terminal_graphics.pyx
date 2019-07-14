@@ -183,9 +183,11 @@ cdef class terminal_graphics:
         if temp==None:
             return
         if  temp.mode=="9slice":
-            temp.image.copy_9slice(self.viewport,temp.outer,temp.inner,self.viewport.get_rect(),temp.copy_mode)
+            temp.image.copy_9slice(self.viewport,temp.outer,temp.inner,tmp.dst,temp.copy_mode)
+        if  temp.mode=="3slice":
+            temp.image.copy_3slice(self.viewport,temp.outer,temp.inner,tmp.dst)
         elif temp.mode=="copy":
-            temp.image.copy(self.viewport,temp.bounds,temp.dst)
+            temp.image.copy(self.viewport,temp.bounds,temp.dst.point1() )
 
 
     cdef render(self):
