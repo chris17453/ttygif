@@ -23,7 +23,7 @@ cdef class terminal_graphics:
 
     cdef alternate_screen_on(self)
     cdef alternate_screen_off(self)
-    cdef write(self,int character)
+    cdef write(self,uint8_t character)
     cdef draw_string(self,x,y,data)
     cdef scroll_buffer(self)
     cdef draw_character(self,int x,int y,uint8_t[3] element)
