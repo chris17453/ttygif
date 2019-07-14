@@ -30,7 +30,7 @@ cdef class layer:
         path=os.path.join(path,'layers',self.file) 
         if os.path.exists(path)==False:
             raise Exception("Invalid image file")
-        cdef image tmp_image
+        cdef image temp_image
         underlay_image=decode(path)
         gif_raw=underlay_image.get()
         for frame in gif_raw['frames']:
@@ -44,9 +44,9 @@ cdef class layer:
                     self.image.transparent=frame['gc'].ColorIndex
                 self.image.remap_image(palette)
                 if self.mode=="scale":
-                    tmp_image=image(1,width,height,self.image.palette,0)
-                    self.image.copy_9slice(tmp_image,self.outer,self.inner,temp_image.get_rect(),self.copy_mode)
-                    self.image=tmp_image
+                    temp_image=image(1,width,height,self.image.palette,0)
+                    self.image.copy_9slice(temp_image,self.outer,self.inner,temp_image.get_rect(),self.copy_mode)
+                    self.image=temp_image
                     self.copy_mode='tile'
 
 
