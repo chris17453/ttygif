@@ -12,7 +12,7 @@ cdef class layer:
     cdef rect        outer
     cdef rect        inner
     cdef rect        bounds
-    cdef dst         dst
+    cdef rect        dst
     cdef str         center
     cdef str         copy_mode
 
