@@ -139,8 +139,8 @@ cdef class image:
     cdef clear(self,uint8_t[]  pixel):
         cdef int index
         cdef int pixel_pos=0
-        cdef int pixel_stride=len(pixel)
         cdef uint8_t c=0
+        cdef int pixel_stride=self.bytes_per_pixel
         for index in xrange(0,len(self.data),pixel_stride):
             for pixel_pos in xrange(0, pixel_stride):
                 c=pixel[pixel_pos]
