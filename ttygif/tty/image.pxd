@@ -1,5 +1,4 @@
 # cython: profile=True
-# cython: linetrace=True
 # cython: binding=True
 # cython: language_level=2
 
@@ -51,7 +50,7 @@ cdef class image:
     cdef uint8_t get_pixel_1byte(self,int x,int y)
     cdef void get_pixel_3byte(self,int x,int y,uint8_t[3] element)
     cdef void put_pixel(self,int x,int y,pixel)
-    cdef void put_pixel_1byte(self,int x,int y,uint8_t pixel)
+    cdef void put_pixel_1byte(self,uint16_t x,uint16_t y,uint8_t pixel)
     cdef void put_pixel_3byte(self,int x,int y,uint8_t[3] pixel)
     cdef put_pixel_rgb(self,int x,int y,int r,int g,int b)
     cdef clear(self,uint8_t[] pixel)

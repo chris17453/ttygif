@@ -1,5 +1,4 @@
 # cython: profile=True
-# cython: linetrace=True
 # cython: binding=True
 # cython: language_level=2
 
@@ -161,12 +160,12 @@ cdef class image:
             self.data[pos+1]=pixel[2]
 
     # put a pixel of X stride
-    cdef void put_pixel_1byte(self,int x,int y,uint8_t pixel):
+    cdef void put_pixel_1byte(self,uint16_t x,uint16_t y,uint8_t pixel):
         #if x<0 or x>=self.dimentions.width:
         #    return
         #if y<0 or y>=self.dimentions.height:
         #    return
-        cdef uint8_t pos=self.get_position(x,y)
+        cdef uint8_t pos=self.dimentions.stride*y+x*self.dimentions.bytes_per_pixel
         self.data[pos]=pixel
 
     cdef void put_pixel_3byte(self,int x,int y,uint8_t[3] pixel):
@@ -316,28 +315,26 @@ cdef class image:
 
 
     # template image for adaptive scaling via grid and looping
+    #grid 1 2 3   
+    #grid 4 5 6
+    #grid 7 8 9
+    # grid diagram
+    #  |o1     |      |     o2|
+    #  |   1   |   2  |   3   |
+    #  |     i1|      |i2     |
+    #  |-------|------|-------|     
+    #  |       |      |       |  
+    #  |   4   |   5  |    6  |  
+    #  |       |      |       |  
+    #  |-------|------|-------|     
+    #  |     i3|      |i4     |
+    #  |   7   |   8  |    9  |
+    #  |o3     |      |     o4| 
+
+    # COPY 1,3,7,9 
+    # tile 2,4,6,8
+    # stretch 5 or omit...
     cdef copy_9slice(self,image dst_image,rect outer,rect inner,rect dst,str mode):
-        #grid 1 2 3   
-        #grid 4 5 6
-        #grid 7 8 9
-        # grid diagram
-        #  |o1     |      |     o2|
-        #  |   1   |   2  |   3   |
-        #  |     i1|      |i2     |
-        #  |-------|------|-------|     
-        #  |       |      |       |  
-        #  |   4   |   5  |    6  |  
-        #  |       |      |       |  
-        #  |-------|------|-------|     
-        #  |     i3|      |i4     |
-        #  |   7   |   8  |    9  |
-        #  |o3     |      |     o4| 
-
-        # COPY 1,3,7,9 
-        # tile 2,4,6,8
-        # stretch 5 or omit...
-        
-
         cdef rect   src_1=rect(outer.left    ,outer.top     ,inner.left     ,inner.top)
         cdef rect   src_2=rect(inner.left+1  ,outer.top     ,inner.right-1  ,inner.top)
         cdef rect   src_3=rect(inner.right   ,outer.top     ,outer.right    ,inner.top)
