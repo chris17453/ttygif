@@ -26,7 +26,7 @@ cdef class layer:
         
         
 
-    cdef load_file(self,path,array.array palette):
+    cdef load_file(self,path,array.array palette,int width,int height):
         path=os.path.join(path,'layers',self.file) 
         if os.path.exists(path)==False:
             raise Exception("Invalid image file")
@@ -84,7 +84,6 @@ cdef class theme:
     
     cdef update_layer(self, layer temp):
 
-        temp.load_file(self.path,self.palette)
         if temp.outer.left   ==-1: temp.outer.left=self.padding.left
         if temp.outer.top    ==-1: temp.outer.top=self.padding.top
         if temp.outer.right  ==-1: temp.outer.right=temp.image.dimentions.width-1
@@ -99,6 +98,8 @@ cdef class theme:
         if temp.bounds.bottom==-1: temp.bounds.bottom =temp.image.dimentions.height-1
         if temp.dst.left     ==-1: temp.dst.left      =(temp.bounds.right-temp.bounds.left)*-1
         if temp.dst.top      ==-1: temp.dst.top       =(temp.bounds.bottom-temp.bounds.top)*-1
+        temp.load_file(self.path,self.palette,self.width,self.height)
+
         temp.outer.update()
         temp.inner.update()
         temp.bounds.update()
