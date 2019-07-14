@@ -82,6 +82,9 @@ cdef class theme:
 
         temp.load_file(self.path,self.palette,self.width,self.height)
 
+
+
+
         if temp.outer.left   ==-1: temp.outer.left=self.padding.left
         if temp.outer.top    ==-1: temp.outer.top=self.padding.top
         if temp.outer.right  ==-1: temp.outer.right=temp.image.dimentions.width-1
@@ -94,8 +97,9 @@ cdef class theme:
         if temp.bounds.top   ==-1: temp.bounds.top=0
         if temp.bounds.right ==-1: temp.bounds.right  =temp.image.dimentions.width-1
         if temp.bounds.bottom==-1: temp.bounds.bottom =temp.image.dimentions.height-1
-        if temp.dst.left     ==-1: temp.dst.left      =(temp.bounds.right-temp.bounds.left)*-1
-        if temp.dst.top      ==-1: temp.dst.top       =(temp.bounds.bottom-temp.bounds.top)*-1
+        if temp.dst.left      <0 : temp.dst.left      =width -1-(temp.bounds.right-temp.bounds.left)
+        if temp.dst.top       <0 : temp.dst.top       =height-1-(temp.bounds.bottom-temp.bounds.top)
+
 
         temp.outer.update()
         temp.inner.update()
