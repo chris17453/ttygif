@@ -48,7 +48,7 @@ cdef class image:
     cdef create_buffer(self,size,init_value)
     cdef get_position(self,int x,int y)
     cdef get_pixel(self,int x,int y)
-    cdef (uint8_t,uint8_t,uint8_t) get_pixel_3byte(self,int x,int y)
+    cdef get_pixel_3byte(self,int x,int y)
     cdef put_pixel(self,int x,int y,pixel)
     cdef put_pixel_rgb(self,int x,int y,int r,int g,int b)
     cdef clear(self,uint8_t[] pixel)
