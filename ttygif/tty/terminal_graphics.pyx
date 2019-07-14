@@ -183,10 +183,10 @@ cdef class terminal_graphics:
 
     cdef render(self):
         cdef int zindex=-10
-        if self.state.default_background==self.theme.transparent:
-            self.viewport.clear(0);
-        else:
-            self.viewport.clear([self.state.default_foreground,self.state.default_background,0]);
+        #if self.state.default_background==self.theme.transparent:
+         #   self.viewport.clear(0);
+        ##lse:
+        self.viewport.clear([self.state.default_foreground,self.state.default_background,0]);
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
         
