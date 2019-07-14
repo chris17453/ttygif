@@ -93,7 +93,7 @@ cdef class terminal_graphics:
                             pixel=[self.state.foreground,self.state.background,0]
                         else:
                             pixel=self.screen.get_pixel(x,y+length)
-                        self.screen.put_pixel_1byte(x,y,pixel)
+                        self.screen.put_pixel_3byte(x,y,pixel)
             else:
                 for y in xrange(bottom,top-1):
                     for x in xrange(0,self.screen.dimentions.width):
@@ -101,7 +101,7 @@ cdef class terminal_graphics:
                             pixel=[self.state.foreground,self.state.background,0]
                         else:
                             pixel=self.screen.get_pixel(x,y+length)
-                        self.screen.put_pixel_1byte(x,y,pixel)
+                        self.screen.put_pixel_3byte(x,y,pixel)
             
         self.state.scroll=0
         #cdef int row_pos=buffer_length-src_image.dimentions.stride
