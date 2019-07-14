@@ -22,7 +22,7 @@ cdef class layer:
         self.outer =rect(0,0,0,0)
         self.inner =rect(0,0,0,0)
         self.bounds=rect(0,0,0,0)
-        self.dst   =point(0,0)
+        self.dst   =rect(0,0,0,0)
         
         
 
@@ -97,8 +97,10 @@ cdef class theme:
         if temp.bounds.top   ==-1: temp.bounds.top=0
         if temp.bounds.right ==-1: temp.bounds.right  =temp.image.dimentions.width-1
         if temp.bounds.bottom==-1: temp.bounds.bottom =temp.image.dimentions.height-1
-        if temp.dst.left      <0 : temp.dst.left      =self.width -1-(temp.bounds.right-temp.bounds.left)
-        if temp.dst.top       <0 : temp.dst.top       =self.height-1-(temp.bounds.bottom-temp.bounds.top)
+        if temp.dst.left      <0 : temp.dst.left      +=self.width-(temp.bounds.right-temp.bounds.left)
+        if temp.dst.top       <0 : temp.dst.top       +=self.heigh-(temp.bounds.bottom-temp.bounds.top)
+        if temp.dst.right     <0 : temp.dst.right     +=self.width
+        if temp.dst.bottom    <0 : temp.dst.bottom    +=self.height
 
 
         temp.outer.update()
@@ -243,6 +245,10 @@ cdef class theme:
                     theme_layer.dst.left=int(value)
                 elif key=='dst-top':
                     theme_layer.dst.top=int(value)
+                elif key=='dst-right':
+                    theme_layer.dst.right=int(value)
+                elif key=='dst-bottom':
+                    theme_layer.dst.bottom=int(value)
                 elif key=='center':
                     theme_layer.center=value
                 elif key=='copy-mode':
