@@ -167,7 +167,7 @@ cdef class image:
         #if y<0 or y>=self.dimentions.height:
         #    return
         cdef uint8_t pos=self.get_position(x,y)
-        self.data.data_as[pos]=pixel
+        self.data[pos]=pixel
 
     cdef void put_pixel_3byte(self,int x,int y,uint8_t[3] pixel):
         cdef uint8_t pos=self.get_position(x,y)
