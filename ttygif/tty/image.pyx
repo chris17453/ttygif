@@ -137,7 +137,7 @@ cdef class image:
     cdef clear(self,int[]  init_value):
         cdef int index
 
-        for index in xrange(0,len(self.data,len(init_value))):
+        for index in xrange(0,len(self.data),len(init_value)):
             &self.data.data.as_uchars[index]=init_value
             &self.data.data.as_uchars[index+1]=init_value
             &self.data.data.as_uchars[index+2]=init_value
