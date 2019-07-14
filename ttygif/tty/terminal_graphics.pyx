@@ -186,7 +186,7 @@ cdef class terminal_graphics:
         #if self.state.default_background==self.theme.transparent:
          #   self.viewport.clear(0);
         ##lse:
-        cdef uint8_t[3] clear_pixel=[self.state.default_foreground,self.state.default_background,0]
+        cdef uint8_t[3] clear_pixel=[self.state.default_foreground,self.state.default_background,0xFF]
         self.viewport.clear(clear_pixel)
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
