@@ -30,7 +30,7 @@ cdef class layer:
         
 
     cdef load_file(self,path,array.array palette,int width,int height):
-        cdef uint8_t clear_1=[0]
+        cdef uint8_t[1] clear_1=[0]
         path=os.path.join(path,'layers',self.file) 
         if os.path.exists(path)==False:
             raise Exception("Invalid image file")
