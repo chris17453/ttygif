@@ -246,7 +246,7 @@ cdef class image:
                     continue
                 dst_image.put_pixel_1byte(dst.left+x,dst.top+y,pixel)
 
-    cdef copy_remap(self,image dst_image,rect src,point dst):
+    cdef copy_remap(self,image dst_image,rect src,point dst,uint8_t transparent):
         
         cdef uint16_t x
         cdef uint16_t y
@@ -255,7 +255,10 @@ cdef class image:
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel_1byte(x+src.left,y+src.top)
-                dst_image.put_pixel_rgb(dst.left+x,dst.top+y,self.palette[pixel*3+0],self.palette[pixel*3+1],self.palette[pixel*3+2])
+                if pixel==transparent:
+                    dst_image.put_pixel(dst.left+x,dst.top+y,pixel)
+                else:
+                    dst_image.put_pixel_rgb(dst.left+x,dst.top+y,self.palette[pixel*3+0],self.palette[pixel*3+1],self.palette[pixel*3+2])
                 
 
     # strech src to fir dest

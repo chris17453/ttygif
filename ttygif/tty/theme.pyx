@@ -44,8 +44,8 @@ cdef class layer:
                 if frame['gc'].TransparentColorFlag==0:
                     self.image.transparent=-1
                 if frame['gc'].TransparentColorFlag==1:
-                    self.image.transparent=frame['gc'].ColorIndex
-                self.image.remap_image(palette)
+                    self.image.transparent=self.image.matchcolorframe['gc'].ColorIndex
+                self.image.remap_image(palette,self.image.transparent)
               
 
 
