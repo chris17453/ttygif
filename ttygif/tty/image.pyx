@@ -255,7 +255,7 @@ cdef class image:
 
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
-                pixel=1#self.get_pixel_1byte(x+src.left,y+src.top)
+                pixel=self.get_pixel_1byte(x+src.left,y+src.top)
                 if pixel==transparent:
                     dst_image.put_pixel(dst.left+x,dst.top+y,pixel)
                 else:
