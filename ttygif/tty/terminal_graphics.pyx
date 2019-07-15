@@ -201,7 +201,7 @@ cdef class terminal_graphics:
         cdef uint8_t[3] element=[0,0,0]
         self.viewport.clear(clear_pixel)
         self.copy(self.theme.layer1)
-        #self.copy(self.theme.layer2)
+        self.copy(self.theme.layer2)
         
         
         cdef uint16_t x  =0
