@@ -30,6 +30,7 @@ cdef class layer:
         
 
     cdef load_file(self,path,array.array palette,int width,int height):
+        cdef uint8_t clear_1=[0]
         path=os.path.join(path,'layers',self.file) 
         if os.path.exists(path)==False:
             raise Exception("Invalid image file")
@@ -39,7 +40,7 @@ cdef class layer:
         for frame in gif_raw['frames']:
             if frame['image']:
                 atrribs=frame['descriptor']
-                self.image=image(1,atrribs.Width,atrribs.Height,array.array('B',gif_raw['global_color_table'].colors),[0])
+                self.image=image(1,atrribs.Width,atrribs.Height,array.array('B',gif_raw['global_color_table'].colors),clear_1)
                 self.image.data=frame['image'].data
                 if frame['gc'].TransparentColorFlag==0:
                     self.image.transparent=-1
