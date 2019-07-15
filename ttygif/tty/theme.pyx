@@ -43,10 +43,13 @@ cdef class layer:
                 atrribs=frame['descriptor']
                 self.image=image(1,atrribs.Width,atrribs.Height,array.array('B',gif_raw['global_color_table'].colors),clear_1)
                 self.image.data=frame['image'].data
-                if frame['gc'].TransparentColorFlag==0:
-                    self.image.transparent=-1
-                if frame['gc'].TransparentColorFlag==1:
-                    self.image.transparent=frame['gc'].ColorIndex
+                if frame['gc']==None:
+                        self.image.transparent=-1
+                else:
+                    if frame['gc'].TransparentColorFlag==0:
+                        self.image.transparent=-1
+                    if frame['gc'].TransparentColorFlag==1:
+                        self.image.transparent=frame['gc'].ColorIndex
                 self.image.remap_image(palette,self.image.transparent)
               
 
