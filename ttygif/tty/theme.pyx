@@ -43,7 +43,7 @@ cdef class layer:
                 atrribs=frame['descriptor']
                 self.image=image(1,atrribs.Width,atrribs.Height,array.array('B',gif_raw['global_color_table'].colors),clear_1)
                 self.image.data=frame['image'].data
-                if 'gc' not in frame:
+                if frame['gc']==None:
                         self.image.transparent=-1
                 else:
                     if frame['gc'].TransparentColorFlag==0:

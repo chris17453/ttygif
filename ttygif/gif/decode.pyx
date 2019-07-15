@@ -75,7 +75,7 @@ cdef class decode:
         loop=True
         frame=0
         old_pos=-1
-        info={}
+        info={'frame':None,'type':'image','gc':None,'descriptor':None,'color_table':None,'image':None}
         while loop:
             # try for an image
             gc=self.load_graphics_control_extension()
