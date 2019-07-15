@@ -42,11 +42,13 @@ cdef class terminal_graphics:
             char_width  = viewport_width  / image_font.height
             char_height = viewport_height / image_font.width
 
-        cdef uint8_t[3] clear_3=[self.state.foreground,self.state.background,0]
-        cdef uint8_t[1] clear_1=[0]
         self.theme      = theme_loader(theme_name,px_width,px_height)
         self.state      = display_state(char_width,char_height,user_theme=self.theme)
         self.alt_state  = display_state(char_width,char_height,user_theme=self.theme)
+        
+        cdef uint8_t[3] clear_3=[self.state.foreground,self.state.background,0]
+        cdef uint8_t[1] clear_1=[0]
+        
         self.screen     = image(3,char_width ,char_height ,self.theme.palette,clear_3          )
         self.alt_screen = image(3,char_width ,char_height ,self.theme.palette,clear_3          )
         self.viewport   = image(1,px_width  + self.theme.padding.left + self.theme.padding.right   ,
@@ -202,7 +204,7 @@ cdef class terminal_graphics:
         self.viewport.clear(clear_pixel)
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
-        return
+        
         
         cdef uint16_t x  =0
         cdef uint16_t y  =0
