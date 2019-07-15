@@ -23,6 +23,8 @@ cdef class layer:
         self.inner =rect(0,0,0,0)
         self.bounds=rect(0,0,0,0)
         self.dst   =rect(0,0,0,0)
+        self.transparent=False
+
         
         
 

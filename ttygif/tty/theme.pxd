@@ -15,6 +15,7 @@ cdef class layer:
     cdef rect        dst
     cdef str         center
     cdef str         copy_mode
+    cdef bool        transparent
 
 
     cdef image       image
