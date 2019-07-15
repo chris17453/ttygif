@@ -9,7 +9,8 @@ import types
 from os.path import expanduser
 from ..gif.decode import decode
 from image import image
-from libcpp cimport bool
+from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
+
 
 
 
