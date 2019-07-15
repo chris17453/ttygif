@@ -451,7 +451,7 @@ cdef class term_parser:
         cdef int x=self.g.state.cursor_x
         cdef int y=self.g.state.cursor_y
         cdef int width=self.g.state.width
-        cdef uint8_t[3] pixel_arr[0,0,0]
+        cdef uint8_t[3] pixel_arr=[0,0,0]
         temp=[]
         #copy elements to buffer
         for x2 in xrange(x+distance,width):
