@@ -202,7 +202,7 @@ cdef class terminal_graphics:
         self.viewport.clear(clear_pixel)
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
-        
+        return
         
         cdef uint16_t x  =0
         cdef uint16_t y  =0
