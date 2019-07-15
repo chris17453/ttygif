@@ -83,8 +83,8 @@ cdef class theme:
         temp.load_file(self.path,self.palette,self.width,self.height)
 
 
-        cdef int total_width =self.width -1
-        cdef int total_height=self.height-1
+        cdef int total_width =self.width -1+self.padding.left+self.padding.right
+        cdef int total_height=self.height-1+self.padding.top +self.padding.bottom
 
         # the source  rectangle's
         if temp.outer.left   ==-1: temp.outer.left    =temp.image.dimentions.width  -1
