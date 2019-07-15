@@ -9,6 +9,7 @@ import types
 from os.path import expanduser
 from ..gif.decode import decode
 from image import image
+from libcpp cimport bool
 
 
 
@@ -42,8 +43,10 @@ cdef class layer:
                 self.image.data=frame['image'].data
                 if frame['gc'].TransparentColorFlag==0:
                     self.image.transparent=-1
+                    self.transparent=False
                 if frame['gc'].TransparentColorFlag==1:
                     self.image.transparent=frame['gc'].ColorIndex
+                    self.transparent=True
                 self.image.remap_image(palette)
               
 
@@ -281,6 +284,11 @@ cdef class theme:
                     theme_layer.center=value
                 elif key=='copy-mode':
                     theme_layer.copy_mode=value
+                elif key=='transparent':
+                    if value=='1':
+                        theme_layer.transparent=True
+                    if value=='0':
+                        theme_layer.transparent=False
            
 
             elif section=='palette':
