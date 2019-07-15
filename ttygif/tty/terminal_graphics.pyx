@@ -183,9 +183,9 @@ cdef class terminal_graphics:
         if temp==None:
             return
         if  temp.mode=="9slice":
-            temp.image.copy_9slice(self.viewport,temp.outer,temp.inner,temp.dst,temp.copy_mode,temp.transparent)
+            temp.image.copy_9slice(self.viewport,temp.outer,temp.inner,temp.dst,,temp.transparent,temp.copy_mode)
         if  temp.mode=="3slice":
-            temp.image.copy_3slice(self.viewport,temp.outer,temp.inner,temp.dst,temp.copy_mode,temp.transparent)
+            temp.image.copy_3slice(self.viewport,temp.outer,temp.inner,temp.dst,temp.transparent,temp.copy_mode)
         elif temp.mode=="copy":
             temp.image.copy(self.viewport,temp.bounds,temp.dst ,temp.transparent)
 
