@@ -162,17 +162,14 @@ cdef class image:
 
     # put a pixel of X stride
     cdef void put_pixel_1byte(self,uint16_t x,uint16_t y,uint8_t pixel):
-        #if x<0 or x>=self.dimentions.width:
-        #    return
-        #if y<0 or y>=self.dimentions.height:
-        #    return
         cdef uint32_t pos=self.dimentions.stride*y+x*self.dimentions.bytes_per_pixel
         try:
             self.data[pos]=pixel
         except Exception as ex:
-            print x,y,self.dimentions.length
-            print (ex)
-            exit(0)
+            pass
+      #      print x,y,self.dimentions.length
+      #      print (ex)
+      #      exit(0)
 
     cdef void put_pixel_3byte(self,int x,int y,uint8_t[3] pixel):
         cdef uint32_t pos=self.get_position(x,y)
@@ -239,7 +236,13 @@ cdef class image:
         cdef uint8_t b
         cdef uint8_t pixel
        
+        if x<0 or x>=self.dimentions.width:
+            return
+        if y<0 or y>=self.dimentions.height:
+            return
+        
 
+        
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel_1byte(x+src.left,y+src.top)
