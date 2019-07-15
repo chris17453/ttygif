@@ -230,7 +230,7 @@ cdef class image:
 
 
     # plain copy 1-1
-    cdef copy(self,image dst_image,rect src,rect dst):
+    cdef copy(self,image dst_image,rect src,rect dst,int transparent):
         cdef uint16_t x
         cdef uint16_t y
         cdef uint8_t r
@@ -242,11 +242,11 @@ cdef class image:
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel_1byte(x+src.left,y+src.top)
-                if pixel==self.transparent:
+                if transparent==1 and pixel==self.transparent:
                     continue
                 dst_image.put_pixel_1byte(dst.left+x,dst.top+y,pixel)
 
-    cdef copy_remap(self,image dst_image,rect src,point dst):
+    cdef copy_remap(self,image dst_image,rect src,point dst,int transparent):
         
         cdef uint16_t x
         cdef uint16_t y
@@ -255,13 +255,13 @@ cdef class image:
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel_1byte(x+src.left,y+src.top)
-                if pixel==self.transparent:
+                if transparent==1 and pixel==self.transparent:
                     continue
                 dst_image.put_pixel_rgb(dst.left+x,dst.top+y,self.palette[pixel*3+0],self.palette[pixel*3+1],self.palette[pixel*3+2])
                 
 
     # strech src to fir dest
-    cdef copy_scale(self,image dst_image,rect src,rect dst):
+    cdef copy_scale(self,image dst_image,rect src,rect dst,int transparent):
         cdef uint16_t x
         cdef uint16_t y 
         cdef uint16_t x3
@@ -279,12 +279,12 @@ cdef class image:
                 x3=src.get_x_percent(fx)
                 y3=src.get_y_percent(fy)
                 pixel=self.get_pixel_1byte(x3,y3)
-                if pixel==self.transparent:
+                if transparent==1 and pixel==self.transparent:
                     continue
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
 
     # tile src to dest
-    cdef copy_tile(self,image dst_image,rect src,rect dst):
+    cdef copy_tile(self,image dst_image,rect src,rect dst,int transparent):
         cdef uint16_t x
         cdef uint16_t y 
         cdef uint16_t x3=0
@@ -300,7 +300,7 @@ cdef class image:
                 else: 
                     x3+=1 
 
-                if pixel==self.transparent:
+                if transparent==1 and pixel==self.transparent:
                     continue
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
             y3+=1 
@@ -354,24 +354,24 @@ cdef class image:
         cdef rect   dst_8=rect(dst_inner.left+1  ,dst_inner.bottom  ,dst_inner.right-1  ,dst_outer.bottom)
         cdef rect   dst_9=rect(dst_inner.right   ,dst_inner.bottom  ,dst_outer.right    ,dst_outer.bottom)
 
-        self.copy     (dst_image,src_1, dst_1)
-        self.copy_tile(dst_image,src_2, dst_2)
-        self.copy     (dst_image,src_3, dst_3)
-        self.copy_tile(dst_image,src_4, dst_4)
+        self.copy     (dst_image,src_1, dst_1,transparent)
+        self.copy_tile(dst_image,src_2, dst_2,transparent)
+        self.copy     (dst_image,src_3, dst_3,transparent)
+        self.copy_tile(dst_image,src_4, dst_4,transparent)
 
-        self.copy_tile(dst_image,src_6, dst_6)
-        self.copy     (dst_image,src_7, dst_7)
-        self.copy_tile(dst_image,src_8, dst_8)
-        self.copy     (dst_image,src_9, dst_9)
+        self.copy_tile(dst_image,src_6, dst_6,transparent)
+        self.copy     (dst_image,src_7, dst_7,transparent)
+        self.copy_tile(dst_image,src_8, dst_8,transparent)
+        self.copy     (dst_image,src_9, dst_9,transparent)
 
 
         if mode=='scale':
-            self.copy_scale(dst_image,src_5,dst_5)
+            self.copy_scale(dst_image,src_5,dst_5,transparent)
         elif mode=='tile':
-            self.copy_tile(dst_image,src_5, dst_5)
+            self.copy_tile(dst_image,src_5, dst_5,transparent)
 
 
-    cdef copy_3slice(self,image dst_image,rect outer,rect inner,rect dst,str mode):
+    cdef copy_3slice(self,image dst_image,rect outer,rect inner,rect dst,int transparent,str mode):
         cdef rect   src_1=rect(outer.left    ,outer.top     ,inner.left     ,outer.bottom)
         cdef rect   src_2=rect(inner.left+1  ,outer.top     ,inner.right-1  ,outer.bottom)
         cdef rect   src_3=rect(inner.right   ,outer.top     ,outer.right    ,outer.bottom)
@@ -383,13 +383,13 @@ cdef class image:
         cdef rect   dst_2=rect(dst_inner.left+1  ,dst_outer.top     ,dst_inner.right-1  ,dst_outer.bottom)
         cdef rect   dst_3=rect(dst_inner.right   ,dst_outer.top     ,dst_outer.right    ,dst_outer.bottom)
 
-        self.copy     (dst_image,src_1, dst_1)
-        self.copy     (dst_image,src_3, dst_3)
+        self.copy     (dst_image,src_1, dst_1,transparent)
+        self.copy     (dst_image,src_3, dst_3,transparent)
 
         if mode=='scale':
-            self.copy_scale(dst_image,src_2,dst_2)
+            self.copy_scale(dst_image,src_2,dst_2,transparent)
         elif mode=='tile':
-            self.copy_tile(dst_image,src_2, dst_2)
+            self.copy_tile(dst_image,src_2, dst_2,transparent)
 
 
     cdef debug(self):
