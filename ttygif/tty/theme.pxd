@@ -3,7 +3,6 @@
 # cython: language_level=2
 from cpython cimport array
 from image cimport rect,image,point
-from libcpp cimport bool
 
 cdef class layer:
     cdef int         z_index
@@ -16,7 +15,7 @@ cdef class layer:
     cdef rect        dst
     cdef str         center
     cdef str         copy_mode
-    cdef bool        transparent
+    cdef int         transparent
 
 
     cdef image       image

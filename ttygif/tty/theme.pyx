@@ -24,7 +24,7 @@ cdef class layer:
         self.inner =rect(0,0,0,0)
         self.bounds=rect(0,0,0,0)
         self.dst   =rect(0,0,0,0)
-        self.transparent=False
+        self.transparent=-1
 
         
         
@@ -43,10 +43,10 @@ cdef class layer:
                 self.image.data=frame['image'].data
                 if frame['gc'].TransparentColorFlag==0:
                     self.image.transparent=-1
-                    self.transparent=False
+                    self.transparent=-1
                 if frame['gc'].TransparentColorFlag==1:
                     self.image.transparent=frame['gc'].ColorIndex
-                    self.transparent=True
+                    self.transparent=1
                 self.image.remap_image(palette)
               
 
@@ -286,9 +286,9 @@ cdef class theme:
                     theme_layer.copy_mode=value
                 elif key=='transparent':
                     if value=='1':
-                        theme_layer.transparent=True
+                        theme_layer.transparent=1
                     if value=='0':
-                        theme_layer.transparent=False
+                        theme_layer.transparent=-1
            
 
             elif section=='palette':
