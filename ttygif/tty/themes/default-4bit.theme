@@ -5,6 +5,7 @@ foreground         15
 default_background 0
 default_foreground 15
 
+palette
 colors 16
 # colors 1-16 (0-15)
 0   0   0   
