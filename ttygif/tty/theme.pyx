@@ -53,10 +53,12 @@ cdef class layer:
 
     cdef debug(self):
         print("Layer")
-        print("  name:    {0}".format(self.name))
-        print("  z_index: {0}".format(self.z_index))
-        print("  file:    {0}".format(self.file))
-        print("  mode:    {0}".format(self.mode))
+        print("  name:      {0}".format(self.name))
+        print("  z_index:   {0}".format(self.z_index))
+        print("  file:      {0}".format(self.file))
+        print("  mode:      {0}".format(self.mode))
+        print("copy-mode:   {0}".format(self.copy_mode))
+        print("transparent: {0}".format(self.transparent))
         print("Outer: ")
         self.outer.debug()
         print("Inner: ")
