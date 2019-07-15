@@ -196,8 +196,8 @@ cdef class image:
     cdef remap_image(self,array.array palette,uint8_t transparent):
         cdef rect src=self.get_rect()
         cdef point dst=src.point1()
-
-        cdef image tmp=image(self.dimentions.bytes_per_pixel,self.dimentions.width,self.dimentions.height,palette,[0])
+        cdef uint8_t[1] clear_1=[0]
+        cdef image tmp=image(self.dimentions.bytes_per_pixel,self.dimentions.width,self.dimentions.height,palette,clear_1)
         self.copy_remap(tmp,src,dst,transparent)
         self.data=tmp.data
         self.palette=tmp.palette
