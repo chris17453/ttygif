@@ -451,9 +451,8 @@ cdef class term_parser:
         cdef int x=self.g.state.cursor_x
         cdef int y=self.g.state.cursor_y
         cdef int width=self.g.state.width
-        cdef uint8_t[3] pixel_arr=[0,0,0]
         temp=[]
-        cdef uint8_t c
+        cdef uint8_t[3] c
         #copy elements to buffer
         for x2 in xrange(x+distance,width):
             c=self.g.screen.get_pixel_3byte(x2,y,c)
@@ -461,8 +460,8 @@ cdef class term_parser:
 
         # clear the end of the line
         for x2 in xrange(width-distance,width):
-            pixel_arr=[self.g.state.foreground,self.g.state.background,0]
-            self.g.screen.put_pixel_3byte(x2,y,pixel_arr)
+            c=[self.g.state.foreground,self.g.state.background,0]
+            self.g.screen.put_pixel_3byte(x2,y,c)
 
     cdef cmd_ECH(self,distance):
         cp=self.g.state.cursor_get_position()
