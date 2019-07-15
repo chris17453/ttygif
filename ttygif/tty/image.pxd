@@ -54,7 +54,7 @@ cdef class image:
     cdef void put_pixel_3byte(self,int x,int y,uint8_t[3] pixel)
     cdef put_pixel_rgb(self,int x,int y,int r,int g,int b)
     cdef clear(self,uint8_t[] pixel)
-    cdef remap_image(self,array.array palette)
+    cdef remap_image(self,array.array palette,uint8_t transparent)
     cdef match_color_index(self,int r,int g,int b)
     cdef copy(self,image dst_image,rect src,rect dst,int transparent)
     cdef copy_remap(self,image dst_image,rect src,point dst,int transparent)

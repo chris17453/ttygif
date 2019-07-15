@@ -192,12 +192,12 @@ cdef class image:
             for pixel_pos in xrange(0, pixel_stride):
                 self.data[index+pixel_pos]=pixel[pixel_pos]
             
-    cdef remap_image(self,array.array palette):
+    cdef remap_image(self,array.array palette,uint8_t transparent):
         cdef rect src=self.get_rect()
         cdef point dst=src.point1()
 
         cdef image tmp=image(self.dimentions.bytes_per_pixel,self.dimentions.width,self.dimentions.height,palette,0)
-        self.copy_remap(tmp,src,dst)
+        self.copy_remap(tmp,src,dst,transparent)
         self.data=tmp.data
         self.palette=tmp.palette
 
