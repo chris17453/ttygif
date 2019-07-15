@@ -301,7 +301,7 @@ cdef class theme:
 
         self.auto()
 
-        if 1==0:
+        if 1==1:
             print("name:                {0}".format(self.name))
             print("background:          {0}".format(self.background))
             print("foreground:          {0}".format(self.foreground))
@@ -309,6 +309,7 @@ cdef class theme:
             print("default_foreground:  {0}".format(self.default_foreground))
             print("colors:              {0}".format(self.colors))
             self.padding.debug()
+            
             
         
             if self.layer1: self.layer1.debug();
