@@ -94,5 +94,5 @@ htop:
 	@python -m ttygif.cli --input assets/cast/test.cast --output assets/encode/test.gif --fps 0
 
 pika-dark:
-	@python -m ttygif.cli --input assets/cast/236096.cast --output assets/encode/236096.gif --fps 12 --theme dark
+	@python -m ttygif.cli --input assets/cast/236096.cast --output assets/encode/236096.gif --fps 12 --theme game
 	
