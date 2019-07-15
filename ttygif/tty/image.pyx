@@ -84,10 +84,11 @@ cdef class point:
 
 # image class, holds image metrics, data and palette        
 cdef class image:
-    def __cinit__(self,int bytes_per_pixel,int width,int height,array.array palette,int init_value):
+    def __cinit__(self,int bytes_per_pixel,int width,int height,array.array palette,uint8_t[] init_value):
         
         self.dimentions=bounds(width,height,bytes_per_pixel)
-        self.data      =self.create_buffer(self.dimentions.length,init_value)
+        self.data      =self.create_buffer(self.dimentions.length,0)
+        self.clear(init_value)
         if palette:
             self.palette   =palette
     
@@ -196,7 +197,7 @@ cdef class image:
         cdef rect src=self.get_rect()
         cdef point dst=src.point1()
 
-        cdef image tmp=image(self.dimentions.bytes_per_pixel,self.dimentions.width,self.dimentions.height,palette,0)
+        cdef image tmp=image(self.dimentions.bytes_per_pixel,self.dimentions.width,self.dimentions.height,palette,[0])
         self.copy_remap(tmp,src,dst,transparent)
         self.data=tmp.data
         self.palette=tmp.palette
