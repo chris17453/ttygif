@@ -42,7 +42,7 @@ cdef class terminal_graphics:
             char_width  = viewport_width  / image_font.height
             char_height = viewport_height / image_font.width
 
-        cdef uint8_t clear=[self.state.foreground,self.state.background,0]
+        cdef uint8_t[3] clear=[self.state.foreground,self.state.background,0]
 
         self.theme      = theme_loader(theme_name,px_width,px_height)
         self.state      = display_state(char_width,char_height,user_theme=self.theme)
