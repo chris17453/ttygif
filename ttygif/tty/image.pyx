@@ -169,7 +169,7 @@ cdef class image:
         try:
             self.data[pos]=pixel
         except Exception as ex:
-            print x,y,self.dimentions.length:
+            print x,y,self.dimentions.length
             print (ex)
             exit(0)
 
