@@ -454,6 +454,7 @@ cdef class term_parser:
         cdef int width=self.g.state.width
         cdef uint8_t[3] pixel_arr=[0,0,0]
         temp=[]
+        cdef uint8_t c
         #copy elements to buffer
         for x2 in xrange(x+distance,width):
             temp.append(self.g.screen.get_pixel(x2,y))
@@ -461,7 +462,7 @@ cdef class term_parser:
         # Move line over x ammount
         for x2 in xrange(0,len(temp)):
             c=temp[x2]
-            self.g.screen.put_pixel_1byte(x2+x,y,c)
+            self.g.screen.put_pixel_3byte(x2+x,y,c)
         # clear the end of the line
         for x2 in xrange(width-distance,width):
             pixel_arr=[self.g.state.foreground,self.g.state.background,0]
