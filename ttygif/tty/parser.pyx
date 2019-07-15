@@ -455,7 +455,7 @@ cdef class term_parser:
         cdef uint8_t[3] c=[0,0,0]
         #copy elements to buffer
         for x2 in xrange(x+distance,width):
-            c=self.g.screen.get_pixel_3byte(x2,y,c)
+            self.g.screen.get_pixel_3byte(x2,y,c)
             self.g.screen.put_pixel_3byte(x2-distance,y,c)
 
         # clear the end of the line
