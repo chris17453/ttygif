@@ -225,7 +225,7 @@ cdef class image:
 
 
     # plain copy 1-1
-    cdef copy(self,image dst_image,rect src,point dst):
+    cdef copy(self,image dst_image,rect src,rect dst):
         cdef uint16_t x
         cdef uint16_t y
         cdef uint8_t r

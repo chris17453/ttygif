@@ -56,7 +56,7 @@ cdef class image:
     cdef clear(self,uint8_t[] pixel)
     cdef remap_image(self,array.array palette)
     cdef match_color_index(self,int r,int g,int b)
-    cdef copy(self,image dst_image,rect src,point dst)
+    cdef copy(self,image dst_image,rect src,rect dst)
     cdef copy_remap(self,image dst_image,rect src,point dst)
     cdef copy_scale(self,image dst_image,rect src,rect dst)
     cdef copy_tile(self,image dst_image,rect src,rect dst)
