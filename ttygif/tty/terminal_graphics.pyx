@@ -192,6 +192,8 @@ cdef class terminal_graphics:
             temp.image.copy_3slice(self.viewport,temp.outer,temp.inner,temp.dst,temp.transparent,temp.copy_mode)
         elif temp.mode=="copy":
             temp.image.copy(self.viewport,temp.bounds,temp.dst ,temp.transparent)
+        elif temp.mode=="tile":
+            temp.image.copy_tile(self.viewport,temp.bounds,temp.dst ,temp.transparent)
 
 
     cdef render(self):
