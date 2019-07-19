@@ -89,9 +89,8 @@ cdef class term_parser:
                 c=26
             else:
                 print ("Missing character: {0}     ".format(c))
-                return "*"
-        else:
-            return character
+                c=ord('*')
+        return chr(c)
 
 
 
