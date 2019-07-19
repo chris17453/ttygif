@@ -11,6 +11,7 @@ cdef class display_state:
         self.cursor_y           = 0
         self.width              = width
         self.height             = height
+        self.mode               = "linux"
         self.reverse_video      = None
         self.bold               = None            
         self.text_mode          = None            

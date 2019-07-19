@@ -10,6 +10,7 @@ cdef class display_state:
     cdef int             cursor_y
     cdef int             saved_cursor_x
     cdef int             saved_cursor_y
+    cdef str             mode
     cdef uint8_t         default_foreground
     cdef uint8_t         default_background
     cdef uint8_t         foreground
