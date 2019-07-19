@@ -77,8 +77,6 @@ right            auto
 bottom           auto
 dst-left        -110
 dst-top          0  
-dst-left         0
-dst-top          0
 dst-right        auto
 dst-bottom       auto
 
