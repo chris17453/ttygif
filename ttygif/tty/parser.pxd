@@ -4,6 +4,7 @@
 
 from .terminal_graphics cimport terminal_graphics
 import re
+from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
 
 
 
