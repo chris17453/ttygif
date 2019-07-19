@@ -49,7 +49,7 @@ cdef class term_parser:
             print r,g,b,mappeded_color
         return mappeded_color
 
-    cdef uint8_t remap_character(self,character):
+    cdef remap_character(self,character):
       #print character
         #print character
         if character==None:

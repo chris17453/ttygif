@@ -25,7 +25,7 @@ cdef class term_parser:
     cdef info(self,text)
     cdef clear_sequence(self)
     cdef rgb_to_palette(self,r,g,b)
-    cdef uint8_t remap_character(self,character)
+    cdef remap_character(self,character)
     cdef render_to_buffer(self)
     cdef procces_OSC(self,groups)
     cdef process_SINGLE(self,groups)
