@@ -69,10 +69,10 @@ copy-mode        tile
 
 layer
 depth           -1
-file             windows7-dialog-controls.gif             
+file             windows7-dialog-controls.gif
 mode             copy
-left             auto
-top              auto
+left             0
+top              0
 right            auto
 bottom           auto
 dst-left        -110
