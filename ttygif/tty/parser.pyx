@@ -561,7 +561,7 @@ cdef class term_parser:
                             elif command in 'ABCD':
                                 params = (1,)
                     except Exception as ex:
-                        pass
+                        continue
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
         
         
