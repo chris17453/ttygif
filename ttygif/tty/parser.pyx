@@ -51,7 +51,7 @@ cdef class term_parser:
 
     
     cdef remap_character(self,character):
-    """maps a character to ascii"""
+    #"""maps a character to ascii"""
       #print character
         #print character
         if character==None:
