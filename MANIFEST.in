@@ -1,3 +1,4 @@
 include README.md
 recursive-include ttygif *.fd
 recursive-include ttygif *.theme
+recursive-include ttygif *.gif
