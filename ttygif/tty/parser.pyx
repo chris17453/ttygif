@@ -363,7 +363,7 @@ cdef class term_parser:
                     self.g.state.cursor_left(1)
                 elif char_ord==LF:
                     self.g.state.cursor_down(1)
-                    if self.g.mode=="linux":
+                    if self.g.state.mode=="linux":
                         self.g.state.cursor_absolute_x(0)
 
                 elif char_ord==CR:
