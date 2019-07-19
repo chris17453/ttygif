@@ -49,7 +49,9 @@ cdef class term_parser:
             print r,g,b,mappeded_color
         return mappeded_color
 
+    
     cdef remap_character(self,character):
+    """maps a character to ascii"""
       #print character
         #print character
         if character==None:
@@ -93,6 +95,7 @@ cdef class term_parser:
             else:
                 print ("Missing character: {0}     ".format(c))
                 c=ord('*')
+        print c
         return chr(c)
 
 
