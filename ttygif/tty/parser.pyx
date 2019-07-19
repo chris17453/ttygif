@@ -89,11 +89,11 @@ cdef class term_parser:
             elif c==10140:
                 c=26
             else:
-                print ("Missing character: {0}".format(c))
-                return unichr(replacment_char)
+                print ("Missing character: {0}     ".format(c))
+                return chr(replacment_char)
         else:
             return character
-        return unichr(c)
+        return chr(c)
 
 
     
