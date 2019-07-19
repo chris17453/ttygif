@@ -52,6 +52,9 @@ cdef class term_parser:
     cdef uint8_t remap_character(self,character):
       #print character
         #print character
+        if character==None:
+            return ""
+
         cdef int c=ord(character)
         #character=character.encode('latin-1')
         if c>255:
