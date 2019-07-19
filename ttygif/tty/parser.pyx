@@ -54,7 +54,6 @@ cdef class term_parser:
         #print character
         cdef int c=ord(character)
         #character=character.encode('latin-1')
-        cdef int replacment_char=ord('*')
         if c>255:
             if c==8216:
                 c=39
@@ -90,7 +89,7 @@ cdef class term_parser:
                 c=26
             else:
                 print ("Missing character: {0}     ".format(c))
-                return replacment_char
+                return "*"
         else:
             return character
 
