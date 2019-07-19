@@ -34,7 +34,8 @@ cdef class layer:
         cdef uint8_t[1] clear_1=[0]
         path=os.path.join(path,'layers',self.file) 
         if os.path.exists(path)==False:
-            raise Exception("Invalid image file")
+            err="Invalid image file: {0}".format(path)
+            raise Exception(err)
         cdef image temp_image
         underlay_image=decode(path)
         gif_raw=underlay_image.get()
