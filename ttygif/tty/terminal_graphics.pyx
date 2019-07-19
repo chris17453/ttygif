@@ -88,6 +88,7 @@ cdef class terminal_graphics:
         cdef int top=self.state.scroll_top
         cdef int bottom=self.state.scroll_bottom
         cdef int length=self.state.scroll
+        cdef uint8_t[3] pixel=[0,0,0]
         #print "len",length,top,bottom
         if 1==1:
             if length>0:
@@ -96,7 +97,7 @@ cdef class terminal_graphics:
                         if y+length<top or y+length>bottom:
                             pixel=[self.state.foreground,self.state.background,0]
                         else:
-                            pixel=self.screen.get_pixel(x,y+length)
+                            self.screen.get_pixel_3byte(x,y+length,pixel)
                         self.screen.put_pixel_3byte(x,y,pixel)
             else:
                 for y in xrange(bottom,top-1):
@@ -104,7 +105,7 @@ cdef class terminal_graphics:
                         if y+length<top or y+length>bottom:
                             pixel=[self.state.foreground,self.state.background,0]
                         else:
-                            pixel=self.screen.get_pixel(x,y+length)
+                            self.screen.get_pixel_3byte(x,y+length,pixel)
                         self.screen.put_pixel_3byte(x,y,pixel)
             
         self.state.scroll=0
