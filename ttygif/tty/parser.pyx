@@ -90,7 +90,7 @@ cdef class term_parser:
                 c=26
             else:
                 print ("Missing character: {0}     ".format(c))
-                return ord(replacment_char)
+                return replacment_char
         else:
             return character
 
