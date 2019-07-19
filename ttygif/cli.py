@@ -36,10 +36,6 @@ def cli_main():
     parser.add_argument('--width',     help='change character width of gif, default is 80 or what is in the cast file',metavar='WIDTH', type=int)
     parser.add_argument('--height',    help='change character height of gif, default is 25 or what is in the cast file',metavar='HEIGHT', type=int)
     #parser.add_argument('--text-at'  help='print the text screen buffer at TIME',metavar='TIME', type=int)
-    parser.add_argument('--underlay',  help='use a gif image as the background', default= None,metavar='FILE')
-    parser.add_argument('--overlay',   help='use a gif image as a transparent top layer', default= None,metavar='FILE')
-    parser.add_argument('--undelay--bounds',   help='the bounding of the background image  (left,top,right,bottom)', default= None,nargs=4)
-    parser.add_argument('--overlay--bounds',   help='the bounding of the transparent top layer (left,top,right,bottom)', default= None,nargs=4)
 
 
     # underlay_display =simple, stretch, center
@@ -109,7 +105,7 @@ def cli_main():
                     natural=natural,
                     height=args.height,
                     width=args.width,
-                    underlay=args.underlay,
+                    underlay=None,
                     #overlay=args.overlay,
                     font_name=args.font,
                     theme_name=args.theme)
