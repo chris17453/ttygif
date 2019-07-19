@@ -553,14 +553,15 @@ cdef class term_parser:
                     param_tokens=paramstring[1:].split(';')
                     params=[int(part) for part in param_tokens]
                 else:
-                    
-                    params = tuple(int(p) for p in paramstring.split(';') if len(p) != 0)
-                    if len(params) == 0:
-                        if command in 'JKm':
-                            params = (0,)
-                        elif command in 'ABCD':
-                            params = (1,)
-                
+                    try:
+                        params = tuple(int(p) for p in paramstring.split(';') if len(p) != 0)
+                        if len(params) == 0:
+                            if command in 'JKm':
+                                params = (0,)
+                            elif command in 'ABCD':
+                                params = (1,)
+                    except Exception as ex:
+                        pass
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
         
         
