@@ -49,7 +49,7 @@ cdef class term_parser:
             print r,g,b,mappeded_color
         return mappeded_color
 
-    cdef remap_character(self,character):
+    cdef uint8_t remap_character(self,character):
       #print character
         #print character
         cdef int c=ord(character)
@@ -90,10 +90,10 @@ cdef class term_parser:
                 c=26
             else:
                 print ("Missing character: {0}     ".format(c))
-                return chr(replacment_char)
+                return ord(replacment_char)
         else:
             return character
-        return chr(c)
+
 
 
     
