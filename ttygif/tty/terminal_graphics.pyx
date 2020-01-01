@@ -3,6 +3,7 @@
 # cython: language_level=2
 
 
+cimport cpython.version
 from cpython cimport array
 from libc.string cimport memset
 
