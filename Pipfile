@@ -7,9 +7,10 @@ verify_ssl = true
 cython = "*"
 unittest2 = "*"
 builtins = "*"
+future = "*"
 
 [requires]
-python_version = "2.7"
+
 
 [dev-packages]
 pyinstaller = "*"
