@@ -6,6 +6,7 @@ verify_ssl = true
 [packages]
 cython = "*"
 unittest2 = "*"
+builtins = "*"
 
 [requires]
 python_version = "2.7"
