@@ -3,28 +3,35 @@
 A full featured text to gif conversion utility, that just works. It's in beta, so expect rough edges.
 
 ## Why use ttygif?
-
 - its fast, and easy to install
 - can be used with a pipe
 - it can be scripted
 - it can read asciicast files
 - it runs headless
 - perfect fit for CI/CD
+- works with python 2 and 3
 
-## install
+## easy install
 
 ```bash
 ## requirements gcc and python development libs
 pip install ttygif --user
 ```
 
-## pulling project
-This will pull the local project and ist submodule assets.
+## dev install 
+This will pull the project and ist submodule assets from github.
 ```
 git clone https://github.com/chris17453/ttygif.git
 cd ttygif
 git submodule update --init --recursive
 ```
+
+## dev build
+```bash
+pipenv shell
+make build
+```
+
 ## It's portable
 
 ttygif is self contained with no dependencys other than python. GIF encoding 

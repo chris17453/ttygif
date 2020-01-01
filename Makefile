@@ -16,15 +16,38 @@ git_email="chris17453@gmail.com"
 .DEFAULT: help
 .PHONY: test examples profile
 help:
-	@echo "make build          | build bython files and make pypi package(runs unittest and standalone)"
-	@echo "make bump           | bump the package version"
-	@echo "make clean          | delete pypi build files"
-	@echo "make unittest       | run unittest "
-	@echo "make standalone     | build single file pyinstaller for ttygif"
-	@echo "make upload         | upload any build packages to pypi"
-	@echo "make install        | install ttygif from your user directory"
-	@echo "make uninstall      | uninstall ttygif from your user directory"
+	@ echo "[Dev]"
+	@ echo " make build          | build bython files and make pypi package(runs unittest and standalone)"
+	@ echo " make bump           | bump the package version"
+	@ echo " make clean          | delete pypi build files"
+	@ echo " make unittest       | run unittest "
+	@ echo ""
+	@ echo "[Test]"
+	@ echo " make examples       | builds all examples (requires assets submodule)"
+	@ echo " make raytrace       | make the example raytrace"
+	@ echo " make tetris	     | make the example tetris"
+	@ echo " make caca           | make the example caca"
+	@ echo " make compile:       | make the example compile"
+	@ echo " make pika           | make the example pika"
+	@ echo " make htop           | make the example htop"
+	@ echo " make pika-dark      | make the example pika-dark"
+	@ echo ""
+	@ echo "[INSTALL]"
+	@ echo " make install        | install ttygif from your user directory"
+	@ echo " make uninstall      | uninstall ttygif from your user directory"
+	@ echo " make pull-assets    | pull the assets submodule"
+	@ echo ""
+	@ echo " make about          | about the author"
+			
+about:
+	@ echo "ttygif a product of watkinslabs"
+	@ echo "-"
+	@ echo "author: Charles Watkins"
+	@ echo "email : chris17453@gmail.com"
+	@ echo "github: github.com/chris17453"
+	@ echo "-"
 	
+
 
 clean:
 	@find . -type f -name "*.c" -exec rm -f {} \;
@@ -42,14 +65,14 @@ unittest:
 profile:
 	@python -m test.profile
 	
+pull-assets:
+	@git submodule update --init --recursive
+
 build: bump 
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 	@python setup.py build_ext --inplace sdist  --dist-dir builds/pypi/  --build-cython
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	#@$(MAKE) -f $(THIS_FILE) unittest
-
-standalone:
-	@pyinstaller ttygif.spec
 
 upload:
 	@pipenv run twine upload  builds/pypi/*.gz
