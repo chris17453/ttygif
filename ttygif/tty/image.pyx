@@ -236,10 +236,10 @@ cdef class image:
         cdef uint8_t b
         cdef uint8_t pixel
        
-        if x<0 or x>=self.dimentions.width:
-            return
-        if y<0 or y>=self.dimentions.height:
-            return
+        #if x<0 or x>=self.dimentions.width:
+        #   return
+        #if y<0 or y>=self.dimentions.height:
+        #    return
         
 
         
