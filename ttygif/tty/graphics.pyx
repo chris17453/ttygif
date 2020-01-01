@@ -91,7 +91,7 @@ cdef shift_buffer(image src_image,int init_value):
     for i in xrange(0,index):
         src_image.buffer.pop(0)
         src_image.buffer.pop(0)
-        buffer.pop(0)
+        src_image.buffer.pop(0)
     cdef int row_pos=buffer_length-src_image.dimentions.stride
     array.resize(src_image.data,buffer_length)  
     memset(&src_image.data.data.as_uchars[row_pos],init_value,src_image.dimentions.length)
