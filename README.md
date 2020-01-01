@@ -18,6 +18,13 @@ A full featured text to gif conversion utility, that just works. It's in beta, s
 pip install ttygif --user
 ```
 
+## pulling project
+This will pull the local project and ist submodule assets.
+```
+git clone https://github.com/chris17453/ttygif.git
+cd ttygif
+git submodule update --init --recursive
+```
 ## It's portable
 
 ttygif is self contained with no dependencys other than python. GIF encoding 

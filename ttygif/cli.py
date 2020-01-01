@@ -14,7 +14,7 @@ import sys
 
 
 
-def cli_main():
+def main():
     print("ttygif version {0}".format( __version__))
 
     parser = argparse.ArgumentParser(
@@ -117,4 +117,4 @@ def cli_main():
                     
 
 if __name__=='__main__':
-    cli_main()
+    main()
