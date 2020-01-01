@@ -165,7 +165,11 @@ cdef class terminal_graphics:
                 # convert empty's to spaces
                 if character<32:
                     character=32
-                text+=unichr(character)
+                try:
+                    text+=unichr(character)
+                except:
+                    text+=chr(character)
+
             text+="\n"
         return text
 
