@@ -108,7 +108,7 @@ setup(
         [console_scripts]
         ttygif = ttygif.cli:cli_main
         """,
-    compiler_directives={"language_level": "2"},
+    compiler_directives={"language_level": "3"},
     setup_requires=[
         # Setuptools 18.0 properly handles Cython extensions.
         'setuptools>=18.0',
