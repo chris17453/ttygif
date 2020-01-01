@@ -3,7 +3,7 @@
 # cython: language_level=2
 
 
-cimport cpython.version
+from builtins import chr
 from cpython cimport array
 from libc.string cimport memset
 
@@ -167,10 +167,9 @@ cdef class terminal_graphics:
                 # convert empty's to spaces
                 if character<32:
                     character=32
-IF PY_MAJOR_VERSION==2:
-                text+=unichr(character)
-ELSE:
-                    text+=chr(character)
+# PYTHON 2
+#                text+=unichr(character)
+                text+=chr(character)
 
             text+="\n"
         return text
