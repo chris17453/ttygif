@@ -156,6 +156,7 @@ cdef class terminal_graphics:
                         self.viewport.data[screen_pos]=element[1]
                 char_pos+=1
 
+
     cdef get_text(self):
         text=""
         for y in xrange(0,self.screen.dimentions.height):
@@ -165,9 +166,9 @@ cdef class terminal_graphics:
                 # convert empty's to spaces
                 if character<32:
                     character=32
-                try:
-                    text+=unichr(character)
-                except:
+IF PY_MAJOR_VERSION==2:
+                text+=unichr(character)
+ELSE:
                     text+=chr(character)
 
             text+="\n"
