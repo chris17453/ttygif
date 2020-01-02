@@ -108,7 +108,7 @@ setup(
     ],
     entry_points="""
         [console_scripts]
-        ttygif = ttygif.cli:cli_main
+        ttygif = ttygif.cli:main
         """,
     compiler_directives={"language_level": ver.major},
     setup_requires=[
