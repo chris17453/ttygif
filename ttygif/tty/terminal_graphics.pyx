@@ -47,8 +47,8 @@ cdef class terminal_graphics:
         self.state      = display_state(char_width,char_height,user_theme=self.theme)
         self.alt_state  = display_state(char_width,char_height,user_theme=self.theme)
         
-        #cdef uint8_t[3] clear_3=[self.state.foreground,self.state.background,0]
-        cdef uint8_t[3] clear_3=[9,9,9]
+        cdef uint8_t[3] clear_3=[self.state.foreground,self.state.background,32]
+        #cdef uint8_t[3] clear_3=[9,9,9]
         cdef uint8_t[1] clear_1=[0]
         
         self.screen     = image(3,char_width ,char_height ,self.theme.palette,clear_3          )
