@@ -84,7 +84,7 @@ packages=[  'ttygif',
             'ttygif.asciicast'
          ]
     
-
+ver=sys.version_info();
 exec(open('ttygif/version.py').read())
 setup(
     name='ttygif',
@@ -109,7 +109,7 @@ setup(
         [console_scripts]
         ttygif = ttygif.cli:cli_main
         """,
-#    compiler_directives={"language_level": "3"},
+    compiler_directives={"language_level": ver.major},
     setup_requires=[
         # Setuptools 18.0 properly handles Cython extensions.
         'setuptools>=18.0',
