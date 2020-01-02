@@ -84,7 +84,7 @@ packages=[  'ttygif',
             'ttygif.asciicast'
          ]
     
-ver=sys.version_info();
+ver=sys.version_info
 exec(open('ttygif/version.py').read())
 setup(
     name='ttygif',
