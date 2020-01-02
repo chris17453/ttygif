@@ -15,7 +15,7 @@ import sys
 
 
 def main():
-    print("ttygif version {0}".format( __version__))
+    print("ttygif version {0}. Compiled against Python: {1} ".format( __version__,sys.version))
 
     parser = argparse.ArgumentParser(
         prog='ttygif',
