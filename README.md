@@ -19,11 +19,11 @@ pip install ttygif --user
 ```
 
 ## dev install 
-This will pull the project and ist submodule assets from github.
+This will pull the project and submodule assets from github.
 ```
 git clone https://github.com/chris17453/ttygif.git
 cd ttygif
-git submodule update --init --recursive
+make pull-assets
 ```
 
 ## dev build
