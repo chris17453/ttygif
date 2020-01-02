@@ -88,7 +88,7 @@ cdef class image:
         
         self.dimentions=bounds(width,height,bytes_per_pixel)
         self.data      =self.create_buffer(self.dimentions.length,0)
-        self.clear(init_value)
+        #self.clear(init_value)
         if palette:
             self.palette   =palette
     
