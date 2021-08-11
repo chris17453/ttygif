@@ -13,4 +13,3 @@ future = "*"
 
 
 [dev-packages]
-pyinstaller = "*"
