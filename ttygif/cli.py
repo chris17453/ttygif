@@ -59,6 +59,7 @@ def main():
             filename="ttygif-{0}.gif".format(index)
             if os.path.exists(filename)==False:
                 args.output=filename
+                break;
         if args.output==None:
             print( " Well, Well. You have no output file, and all the auto generated file names are taken. Messy.")
             exit(1);
