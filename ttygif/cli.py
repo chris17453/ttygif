@@ -26,7 +26,7 @@ def main():
     # actions
 
     parser.add_argument('--input',     help='asciinema .cast file', default= None,metavar='FILE')
-    parser.add_argument('--output',    help='gif output file', default= None,metavar='FILE')
+    parser.add_argument('--output',    help='gif output file. will default to ttygif-%i, default= None,metavar='FILE')
     parser.add_argument('--loop',      help='number of loops to play, 0=unlimited', default=0,metavar='COUNT')
     parser.add_argument('--delay',     help='delay before restarting gif in milliseconds ', default=100,metavar='MS')
     parser.add_argument('--record',    help='output generated cast data to file', metavar='FILE')
