@@ -15,7 +15,7 @@ transparent   0
 # bottom      auto will pad based on 9 slice inner, otherwise 0
 
 padding
-left        29
+left        10
 top         36
 right       10
 bottom      10
