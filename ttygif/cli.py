@@ -3,6 +3,7 @@
 # cython: binding=True
 # cython: language_level=2
 
+import os
 import argparse
 from .asciicast.reader import asciicast_reader
 from .cast2gif import cast2gif
@@ -54,9 +55,9 @@ def main():
 
     args = parser.parse_args()
     if args.output==None:
-        for(index in range(0,10000):
+        for index in range(0,10000):
             filename="ttygif-{1}.gif".format(index)
-            if path.exists(filename)==False:
+            if os.path.exists(filename)==False:
                 args.output=filename
         if args.output==None:
             print( " Well, Well. You have no output file, and all the auto generated file names are taken. Messy.")
