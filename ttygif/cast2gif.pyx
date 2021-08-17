@@ -111,9 +111,9 @@ cdef class cast2gif:
         self.percent=int((index*100)/self.event_length)
         if self.percent!=self.old_percent:
             if self.natural:
-                sys.stdout.write(" {0} of {1} Seconds {2}%        \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2)))
+                sys.stdout.write("  {0} of {1} Seconds {2}%        \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2)))
             else:
-                sys.stdout.write(" {0} of {1} Seconds {2}% {3} FPS ({4}ms)       \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2),self.frame_rate,round(self.interval,2)))
+                sys.stdout.write("  {0} of {1} Seconds {2}% {3} FPS ({4}ms)       \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2),self.frame_rate,round(self.interval,2)))
             sys.stdout.flush()    
 
     def update_timestamps(self):
@@ -142,12 +142,12 @@ cdef class cast2gif:
             underlay_image=decode(underlay)
             self.underlay=underlay_image.get()
 
-        print("dilation:{0}".format(self.dilation))
+        print(" - dilation: {0}".format(self.dilation))
         if None==events:
-            print ("input: {0}".format(cast_file))
+            print (" - input: {0}".format(cast_file))
         else:
-            print ("input: stdin (pipe)")
-        print ("output: {0}".format(gif_file))
+            print (" - input: stdin (pipe)")
+        print (" - output: {0}".format(gif_file))
         cast=asciicast_reader(debug=debug)
         if events:
             self.stream=events
@@ -180,8 +180,8 @@ cdef class cast2gif:
         dim=v.get_dimentions()
         g.create(width=dim.width,height=dim.height,filename=self.gif_file,palette=v.terminal_graphics.theme.palette)
 
-        print ("character dimensions: {0}x{1}".format(self.width,self.height))
-        print ("pixel dimensions: {0}x{1}".format(dim.width,dim.height))
+        print (" - character dimensions: {0}x{1}".format(self.width,self.height))
+        print (" - pixel dimensions: {0}x{1}".format(dim.width,dim.height))
 
         index=0
         if self.frame_rate!=0:
@@ -267,7 +267,7 @@ cdef class cast2gif:
             v.debug_sequence()
         g.close()
         #print ("Total:",self.aggregate_timestamp)
-        print("\nfinished")
+        print("\n")
         
 
     # super fast memory copy
