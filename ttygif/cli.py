@@ -24,13 +24,13 @@ def main():
     # actions
 
     parser.add_argument('--input',     help='asciinema .cast file', default= None,metavar='FILE')
-    parser.add_argument('--output',    help='gif output file', default= None,metavar='FILE')
+    parser.add_argument('--output',    help='gif output file', default= "ttygif-01.gif",metavar='FILE')
     parser.add_argument('--loop',      help='number of loops to play, 0=unlimited', default=0,metavar='COUNT')
     parser.add_argument('--delay',     help='delay before restarting gif in milliseconds ', default=100,metavar='MS')
     parser.add_argument('--record',    help='output generated cast data to file', metavar='FILE')
     parser.add_argument('--font',      help='which internal font to use', metavar='NAME')
     
-    parser.add_argument('--theme',     help='load custom theme/colors',default='default')
+    parser.add_argument('--theme',     help='load custom theme: game,windows7,mac,fwdm',default='default')
     parser.add_argument('--dilation',  help='process events at a faster or slower rate of time', default=1,metavar='RATE', type=float)
     parser.add_argument('--fps',       help='encode at (n) frames per second (0-25) 0=speed of cast file, min 3ms', default=0,metavar='FPS', type=int)
     parser.add_argument('--width',     help='change character width of gif, default is 80 or what is in the cast file',metavar='WIDTH', type=int)
