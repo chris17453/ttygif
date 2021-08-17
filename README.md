@@ -10,6 +10,7 @@ A full featured text to gif conversion utility, that just works. It's in beta, s
 - it runs headless
 - perfect fit for CI/CD
 - works with python 2 and 3
+- works on linux, mac, raspberry PI
 
 ## easy install
 
