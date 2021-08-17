@@ -44,29 +44,34 @@ python and its development libs. ttygif is a cython project.
 ## usage
 
 ```
-ttygif version 1.0.792
-usage: ttygif [-h] [--input FILE] [--output FILE] [--loop COUNT] [--delay MS]
-              [--record FILE] [--dilation RATE] [--fps FPS] [--width WIDTH]
-              [--height HEIGHT] [--debug]
+ttygif version [1.2.175]
+
+ - Compiled against Python: 3.9.6 (default, Jul 16 2021, 00:00:00)  [GCC 11.1.1 20210531 (Red Hat 11.1.1-3)]
+usage: ttygif [-h] [--input FILE] [--output FILE] [--loop COUNT] [--delay MS] [--record FILE] [--font NAME] [--theme THEME]
+              [--dilation RATE] [--fps FPS] [--columns WIDTH] [--rows HEIGHT] [--debug]
 
 tty output to gif
 
 optional arguments:
-  -h, --help       show this help message and exit
-  --input FILE     asciinema .cast file (default: None)
-  --output FILE    gif output file (default: None)
-  --loop COUNT     number of loops to play, 0=unlimited (default: 0)
-  --delay MS       delay before restarting gif in milliseconds (default: 100)
-  --record FILE    output generated cast data to file (default: None)
-  --dilation RATE  process events at a faster or slower rate of time (default:
-                   1)
-  --fps FPS        encode at (n) frames per second (0-25) 0=speed of cast
-                   file, min 3ms (default: 0)
-  --width WIDTH    change character width of gif, default is 80 or what is in
-                   the cast file (default: None)
-  --height HEIGHT  change character height of gif, default is 25 or what is in
-                   the cast file (default: None)
-  --debug          show debuging statistics (default: 
+  -h, --help            show this help message and exit
+  --input FILE, -i FILE
+                        asciinema .cast file (default: None)
+  --output FILE, -o FILE
+                        gif output file. will default to ttygif-xx (default: None)
+  --loop COUNT, -l COUNT
+                        number of loops to play, 0=unlimited (default: 0)
+  --delay MS, -d MS     delay before restarting gif in milliseconds (default: 100)
+  --font NAME, -f NAME  which internal font to use (default: None)
+  --theme THEME, -t THEME
+                        load custom theme: game,windows7,mac,fwdm (default: default)
+  --dilation RATE       process events at a faster or slower rate of time (default: 1)
+  --fps FPS             encode at (n) frames per second (0-25) 0=speed of cast file, min 3ms (default: 0)
+  --columns WIDTH, -c WIDTH
+                        change character width of gif, default is 80 or what is in the cast file (default: None)
+  --rows HEIGHT, -r HEIGHT
+                        change character height of gif, default is 25 or what is in the cast file (default: None)
+  --debug               show debuging statistics (default: None)
+
 ```
 
 ## themes
@@ -89,6 +94,8 @@ Theming is based on the idea of branding your work for display in project reposi
 - default-2bit  (monochrome palette)
 - windows7 (windows style wrapped terminal)
 - game (8 bit inspired frame)
+- mac
+- fwdm
 
 
 ## file size
