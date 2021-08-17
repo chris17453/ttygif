@@ -25,7 +25,7 @@ def main():
     # actions
 
     parser.add_argument('--input',     help='asciinema .cast file', default= None,metavar='FILE')
-    parser.add_argument('--output',    help='gif output file', default= "ttygif-01.gif",metavar='FILE')
+    parser.add_argument('--output',    help='gif output file', default= None,metavar='FILE')
     parser.add_argument('--loop',      help='number of loops to play, 0=unlimited', default=0,metavar='COUNT')
     parser.add_argument('--delay',     help='delay before restarting gif in milliseconds ', default=100,metavar='MS')
     parser.add_argument('--record',    help='output generated cast data to file', metavar='FILE')
@@ -37,8 +37,7 @@ def main():
     parser.add_argument('--width',     help='change character width of gif, default is 80 or what is in the cast file',metavar='WIDTH', type=int)
     parser.add_argument('--height',    help='change character height of gif, default is 25 or what is in the cast file',metavar='HEIGHT', type=int)
     #parser.add_argument('--text-at'  help='print the text screen buffer at TIME',metavar='TIME', type=int)
-
-
+ 
     # underlay_display =simple, stretch, center
     # bounds x,y x x2,y2
     # underlay_display =simple, stretch, center
@@ -54,6 +53,18 @@ def main():
     #tools.add_argument('-w', '--html',          help='gif to html', action='store_true')
 
     args = parser.parse_args()
+    if args.output==None:
+        for(index in range(0,10000):
+            filename="ttygif-{1}.gif".format(index)
+            if path.exists(filename)==False:
+                args.output=filename
+        if args.output==None:
+            print( " Well, Well. You have no output file, and all the auto generated file names are taken. Messy.")
+            exit(1);
+
+    
+
+
     #if args.html:
     #    gif().canvas_it(args.input,args.output)
     
