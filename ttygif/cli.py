@@ -56,7 +56,7 @@ def main():
     args = parser.parse_args()
     if args.output==None:
         for index in range(0,10000):
-            filename="ttygif-{1}.gif".format(index)
+            filename="ttygif-{0}.gif".format(index)
             if os.path.exists(filename)==False:
                 args.output=filename
         if args.output==None:
