@@ -8,6 +8,7 @@ build
 *.o
 *.c
 profile
+.egg
 *.egg-info
 ttygif-*
 *.html
