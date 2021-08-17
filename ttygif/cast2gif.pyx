@@ -111,9 +111,9 @@ cdef class cast2gif:
         self.percent=int((index*100)/self.event_length)
         if self.percent!=self.old_percent:
             if self.natural:
-                sys.stdout.write("  {0} of {1} Seconds {2}%        \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2)))
+                sys.stdout.write("  {0} of {1} Seconds {2}% Frame: {3}                       \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2),index))
             else:
-                sys.stdout.write("  {0} of {1} Seconds {2}% {3} FPS ({4}ms)       \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2),self.frame_rate,round(self.interval,2)))
+                sys.stdout.write("  {0} of {1} Seconds {2}% Frame: {3} {4} FPS ({5}ms)       \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2),index,self.frame_rate,round(self.interval,2)))
             sys.stdout.flush()    
 
     def update_timestamps(self):
