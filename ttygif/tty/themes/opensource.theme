@@ -1,9 +1,9 @@
 # default theme
 name               opensource
-background         15
-foreground         0
-default_background 15
-default_foreground 0
+background         0
+foreground         15
+default_background 0
+default_foreground 15
 
 transparent   0
 
@@ -56,7 +56,7 @@ outer-left       0
 outer-top        0
 outer-right      auto
 outer-bottom     auto
-inner-left       220
+inner-left       250
 inner-top        0   
 inner-right      300
 inner-bottom     49
