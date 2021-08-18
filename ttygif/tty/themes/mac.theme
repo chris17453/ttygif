@@ -54,8 +54,8 @@ file             mac-light.gif
 mode             9slice
 outer-left       0
 outer-top        0
-outer-right      88
-outer-bottom     64
+outer-right      87
+outer-bottom     63
 inner-left       3
 inner-top        25   
 inner-right      84
