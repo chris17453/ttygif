@@ -56,9 +56,9 @@ outer-left       0
 outer-top        0
 outer-right      auto
 outer-bottom     auto
-inner-left       191
+inner-left       220
 inner-top        0   
-inner-right      219
+inner-right      300
 inner-bottom     49
 dst-left         0
 dst-top          -50
