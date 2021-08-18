@@ -94,8 +94,11 @@ Theming is based on the idea of branding your work for display in project reposi
 - default-2bit  (monochrome palette)
 - windows7 (windows style wrapped terminal)
 - game (8 bit inspired frame)
-- mac
-- fwdm
+- mac (mac styled window)
+- fwdm (old linux style window)
+- scripted (bottom bar with text)
+- opensouirce (bottom bar with text)
+- bar (bottom bar with NO text)
 
 
 ## file size

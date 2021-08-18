@@ -32,7 +32,7 @@ def main():
     parser.add_argument('--record',         help='output generated cast data to file', metavar='FILE')
     parser.add_argument('--font',   '-f',   help='which internal font to use', metavar='NAME')
     
-    parser.add_argument('--theme'   ,  '-t',   help='load custom theme: game,windows7,mac,fwdm',default='default')
+    parser.add_argument('--theme'   ,  '-t',   help='load custom theme: game,windows7,mac,fwdm,opensource,scripted,bar',default='default')
     parser.add_argument('--dilation',          help='process events at a faster or slower rate of time', default=1,metavar='RATE', type=float)
     parser.add_argument('--fps'     ,          help='encode at (n) frames per second (0-25) 0=speed of cast file, min 3ms', default=0,metavar='FPS', type=int)
     parser.add_argument('--columns' ,  '-c',  help='change character width of gif, default is 80 or what is in the cast file',metavar='WIDTH', type=int)
