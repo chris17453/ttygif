@@ -1,9 +1,9 @@
 # default theme
 name               mac
 background         0
-foreground         0
-default_background 15
-default_foreground 0
+foreground         2
+default_background 0
+default_foreground 2
 
 transparent   0
 
