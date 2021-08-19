@@ -105,7 +105,7 @@ cdef class term_parser:
         new_sequence_pos=self.sequence_pos #self.sequence_pos:
         
         for event in self.sequence[self.sequence_pos:]:
-            debug_event(event)
+            self.debug_event(event)
             self.current_sequence_position=new_sequence_pos
             new_sequence_pos+=1
             if   event['type']=='text': 
