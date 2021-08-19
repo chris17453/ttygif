@@ -250,7 +250,7 @@ cdef class term_parser:
             if value==201:
                 self.no_codes=None
     
-    //TODO cover all codes 0-107
+    #TODO cover all codes 0-107
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
             self.set_foreground(self.g.state.default_foreground)
