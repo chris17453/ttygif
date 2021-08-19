@@ -404,8 +404,7 @@ cdef class term_parser:
 
     cdef cmd_CHA(self,x):
         self.g.state.cursor_absolute_x(x)
-
-    
+ 
     cdef cmd_CUP(self,x,y):
         self.g.state.cursor_absolute(x,y)
     
@@ -571,6 +570,7 @@ cdef class term_parser:
         else:
             self.extra_text=""
             self.add_text_sequence(text[cursor:],timestamp,0)
+        debug_sequence()
     
     
     cdef last_frame(self):
