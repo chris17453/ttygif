@@ -173,7 +173,8 @@ cdef class term_parser:
 
         
 
-        #print "\n"+command,value1,value1,params,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height
+        if self.debug :
+            print("\n"+command,value1,value1,params,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height)
         
         if   command=='A':  self.cmd_CUU(value1)
         elif command=='B':  self.cmd_CUD(value1)
@@ -570,7 +571,6 @@ cdef class term_parser:
         else:
             self.extra_text=""
             self.add_text_sequence(text[cursor:],timestamp,0)
-        self.debug_sequence()
     
     
     cdef last_frame(self):
