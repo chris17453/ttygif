@@ -249,7 +249,8 @@ cdef class term_parser:
 
             if value==201:
                 self.no_codes=None
-        
+    
+    //TODO cover all codes 0-107
     cdef cmd_set_mode(self,cmd):
         if cmd==0:
             self.set_foreground(self.g.state.default_foreground)
@@ -260,6 +261,8 @@ cdef class term_parser:
             self.g.state.bold=True
         elif cmd==7:
             self.g.state.reverse_video=True
+        elif cmd==22:
+            self.g.state.bold=None
         elif cmd==27:
             self.g.state.reverse_video=None
         elif cmd>=30 and cmd<=37:
