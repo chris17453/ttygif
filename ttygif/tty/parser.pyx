@@ -103,9 +103,9 @@ cdef class term_parser:
     cdef render_to_buffer(self):
 
         new_sequence_pos=self.sequence_pos #self.sequence_pos:
-        
+        print(self.sequence)
         for event in self.sequence[self.sequence_pos:]:
-            self.debug_event(event)
+            
             self.current_sequence_position=new_sequence_pos
             new_sequence_pos+=1
             if   event['type']=='text': 
