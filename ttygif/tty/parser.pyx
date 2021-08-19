@@ -496,11 +496,11 @@ cdef class term_parser:
 
     cdef stream_2_sequence(self,text,timestamp,delay):
         # patterns for filtering out commands from the stream
-        ANSI_SINGLE   ='[\033]([cDEHMZ78>=])'
-        ANSI_CHAR_SET = '[\033]\\%([@G*])'
-        ANSI_G0       = '[\033]\\(([B0UK])'
-        ANSI_G1       = '[\033]\\)([B0UK])'
-        ANSI_CSI_RE   = '[\u001b]\\[((?:\\d|;|<|>|=|\?)*)([a-zA-Z])\002?'
+        ANSI_SINGLE   ='[\x1b]([cDEHMZ78>=])'
+        ANSI_CHAR_SET = '[\x1b]\\%([@G*])'
+        ANSI_G0       = '[\x1b]\\(([B0UK])'
+        ANSI_G1       = '[\x1b]\\)([B0UK])'
+        ANSI_CSI_RE   = '[\x1b]\\[((?:\\d|;|<|>|=|\?)*)([a-zA-Z])\002?'
         BRACKET_PASTE = '[\033]\\[(20[0-1]~)'
         # guessed on this one
         #ANSI_OSC_777_REGEX='[\0x1b|\033]\]777[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)'
