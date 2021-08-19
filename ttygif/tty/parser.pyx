@@ -268,7 +268,7 @@ cdef class term_parser:
         elif cmd>=30 and cmd<=37:
             
             if self.g.state.bold:
-                self.set_foreground(self.g.state.foreground+8)
+                self.set_foreground(cmd-30+8)
             else:
                 self.set_foreground(cmd-30)
                 
@@ -276,7 +276,7 @@ cdef class term_parser:
             self.set_foreground(self.g.state.default_foreground)
         elif cmd>=40 and cmd<=47:
             if self.g.state.bold:
-                self.set_background(self.g.state.background+8)
+                self.set_background(cmd-40+8)
             else:
                 self.set_background(cmd-40)
         elif cmd==48:
