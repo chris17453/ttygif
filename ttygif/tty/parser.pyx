@@ -570,7 +570,7 @@ cdef class term_parser:
         else:
             self.extra_text=""
             self.add_text_sequence(text[cursor:],timestamp,0)
-        debug_sequence()
+        self.debug_sequence()
     
     
     cdef last_frame(self):
