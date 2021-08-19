@@ -279,6 +279,8 @@ cdef class term_parser:
                 self.set_background(self.g.state.background+8)
             else:
                 self.set_background(cmd-40)
+        elif cmd==48:
+            self.set_background(self.g.state.default_background)
         elif cmd==49:
             self.set_background(self.g.state.default_background)
         elif cmd>=90 and cmd<=97:
