@@ -1,9 +1,7 @@
 # cython: language_level=2
-import os
 import sys
-from setuptools import setup, find_packages
+from setuptools import setup
 from setuptools.extension import Extension
-from Cython.Build import cythonize
 
 
 if '--build-cython' in sys.argv:
@@ -110,7 +108,7 @@ setup(
         ttygif = ttygif.cli:main
         """,
     compiler_directives={"language_level": ver.major},
-    setup_requires=[
+    install_requires=[
         # Setuptools 18.0 properly handles Cython extensions.
         'setuptools>=18.0',
         'cython',
