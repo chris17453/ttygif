@@ -270,9 +270,9 @@ cdef class term_parser:
             self.g.state.reverse_video=None
         elif cmd>=30 and cmd<=37:
             
-            if self.g.state.bold:
-                self.set_foreground(cmd-30+8)
-            else:
+            #if self.g.state.bold:
+            #    self.set_foreground(cmd-30+8)
+            #else:
                 self.set_foreground(cmd-30)
                 
         elif cmd==39:
