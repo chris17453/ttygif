@@ -88,13 +88,13 @@ cdef class display_state:
             #print ("PENDING YO",self.cursor_x,self.cursor_y)
         else:
             self.cursor_x+=distance
-            if self.text_mode:
-                if self.cursor_x>=self.width:
-                    #print "DOWN!",self.cursor_x,self.cursor_y,self.pending_wrap,self.autowrap 
-                    self.cursor_x=0
-                    self.cursor_down(1)
-            else:
-                self.check_bounds()
+            #if self.text_mode:
+            #    if self.cursor_x>=self.width:
+            #        #print "DOWN!",self.cursor_x,self.cursor_y,self.pending_wrap,self.autowrap 
+            #        self.cursor_x=0
+            #        self.cursor_down(1)
+            #else:
+            self.check_bounds()
 
     cdef cursor_absolute_x(self,position):
         self.cursor_x=position
