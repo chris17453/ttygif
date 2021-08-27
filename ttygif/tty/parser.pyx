@@ -55,7 +55,8 @@ cdef class term_parser:
 
     cdef info(self,text):
         #if self.debug_mode:
-            print(self.ascii_safe(text))
+         #   print(self.ascii_safe(text))
+         pass
 
     cdef clear_sequence(self):
         self.sequence=[]
