@@ -194,7 +194,9 @@ cdef class term_parser:
         elif command=='d':  self.cmd_VPA(value1-1)               # abs
         elif command=='`':  self.cmd_HPA(value1-1)               # abs
         elif command=='f':  self.cmd_HVP(value2-1,value1-1)      # abs
-        elif command=='h':  self.cmd_set_mode(params)
+        elif command=='h':  
+            for cmd in params:
+                self.cmd_set_mode(params)
         elif command=='l':  self.cmd_reset_mode(value1)
         elif command=='m':  self.cmd_process_colors(params)
         elif command=='r':  self.cmd_DECSTBM(value1-1,value2-1)
@@ -327,11 +329,7 @@ cdef class term_parser:
             for cmd in params:
                 # print("-->")
                 # print(cmd)
-                if type(cmd) ==tuple:
-                    for sub_cmd in  cmd:
-                        self.cmd_set_mode(sub_cmd)
-                else :
-                    self.cmd_set_mode(cmd)
+                self.cmd_set_mode(cmd)
 
     # cdef int NULL=0   #   Null character
     # cdef int SOH=1    #   Start of Header
