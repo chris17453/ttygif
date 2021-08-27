@@ -170,6 +170,9 @@ cdef class cast2gif:
             self.width=self.stream['width']
         if self.height==None:
             self.height=self.stream['height']
+
+        if self.last_event!=0:
+            print (" - last event: {0}".format(self.last_event))
         
         self.encode_stream()
     
@@ -184,10 +187,10 @@ cdef class cast2gif:
 
         print (" - character dimensions: {0}x{1}".format(self.width,self.height))
         print (" - pixel dimensions: {0}x{1}".format(dim.width,dim.height))
-        if self.last_event!=0:
-            print (" - last event: {0}".format(self.last_event))
         
+        print("\n");
 
+        
         index=0
         if self.frame_rate!=0:
             self.interval=float(1)/float(self.frame_rate)
