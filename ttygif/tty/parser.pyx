@@ -28,7 +28,7 @@ cdef class term_parser:
     cdef ascii_escaped(self,text):
         nt="";
         for t in text:
-            i=ord(i)
+            i=ord(t)
             if i < 128 and i>=32:
                nt+=t
             elif i==9:
