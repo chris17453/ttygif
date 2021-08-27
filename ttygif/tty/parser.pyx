@@ -26,8 +26,24 @@ cdef class term_parser:
         return ''.join([i if ord(i) < 128 else '*' for i in text])
 
     cdef ascii_escaped(self,text):
-        
-        return ''.join([i if ord(i) < 128 and i>=32 else if i==9 '\T' else if i==8 '\BI' else if i=='9 '\FI'  else if i==10 '\LF' else if i==12 '\FF' else '*' for i in text])
+        nt="";
+        for t in text:
+            i=ord(i)
+            if i < 128 and i>=32:
+                nt+=t
+            elif i==9:
+                nt+='\T'
+            elif i==8:
+                nt+='\BI'
+            elif i=='9:
+                nt+='\FI'
+            elif i==10:
+             nt+='\LF'
+            elif i==12:
+             nt+='\FF'
+            else:
+             nt+='*'
+        return nt
 
     cdef info(self,text):
         #if self.debug_mode:
