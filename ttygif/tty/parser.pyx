@@ -167,6 +167,10 @@ cdef class term_parser:
         self.info(groups)
 
     cdef process_SINGLE(self,groups):
+        print (groups)
+        if groups[0]==7: self.g.state.cursor_save_position()
+        if groups[0]==8: self.g.state.cursor_restore_position()
+        
         self.info(groups)
 
     cdef process_CHAR_SET(self,groups):
@@ -404,8 +408,8 @@ cdef class term_parser:
                     self.g.state.cursor_right(1)
                 elif char_ord==LF:
                     self.g.state.cursor_down(1)
-                    #if self.g.state.mode=="linux":
-                    #    self.g.state.cursor_absolute_x(0)
+                    if self.g.state.mode=="linux":
+                        self.g.state.cursor_absolute_x(0)
 
                 elif char_ord==CR:
                     self.g.state.cursor_absolute_x(0)
