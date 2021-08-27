@@ -75,7 +75,7 @@ cdef class term_parser:
                 last_distance=color_distance
                 mappeded_color=i
         if mappeded_color>255:
-            print r,g,b,mappeded_color
+            print (r,g,b,mappeded_color)
         return mappeded_color
 
     
@@ -424,8 +424,8 @@ cdef class term_parser:
                 elif char_ord==CR:
                     self.g.state.cursor_absolute_x(0)
             else:
-          #      if self.g.state.pending_wrap:
-          #          self.g.state.cursor_right(1)
+                if self.g.state.pending_wrap:
+                    self.g.state.cursor_right(1)
                 self.g.write(char_ord)
                 self.g.state.cursor_right(1)
             while self.g.state.scroll!=0:
@@ -571,7 +571,7 @@ cdef class term_parser:
             params=None
             esc_type=None
             groups=match.groups()
-            print ( groups )
+            #print ( groups )
                 
             if groups[0]:
                 esc_type='SINGLE'
