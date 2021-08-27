@@ -708,8 +708,6 @@ cdef class term_parser:
                 self.g.state.cursor_y) )
             return
 
-        print(event) 
-        return
         for cmd in commands:
             if cmd[1]==event['command'] and event['esc_type']==cmd[0]:
                 param=[]
@@ -738,23 +736,24 @@ cdef class term_parser:
                         else: 
                             param.append( "ERR" )
 
-                print("{2: 6d} {3:3.5f} {4:03d},{5:03d} : {0}({1})".format(
-                                            cmd[3],
-                                            ",".join(param),
-                                            index,
-                                            event['timestamp'],
-                                            self.g.state.cursor_x,
-                                            self.g.state.cursor_y))
-            else:    
-                
 
-                print("{5:05d} {6:03d}x{7:03d} CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(event['esc_type'],
-                                            event['command'],
-                                            event['params'],
-                                            event['name'],
-                                            event['timestamp'],index,
-                                            self.g.state.cursor_x,
-                                            self.g.state.cursor_y) )
+        print("{2: 6d} {3:3.5f} {4:03d},{5:03d} : {0}({1})".format(
+                                    cmd[3],
+                                    ",".join(param),
+                                    index,
+                                    event['timestamp'],
+                                    self.g.state.cursor_x,
+                                    self.g.state.cursor_y))
+        return
+
+        #        print("{5:05d} {6:03d}x{7:03d} CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(event['esc_type'],
+        #                                    event['command'],
+        #                                    event['params'],
+        #                                    event['name'],
+        #                                    event['timestamp'],
+        #                                    index,
+        #                                    self.g.state.cursor_x,
+        #                                    self.g.state.cursor_y) )
                                             
 
 
