@@ -422,8 +422,8 @@ cdef class term_parser:
                 elif char_ord==CR:
                     self.g.state.cursor_absolute_x(0)
             else:
-                #if self.g.state.pending_wrap:
-                #    self.g.state.cursor_right(1)
+                if self.g.state.pending_wrap:
+                    self.g.state.cursor_right(1)
                 self.g.write(char_ord)
                 self.g.state.cursor_right(1)
             while self.g.state.scroll!=0:
@@ -554,7 +554,9 @@ cdef class term_parser:
         # guessed on this one
         #ANSI_OSC_777_REGEX='[\0x1b|\033]\]777[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)'
         ANSI_OSC ='(?:\033\\]|\x9d).*?(?:\033\\\\|[\a\x9c])'
-        ESC_SEQUENCES=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE,ANSI_OSC,BRACKET_PASTE]
+        ANSI_TITLE ='[\033](.)[\033\\]'
+        
+        ESC_SEQUENCES=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE,ANSI_OSC,BRACKET_PASTE,ANSI_TITLE]
         ANSI_REGEX="("+")|(".join(ESC_SEQUENCES)+")"
         ANSI=re.compile(ANSI_REGEX)
         cursor=0
@@ -572,6 +574,11 @@ cdef class term_parser:
             if groups[0]:
                 esc_type='SINGLE'
                 command=groups[1]
+                self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
+            if groups[13]:
+                esc_type='TITLE'
+                cmd='0'
+                params=groups[13]
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
             elif groups[2]:
                 esc_type='CHAR_SET'
