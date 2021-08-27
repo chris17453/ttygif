@@ -313,18 +313,19 @@ cdef class term_parser:
             self.g.set_background(color)
 
     cdef cmd_process_colors(self,params):
-        if 38 in params:
+        if 38 == params[0]:
             if params[1]==2:
                 self.g.foreground_from_rgb(params[2],params[3],params[4])
             if params[1]==5:
                     self.set_foreground(params[2])
-        elif 48 in params:
+        elif 48 == params[0]:
                 if params[1]==2:
                     self.g.background_from_rgb(params[2],params[3],params[4])
                 if params[1]==5:
                     self.set_background(params[2])
         else:
             for cmd in params:
+                print(cmd)
                 self.cmd_set_mode(cmd)
 
     # cdef int NULL=0   #   Null character
