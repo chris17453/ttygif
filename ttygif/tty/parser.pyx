@@ -366,6 +366,7 @@ cdef class term_parser:
         #print event['data']
        
         cdef int BS=8     # x Backspace
+        cdef int FI=9     # x Forward Index
         cdef int LF=10     # x Line feed
         cdef int CR=13     # x Carriage return
         self.g.state.text_mode_on()
@@ -375,6 +376,8 @@ cdef class term_parser:
             if char_ord<32 and self.no_codes==None:
                 if  char_ord==BS:
                     self.g.state.cursor_left(1)
+                if  char_ord==FI:
+                    self.g.state.cursor_right(1)
                 elif char_ord==LF:
                     self.g.state.cursor_down(1)
                     if self.g.state.mode=="linux":
@@ -506,7 +509,7 @@ cdef class term_parser:
 
     cdef stream_2_sequence(self,text,timestamp,delay):
         # patterns for filtering out commands from the stream
-        ANSI_SINGLE   ='[\033]([cDEHMZ78>=])'
+        ANSI_SINGLE   ='[\033]([cDEHMZ78>=ijkl])' #ijkl arrow keys?
         ANSI_CHAR_SET = '[\033]\\%([@G*])'
         ANSI_G0       = '[\033]\\(([B0UK])'
         ANSI_G1       = '[\033]\\)([B0UK])'
