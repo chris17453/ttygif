@@ -669,6 +669,8 @@ cdef class term_parser:
 
     cdef debug_event(self,event,index):
         commands=[
+                    ['SINGLE','7' ,[0]   ,'SaveCursor'             ],
+                    ['SINGLE','8' ,[0]   ,'RestoreCursor'             ],
                     ['CSI','A' ,[1]   ,'CUU'             ],
                     ['CSI','B' ,[1]   ,'CUD'             ],
                     ['CSI','C' ,[1]   ,'CUF'             ],
