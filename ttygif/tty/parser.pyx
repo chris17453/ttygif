@@ -178,7 +178,7 @@ cdef class term_parser:
 
         #if self.debug :
         #print("\n\n --- "+command,value1,value1,params,self.g.state.cursor_x,self.g.state.cursor_y,self.g.state.width,self.g.state.height)
-        print(params);
+        #print(params);
         if   command=='A':  self.cmd_CUU(value1)
         elif command=='B':  self.cmd_CUD(value1)
         elif command=='C':  self.cmd_CUF(value1)
@@ -325,6 +325,8 @@ cdef class term_parser:
                     self.set_background(params[2])
         else:
             for cmd in params:
+                print("-->")
+                
                 print(cmd)
                 self.cmd_set_mode(cmd)
 
