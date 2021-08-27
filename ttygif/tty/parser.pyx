@@ -35,7 +35,7 @@ cdef class term_parser:
                nt+='\T'
             elif i==8:
                nt+='\BI'
-            elif i=='9:
+            elif i=='9':
                nt+='\FI'
             elif i==10:
                nt+='\LF'
