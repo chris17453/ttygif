@@ -575,10 +575,10 @@ cdef class term_parser:
                 esc_type='SINGLE'
                 command=groups[1]
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
-            if groups[13]:
+            if groups[14]:
                 esc_type='TITLE'
                 cmd='0'
-                params=groups[13]
+                params=groups[15]
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
             elif groups[2]:
                 esc_type='CHAR_SET'
@@ -689,6 +689,7 @@ cdef class term_parser:
 
     cdef debug_event(self,event,index):
         commands=[
+                    ['TITLE','0' ,[0]   ,'SET TERM TITLE'             ],
                     ['SINGLE','6' ,[0]   ,'DECBI'             ],
                     ['SINGLE','7' ,[0]   ,'DECSC'             ],
                     ['SINGLE','8' ,[0]   ,'DECRC'             ],
