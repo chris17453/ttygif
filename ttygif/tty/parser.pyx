@@ -743,6 +743,7 @@ cdef class term_parser:
                                             event['timestamp'],
                                             self.g.state.cursor_x,
                                             self.g.state.cursor_y))
+                return
 
         print("{5:05d} {6:03d}x{7:03d} CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(event['esc_type'],
                                             event['command'],
