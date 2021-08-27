@@ -11,7 +11,7 @@ from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 cdef class term_parser:
-    def __init__(self,terminal_graphics terminal_graphics,debug_mode=None):
+    def __init__(self,terminal_graphics terminal_graphics,debug_mode=None,last_event):
         self.debug_mode=debug_mode
         self.sequence=[]
         self.sequence_pos=0
@@ -20,6 +20,7 @@ cdef class term_parser:
         self.no_codes=None
         self.bracketed_paste=None
         self.g=terminal_graphics
+        delf.last_event=last_event;
         self.current_sequence_position=0
 
     cdef ascii_safe(self,text):
@@ -639,9 +640,13 @@ cdef class term_parser:
         if len(text)==0:
             return
         text=[self.remap_character(i) for i in text]
+        if self.last_event!=0 and len(self.sequence)>=self.last_event:
+            return;
         self.sequence.append({'type':'text','command':'text','data':text,'timestamp':timestamp,'delay':delay})
 
     cdef add_command_sequence(self,esc_type,command,params,groups,name,timestamp,delay,text=None):
+        if self.last_event!=0 and len(self.sequence)>=self.last_event:
+            return;
         self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name,'timestamp':timestamp,'delay':delay,'data':text})
 
     cdef debug_sequence(self):

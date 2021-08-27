@@ -11,17 +11,14 @@ class asciicast_reader:
     def __init__(self,debug=None):
         self.debug=debug
 
-    def load(self,filename,last_event=0):
+    def load(self,filename):
         cast={}
         header={}
         events=[]
         with open(filename,'r') as content:
             header=json.loads(content.readline())
-            index=0;
             for line in  content:
-                if last_event==0 or index<=last_event:
-                    events.append(json.loads(line))
-                index=index+1
+                events.append(json.loads(line))
             
         
         if 'title' not in header:

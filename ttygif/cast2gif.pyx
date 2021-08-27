@@ -154,7 +154,7 @@ cdef class cast2gif:
         if events:
             self.stream=events
         else:
-            self.stream=cast.load(cast_file,last_event)
+            self.stream=cast.load(cast_file)
 
 
         self.update_timestamps()
@@ -181,7 +181,7 @@ cdef class cast2gif:
         g=encode_gif(self.loop_count,debug=self.debug)
         
 
-        v=terminal_emulator(char_width=self.width,char_height=self.height,font_name=self.font_name,theme_name=self.theme_name,debug=self.debug)
+        v=terminal_emulator(char_width=self.width,char_height=self.height,font_name=self.font_name,theme_name=self.theme_name,debug=self.debug,last_event=self.last_event)
         dim=v.get_dimentions()
         print (" - character dimensions: {0}x{1}".format(self.width,self.height))
         print (" - pixel dimensions: {0}x{1}".format(dim.width,dim.height))

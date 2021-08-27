@@ -13,7 +13,7 @@ from .font cimport font
 # main interface for terminal emulation
 cdef class terminal_emulator:
     
-    def __cinit__(self,width=640,height=480,char_width=None,char_height=None,font_name=None,theme_name=None,debug=None):
+    def __cinit__(self,width=640,height=480,char_width=None,char_height=None,font_name=None,theme_name=None,debug=None,last_event=0):
     
         self.debug_mode      =debug
         self.underlay_flag   =None
@@ -22,11 +22,12 @@ cdef class terminal_emulator:
             font_name=self.default_font
         self.font_name       =font_name
         self.theme_name      =theme_name
-
+        self.last_event      =last_event
         self.init(width,height,char_width,char_height,debug)
     
-    cdef init(self,width,height,char_width,char_height,debug):
+    cdef init(self,width,height,char_width,char_height,debug,last_event):
         cdef font internal_font
+
 
         try:
             internal_font=font(self.font_name)
@@ -41,12 +42,12 @@ cdef class terminal_emulator:
                                                  image_font       = internal_font,
                                                  theme_name       = self.theme_name)
 
-        self.parser          = term_parser(debug_mode=debug,terminal_graphics=self.terminal_graphics)
+        self.parser          = term_parser(debug_mode=debug,terminal_graphics=self.terminal_graphics,last_event=last_event)
         
    
     # this pre computes the regex into commands and stores into an array
     cdef add_event(self,event):
-        self.parser.add_event(event)
+        self.parser.add_event(event,last_event)
     
     cdef render(self):
         # graphics pointer is inside of the parser.... maybe seperate...
