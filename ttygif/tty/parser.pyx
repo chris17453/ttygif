@@ -25,6 +25,10 @@ cdef class term_parser:
     cdef ascii_safe(self,text):
         return ''.join([i if ord(i) < 128 else '*' for i in text])
 
+    cdef ascii_escaped(self,text):
+        
+        return ''.join([i if ord(i) < 128 and i>=32 else if i==9 '\T' else if i==8 '\BI' else if i=='9 '\FI'  else if i==10 '\LF' else if i==12 '\FF' else '*' for i in text])
+
     cdef info(self,text):
         #if self.debug_mode:
             print(self.ascii_safe(text))
@@ -663,7 +667,7 @@ cdef class term_parser:
                     ['CSI','?l',[1]   ,'DECRST'          ],
             ]
         if event['type']=='text':
-            print("{2:6x} {3:3.5f} : text('{0},{1}')".format(self.ascii_safe(event['data']),len(event['data']),index, event['timestamp'] ) )
+            print("{2:6x} {3:3.5f} : text('{0},{1}')".format(self.ascii_escaped(event['data']),len(event['data']),index, event['timestamp'] ) )
             return
         for cmd in commands:
             if cmd[1]==event['command'] and event['esc_type']==cmd[0]:

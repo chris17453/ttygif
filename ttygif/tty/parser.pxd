@@ -22,6 +22,7 @@ cdef class term_parser:
     
 
     cdef ascii_safe(self,text)
+    cdef ascii_escaped(self,text)
     cdef info(self,text)
     cdef clear_sequence(self)
     cdef rgb_to_palette(self,r,g,b)
