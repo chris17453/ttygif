@@ -569,7 +569,7 @@ cdef class term_parser:
             params=None
             esc_type=None
             groups=match.groups()
-            #print groups
+            print ( groups )
                 
             if groups[0]:
                 esc_type='SINGLE'
