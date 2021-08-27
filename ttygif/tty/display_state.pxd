@@ -24,7 +24,8 @@ cdef class display_state:
     cdef object          autowrap
     cdef object          pending_wrap
     cdef object          display_cursor
-                 
+    cdef object          cursor_speed
+
     cdef show_cursor(self)
     cdef hide_cursor(self)
     cdef text_mode_on(self)

@@ -5,6 +5,7 @@
 from .terminal_graphics cimport terminal_graphics
 import re
 from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
+import time
 
 
 # Reference
@@ -431,6 +432,12 @@ cdef class term_parser:
             while self.g.state.scroll!=0:
                 #print("Scroll at {0:005x}".format(self.current_sequence_position))
                 self.g.scroll_buffer()
+        if self.g.display_cursor==True :
+
+            #def current_milli_time():
+            #return round(time.time() * 1000)
+            self.g.write(95)
+        
         self.g.state.text_mode_off()
         
 
