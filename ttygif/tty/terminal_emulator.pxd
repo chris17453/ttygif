@@ -17,6 +17,7 @@ cdef class terminal_emulator:
     cdef public object default_font
     cdef public object theme_name
     cdef public int    last_event
+    cdef public object show_state
         
 
 
