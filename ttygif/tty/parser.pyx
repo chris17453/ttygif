@@ -168,8 +168,10 @@ cdef class term_parser:
 
     cdef process_SINGLE(self,command):
         #print (groups)
-        if command==7: self.g.state.cursor_save_position()
-        if command==8: self.g.state.cursor_restore_position()
+        if command==7: 
+            self.g.state.cursor_save_position()
+        if command==8: 
+            self.g.state.cursor_restore_position()
         
         self.info(groups)
 
