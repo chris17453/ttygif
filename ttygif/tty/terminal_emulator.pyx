@@ -59,7 +59,8 @@ cdef class terminal_emulator:
         self.parser.last_frame()
 
     cdef debug_sequence(self):
-        self.parser.debug_sequence()
+        #self.parser.debug_sequence()
+        print ("Sequence is above")
     # this is for returning screen data to other functions
     cdef get(self):
         return {    
