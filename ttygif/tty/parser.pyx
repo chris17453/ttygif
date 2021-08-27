@@ -129,7 +129,7 @@ cdef class term_parser:
         #print(self.sequence)
         for event in self.sequence[self.sequence_pos:]:
             self.current_sequence_position=new_sequence_pos
-            if self.debug_mode==True:
+            if self.debug_state==True:
                 self.debug_event(event,self.current_sequence_position)
             new_sequence_pos+=1
             if   event['type']=='text': 
@@ -158,8 +158,6 @@ cdef class term_parser:
             elif esc_type=='G1'       : self.process_G1(groups[7])
             elif esc_type=='CSI'      : self.process_CSI(command,params)
 
-        if self.show_state==True: 
-            self.g.state.debug_state()
         self.sequence_pos=new_sequence_pos
 
     # TODO STUBS
