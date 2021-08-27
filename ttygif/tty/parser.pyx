@@ -252,7 +252,7 @@ cdef class term_parser:
     
     #TODO cover all codes 0-107
     cdef cmd_set_mode(self,cmd):
-        print(cmd);
+        #print(cmd);
         if cmd==0:
             self.set_foreground(self.g.state.default_foreground)
             self.set_background(self.g.state.default_background)
@@ -327,7 +327,11 @@ cdef class term_parser:
             for cmd in params:
                 # print("-->")
                 # print(cmd)
-                self.cmd_set_mode(cmd)
+                if type(cmd) ==tuple:
+                    for sub_cmd in  cmd:
+                        self.cmd_set_mode(sub_cmd)
+                else :
+                    self.cmd_set_mode(cmd)
 
     # cdef int NULL=0   #   Null character
     # cdef int SOH=1    #   Start of Header
