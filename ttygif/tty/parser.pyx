@@ -310,7 +310,6 @@ cdef class term_parser:
                 self.set_foreground(cmd-30+8)
             else:
                 self.set_foreground(cmd-30)
-                
         elif cmd==39:
             self.set_foreground(self.g.state.default_foreground)
         elif cmd>=40 and cmd<=47:
@@ -318,8 +317,6 @@ cdef class term_parser:
                 self.set_background(cmd-40+8)
             else:
                 self.set_background(cmd-40)
-        elif cmd==48:
-            self.set_background(self.g.state.default_background)
         elif cmd==49:
             self.set_background(self.g.state.default_background)
         elif cmd>=90 and cmd<=97:
@@ -342,6 +339,7 @@ cdef class term_parser:
         if color>=self.g.theme.colors:
             self.g.set_foreground(self.g.state.default_foreground)
         else:
+            print("Setting Foreground to {0}".format(color))
             self.g.set_foreground(color)
 
     cdef set_background(self,color):
@@ -355,11 +353,13 @@ cdef class term_parser:
             if params[1]==2:
                 self.g.foreground_from_rgb(params[2],params[3],params[4])
             if params[1]==5:
+                    print("Setting foreground 38 {0} m".format(params[2]))
                     self.set_foreground(params[2])
         elif 48 == params[0]:
                 if params[1]==2:
                     self.g.background_from_rgb(params[2],params[3],params[4])
                 if params[1]==5:
+                    print("Setting background 38 {0} m".format(params[2]))
                     self.set_background(params[2])
         else:
             for cmd in params:
