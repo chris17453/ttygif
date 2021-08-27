@@ -20,7 +20,7 @@ cdef class term_parser:
         self.no_codes=None
         self.bracketed_paste=None
         self.g=terminal_graphics
-        delf.last_event=last_event;
+        self.last_event=last_event;
         self.current_sequence_position=0
 
     cdef ascii_safe(self,text):
