@@ -129,7 +129,7 @@ cdef class term_parser:
         #print(self.sequence)
         for event in self.sequence[self.sequence_pos:]:
             self.current_sequence_position=new_sequence_pos
-            if self.debug_state==True:
+            if self.show_state==True:
                 self.debug_event(event,self.current_sequence_position)
             new_sequence_pos+=1
             if   event['type']=='text': 
@@ -713,7 +713,7 @@ cdef class term_parser:
                         if len(event['params'])>=2:
                             param.append( "{0}".format(event['params'][1])   ) 
                         else: 
-                            param.append( "ERR" )
+                            param.append( "ERR" )make 
                     if i==3: 
                         if len(event['params'])>=1:
                             param.append( "{0}".format(event['params'][0]-1) ) 
