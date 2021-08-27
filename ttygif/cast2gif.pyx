@@ -287,8 +287,8 @@ cdef class cast2gif:
 
                     self.aggregate_timestamp+=partial_delay
 
-                self.timestamp=cur_timestamp
-            self.show_percent(index)
+                #self.timestamp=cur_timestamp
+            #self.show_percent(index)
         if self.debug:
             v.debug_sequence()
         g.close()
