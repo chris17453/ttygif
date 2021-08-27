@@ -216,7 +216,8 @@ cdef class cast2gif:
         text=""
 
 
-        seconds=self.stream['events'][-1]['timestamp']
+        seconds=self.stream['events'][-1]
+        print(seconds)
         frames=seconds*self.frame_rate;
         
         # add attribute of status to event array
