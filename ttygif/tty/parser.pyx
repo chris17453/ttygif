@@ -350,6 +350,7 @@ cdef class term_parser:
             print("Setting Background to {0}".format(color))
 
     cdef cmd_process_colors(self,params):
+        print(params)
         if 38 == params[0]:
             if params[1]==2:
                 self.g.foreground_from_rgb(params[2],params[3],params[4])
