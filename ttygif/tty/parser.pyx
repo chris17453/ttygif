@@ -689,7 +689,7 @@ cdef class term_parser:
                     ['CSI','?l',[1]   ,'DECRST'          ],
             ]
         if event['type']=='text':
-            print("{2: 6d} {3:3.5f} {4:03d}x{5:03d} : text('{0},{1}')".format(
+            print("{2: 6d} {3:3.5f} {4: 3d}x{5: 3d} : text('{0},{1}')".format(
                 self.ascii_escaped(event['data']),
                 len(event['data']),
                 index, 
@@ -725,7 +725,7 @@ cdef class term_parser:
                         else: 
                             param.append( "ERR" )
 
-                print("{2: 6d} {3:3.5f} {4:03d}x{5:03d} : {0}({1})".format(
+                print("{2: 6d} {3:3.5f} {4: 3d}x{5: 3d} : {0}({1})".format(
                                             cmd[3],
                                             ",".join(param),
                                             index,
