@@ -219,8 +219,9 @@ cdef class cast2gif:
         seconds=self.stream['events'][-1]['timestamp']
         frames=seconds*self.frame_rate;
         
-            for event in self.stream['events']:
-                event['status']=0
+        # add attribute of status to event array
+        for event in self.stream['events']:
+            event['status']=0
 
         for i in range frames:
             curent_time=1/self.frame_rate*i;
