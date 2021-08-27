@@ -21,6 +21,8 @@ class asciicast_reader:
             for line in  content:
                 if last_event==0 or index<=last_event:
                     events.append(json.loads(line))
+                index=index+1
+            
         
         if 'title' not in header:
             header['title']=''

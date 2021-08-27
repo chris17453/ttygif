@@ -183,14 +183,15 @@ cdef class cast2gif:
 
         v=terminal_emulator(char_width=self.width,char_height=self.height,font_name=self.font_name,theme_name=self.theme_name,debug=self.debug)
         dim=v.get_dimentions()
-        g.create(width=dim.width,height=dim.height,filename=self.gif_file,palette=v.terminal_graphics.theme.palette)
-
         print (" - character dimensions: {0}x{1}".format(self.width,self.height))
         print (" - pixel dimensions: {0}x{1}".format(dim.width,dim.height))
+
+        g.create(width=dim.width,height=dim.height,filename=self.gif_file,palette=v.terminal_graphics.theme.palette)
+
         
         print("\n");
 
-        
+
         index=0
         if self.frame_rate!=0:
             self.interval=float(1)/float(self.frame_rate)
