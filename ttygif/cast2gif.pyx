@@ -37,6 +37,8 @@ cdef class cast2gif:
     cdef int    last_event
     cdef object font_name
     cdef object theme_name
+    cdef object show_state
+    
     
     
     # last frame created timestamp
