@@ -545,7 +545,7 @@ cdef class term_parser:
 
     cdef stream_2_sequence(self,text,timestamp,delay):
         # patterns for filtering out commands from the stream
-        ANSI_SINGLE   = '[\033]([bcDEHMZ6789>=ijkl])' #ijkl arrow keys?
+        ANSI_SINGLE   = '[\033]([cDEHMZ6789>=ijkl])' #ijkl arrow keys?
         ANSI_CHAR_SET = '[\033]\\%([@G*])'
         ANSI_G0       = '[\033]\\(([B0UK])'
         ANSI_G1       = '[\033]\\)([B0UK])'
