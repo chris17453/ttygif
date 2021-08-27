@@ -325,9 +325,8 @@ cdef class term_parser:
                     self.set_background(params[2])
         else:
             for cmd in params:
-                print("-->")
-                
-                print(cmd)
+                # print("-->")
+                # print(cmd)
                 self.cmd_set_mode(cmd)
 
     # cdef int NULL=0   #   Null character
