@@ -173,7 +173,7 @@ cdef class term_parser:
         if command==8: 
             self.g.state.cursor_restore_position()
         
-        self.info(groups)
+        #self.info(groups)
 
     cdef process_CHAR_SET(self,groups):
         self.info(groups)
