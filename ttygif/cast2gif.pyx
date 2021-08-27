@@ -38,6 +38,7 @@ cdef class cast2gif:
     cdef object font_name
     cdef object theme_name
     cdef object show_state
+    cdef object debug_gif
     
     
     
