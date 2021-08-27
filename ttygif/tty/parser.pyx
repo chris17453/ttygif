@@ -545,7 +545,7 @@ cdef class term_parser:
 
     cdef stream_2_sequence(self,text,timestamp,delay):
         # patterns for filtering out commands from the stream
-        ANSI_SINGLE   = '[\033]([cDEHMZ6789>=ijkl])' #ijkl arrow keys?
+        ANSI_SINGLE   = '[\033]([cDEHMZ6789>=i])' #ijkl arrow keys?
         ANSI_CHAR_SET = '[\033]\\%([@G*])'
         ANSI_G0       = '[\033]\\(([B0UK])'
         ANSI_G1       = '[\033]\\)([B0UK])'
@@ -554,7 +554,7 @@ cdef class term_parser:
         # guessed on this one
         #ANSI_OSC_777_REGEX='[\0x1b|\033]\]777[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)[;]([._:A-Za-z0-9\-\s]*)'
         ANSI_OSC ='(?:\033\\]|\x9d).*?(?:\033\\\\|[\a\x9c])'
-        ANSI_TITLE ='[\033](.)[\033\\\\]'
+        ANSI_TITLE ='[\033k](.)[\033\\\\]'
         
         ESC_SEQUENCES=[ANSI_SINGLE,ANSI_CHAR_SET,ANSI_G0,ANSI_G1,ANSI_CSI_RE,ANSI_OSC,BRACKET_PASTE,ANSI_TITLE]
         ANSI_REGEX="("+")|(".join(ESC_SEQUENCES)+")"
