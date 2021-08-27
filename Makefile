@@ -119,3 +119,6 @@ htop:
 pika-dark:
 	@python -m ttygif.cli --input ../ttygif-assets/cast/236096.cast --output ../ttygif-assets/encode/236096.gif --fps 12 --theme game
 	
+
+c: build install 
+	@ttygif -i ../demo.cast -o bob.gif  --debug  --show-state  --columns 122 | grep -v -i COL
