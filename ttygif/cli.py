@@ -25,18 +25,20 @@ def main():
         description="""tty output to gif""")
     # actions
 
-    parser.add_argument('--input',  '-i',   help='asciinema .cast file', default= None,metavar='FILE')
-    parser.add_argument('--output', '-o',   help='gif output file. will default to ttygif-xx', default= None,metavar='FILE')
-    parser.add_argument('--loop',   '-l',   help='number of loops to play, 0=unlimited', default=0,metavar='COUNT')
-    parser.add_argument('--delay',  '-d',   help='delay before restarting gif in milliseconds ', default=100,metavar='MS')
-    parser.add_argument('--record',         help='output generated cast data to file', metavar='FILE')
-    parser.add_argument('--font',   '-f',   help='which internal font to use', metavar='NAME')
+    parser.add_argument('--input'      , '-i',   help='asciinema .cast file', default= None,metavar='FILE')
+    parser.add_argument('--output'     , '-o',   help='gif output file. will default to ttygif-xx', default= None,metavar='FILE')
+    parser.add_argument('--loop'       , '-l',   help='number of loops to play, 0=unlimited', default=0,metavar='COUNT')
+    parser.add_argument('--delay'      , '-d',   help='delay before restarting gif in milliseconds ', default=100,metavar='MS')
+    parser.add_argument('--record'     ,         help='output generated cast data to file', metavar='FILE')
+    parser.add_argument('--font'       , '-f',   help='which internal font to use', metavar='NAME')
+    parser.add_argument('--trailer'    ,         help='Add end a end trailer sequence to loop', metavar='FILE', default=None)
+    parser.add_argument('--last-event' , '-le'  ,help='Debug switch. Trim events to this index. (found from --debug)', metavar='FILE', default=0,type=int)
     
     parser.add_argument('--theme'   ,  '-t',   help='load custom theme: game,windows7,mac,fwdm,opensource,scripted,bar',default='default')
     parser.add_argument('--dilation',          help='process events at a faster or slower rate of time', default=1,metavar='RATE', type=float)
     parser.add_argument('--fps'     ,          help='encode at (n) frames per second (0-25) 0=speed of cast file, min 3ms', default=0,metavar='FPS', type=int)
-    parser.add_argument('--columns' ,  '-c',  help='change character width of gif, default is 80 or what is in the cast file',metavar='WIDTH', type=int)
-    parser.add_argument('--rows'    ,  '-r',  help='change character height of gif, default is 25 or what is in the cast file',metavar='HEIGHT', type=int)
+    parser.add_argument('--columns' ,  '-c',   help='change character width of gif, default is 80 or what is in the cast file',metavar='WIDTH', type=int)
+    parser.add_argument('--rows'    ,  '-r',   help='change character height of gif, default is 25 or what is in the cast file',metavar='HEIGHT', type=int)
     #parser.add_argument('--text-at'  help='print the text screen buffer at TIME',metavar='TIME', type=int)
  
     # underlay_display =simple, stretch, center
@@ -110,6 +112,8 @@ def main():
         try:
             
             cast2gif(args.input,args.output,
+                    last_event=args.last_event,
+                    trailer=args.trailer,
                     events=events,
                     loop_count=args.loop,
                     loop_delay=args.delay,

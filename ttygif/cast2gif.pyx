@@ -120,7 +120,7 @@ cdef class cast2gif:
         for i in xrange(0,len(self.stream['events'])):
             self.stream['events'][i][0]=float(self.stream['events'][i][0])*self.dilation
 
-    def __init__(self,cast_file,gif_file,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None,underlay=None,font_name=None,theme_name=None):
+    def __init__(self,cast_file,gif_file,last_event=0,trailer=None,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None,underlay=None,font_name=None,theme_name=None):
         self.dilation=dilation
         self.cast_file= cast_file
         self.gif_file= gif_file
@@ -152,7 +152,7 @@ cdef class cast2gif:
         if events:
             self.stream=events
         else:
-            self.stream=cast.load(cast_file)
+            self.stream=cast.load(cast_file,last_event)
 
 
         self.update_timestamps()
