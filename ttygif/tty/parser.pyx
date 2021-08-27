@@ -713,7 +713,7 @@ cdef class term_parser:
                         if len(event['params'])>=2:
                             param.append( "{0}".format(event['params'][1])   ) 
                         else: 
-                            param.append( "ERR" )make 
+                            param.append( "ERR" )
                     if i==3: 
                         if len(event['params'])>=1:
                             param.append( "{0}".format(event['params'][0]-1) ) 
