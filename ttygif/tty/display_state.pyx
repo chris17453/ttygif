@@ -129,3 +129,20 @@ cdef class display_state:
         if color>255:
             raise Exception ("Color over maximum value")
         self.foreground=color
+
+    cdef debug_state(self):
+        print(" DisplayState")
+        print(" - cursor_x           : {0}",self.cursor_x)
+        print(" - cursor_y           : {0}",self.cursor_y)
+        print(" - width              : {0}",self.width)
+        print(" - height             : {0}",self.height)
+        print(" - mode               : {0}",self.mode)
+        print(" - reverse_video      : {0}",self.reverse_video)
+        print(" - bold               : {0}",self.bold)
+        print(" - text_mode          : {0}",self.text_mode)
+        print(" - autowrap           : {0}",self.autowrap)
+        print(" - foreground         : {0}",self.foreground)
+        print(" - background         : {0}",self.background)
+        print(" - default_foreground : {0}",self.default_foreground)
+        print(" - default_background : {0}",self.default_background)
+        print(" - pending_wrap       : {0}",self.pending_wrap)

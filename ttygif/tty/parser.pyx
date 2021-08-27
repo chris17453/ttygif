@@ -11,7 +11,8 @@ from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 cdef class term_parser:
-    def __init__(self,terminal_graphics terminal_graphics,debug_mode=None,last_event=0):
+    def __init__(self,terminal_graphics terminal_graphics,debug_mode=None,last_event=0,show_state=False):
+        self.show_state=show_state
         self.debug_mode=debug_mode
         self.sequence=[]
         self.sequence_pos=0
@@ -156,7 +157,8 @@ cdef class term_parser:
             elif esc_type=='G1'       : self.process_G1(groups[7])
             elif esc_type=='CSI'      : self.process_CSI(command,params)
 
-            
+        if self.show_state==True: 
+            self.state.debug_state()
         self.sequence_pos=new_sequence_pos
 
     # TODO STUBS

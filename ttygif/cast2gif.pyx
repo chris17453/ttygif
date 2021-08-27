@@ -121,7 +121,9 @@ cdef class cast2gif:
         for i in xrange(0,len(self.stream['events'])):
             self.stream['events'][i][0]=float(self.stream['events'][i][0])*self.dilation
 
-    def __init__(self,cast_file,gif_file,last_event=0,trailer=None,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,debug=None,width=None,height=None,underlay=None,font_name=None,theme_name=None):
+    def __init__(self,cast_file,gif_file,last_event=0,trailer=None,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,
+                 debug=None,width=None,height=None,underlay=None,font_name=None,theme_name=None,
+                 show_state=False):
         self.dilation=dilation
         self.cast_file= cast_file
         self.gif_file= gif_file
@@ -132,6 +134,7 @@ cdef class cast2gif:
         self.debug= debug
         self.width= width
         self.height= height
+        self.show_state=show_state
         self.percent=-1
         self.timestamp=0
         self.aggregate_timestamp=0
@@ -181,7 +184,7 @@ cdef class cast2gif:
         g=encode_gif(self.loop_count,debug=self.debug)
         
 
-        v=terminal_emulator(char_width=self.width,char_height=self.height,font_name=self.font_name,theme_name=self.theme_name,debug=self.debug,last_event=self.last_event)
+        v=terminal_emulator(char_width=self.width,char_height=self.height,font_name=self.font_name,theme_name=self.theme_name,debug=self.debug,last_event=self.last_event,show_state=self.show_state)
         dim=v.get_dimentions()
         print (" - character dimensions: {0}x{1}".format(self.width,self.height))
         print (" - pixel dimensions: {0}x{1}".format(dim.width,dim.height))

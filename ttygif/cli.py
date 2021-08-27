@@ -32,7 +32,8 @@ def main():
     parser.add_argument('--record'     ,         help='output generated cast data to file', metavar='FILE')
     parser.add_argument('--font'       , '-f',   help='which internal font to use', metavar='NAME')
     parser.add_argument('--trailer'    ,         help='Add end a end trailer sequence to loop', metavar='FILE', default=None)
-    parser.add_argument('--last-event' ,         help='Debug switch. Trim events to this index. (found from --debug)', metavar='FILE', default=0,type=int)
+    parser.add_argument('--last-event' ,         help='Debug . Trim events to this index. (found from --debug)', metavar='FILE', default=0,type=int)
+    parser.add_argument('--show-state',          help='Debug . show display state', metavar='FILE', default=False,type=bool)
     
     parser.add_argument('--theme'   ,  '-t',   help='load custom theme: game,windows7,mac,fwdm,opensource,scripted,bar',default='default')
     parser.add_argument('--dilation',          help='process events at a faster or slower rate of time', default=1,metavar='RATE', type=float)
@@ -112,6 +113,7 @@ def main():
         try:
             
             cast2gif(args.input,args.output,
+                    show_state=args.show_state,
                     last_event=args.last_event,
                     trailer=args.trailer,
                     events=events,
