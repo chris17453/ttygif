@@ -23,7 +23,7 @@ cdef class terminal_emulator:
         self.font_name       =font_name
         self.theme_name      =theme_name
         self.last_event      =last_event
-        self.init(width,height,char_width,char_height,debug)
+        self.init(width,height,char_width,char_height,debug,last_event)
     
     cdef init(self,width,height,char_width,char_height,debug,last_event):
         cdef font internal_font
