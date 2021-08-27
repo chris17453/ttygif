@@ -158,7 +158,7 @@ cdef class term_parser:
             elif esc_type=='CSI'      : self.process_CSI(command,params)
 
         if self.show_state==True: 
-            self.state.debug_state()
+            self.g.state.debug_state()
         self.sequence_pos=new_sequence_pos
 
     # TODO STUBS
