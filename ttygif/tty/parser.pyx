@@ -154,7 +154,7 @@ cdef class term_parser:
     
                                     
             if   esc_type=='OSC'      : self.procces_OSC(groups)
-            elif esc_type=='SINGLE'   : self.process_SINGLE(groups[1])
+            elif esc_type=='SINGLE'   : self.process_SINGLE(command)
             elif esc_type=='CHAR_SET' : self.process_CHAR_SET(groups[3])
             elif esc_type=='G0'       : self.process_G0(groups[5])
             elif esc_type=='G1'       : self.process_G1(groups[7])
@@ -166,8 +166,8 @@ cdef class term_parser:
     cdef procces_OSC(self,groups):
         self.info(groups)
 
-    cdef process_SINGLE(self,groups):
-        print (groups)
+    cdef process_SINGLE(self,command):
+        #print (groups)
         if groups[0]==7: self.g.state.cursor_save_position()
         if groups[0]==8: self.g.state.cursor_restore_position()
         
