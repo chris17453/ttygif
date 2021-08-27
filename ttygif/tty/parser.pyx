@@ -270,9 +270,9 @@ cdef class term_parser:
             self.g.state.reverse_video=None
         elif cmd>=30 and cmd<=37:
             
-            #if self.g.state.bold:
-            #    self.set_foreground(cmd-30+8)
-            #else:
+            if self.g.state.bold:
+                self.set_foreground(cmd-30+8)
+            else:
                 self.set_foreground(cmd-30)
                 
         elif cmd==39:
@@ -368,7 +368,7 @@ cdef class term_parser:
         cdef int BS=8     # x Backspace
         cdef int LF=10     # x Line feed
         cdef int CR=13     # x Carriage return
-        
+        self.g.set_foreground(2)
         self.g.state.text_mode_on()
         for character in event['data']:
             char_ord=ord(character)
