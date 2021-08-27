@@ -196,7 +196,7 @@ cdef class term_parser:
         elif command=='f':  self.cmd_HVP(value2-1,value1-1)      # abs
         elif command=='h':  
             for cmd in params:
-                self.cmd_set_mode(params)
+                self.cmd_set_mode(cmd)
         elif command=='l':  self.cmd_reset_mode(value1)
         elif command=='m':  self.cmd_process_colors(params)
         elif command=='r':  self.cmd_DECSTBM(value1-1,value2-1)
