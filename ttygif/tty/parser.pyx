@@ -368,9 +368,9 @@ cdef class term_parser:
         cdef int BS=8     # x Backspace
         cdef int LF=10     # x Line feed
         cdef int CR=13     # x Carriage return
-        self.g.set_foreground(2)
         self.g.state.text_mode_on()
         for character in event['data']:
+            print(character)
             char_ord=ord(character)
             if char_ord<32 and self.no_codes==None:
                 if  char_ord==BS:
