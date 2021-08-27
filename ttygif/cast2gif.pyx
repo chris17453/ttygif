@@ -125,7 +125,8 @@ cdef class cast2gif:
 
     def __init__(self,cast_file,gif_file,last_event=0,trailer=None,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,
                  debug=None,width=None,height=None,underlay=None,font_name=None,theme_name=None,
-                 show_state=False):
+                 debug_gif=None,
+                 show_state=None):
         self.dilation=dilation
         self.cast_file= cast_file
         self.gif_file= gif_file
@@ -144,7 +145,8 @@ cdef class cast2gif:
         self.font_name=font_name
         self.theme_name=theme_name
         self.last_event=last_event
-        
+        self.debug_gif=debug_gif
+
         if underlay:
             underlay_image=decode(underlay)
             self.underlay=underlay_image.get()
@@ -183,7 +185,7 @@ cdef class cast2gif:
     
     
     def encode_stream(self):
-        g=encode_gif(self.loop_count,debug=self.debug)
+        g=encode_gif(self.loop_count,debug=self.debug_gif)
         
 
         v=terminal_emulator(char_width=self.width,char_height=self.height,font_name=self.font_name,theme_name=self.theme_name,debug=self.debug,last_event=self.last_event,show_state=self.show_state)
