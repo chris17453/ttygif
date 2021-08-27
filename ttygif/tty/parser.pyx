@@ -252,6 +252,7 @@ cdef class term_parser:
     
     #TODO cover all codes 0-107
     cdef cmd_set_mode(self,cmd):
+        print(cmd);
         if cmd==0:
             self.set_foreground(self.g.state.default_foreground)
             self.set_background(self.g.state.default_background)
