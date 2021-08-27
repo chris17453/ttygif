@@ -422,8 +422,8 @@ cdef class term_parser:
                 elif char_ord==CR:
                     self.g.state.cursor_absolute_x(0)
             else:
-                if self.g.state.pending_wrap:
-                    self.g.state.cursor_right(1)
+                #if self.g.state.pending_wrap:
+                #    self.g.state.cursor_right(1)
                 self.g.write(char_ord)
                 self.g.state.cursor_right(1)
             while self.g.state.scroll!=0:

@@ -49,9 +49,9 @@ cdef class display_state:
         self.display_cursor=None
 
     cdef check_bounds(self):
-        if self.pending_wrap:
-            if self.cursor_x!=self.width-1 or self.cursor_y!=self.height-1 or self.autowrap!=True:
-                self.pending_wrap=None
+        #if self.pending_wrap:
+        #    if self.cursor_x!=self.width-1 or self.cursor_y!=self.height-1 or self.autowrap!=True:
+        #        self.pending_wrap=None
 
         if self.cursor_x<0:
             self.cursor_x=0
@@ -83,10 +83,10 @@ cdef class display_state:
 
     cdef cursor_right(self,int distance):
         
-        if self.pending_wrap==None and self.autowrap and self.cursor_x==self.width-1 and self.cursor_y==self.height-1:
-            self.pending_wrap=True
-            #print ("PENDING YO",self.cursor_x,self.cursor_y)
-        else:
+        #if self.pending_wrap==None and self.autowrap and self.cursor_x==self.width-1 and self.cursor_y==self.height-1:
+        #    self.pending_wrap=True
+        #    #print ("PENDING YO",self.cursor_x,self.cursor_y)
+        #else:
             self.cursor_x+=distance
             if self.text_mode:
                 if self.cursor_x>=self.width:
