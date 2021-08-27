@@ -411,8 +411,8 @@ cdef class term_parser:
                     self.g.state.cursor_right(1)
                 elif char_ord==LF:
                     self.g.state.cursor_down(1)
-                    if self.g.state.mode=="linux":
-                        self.g.state.cursor_absolute_x(0)
+                    #if self.g.state.mode=="linux":
+                    #    self.g.state.cursor_absolute_x(0)
 
                 elif char_ord==CR:
                     self.g.state.cursor_absolute_x(0)
@@ -678,9 +678,20 @@ cdef class term_parser:
     cdef debug_event(self,event,index):
         commands=[
                     ['SINGLE','6' ,[0]   ,'DECBI'             ],
-                    ['SINGLE','7' ,[0]   ,'DECDC'             ],
+                    ['SINGLE','7' ,[0]   ,'DECSC'             ],
                     ['SINGLE','8' ,[0]   ,'DECRC'             ],
                     ['SINGLE','9' ,[0]   ,'DECFI'             ],
+                    ['SINGLE','=' ,[0]   ,'DECKPAM'             ],
+                    ['SINGLE','>' ,[0]   ,'DECKPNM'             ],
+                    ['SINGLE','F' ,[0]   ,''             ],
+                    ['SINGLE','c' ,[0]   ,'RIS'             ],
+                    ['SINGLE','l' ,[0]   ,'Memory Lock'             ],
+                    ['SINGLE','m' ,[0]   ,'Memory Unlock'             ],
+                    ['SINGLE','n' ,[0]   ,'Invoke G2 set as GL'             ],
+                    ['SINGLE','o' ,[0]   ,'Invoke G3 set as GL'             ],
+                    ['SINGLE','|' ,[0]   ,'Invoke G3 set as GR'             ],
+                    ['SINGLE','}' ,[0]   ,'Invoke G2 set as GR'             ],
+                    ['SINGLE','~' ,[0]   ,'Invoke G1 set as GR'             ],
                     ['CSI','A' ,[1]   ,'CUU'             ],
                     ['CSI','B' ,[1]   ,'CUD'             ],
                     ['CSI','C' ,[1]   ,'CUF'             ],
