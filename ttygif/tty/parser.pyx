@@ -642,12 +642,12 @@ cdef class term_parser:
         if len(text)==0:
             return
         text=[self.remap_character(i) for i in text]
-        if self.last_event!=0 and len(self.sequence)>=self.last_event:
+        if self.last_event!=0 and len(self.sequence)>self.last_event:
             return;
         self.sequence.append({'type':'text','command':'text','data':text,'timestamp':timestamp,'delay':delay})
 
     cdef add_command_sequence(self,esc_type,command,params,groups,name,timestamp,delay,text=None):
-        if self.last_event!=0 and len(self.sequence)>=self.last_event:
+        if self.last_event!=0 and len(self.sequence)>self.last_event:
             return;
         self.sequence.append({'type':'command','esc_type':esc_type,'command':command,'params':params,'groups':groups,'name':name,'timestamp':timestamp,'delay':delay,'data':text})
 
