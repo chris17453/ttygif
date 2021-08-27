@@ -400,7 +400,7 @@ cdef class term_parser:
             if char_ord<32 and self.no_codes==None:
                 if  char_ord==BS:
                     self.g.state.cursor_left(1)
-                if  char_ord==FI:
+                elif  char_ord==FI:
                     self.g.state.cursor_right(1)
                 elif char_ord==LF:
                     self.g.state.cursor_down(1)
