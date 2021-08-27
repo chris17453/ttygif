@@ -47,7 +47,7 @@ cdef class terminal_emulator:
    
     # this pre computes the regex into commands and stores into an array
     cdef add_event(self,event):
-        self.parser.add_event(event,last_event)
+        self.parser.add_event(event)
     
     cdef render(self):
         # graphics pointer is inside of the parser.... maybe seperate...
