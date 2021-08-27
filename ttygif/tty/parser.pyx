@@ -30,19 +30,19 @@ cdef class term_parser:
         for t in text:
             i=ord(i)
             if i < 128 and i>=32:
-                nt+=t
+               nt+=t
             elif i==9:
-                nt+='\T'
+               nt+='\T'
             elif i==8:
-                nt+='\BI'
+               nt+='\BI'
             elif i=='9:
-                nt+='\FI'
+               nt+='\FI'
             elif i==10:
-             nt+='\LF'
+               nt+='\LF'
             elif i==12:
-             nt+='\FF'
+               nt+='\FF'
             else:
-             nt+='*'
+               nt+='*'
         return nt
 
     cdef info(self,text):
