@@ -432,12 +432,8 @@ cdef class term_parser:
             while self.g.state.scroll!=0:
                 #print("Scroll at {0:005x}".format(self.current_sequence_position))
                 self.g.scroll_buffer()
-        if self.g.state.display_cursor==True :
-
-            #def current_milli_time():
-            #return round(time.time() * 1000)
-            self.g.write(95)
-        
+            if event['timestamp']%1000>500:
+                self.g.state.write(95)
         self.g.state.text_mode_off()
         
 
