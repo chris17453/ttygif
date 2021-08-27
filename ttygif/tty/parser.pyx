@@ -370,7 +370,7 @@ cdef class term_parser:
         cdef int CR=13     # x Carriage return
         self.g.state.text_mode_on()
         for character in event['data']:
-            print(character)
+            #print(character)
             char_ord=ord(character)
             if char_ord<32 and self.no_codes==None:
                 if  char_ord==BS:
@@ -423,7 +423,7 @@ cdef class term_parser:
         self.g.state.cursor_absolute(x,y)
     
     cdef cmd_ED(self,mode):
-        if mode==0:
+        if mode==1:
             cp=self.g.state.cursor_get_position()
             for x in xrange(0,self.g.state.cursor_x+1):
                 self.g.state.cursor_absolute_x(x)
@@ -433,7 +433,7 @@ cdef class term_parser:
                     self.g.state.cursor_absolute(x,y)
                     self.g.write(0)
             self.g.state.cursor_absolute(cp[0],cp[1])
-        if mode==1:
+        if mode==0:
             cp=self.g.state.cursor_get_position()
             for x in xrange(self.g.state.cursor_x,self.g.state.width):
                 self.g.state.cursor_absolute_x(x)
