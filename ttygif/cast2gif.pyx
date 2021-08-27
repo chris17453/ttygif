@@ -242,41 +242,45 @@ cdef class cast2gif:
                 new_frame=None
                 frame+=1
                
-                #v.render_underlay(self.underlay,0)
-                v.render()
-               
-                old_data=data
-                data=v.get()
-                #old_data=None
-                if None==old_data:
-                    diff={'min_x':0,'min_y':0,'max_x':dim.width-1,'max_y':dim.height-1,'width':dim.width,'height':dim.height}
-                else:
-                    diff=self.get_frame_bounding_diff(old_data['data'],data['data'],dim.width,dim.height)
-                if diff:
-                    frame_snip=self.copy_area(data['data'],diff,dim.width,dim.height)
 
-                    # loop the frames if the delay is bigger than 65.535 seconds =0xFFFF
-                    add_frames=True
-                    while add_frames:
-                        if delay>0xFFFF:
-                            partial_delay=0xFFFF
-                        else:
-                            partial_delay=delay
-                        delay-=partial_delay
-                        if delay==0:
-                            add_frames=None
-               
-                        # add the freame to the gif
-                        g.add_frame(    disposal_method=0,
-                                        delay=partial_delay, 
-                                        transparent=None,
-                                        left=diff['min_x'],
-                                        top=diff['min_y'],
-                                        width=diff['width'],
-                                        height=diff['height'],
-                                        palette=None,
-                                        image_data=frame_snip)
-                        self.aggregate_timestamp+=partial_delay
+                # loop the frames if the delay is bigger than 65.535 seconds =0xFFFF
+                add_frames=True
+                while add_frames:
+                    if delay>0xFFFF:
+                        partial_delay=0xFFFF
+                    else:
+                        partial_delay=delay
+                    delay-=partial_delay
+                    if delay==0:
+                        add_frames=None
+
+                    #v.render_underlay(self.underlay,0)
+                    v.render()
+                
+                    old_data=data
+                    data=v.get()
+                    #old_data=None
+                    if None==old_data:
+                        diff={'min_x':0,'min_y':0,'max_x':dim.width-1,'max_y':dim.height-1,'width':dim.width,'height':dim.height}
+                    else:
+                        diff=self.get_frame_bounding_diff(old_data['data'],data['data'],dim.width,dim.height)
+                
+    #                if diff:
+                        frame_snip=self.copy_area(data['data'],diff,dim.width,dim.height)
+
+
+                    # add the freame to the gif
+                    g.add_frame(    disposal_method=0,
+                                    delay=partial_delay, 
+                                    transparent=None,
+                                    left=diff['min_x'],
+                                    top=diff['min_y'],
+                                    width=diff['width'],
+                                    height=diff['height'],
+                                    palette=None,
+                                    image_data=frame_snip)
+
+                    self.aggregate_timestamp+=partial_delay
 
                 self.timestamp=cur_timestamp
             self.show_percent(index)
