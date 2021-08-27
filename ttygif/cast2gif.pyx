@@ -137,6 +137,7 @@ cdef class cast2gif:
         self.minimal_interval=.03
         self.font_name=font_name
         self.theme_name=theme_name
+        self.last_event=last_event
         
         if underlay:
             underlay_image=decode(underlay)
@@ -182,6 +183,9 @@ cdef class cast2gif:
 
         print (" - character dimensions: {0}x{1}".format(self.width,self.height))
         print (" - pixel dimensions: {0}x{1}".format(dim.width,dim.height))
+        if self.last_event!=0:
+            print (" - last event: {0}".format(self.last_event))
+        
 
         index=0
         if self.frame_rate!=0:
