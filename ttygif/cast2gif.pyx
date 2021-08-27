@@ -223,7 +223,7 @@ cdef class cast2gif:
         for event in self.stream['events']:
             event['status']=0
 
-        for i in range frames:
+        for i in range(frames):
             curent_time=1/self.frame_rate*i;
             self.show_percent(curent_time)
 
