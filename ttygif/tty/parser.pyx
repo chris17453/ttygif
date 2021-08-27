@@ -347,6 +347,7 @@ cdef class term_parser:
             self.g.set_background(self.g.state.default_background)
         else:
             self.g.set_background(color)
+            print("Setting Background to {0}".format(color))
 
     cdef cmd_process_colors(self,params):
         if 38 == params[0]:
