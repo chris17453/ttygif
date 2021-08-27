@@ -26,7 +26,7 @@ cdef class term_parser:
         return ''.join([i if ord(i) < 128 else '*' for i in text])
 
     cdef info(self,text):
-        if self.debug_mode:
+        #if self.debug_mode:
             print(self.ascii_safe(text))
 
     cdef clear_sequence(self):
