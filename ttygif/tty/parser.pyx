@@ -11,7 +11,7 @@ from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 cdef class term_parser:
-    def __init__(self,terminal_graphics terminal_graphics,debug_mode=None,last_event):
+    def __init__(self,terminal_graphics terminal_graphics,debug_mode=None,last_event=0):
         self.debug_mode=debug_mode
         self.sequence=[]
         self.sequence_pos=0
