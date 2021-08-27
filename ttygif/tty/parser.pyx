@@ -432,7 +432,7 @@ cdef class term_parser:
             while self.g.state.scroll!=0:
                 #print("Scroll at {0:005x}".format(self.current_sequence_position))
                 self.g.scroll_buffer()
-            if event['timestamp']%1000>500:
+            if (event['timestamp']*10)%10>5:
                 self.g.state.write(95)
         self.g.state.text_mode_off()
         
