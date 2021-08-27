@@ -707,6 +707,9 @@ cdef class term_parser:
                 self.g.state.cursor_x,
                 self.g.state.cursor_y) )
             return
+
+        print(event) 
+        return
         for cmd in commands:
             if cmd[1]==event['command'] and event['esc_type']==cmd[0]:
                 param=[]
