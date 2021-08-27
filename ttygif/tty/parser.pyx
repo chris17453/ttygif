@@ -25,12 +25,13 @@ cdef class term_parser:
         self.current_sequence_position=0
 
     cdef ascii_safe(self,text):
-        print(text)
         if text==None: 
             return ""
         return ''.join([i if ord(i) < 128 else '*' for i in text])
 
     cdef ascii_escaped(self,text):
+        if text==None:
+            return ""
         nt="";
         for t in text:
             i=ord(t)
