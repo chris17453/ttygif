@@ -167,6 +167,7 @@ cdef class term_parser:
         self.info(groups)
 
     cdef process_SINGLE(self,command):
+        print ("Processing SINGLE {0}".format(command))
         #print (groups)
         if command==7: 
             self.g.state.cursor_save_position()
