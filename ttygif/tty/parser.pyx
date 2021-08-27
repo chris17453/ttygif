@@ -683,7 +683,7 @@ cdef class term_parser:
                     ['CSI','?l',[1]   ,'DECRST'          ],
             ]
         if event['type']=='text':
-            print("{2:5d} {3:3.5f} : text('{0},{1}')".format(self.ascii_escaped(event['data']),len(event['data']),index, event['timestamp'] ) )
+            print("{2: 6d} {3:3.5f} : text('{0},{1}')".format(self.ascii_escaped(event['data']),len(event['data']),index, event['timestamp'] ) )
             return
         for cmd in commands:
             if cmd[1]==event['command'] and event['esc_type']==cmd[0]:
@@ -713,7 +713,7 @@ cdef class term_parser:
                         else: 
                             param.append( "ERR" )
 
-                print("{2: 6x} {3:3.5f} : {0}({1})".format(cmd[3],",".join(param),index,event['timestamp']))
+                print("{2: 6d} {3:3.5f} : {0}({1})".format(cmd[3],",".join(param),index,event['timestamp']))
                 return
                 
 
