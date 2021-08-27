@@ -537,7 +537,7 @@ cdef class term_parser:
 
     cdef stream_2_sequence(self,text,timestamp,delay):
         # patterns for filtering out commands from the stream
-        ANSI_SINGLE   ='[\033]([cDEHMZ78>=ijkl])' #ijkl arrow keys?
+        ANSI_SINGLE   = '[\033]([bcDEHMZ6789>=ijkl])' #ijkl arrow keys?
         ANSI_CHAR_SET = '[\033]\\%([@G*])'
         ANSI_G0       = '[\033]\\(([B0UK])'
         ANSI_G1       = '[\033]\\)([B0UK])'
@@ -564,19 +564,24 @@ cdef class term_parser:
             if groups[0]:
                 esc_type='SINGLE'
                 command=groups[1]
+                self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
             elif groups[2]:
                 esc_type='CHAR_SET'
                 command=groups[3]
+                self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
             elif groups[4]:
                 esc_type='G0'
                 command=groups[5]
+                self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
             elif groups[6]:
                 esc_type='G1'
                 command=groups[7]
+                self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
             elif groups[11]:
                 esc_type='OSC'
                 command=groups[11]
                 params=[groups[11]]
+                self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
             elif groups[12]:
                 esc_type='CSI'
                 command=groups[12][-1]
