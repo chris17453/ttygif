@@ -230,9 +230,9 @@ cdef class term_parser:
         elif command=='d':  self.cmd_VPA(value1-1)               # abs
         elif command=='`':  self.cmd_HPA(value1-1)               # abs
         elif command=='f':  self.cmd_HVP(value2-1,value1-1)      # abs
-        elif command=='h':  
-            for cmd in params:
-                self.cmd_set_mode(cmd)
+        #elif command=='h':  
+        #    for cmd in params:
+        #        self.cmd_set_mode(cmd)
         elif command=='l':  self.cmd_reset_mode(value1)
         elif command=='m':  self.cmd_process_colors(params)
         elif command=='r':  self.cmd_DECSTBM(value1-1,value2-1)
@@ -339,7 +339,7 @@ cdef class term_parser:
         if color>=self.g.theme.colors:
             self.g.set_foreground(self.g.state.default_foreground)
         else:
-            print("Setting Foreground to {0}".format(color))
+           # print("Setting Foreground to {0}".format(color))
             self.g.set_foreground(color)
 
     cdef set_background(self,color):
@@ -347,7 +347,7 @@ cdef class term_parser:
             self.g.set_background(self.g.state.default_background)
         else:
             self.g.set_background(color)
-            print("Setting Background to {0}".format(color))
+           # print("Setting Background to {0}".format(color))
 
     cdef cmd_process_colors(self,params):
         print(params)
@@ -355,13 +355,13 @@ cdef class term_parser:
             if params[1]==2:
                 self.g.foreground_from_rgb(params[2],params[3],params[4])
             if params[1]==5:
-                    print("Setting foreground 38 {0} m".format(params[2]))
+              #      print("Setting foreground 38 {0} m".format(params[2]))
                     self.set_foreground(params[2])
         elif 48 == params[0]:
                 if params[1]==2:
                     self.g.background_from_rgb(params[2],params[3],params[4])
                 if params[1]==5:
-                    print("Setting background 38 {0} m".format(params[2]))
+              #      print("Setting background 38 {0} m".format(params[2]))
                     self.set_background(params[2])
         else:
             for cmd in params:
