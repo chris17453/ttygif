@@ -269,18 +269,18 @@ cdef class cast2gif:
                         frame_snip=self.copy_area(data['data'],diff,dim.width,dim.height)
 
 
-                    # add the freame to the gif
-                    g.add_frame(    disposal_method=0,
-                                    delay=partial_delay, 
-                                    transparent=None,
-                                    left=diff['min_x'],
-                                    top=diff['min_y'],
-                                    width=diff['width'],
-                                    height=diff['height'],
-                                    palette=None,
-                                    image_data=frame_snip)
+                        # add the freame to the gif
+                        g.add_frame(    disposal_method=0,
+                                        delay=partial_delay, 
+                                        transparent=None,
+                                        left=diff['min_x'],
+                                        top=diff['min_y'],
+                                        width=diff['width'],
+                                        height=diff['height'],
+                                        palette=None,
+                                        image_data=frame_snip)
 
-                    self.aggregate_timestamp+=partial_delay
+                        self.aggregate_timestamp+=partial_delay
 
                 self.timestamp=cur_timestamp
             self.show_percent(index)
