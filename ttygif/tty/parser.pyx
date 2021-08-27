@@ -428,7 +428,7 @@ cdef class term_parser:
             for x in xrange(0,self.g.state.cursor_x+1):
                 self.g.state.cursor_absolute_x(x)
                 self.g.write(0)
-            for y in xrange(0,self.g.state.cursor_y):
+            for y in xrange(0,self.g.state.cursor_y-1):
                 for x in xrange(0,self.g.state.width):
                     self.g.state.cursor_absolute(x,y)
                     self.g.write(0)
