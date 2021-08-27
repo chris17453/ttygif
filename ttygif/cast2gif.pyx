@@ -34,6 +34,7 @@ cdef class cast2gif:
     cdef int    underlay_y2
     cdef int    underlay_mode
     cdef int    underlay_frame
+    cdef int    last_event
     cdef object font_name
     cdef object theme_name
     
