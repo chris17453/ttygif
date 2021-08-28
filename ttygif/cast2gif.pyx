@@ -215,6 +215,8 @@ cdef class cast2gif:
                 self.stream['events'].append([seconds+delay,'o',character])
                 seconds+=delay
 
+        print(self.stream['events'])
+
         frames=int(seconds*self.frame_rate)
 
         print("Frames Rate: {0}".format(self.frame_rate))
