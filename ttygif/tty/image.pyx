@@ -274,9 +274,9 @@ cdef class image:
         cdef float fx
         cdef float fy
         cdef uint8_t pixel
-        print ("SCALE")
-        src.debug()
-        dst.debug()
+        #print ("SCALE")
+        #src.debug()
+        #dst.debug()
         
         for y in xrange(0,dst.height):
             for x in xrange(0,dst.width):
