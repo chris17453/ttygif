@@ -28,12 +28,7 @@ cdef class terminal_graphics:
         cdef int char_width
         cdef int char_height
 
-        cdef layer underlay_layer=layer()
-        self.underlay=underlay
-        underlay_layer.load_file(underlay,
-                                self.theme.palette,
-                                self.screen.dimentions.width,
-                                self.screen.dimentions.height)
+        cdef layer underlay_layer
 
         
 
@@ -67,6 +62,12 @@ cdef class terminal_graphics:
                                   px_height + self.theme.padding.top  + self.theme.padding.bottom,
                                   self.theme.palette,clear_1)
         self.display_alt_screen = None
+        
+        # underlay items
+        self.underlay=underlay
+        if underlay!=None:
+        underlay_layer=layer()
+        underlay_layer.load_file(underlay,self.theme.palette)
 
 
     cdef alternate_screen_on(self):
