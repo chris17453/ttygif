@@ -201,13 +201,6 @@ cdef class cast2gif:
 
 
         index=0
-        if self.frame_rate!=0:
-            self.interval=float(1)/float(self.frame_rate)
-        else:
-            self.interval=self.minimal_interval
-        # default lowest setting
-        if self.interval<self.minimal_interval:
-            self.interval=self.minimal_interval
         frame=0
         data=None
         old_data=None
@@ -218,6 +211,7 @@ cdef class cast2gif:
 
         seconds=self.stream['events'][-1][0]
         frames=int(seconds*self.frame_rate)
+        print("Frames Rate: {0}".format(self.frame_rate))
         print("Frames: {0}".format(frames))
         print("Seconds: {0}".format(seconds))
         
