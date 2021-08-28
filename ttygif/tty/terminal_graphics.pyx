@@ -201,10 +201,12 @@ cdef class terminal_graphics:
         self.state.background=color
     
     cdef copy(self,layer temp):
+        print("copy");
         
         if temp==None:
             return
         if  temp.mode=="scale":
+            print("SCALE\n");
             temp.image.copy_scale(self.viewport,temp.bounds,temp.dst ,temp.transparent)
         if  temp.mode=="9slice":
             temp.image.copy_9slice(self.viewport,temp.outer,temp.inner,temp.dst,temp.transparent,temp.copy_mode)
