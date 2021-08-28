@@ -269,7 +269,7 @@ cdef class cast2gif:
 
                 # add the freame to the gif
                 g.add_frame(    disposal_method=0,
-                                delay=partial_delay, 
+                                delay=delay, 
                                 transparent=None,
                                 left=diff['min_x'],
                                 top=diff['min_y'],
