@@ -31,7 +31,7 @@ cdef class terminal_graphics:
         cdef layer underlay_layer=layer()
         self.underlay=underlay
         underlay_layer.load_file(underlay,
-                                self.theme.palette.array palette,
+                                self.theme.palette,
                                 self.screen.dimentions.width,
                                 self.screen.dimentions.height):
 
