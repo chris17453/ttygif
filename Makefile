@@ -121,7 +121,7 @@ pika-dark:
 	
 
 dodd:
-	@ttygif -i ../demo.cast -o ../ttygif-assets/encode/dodd.gif  --debug  --show-state  
+	@ttygif -i ../demo.cast -o ../ttygif-assets/encode/dodd.gif  --debug  --show-state --no-autowrap 
 
 
 c: build install  dodd

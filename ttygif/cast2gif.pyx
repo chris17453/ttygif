@@ -53,99 +53,56 @@ cdef class cast2gif:
     cdef double aggregate_timestamp
     cdef object stream 
 
-    cdef ascii_safe(self,text):
-        return ''.join([i if ord(i) < 128 else '*' for i in text])
 
-    cdef info(self,text):
-        if self.debug:
-            print(self.ascii_safe(text))
-
-    cdef get_frame_bounding_diff(self,array.array frame1,array.array frame2,int width,int height):
-        if frame1==None or frame2==None:
-            return {'min_x':0,'min_y':0,'max_x':width-1,'max_y':height-1,'width':width,'height':height}
-        cdef int pos=0
-        cdef int min_x=width
-        cdef int min_y=height
-        cdef int max_x=0
-        cdef int max_y=0
-        cdef same=1
-        cdef int x
-        cdef int y
-        for y in xrange(0,height):
-            for x in xrange(0,width):
-                if frame1[pos]!=frame2[pos]:
-                    same=0
-                    if x<min_x:
-                        min_x=x
-                    if x>max_x:
-                        max_x=x
-                    if y<min_y:
-                        min_y=y
-                    if y>max_y:
-                        max_y=y
-                pos+=1
-        # it didnt change...
-        # place holder so delat is kept same same
-        if same==1:
-            min_x=0
-            min_y=0
-            max_x=2
-            max_y=2
-            #return None
-
-        cdef int bound_height=max_y-min_y+1
-        cdef int bound_width =max_x-min_x+1
-        return {'min_x':min_x,'min_y':min_y,'max_x':max_x,'max_y':max_y,'width':bound_width,'height':bound_height}
-
-
-
-    def show_percent(self,index):
-        self.old_percent=self.percent
-        self.percent=int((index*100)/self.event_length)
-        if self.percent!=self.old_percent:
-            if self.natural:
-                sys.stdout.write("  {0} of {1} Seconds {2}% Frame: {3}                       \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2),index))
-            else:
-                sys.stdout.write("  {0} of {1} Seconds {2}% Frame: {3} {4} FPS ({5}ms)       \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2),index,self.frame_rate,round(self.interval,2)))
-            sys.stdout.flush()    
-
-    def update_timestamps(self):
-        for i in xrange(0,len(self.stream['events'])):
-            self.stream['events'][i][0]=float(self.stream['events'][i][0])*self.dilation
-
-    def __init__(self,cast_file,gif_file,last_event=0,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,
-                 debug=None,width=None,height=None,underlay=None,font_name=None,theme_name=None,
+    def __init__(self,
+                cast_file,
+                gif_file,
+                last_event=0,
+                events=None,
+                dilation=1,
+                loop_count=0xFFFF,
+                frame_rate=100,
+                loop_delay=1000,
+                natural=None,
+                 debug=None,
+                 width=None,
+                 height=None,
+                 underlay=None,
+                 font_name=None,
+                 theme_name=None,
                  debug_gif=None,
                  show_state=None,
                  trailer=None,
                  no_autowrap=None
                  ):
-        self.dilation=dilation
-        self.trailer=trailer
-        self.cast_file= cast_file
-        self.gif_file= gif_file
-        self.loop_count= loop_count
-        self.frame_rate= frame_rate
-        self.loop_delay= loop_delay
-        self.natural= natural
-        self.debug= debug
-        self.width= width
-        self.height= height
-        self.show_state=show_state
-        self.percent=-1
-        self.timestamp=0
-        self.aggregate_timestamp=0
-        self.minimal_interval=.03
-        self.font_name=font_name
-        self.theme_name=theme_name
-        self.last_event=last_event
-        self.debug_gif=debug_gif
-        self.no_autowrap=no_autowrap
+        self.dilation               = dilation
+        self.trailer                = trailer
+        self.cast_file              = cast_file
+        self.gif_file               = gif_file
+        self.loop_count             = loop_count
+        self.frame_rate             = frame_rate
+        self.loop_delay             = loop_delay
+        self.natural                = natural
+        self.debug                  = debug
+        self.width                  = width
+        self.height                 = height
+        self.show_state             = show_state
+        self.percent                = -1
+        self.timestamp              = 0
+        self.aggregate_timestamp    = 0
+        self.minimal_interval       = .03
+        self.font_name              = font_name
+        self.theme_name             = theme_name
+        self.last_event             = last_event
+        self.debug_gif              = debug_gif
+        self.no_autowrap            = no_autowrap
 
         if underlay:
             underlay_image=decode(underlay)
             self.underlay=underlay_image.get()
-
+        else:
+            self.underlay=None
+            
         print(" - dilation: {0}".format(self.dilation))
         if None==events:
             print (" - input: {0}".format(cast_file))
@@ -269,8 +226,10 @@ cdef class cast2gif:
 
             # loop the frames if the delay is bigger than 65.535 seconds =0xFFFF
             
+            # background image
+            if self.underlay:
+                v.render_underlay(self.underlay,0)
 
-            #v.render_underlay(self.underlay,0)
             v.render(curent_time)
         
             old_data=data
@@ -327,3 +286,63 @@ cdef class cast2gif:
                     diff['width'])
         
         return dest_frame
+
+    cdef ascii_safe(self,text):
+        return ''.join([i if ord(i) < 128 else '*' for i in text])
+
+    cdef info(self,text):
+        if self.debug:
+            print(self.ascii_safe(text))
+
+    cdef get_frame_bounding_diff(self,array.array frame1,array.array frame2,int width,int height):
+        if frame1==None or frame2==None:
+            return {'min_x':0,'min_y':0,'max_x':width-1,'max_y':height-1,'width':width,'height':height}
+        cdef int pos=0
+        cdef int min_x=width
+        cdef int min_y=height
+        cdef int max_x=0
+        cdef int max_y=0
+        cdef same=1
+        cdef int x
+        cdef int y
+        for y in xrange(0,height):
+            for x in xrange(0,width):
+                if frame1[pos]!=frame2[pos]:
+                    same=0
+                    if x<min_x:
+                        min_x=x
+                    if x>max_x:
+                        max_x=x
+                    if y<min_y:
+                        min_y=y
+                    if y>max_y:
+                        max_y=y
+                pos+=1
+        # it didnt change...
+        # place holder so delat is kept same same
+        if same==1:
+            min_x=0
+            min_y=0
+            max_x=2
+            max_y=2
+            #return None
+
+        cdef int bound_height=max_y-min_y+1
+        cdef int bound_width =max_x-min_x+1
+        return {'min_x':min_x,'min_y':min_y,'max_x':max_x,'max_y':max_y,'width':bound_width,'height':bound_height}
+
+
+
+    def show_percent(self,index):
+        self.old_percent=self.percent
+        self.percent=int((index*100)/self.event_length)
+        if self.percent!=self.old_percent:
+            if self.natural:
+                sys.stdout.write("  {0} of {1} Seconds {2}% Frame: {3}                       \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2),index))
+            else:
+                sys.stdout.write("  {0} of {1} Seconds {2}% Frame: {3} {4} FPS ({5}ms)       \r".format(round(self.timestamp,2),round(self.last_timestamp,2),round(self.percent,2),index,self.frame_rate,round(self.interval,2)))
+            sys.stdout.flush()    
+
+    def update_timestamps(self):
+        for i in xrange(0,len(self.stream['events'])):
+            self.stream['events'][i][0]=float(self.stream['events'][i][0])*self.dilation
