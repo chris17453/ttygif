@@ -24,7 +24,7 @@ cdef class layer:
         self.outer =rect(0,0,0,0)
         self.inner =rect(0,0,0,0)
         self.bounds=rect(0,0,0,0)
-        self.dst   =rect(0,0,0,0)
+        self.dst   =rect(0,0,-1,-1)
         self.transparent=-1
 
         
@@ -48,10 +48,6 @@ cdef class layer:
         for frame in gif_raw['frames']:
             if frame['image']:
                 attribs=frame['descriptor']
-                #if autoloader==True:
-                #    self.bounds=rect(0,0,attribs.Width,attribs.Height)
-                #    self.inner =rect(0,0,attribs.Width,attribs.Height)
-                #    self.outer =rect(0,0,attribs.Width,attribs.Height)
 
                 self.image=image(1,attribs.Width,attribs.Height,array.array('B',gif_raw['global_color_table'].colors),clear_1)
                 self.image.data=frame['image'].data
