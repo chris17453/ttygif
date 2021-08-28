@@ -152,7 +152,7 @@ cdef class cast2gif:
         print (" - character dimensions: {0}x{1}".format(self.width,self.height))
         print (" - pixel dimensions: {0}x{1}".format(dim.width,dim.height))
 
-        g.create(width=dim.width,height=dim.height,filename=self.gif_file,palette=v.terminal_graphics.theme.palette)
+        g.create(width=dim.width,height=dim.height,filename=self.gif_file,palette=v.terminal_graphics.theme.palette,underlay=self.underlay)
 
         
         print("\n");
