@@ -204,6 +204,8 @@ cdef class terminal_graphics:
         
         if temp==None:
             return
+        if  temp.mode=="scale":
+            temp.image.copy_scale(self.viewport,temp.bounds,temp.dst ,temp.transparent)
         if  temp.mode=="9slice":
             temp.image.copy_9slice(self.viewport,temp.outer,temp.inner,temp.dst,temp.transparent,temp.copy_mode)
         if  temp.mode=="3slice":
@@ -224,7 +226,7 @@ cdef class terminal_graphics:
         self.viewport.clear(clear_pixel)
 
 
-        #self.copy(self.underlay_layer)
+        self.copy(self.underlay_layer)
         self.copy(self.theme.layer1)
         
         self.copy(self.theme.layer1)

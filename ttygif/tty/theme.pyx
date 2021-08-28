@@ -20,7 +20,7 @@ cdef class layer:
         self.z_index=0
         self.name=''
         self.file=''
-        self.mode=''
+        self.mode='scale'
         self.outer =rect(0,0,0,0)
         self.inner =rect(0,0,0,0)
         self.bounds=rect(0,0,0,0)
@@ -41,12 +41,9 @@ cdef class layer:
                 err="Invalid image file: {0}".format(path)
                 raise Exception(err)
 
-        print (path)
-        print ("HI\n")
         cdef image temp_image
         underlay_image=decode(path)
         gif_raw=underlay_image.get()
-        print ("yo\n")
         for frame in gif_raw['frames']:
             if frame['image']:
                 atrribs=frame['descriptor']
