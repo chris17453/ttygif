@@ -200,14 +200,19 @@ cdef class cast2gif:
 
 
         seconds=self.stream['events'][-1][0]
+        
+        if self.trailer:
+            message="ttygif. End of recording"
+            delay=1/len(message)
+            for character in message:
+                self.stream['events'].append([seconds+delay,'o',character])
+                seconds+=delay
+
         frames=int(seconds*self.frame_rate)
+
         print("Frames Rate: {0}".format(self.frame_rate))
         print("Frames: {0}".format(frames))
         print("Seconds: {0}".format(seconds))
-        
-        if self.trailer:
-            self.stream['events'].append([seconds+.100,'o',"End of Loop"])
-            seconds+=1
 
 
         # add attribute of status to event array
