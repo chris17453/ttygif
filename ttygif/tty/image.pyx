@@ -188,7 +188,7 @@ cdef class image:
         cdef int pixel_stride=self.dimentions.bytes_per_pixel
         for index in xrange(0,len(self.data),pixel_stride):
             for pixel_pos in xrange(0, len(pixel) ):
-                self.data[index+pixel_pos]=pixel[pixel_pos]
+                self.data[index+pixel_pos]=1 #pixel[pixel_pos]
             
     cdef remap_image(self,array.array palette,uint8_t transparent):
         cdef rect src=self.get_rect()
