@@ -228,6 +228,7 @@ cdef class terminal_graphics:
 
         
         self.copy(self.underlay_layer)
+        self.underlay_layer.debug()
         return 
         self.copy(self.theme.layer1)
         
