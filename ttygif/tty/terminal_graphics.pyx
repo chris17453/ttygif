@@ -64,9 +64,11 @@ cdef class terminal_graphics:
         
         # underlay items
         self.underlay=underlay
+        print ("underlay!!! {0}".format(underlay))
         if underlay!=None:
             self.underlay_layer=layer()
             self.underlay_layer.load_file(underlay,self.theme.palette)
+            print  ("underlay loaded")
 
 
     cdef alternate_screen_on(self):
