@@ -202,6 +202,7 @@ cdef class cast2gif:
         seconds=self.stream['events'][-1][0]
         
         if self.trailer:
+            print("Trailer Set))
             message="ttygif. End of recording"
             delay=1/len(message)
             for character in message:
