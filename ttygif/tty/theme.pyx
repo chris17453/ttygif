@@ -46,11 +46,11 @@ cdef class layer:
         gif_raw=underlay_image.get()
         for frame in gif_raw['frames']:
             if frame['image']:
-                atrribs=frame['descriptor']
+                attribs=frame['descriptor']
                 self.bounds=rect(0,0,attribs.Width,attribs.Height)
                 self.inner =rect(0,0,attribs.Width,attribs.Height)
                 self.outer =rect(0,0,attribs.Width,attribs.Height)
-                self.image=image(1,atrribs.Width,atrribs.Height,array.array('B',gif_raw['global_color_table'].colors),clear_1)
+                self.image=image(1,attribs.Width,attribs.Height,array.array('B',gif_raw['global_color_table'].colors),clear_1)
                 self.image.data=frame['image'].data
                 if frame['gc']==None:
                         self.image.transparent=-1
