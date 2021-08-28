@@ -217,9 +217,8 @@ cdef class cast2gif:
             for i in range(self.height,2):
                 scroll2=scroll2+"\r\n"
 
-            message="{0}ttygif. End of recording{2}".format(scroll,scroll2)
+            message="{0}ttygif. End of recording{1}".format(scroll,scroll2)
             delay=trailer_length/len(message)
-            seconds+=seconds+delay
             seconds+=seconds+delay
             for character in message:
                 print ("CHAR - {0} {1}".format(character,delay))
