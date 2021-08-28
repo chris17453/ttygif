@@ -165,7 +165,9 @@ cdef class cast2gif:
 
 
         seconds=self.stream['events'][-1][0]
-        
+        if seconds<.5:
+         seconds+=1
+         
         if self.trailer:
             print("Trailer Set")
             trailer_length=4
