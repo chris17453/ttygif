@@ -7,6 +7,7 @@ from image cimport rect,image,point
 cdef class layer:
     cdef int         z_index
     cdef str         file
+    cdef str         path
     cdef str         mode  
     cdef str         name
     cdef rect        outer
