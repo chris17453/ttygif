@@ -34,7 +34,7 @@ cdef class layer:
         cdef uint8_t[1] clear_1=[0]
         
         # try the image given, otherwise tryin the layers folder in the module
-        if os.path.exists(path)!=True and os.path.isdir(path)==True:
+        if os.path.isdir(path)==True:
             path=os.path.join(path,'layers',self.file) 
             if os.path.exists(path)==False:
 
