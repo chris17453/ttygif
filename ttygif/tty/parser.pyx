@@ -627,6 +627,7 @@ cdef class term_parser:
                             elif command in 'ABCD':
                                 params = (1,)
                     except Exception as ex:
+                        print(ex)
                         continue
                 self.add_command_sequence(esc_type,command,params,groups,name,timestamp,delay,text)
         
@@ -772,7 +773,7 @@ cdef class term_parser:
 
                 print("{2: 6d} {3:3.5f} {4:03d},{5:03d} : {0}({1})".format(
                                             cmd[3],
-                                            ",".join(param),
+                                            ",".join(event['params']),
                                             index,
                                             event['timestamp'],
                                             self.g.state.cursor_x,
