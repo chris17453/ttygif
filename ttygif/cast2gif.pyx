@@ -163,6 +163,7 @@ cdef class cast2gif:
         self.aggregate_timestamp=0
         text=""
         old_percent=0
+        percent=0
 
         seconds=self.stream['events'][-1][0]
         if seconds<.5:
@@ -255,7 +256,7 @@ cdef class cast2gif:
 
 
         old_percent=percent
-        self.percent=int((i*100)/frames)
+        percent=int((i*100)/frames)
         if percent!=old_percent:
             sys.stdout.write("  {0} of {1} Seconds {2}% Frame: {3} {4} FPS       \r".format(round(curent_time,2),round(seconds,2),round(self.percent,2),i,self.frame_rate))
             sys.stdout.flush()  
