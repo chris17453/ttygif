@@ -30,7 +30,7 @@ cdef class layer:
         
         
 
-    cdef load_file(self,path,array.array palette,int width,int height):
+    cdef load_file(self,path,array.array palette):
         cdef uint8_t[1] clear_1=[0]
 
         # try the image given, otherwise tryin the layers folder in the module
@@ -41,10 +41,12 @@ cdef class layer:
                 err="Invalid image file: {0}".format(path)
                 raise Exception(err)
 
-
+        print (path)
+        print ("HI\n")
         cdef image temp_image
         underlay_image=decode(path)
         gif_raw=underlay_image.get()
+        print ("yo\n")
         for frame in gif_raw['frames']:
             if frame['image']:
                 atrribs=frame['descriptor']
@@ -97,7 +99,7 @@ cdef class theme:
     
     cdef update_layer(self, layer temp):
 
-        temp.load_file(self.path,self.palette,self.width,self.height)
+        temp.load_file(self.path,self.palette)
 
 
         cdef int total_width =self.width -1+self.padding.left+self.padding.right
