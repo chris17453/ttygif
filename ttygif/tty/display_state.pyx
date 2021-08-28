@@ -36,7 +36,7 @@ cdef class display_state:
         self.autowrap=True
         
     cdef autowrap_off(self):
-        self.autowrap=True
+        self.autowrap=None
 
     cdef set_scroll_region(self,top,bottom):
         self.scroll             = 0
