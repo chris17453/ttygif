@@ -32,9 +32,10 @@ cdef class layer:
 
     cdef load_file(self,path,array.array palette):
         cdef uint8_t[1] clear_1=[0]
-        
+        autoloader=None        
         # try the image given, otherwise tryin the layers folder in the module
         if os.path.isdir(path)==True:
+            autoloader=True
             path=os.path.join(path,'layers',self.file) 
             if os.path.exists(path)==False:
 
@@ -47,9 +48,11 @@ cdef class layer:
         for frame in gif_raw['frames']:
             if frame['image']:
                 attribs=frame['descriptor']
-                self.bounds=rect(0,0,attribs.Width,attribs.Height)
-                self.inner =rect(0,0,attribs.Width,attribs.Height)
-                self.outer =rect(0,0,attribs.Width,attribs.Height)
+                if autoloader==True:
+                    self.bounds=rect(0,0,attribs.Width,attribs.Height)
+                    self.inner =rect(0,0,attribs.Width,attribs.Height)
+                    self.outer =rect(0,0,attribs.Width,attribs.Height)
+                    
                 self.image=image(1,attribs.Width,attribs.Height,array.array('B',gif_raw['global_color_table'].colors),clear_1)
                 self.image.data=frame['image'].data
                 if frame['gc']==None:
