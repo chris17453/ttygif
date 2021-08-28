@@ -745,35 +745,14 @@ cdef class term_parser:
 
         for cmd in commands:
             if cmd[1]==event['command'] and event['esc_type']==cmd[0]:
-                param=[]
-                for i in cmd[2]:
-                    
-                    if i==0: param.append( "" )
-                    
-                    if i==1: 
-                        if len(event['params'])>=1:
-                            param.append( "{0}".format(event['params'][0])   ) 
-                        else: 
-                            param.append( "ERR" )
-                    if i==2: 
-                        if len(event['params'])>=2:
-                            param.append( "{0}".format(event['params'][1])   ) 
-                        else: 
-                            param.append( "ERR" )
-                    if i==3: 
-                        if len(event['params'])>=1:
-                            param.append( "{0}".format(event['params'][0]-1) ) 
-                        else: 
-                            param.append( "ERR" )
-                    if i==4: 
-                        if len(event['params'])>=2:
-                            param.append( "{0}".format(event['params'][1]-1) ) 
-                        else: 
-                            param.append( "ERR" )
+                param=""
+                for i in event['params']:
+                    param=param+"{0}, ".format(i)
+              
 
                 print("{2: 6d} {3:3.5f} {4:03d},{5:03d} : {0}({1})".format(
                                             cmd[3],
-                                            ",".join(event['params']),
+                                            param,
                                             index,
                                             event['timestamp'],
                                             self.g.state.cursor_x,
