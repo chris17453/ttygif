@@ -26,7 +26,7 @@ cdef class layer:
         self.bounds=rect(0,0,0,0)
         self.dst   =rect(0,0,-1,-1)
         self.transparent=-1
-        self.path       =None
+        self.path  =None
         
         
 
