@@ -33,7 +33,7 @@ cdef class terminal_graphics:
         underlay_layer.load_file(underlay,
                                 self.theme.palette,
                                 self.screen.dimentions.width,
-                                self.screen.dimentions.height):
+                                self.screen.dimentions.height)
 
         
 
