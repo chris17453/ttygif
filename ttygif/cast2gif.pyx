@@ -227,8 +227,6 @@ cdef class cast2gif:
             # loop the frames if the delay is bigger than 65.535 seconds =0xFFFF
             
             # background image
-            if self.underlay:
-                v.render_underlay(self.underlay,0)
 
             v.render(curent_time)
         
