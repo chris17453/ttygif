@@ -20,7 +20,7 @@ cdef class layer:
         self.z_index=0
         self.name=''
         self.file=None
-        self.mode='9slice'
+        self.mode='copy'
         self.outer =rect(0,0,0,0)
         self.inner =rect(0,0,0,0)
         self.bounds=rect(0,0,0,0)
