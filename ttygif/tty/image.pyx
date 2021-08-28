@@ -186,6 +186,7 @@ cdef class image:
         cdef int index
         cdef int pixel_pos=0
         cdef int pixel_stride=self.dimentions.bytes_per_pixel
+        print( "CLEARING {0}".format(len(pixel))
         for index in xrange(0,len(self.data),pixel_stride):
             for pixel_pos in xrange(0, len(pixel) ):
                 self.data[index+pixel_pos]=pixel[pixel_pos]
