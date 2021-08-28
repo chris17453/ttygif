@@ -130,7 +130,7 @@ cdef class term_parser:
 
 
     
-    cdef render_to_buffer(self):
+    cdef render_to_buffer(self,time):
 
         new_sequence_pos=self.sequence_pos #self.sequence_pos:
         
@@ -165,6 +165,10 @@ cdef class term_parser:
             elif esc_type=='G0'       : self.process_G0(groups[5])
             elif esc_type=='G1'       : self.process_G1(groups[7])
             elif esc_type=='CSI'      : self.process_CSI(command,params)
+
+            #print("{0}\n".format((event['timestamp']*10)%10))
+            if (time)%10>5:
+                self.g.write(95)
 
         self.sequence_pos=new_sequence_pos
 
@@ -402,7 +406,6 @@ cdef class term_parser:
     
     
     cdef cmd_render_text(self,event):
-        print(" - RENDER TO BUFFER")
         #print event['data']
        
         cdef int BS=8     # x Backspace
@@ -433,9 +436,6 @@ cdef class term_parser:
             while self.g.state.scroll!=0:
                 #print("Scroll at {0:005x}".format(self.current_sequence_position))
                 self.g.scroll_buffer()
-            #print("{0}\n".format((event['timestamp']*10)%10))
-            if (event['timestamp']*10)%10>5:
-                self.g.write(95)
         self.g.state.text_mode_off()
         
 

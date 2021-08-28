@@ -251,7 +251,7 @@ cdef class cast2gif:
             
 
             #v.render_underlay(self.underlay,0)
-            v.render()
+            v.render(curent_time)
         
             old_data=data
             data=v.get()

@@ -50,9 +50,9 @@ cdef class terminal_emulator:
     cdef add_event(self,event):
         self.parser.add_event(event)
     
-    cdef render(self):
+    cdef render(self,time):
         # graphics pointer is inside of the parser.... maybe seperate...
-        self.parser.render_to_buffer()
+        self.parser.render_to_buffer(time)
         self.terminal_graphics.render()
 
     cdef last_frame(self):
