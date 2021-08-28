@@ -66,6 +66,8 @@ cdef class terminal_emulator:
     
     cdef render(self,time):
         # graphics pointer is inside of the parser.... maybe seperate...
+        self.frame+=1
+        print("RENDERING FRAME {0}".format(frame))
         self.parser.render_to_buffer(time)
         self.terminal_graphics.render()
         if self.terminal_graphics.state.display_cursor==True:
