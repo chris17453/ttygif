@@ -28,7 +28,6 @@ cdef class terminal_graphics:
         cdef int char_width
         cdef int char_height
 
-        cdef layer underlay_layer
 
         
 
@@ -66,8 +65,8 @@ cdef class terminal_graphics:
         # underlay items
         self.underlay=underlay
         if underlay!=None:
-            underlay_layer=layer()
-            underlay_layer.load_file(underlay,self.theme.palette)
+            self.underlay_layer=layer()
+            self.underlay_layer.load_file(underlay,self.theme.palette)
 
 
     cdef alternate_screen_on(self):
@@ -227,7 +226,7 @@ cdef class terminal_graphics:
         cdef uint8_t[3] element=[0,0,0]
         self.viewport.clear(clear_pixel)
 
-
+        print ("UNDERLAYER")
         self.copy(self.underlay_layer)
         self.copy(self.theme.layer1)
         
