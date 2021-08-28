@@ -189,7 +189,7 @@ cdef class cast2gif:
 
         #print(self.stream['events'])
 
-        frames=int(seconds*self.frame_rate)+1
+        frames=int(seconds*self.frame_rate)
 
         print("Frames Rate: {0}".format(self.frame_rate))
         print("Frames: {0}".format(frames))
@@ -201,7 +201,7 @@ cdef class cast2gif:
             event.append(0)
 
         for i in range(frames):
-            curent_time=(1/self.frame_rate)*i;
+            curent_time=(1/self.frame_rate)*(i+1);
 
 
             for event in self.stream['events']:
