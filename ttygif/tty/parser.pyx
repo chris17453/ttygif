@@ -78,6 +78,7 @@ cdef class term_parser:
                     #    self.g.state.cursor_absolute_x(0)
 
                 elif char_ord==CR:
+                    print("Wee 0")
                     self.g.state.cursor_absolute_x(0)
             else:
                 if self.g.state.pending_wrap==True:
