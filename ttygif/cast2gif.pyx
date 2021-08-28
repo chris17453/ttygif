@@ -220,12 +220,6 @@ cdef class cast2gif:
             event.append(0)
 
         for i in range(frames):
-            print ("Frame: {0}".format(frame))
-            curent_time=(1/self.frame_rate)*i;
-            print ("Time: {0}".format(curent_time))
-            #self.show_percent(curent_time)
-
-
             for event in self.stream['events']:
                 # skip rendered rows .. ok for static backgrounds
                 if event[3]==1:
@@ -237,7 +231,6 @@ cdef class cast2gif:
 
             # add any leftover text from the end of the blah blah i dont know what i did
             if i==self.event_length-1:
-                print("Adding LAST event")
                 v.last_frame()
 
 
@@ -263,8 +256,6 @@ cdef class cast2gif:
         
             if diff:
                 frame_snip=self.copy_area(data['data'],diff,dim.width,dim.height)
-
-                print("Adding a frame")
 
                 # add the freame to the gif
                 g.add_frame(    disposal_method=0,

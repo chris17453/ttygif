@@ -54,7 +54,6 @@ cdef class terminal_emulator:
         # graphics pointer is inside of the parser.... maybe seperate...
         self.parser.render_to_buffer(time)
         self.terminal_graphics.render()
-        print ("BLINK {0} {1}".format(int(time*10)%10,time))
         if (int(time*10))%10>5:
             self.terminal_graphics.draw_character(
                 self.terminal_graphics.state.cursor_x,
