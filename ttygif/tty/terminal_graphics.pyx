@@ -67,7 +67,8 @@ cdef class terminal_graphics:
         print ("underlay!!! {0}".format(underlay))
         if underlay!=None:
             self.underlay_layer=layer()
-            self.underlay_layer.load_file(underlay,self.theme.palette)
+            self.underlay_layer.file=self.underlay
+            self.underlay_layer.load_file(self.theme.palette)
             self.theme.update_layer(self.underlay_layer)
             print  ("underlay loaded")
 

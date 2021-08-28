@@ -19,29 +19,31 @@ cdef class layer:
     def __cinit__(self):
         self.z_index=0
         self.name=''
-        self.file=''
+        self.file=None
         self.mode='scale'
         self.outer =rect(0,0,0,0)
         self.inner =rect(0,0,0,0)
         self.bounds=rect(0,0,0,0)
         self.dst   =rect(0,0,-1,-1)
         self.transparent=-1
-
+        self.path       =None
         
         
 
-    cdef load_file(self,path,array.array palette):
+    cdef load_file(self,array.array palette):
         cdef uint8_t[1] clear_1=[0]
         autoloader=None        
         # try the image given, otherwise tryin the layers folder in the module
-        if os.path.isdir(path)==True:
-            autoloader=True
-            path=os.path.join(path,'layers',self.file) 
-            if os.path.exists(path)==False:
-
-                err="Invalid image file: {0}".format(path)
-                raise Exception(err)
-
+        
+        if self.path:
+            if os.path.isdir(self.path)==True:
+                path=os.path.join(path,'layers',self.file) 
+                if os.path.exists(path)==False:
+                    err="Invalid image file: {0}".format(path)
+                    raise Exception(err)
+        else:
+            path=self.file
+            
         cdef image temp_image
         underlay_image=decode(path)
         gif_raw=underlay_image.get()
@@ -98,7 +100,7 @@ cdef class theme:
     
     cdef update_layer(self, layer temp):
 
-        temp.load_file(self.path,self.palette)
+        temp.load_file(self.palette)
 
 
         cdef int total_width =self.width -1+self.padding.left+self.padding.right
@@ -254,6 +256,8 @@ cdef class theme:
             elif section=='layer':
                 if   key=='layer':
                     theme_layer=layer()
+                    theme_layer.path=self.path
+
                     
                 elif key=='depth':
                     theme_layer.z_index=int(value)
