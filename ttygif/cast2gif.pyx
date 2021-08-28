@@ -186,7 +186,7 @@ cdef class cast2gif:
         v=terminal_emulator(char_width=self.width,
                             char_height=self.height,
                             font_name=self.font_name,
-                            no_auto_wrap=self.no_autowrap,
+                            no_autowrap=self.no_autowrap,
                             theme_name=self.theme_name,
                             debug=self.debug,
                             last_event=self.last_event,
