@@ -95,10 +95,10 @@ cdef class display_state:
             #print ("PENDING YO",self.cursor_x,self.cursor_y)
         else:
             self.cursor_x+=distance
-            if self.autowrap:
+            if self.autowrap==True:
                 while self.cursor_x>=self.width:
                     #print "DOWN!",self.cursor_x,self.cursor_y,self.pending_wrap,self.autowrap 
-                    self.cursor_x=self.width-self.cursor_x
+                    self.cursor_x=self.cursor_x-self.width
                     self.cursor_down(1)
             #else:
             self.check_bounds()
