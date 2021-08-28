@@ -233,10 +233,12 @@ cdef class cast2gif:
                 event[3]=1
                 # skip events that havnt happened
                 if event[0]<curent_time:
+                    print("Adding an event")
                     v.add_event(event)
 
             # add any leftover text from the end of the blah blah i dont know what i did
             if i==self.event_length-1:
+                print("Adding LAST event")
                 v.last_frame()
 
 
@@ -247,45 +249,38 @@ cdef class cast2gif:
             
 
             # loop the frames if the delay is bigger than 65.535 seconds =0xFFFF
-            add_frames=True
-            while add_frames:
-                if delay>0xFFFF:
-                    partial_delay=0xFFFF
-                else:
-                    partial_delay=delay
-                delay-=partial_delay
-                if delay==0:
-                    add_frames=None
+            delay="0x{0:5x}".format(delay)
 
-                #v.render_underlay(self.underlay,0)
-                v.render()
-            
-                old_data=data
-                data=v.get()
-                #old_data=None
-                if None==old_data:
-                    diff={'min_x':0,'min_y':0,'max_x':dim.width-1,'max_y':dim.height-1,'width':dim.width,'height':dim.height}
-                else:
-                    diff=self.get_frame_bounding_diff(old_data['data'],data['data'],dim.width,dim.height)
-            
-                if diff:
-                    frame_snip=self.copy_area(data['data'],diff,dim.width,dim.height)
+            #v.render_underlay(self.underlay,0)
+            v.render()
+        
+            old_data=data
+            data=v.get()
+            #old_data=None
+            if None==old_data:
+                diff={'min_x':0,'min_y':0,'max_x':dim.width-1,'max_y':dim.height-1,'width':dim.width,'height':dim.height}
+            else:
+                diff=self.get_frame_bounding_diff(old_data['data'],data['data'],dim.width,dim.height)
+        
+            if diff:
+                frame_snip=self.copy_area(data['data'],diff,dim.width,dim.height)
 
+                print("Adding a frame")
 
-                    # add the freame to the gif
-                    g.add_frame(    disposal_method=0,
-                                    delay=partial_delay, 
-                                    transparent=None,
-                                    left=diff['min_x'],
-                                    top=diff['min_y'],
-                                    width=diff['width'],
-                                    height=diff['height'],
-                                    palette=None,
-                                    image_data=frame_snip)
+                # add the freame to the gif
+                g.add_frame(    disposal_method=0,
+                                delay=partial_delay, 
+                                transparent=None,
+                                left=diff['min_x'],
+                                top=diff['min_y'],
+                                width=diff['width'],
+                                height=diff['height'],
+                                palette=None,
+                                image_data=frame_snip)
 
-                    self.aggregate_timestamp+=partial_delay
+                self.aggregate_timestamp+=partial_delay
 
-                #self.timestamp=cur_timestamp
+            #self.timestamp=cur_timestamp
             #self.show_percent(index)
         if self.debug:
             v.debug_sequence()
