@@ -743,8 +743,9 @@ cdef class term_parser:
                 self.g.state.cursor_y) )
             return
         param=""
-        for i in event['params']:
-            param=param+"{0}, ".format(i)
+        if event['params']!=None:
+            for i in event['params']:
+                param=param+"{0}, ".format(i)
         
         for cmd in commands:
             if cmd[1]==event['command'] and event['esc_type']==cmd[0]:
