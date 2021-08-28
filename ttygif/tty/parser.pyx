@@ -167,7 +167,7 @@ cdef class term_parser:
             elif esc_type=='CSI'      : self.process_CSI(command,params)
 
             #print("{0}\n".format((event['timestamp']*10)%10))
-            if (time)%10>5:
+            if (time*10)%10>5:
                 self.g.write(95)
 
         self.sequence_pos=new_sequence_pos
