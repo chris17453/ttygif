@@ -249,7 +249,7 @@ cdef class cast2gif:
             
 
             # loop the frames if the delay is bigger than 65.535 seconds =0xFFFF
-            delay="0x{0:5x}".format(delay)
+            
 
             #v.render_underlay(self.underlay,0)
             v.render()
