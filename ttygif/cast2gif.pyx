@@ -162,7 +162,7 @@ cdef class cast2gif:
         new_frame=None
         self.aggregate_timestamp=0
         text=""
-
+        old_percent=0
 
         seconds=self.stream['events'][-1][0]
         if seconds<.5:
