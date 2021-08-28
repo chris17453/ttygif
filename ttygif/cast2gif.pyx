@@ -216,13 +216,12 @@ cdef class cast2gif:
         text=""
 
 
-        seconds=self.stream['events'][-1]
-        print(seconds)
+        seconds=self.stream['events'][-1][0]
         frames=seconds*self.frame_rate;
         
         # add attribute of status to event array
         for event in self.stream['events']:
-            event['status']=0
+            event[4]=0
 
         for i in range(frames):
             curent_time=1/self.frame_rate*i;
@@ -231,11 +230,11 @@ cdef class cast2gif:
 
             for event in self.stream['events']:
                 # skip rendered rows .. ok for static backgrounds
-                if event['status']==1:
+                if event[4]==1:
                     continue;
-                event['status']=1
+                event[4]=1
                 # skip events that havnt happened
-                if event['timestamp']<curent_time:
+                if event[0]<curent_time:
                     v.add_event(event)
 
             # add any leftover text from the end of the blah blah i dont know what i did
