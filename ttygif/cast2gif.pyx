@@ -213,8 +213,8 @@ cdef class cast2gif:
             delay=1/len(message)
             for character in message:
                 print ("CHAR - {0}".format(character))
-                self.stream['events'].append([seconds+delay,'o',character])
-                seconds+=delay
+                self.stream['events'].append([seconds,'o',character])
+                seconds=seconds+delay
 
         print(self.stream['events'])
 
