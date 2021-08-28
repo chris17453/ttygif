@@ -31,7 +31,7 @@ def main():
     parser.add_argument('--delay'      , '-d',   help='delay before restarting gif in milliseconds ', default=100,metavar='MS')
     parser.add_argument('--record'     ,         help='output generated cast data to file', metavar='FILE')
     parser.add_argument('--font'       , '-f',   help='which internal font to use', metavar='NAME')
-    parser.add_argument('--trailer'    ,         help='Add end a end trailer sequence to loop', metavar='FILE', default=None)
+    parser.add_argument('--trailer'    ,         help='Add end a end trailer sequence to loop',action='store_true',default=None)
     
     parser.add_argument('--theme'   ,  '-t',   help='load custom theme: game,windows7,mac,fwdm,opensource,scripted,bar',default='default')
     parser.add_argument('--dilation',          help='process events at a faster or slower rate of time', default=1,metavar='RATE', type=float)
