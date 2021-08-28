@@ -221,13 +221,14 @@ cdef class cast2gif:
 
         for i in range(frames):
             print ("Frame: {0}".format(frame))
-            curent_time=1/self.frame_rate*i;
+            curent_time=(1/self.frame_rate)*i;
             print ("Time: {0}".format(curent_time))
-            self.show_percent(curent_time)
+            #self.show_percent(curent_time)
 
 
             for event in self.stream['events']:
                 # skip rendered rows .. ok for static backgrounds
+                print(event)
                 if event[3]==1:
                     print("Skiping event");
                     continue;
