@@ -22,6 +22,7 @@ cdef class display_state:
         self.default_background = user_theme.default_background
         self.pending_wrap       = None
         self.cursor_speed       = 0
+        self.display_cursor     = None
 
         self.set_scroll_region(0,self.height-1)
 
