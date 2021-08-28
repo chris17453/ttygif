@@ -220,7 +220,9 @@ cdef class cast2gif:
             event.append(0)
 
         for i in range(frames):
+            print ("Frame: {0}".format(frame))
             curent_time=1/self.frame_rate*i;
+            print ("Time: {0}".format(curent_time))
             self.show_percent(curent_time)
 
 
@@ -238,7 +240,7 @@ cdef class cast2gif:
                 v.last_frame()
 
 
-            #millasecnds 1000 per second
+            #millasecnds 100 per second
             delay=int(100/self.frame_rate)
             
             frame+=1
