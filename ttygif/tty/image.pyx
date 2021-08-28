@@ -235,10 +235,7 @@ cdef class image:
         cdef uint8_t g
         cdef uint8_t b
         cdef uint8_t pixel
-        print ("COPY")
-        src.debug()
-        dst.debug()
-       
+        
         #if x<0 or x>=self.dimentions.width:
         #   return
         #if y<0 or y>=self.dimentions.height:
@@ -277,7 +274,9 @@ cdef class image:
         cdef float fx
         cdef float fy
         cdef uint8_t pixel
-
+        print ("SCALE")
+        src.debug()
+        dst.debug()
         
         for y in xrange(0,dst.height):
             for x in xrange(0,dst.width):
