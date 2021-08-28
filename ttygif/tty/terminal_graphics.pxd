@@ -20,6 +20,9 @@ cdef class terminal_graphics:
     cdef display_state  alt_state
     cdef object         display_alt_screen
     cdef theme          theme
+    cdef layer          underlay_layer
+    cdef object         underlay
+        
 
     cdef alternate_screen_on(self)
     cdef alternate_screen_off(self)

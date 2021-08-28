@@ -14,16 +14,17 @@ from .font cimport font
 cdef class terminal_emulator:
     
     def __cinit__(self,
-                    width=640,
-                    height=480,
-                    char_width=None,
-                    char_height=None,
-                    font_name=None,
-                    theme_name=None,
-                    debug=None,
-                    last_event=0,
-                    show_state=False,
-                    no_autowrap=None):
+                    width       = 640,
+                    height      = 480,
+                    char_width  = None,
+                    char_height = None,
+                    font_name   = None,
+                    theme_name  = None,
+                    debug       = None,
+                    last_event  = 0,
+                    show_state  = False,
+                    no_autowrap = None,
+                    underlay    = None):
     
         self.debug_mode      =debug
         self.show_state      =show_state
@@ -35,6 +36,7 @@ cdef class terminal_emulator:
         self.theme_name      =theme_name
         self.last_event      =last_event
         self.no_autowrap     =no_autowrap
+        self.underlay        =underlay
         self.init(width,height,char_width,char_height,debug,last_event,show_state)
     
     cdef init(self,width,height,char_width,char_height,debug,last_event,show_state):
@@ -52,7 +54,8 @@ cdef class terminal_emulator:
                                                  viewport_width   = width,
                                                  viewport_height  = height,
                                                  image_font       = internal_font,
-                                                 theme_name       = self.theme_name)
+                                                 theme_name       = self.theme_name,
+                                                 underlay         = self.underlay)
 
         self.parser          = term_parser(debug_mode=debug,terminal_graphics=self.terminal_graphics,last_event=last_event,show_state=show_state,no_autowrap=self.no_autowrap)
         
@@ -64,7 +67,7 @@ cdef class terminal_emulator:
     cdef render(self,time):
         # graphics pointer is inside of the parser.... maybe seperate...
         self.parser.render_to_buffer(time)
-        self.terminal_graphics.render()
+        self.terminal_graphics.render(self)
         if self.terminal_graphics.state.display_cursor==True:
             if (int(time*10))%10>5:
                 self.terminal_graphics.draw_character(

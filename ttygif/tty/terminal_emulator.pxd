@@ -19,10 +19,11 @@ cdef class terminal_emulator:
     cdef public int    last_event
     cdef public object show_state
     cdef public object no_autowrap
+    cdef public object underlay
         
 
 
-    cdef init(self,width,heigh,char_width,char_height,debug,last_event,show_state)
+    cdef init(self,width,heigh,char_width,char_height,debug,last_event,show_state,underlay)
     cdef add_event(self,event)
     cdef render(self,time)
     cdef get(self)

@@ -32,10 +32,16 @@ cdef class layer:
 
     cdef load_file(self,path,array.array palette,int width,int height):
         cdef uint8_t[1] clear_1=[0]
-        path=os.path.join(path,'layers',self.file) 
-        if os.path.exists(path)==False:
-            err="Invalid image file: {0}".format(path)
-            raise Exception(err)
+
+        # try the image given, otherwise tryin the layers folder in the module
+        if os.path.exists(path)!=True:
+            path=os.path.join(path,'layers',self.file) 
+            if os.path.exists(path)==False:
+
+                err="Invalid image file: {0}".format(path)
+                raise Exception(err)
+
+
         cdef image temp_image
         underlay_image=decode(path)
         gif_raw=underlay_image.get()

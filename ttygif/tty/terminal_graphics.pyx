@@ -19,13 +19,23 @@ cdef class terminal_graphics:
 
 
     def __cinit__(self,int character_width=-1,int character_height=-1,theme_name=None,
-                       int viewport_width=-1,int viewport_height=-1 ,font image_font=None):
+                       int viewport_width=-1,int viewport_height=-1 ,font image_font=None,underlay=None):
         self.font               = image_font
 
+        # ??? no assignments
         cdef int px_width
         cdef int px_height
         cdef int char_width
         cdef int char_height
+
+        cdef layer underlay_layer=layer()
+        self.underlay=underlay
+        underlay_layer.load_file(underlay,
+                                self.theme.palette.array palette,
+                                self.screen.dimentions.width,
+                                self.screen.dimentions.height):
+
+        
 
         
         # define displays by chaaracters on screen        
@@ -211,6 +221,11 @@ cdef class terminal_graphics:
         cdef uint8_t[1] clear_pixel=[0]
         cdef uint8_t[3] element=[0,0,0]
         self.viewport.clear(clear_pixel)
+
+
+        self.copy(self.underlay_layer)
+        self.copy(self.theme.layer1)
+        
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
         
