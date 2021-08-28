@@ -35,7 +35,7 @@ def main():
     
     parser.add_argument('--theme'   ,  '-t',   help='load custom theme: game,windows7,mac,fwdm,opensource,scripted,bar',default='default')
     parser.add_argument('--dilation',          help='process events at a faster or slower rate of time', default=1,metavar='RATE', type=float)
-    parser.add_argument('--fps'     ,          help='encode at (n) frames per second (0-25) 0=speed of cast file, min 3ms', default=0,metavar='FPS', type=int)
+    parser.add_argument('--fps'     ,          help='encode at (n) frames per second (0-100) 0=speed of cast file, min 3ms', default=10,metavar='FPS', type=int)
     parser.add_argument('--columns' ,  '-c',   help='change character width of gif, default is 80 or what is in the cast file',metavar='WIDTH', type=int)
     parser.add_argument('--rows'    ,  '-r',   help='change character height of gif, default is 25 or what is in the cast file',metavar='HEIGHT', type=int)
     #parser.add_argument('--text-at'  help='print the text screen buffer at TIME',metavar='TIME', type=int)
