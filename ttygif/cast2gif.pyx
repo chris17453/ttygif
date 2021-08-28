@@ -220,6 +220,9 @@ cdef class cast2gif:
             event.append(0)
 
         for i in range(frames):
+            curent_time=(1/self.frame_rate)*i;
+
+
             for event in self.stream['events']:
                 # skip rendered rows .. ok for static backgrounds
                 if event[3]==1:
