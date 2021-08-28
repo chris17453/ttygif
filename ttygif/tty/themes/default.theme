@@ -4,6 +4,7 @@ background         0
 foreground         7
 default_background 0
 default_foreground 7
+transparent 0
 
 palette
 colors 256

@@ -204,7 +204,6 @@ cdef class terminal_graphics:
     cdef copy(self,layer temp):
         
         if temp==None:
-            print("NO copy");
             return
         elif temp.mode=="scale":
             print("SCALE\n");
@@ -228,7 +227,7 @@ cdef class terminal_graphics:
         cdef uint8_t[3] element=[0,0,0]
         self.viewport.clear(clear_pixel)
 
-        print ("UNDERLAYER")
+        
         self.copy(self.underlay_layer)
         self.copy(self.theme.layer1)
         
