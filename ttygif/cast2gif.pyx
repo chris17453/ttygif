@@ -97,11 +97,7 @@ cdef class cast2gif:
         self.debug_gif              = debug_gif
         self.no_autowrap            = no_autowrap
 
-        if underlay:
-            underlay_image=decode(underlay)
-            self.underlay=underlay_image.get()
-        else:
-            self.underlay=None
+        self.underlay=underlay
             
         print(" - dilation: {0}".format(self.dilation))
         if None==events:
@@ -147,12 +143,13 @@ cdef class cast2gif:
                             theme_name  =self.theme_name,
                             debug       =self.debug,
                             last_event  =self.last_event,
-                            show_state  =self.show_state)
+                            show_state  =self.show_state,
+                            underlay    =self.underlay)
         dim=v.get_dimentions()
         print (" - character dimensions: {0}x{1}".format(self.width,self.height))
         print (" - pixel dimensions: {0}x{1}".format(dim.width,dim.height))
 
-        g.create(width=dim.width,height=dim.height,filename=self.gif_file,palette=v.terminal_graphics.theme.palette,underlay=self.underlay)
+        g.create(width=dim.width,height=dim.height,filename=self.gif_file,palette=v.terminal_graphics.theme.palette)
 
         
         print("\n");
