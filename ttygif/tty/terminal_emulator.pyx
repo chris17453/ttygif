@@ -13,17 +13,28 @@ from .font cimport font
 # main interface for terminal emulation
 cdef class terminal_emulator:
     
-    def __cinit__(self,width=640,height=480,char_width=None,char_height=None,font_name=None,theme_name=None,debug=None,last_event=0,show_state=False):
+    def __cinit__(self,
+                    width=640,
+                    height=480,
+                    char_width=None,
+                    char_height=None,
+                    font_name=None,
+                    theme_name=None,
+                    debug=None,
+                    last_event=0,
+                    show_state=False,
+                    no_autowrap=None):
     
         self.debug_mode      =debug
         self.show_state      =show_state
         self.underlay_flag   =None
         self.default_font    ='Verite_9x16'
         if font_name==None:
-            font_name=self.default_font
+           font_name=self.default_font
         self.font_name       =font_name
         self.theme_name      =theme_name
         self.last_event      =last_event
+        self.no_autowrap     =no_autowrap
         self.init(width,height,char_width,char_height,debug,last_event,show_state)
     
     cdef init(self,width,height,char_width,char_height,debug,last_event,show_state):
@@ -43,7 +54,7 @@ cdef class terminal_emulator:
                                                  image_font       = internal_font,
                                                  theme_name       = self.theme_name)
 
-        self.parser          = term_parser(debug_mode=debug,terminal_graphics=self.terminal_graphics,last_event=last_event,show_state=show_state)
+        self.parser          = term_parser(debug_mode=debug,terminal_graphics=self.terminal_graphics,last_event=last_event,show_state=show_state,no_autowrap=self.no_autowrap)
         
    
     # this pre computes the regex into commands and stores into an array

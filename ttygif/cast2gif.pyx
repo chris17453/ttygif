@@ -40,6 +40,7 @@ cdef class cast2gif:
     cdef object show_state
     cdef object debug_gif
     cdef object trailer
+    cdef object no_autowrap
     
     
     
@@ -116,7 +117,9 @@ cdef class cast2gif:
                  debug=None,width=None,height=None,underlay=None,font_name=None,theme_name=None,
                  debug_gif=None,
                  show_state=None,
-                 trailer=None):
+                 trailer=None,
+                 no_autowrap=None
+                 ):
         self.dilation=dilation
         self.trailer=trailer
         self.cast_file= cast_file
@@ -137,6 +140,7 @@ cdef class cast2gif:
         self.theme_name=theme_name
         self.last_event=last_event
         self.debug_gif=debug_gif
+        self.no_autowrap=no_autowrap
 
         if underlay:
             underlay_image=decode(underlay)
@@ -182,6 +186,7 @@ cdef class cast2gif:
         v=terminal_emulator(char_width=self.width,
                             char_height=self.height,
                             font_name=self.font_name,
+                            no_auto_wrap=self.no_autowrap,
                             theme_name=self.theme_name,
                             debug=self.debug,
                             last_event=self.last_event,

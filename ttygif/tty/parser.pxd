@@ -18,7 +18,7 @@ cdef class term_parser:
     cdef object            current_sequence_position
     cdef int               last_event
     cdef object            show_state
-        
+    
     cdef terminal_graphics g
     cdef double            last_timestamp
     

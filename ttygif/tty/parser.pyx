@@ -41,7 +41,7 @@ import time
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
 cdef class term_parser:
-    def __init__(self,terminal_graphics terminal_graphics,debug_mode=None,last_event=0,show_state=False):
+    def __init__(self,terminal_graphics terminal_graphics,debug_mode=None,last_event=0,show_state=False,no_autowrap=None):
         self.show_state=show_state
         self.debug_mode=debug_mode
         self.sequence=[]
@@ -53,6 +53,43 @@ cdef class term_parser:
         self.g=terminal_graphics
         self.last_event=last_event;
         self.current_sequence_position=0
+        if no_autowrap:
+            self.g.state.autowrap_off()
+
+    cdef cmd_render_text(self,event):
+        #print event['data']
+       
+        cdef int BS=8     # x Backspace
+        cdef int FI=9     # x Forward Index
+        cdef int LF=10     # x Line feed
+        cdef int CR=13     # x Carriage return
+        self.g.state.text_mode_on()
+        for character in event['data']:
+            #print(character)
+            char_ord=ord(character)
+            if char_ord<32 and self.no_codes==None:
+                if  char_ord==BS:
+                    self.g.state.cursor_left(1)
+                elif  char_ord==FI:
+                    self.g.state.cursor_right(1)
+                elif char_ord==LF:
+                    self.g.state.cursor_down(1)
+                    #if self.g.state.mode=="linux":
+                    #    self.g.state.cursor_absolute_x(0)
+
+                elif char_ord==CR:
+                    self.g.state.cursor_absolute_x(0)
+            else:
+                if self.g.state.pending_wrap:
+                    self.g.state.cursor_right(1)
+                self.g.write(char_ord)
+                self.g.state.cursor_right(1)
+            while self.g.state.scroll!=0:
+                #print("Scroll at {0:005x}".format(self.current_sequence_position))
+                self.g.scroll_buffer()
+        self.g.state.text_mode_off()
+        
+
 
     cdef ascii_safe(self,text):
         if text==None: 
@@ -400,40 +437,6 @@ cdef class term_parser:
 
   
     
-    cdef cmd_render_text(self,event):
-        #print event['data']
-       
-        cdef int BS=8     # x Backspace
-        cdef int FI=9     # x Forward Index
-        cdef int LF=10     # x Line feed
-        cdef int CR=13     # x Carriage return
-        self.g.state.text_mode_on()
-        for character in event['data']:
-            #print(character)
-            char_ord=ord(character)
-            if char_ord<32 and self.no_codes==None:
-                if  char_ord==BS:
-                    self.g.state.cursor_left(1)
-                elif  char_ord==FI:
-                    self.g.state.cursor_right(1)
-                elif char_ord==LF:
-                    self.g.state.cursor_down(1)
-                    #if self.g.state.mode=="linux":
-                    #    self.g.state.cursor_absolute_x(0)
-
-                elif char_ord==CR:
-                    self.g.state.cursor_absolute_x(0)
-            else:
-                if self.g.state.pending_wrap:
-                    self.g.state.cursor_right(1)
-                self.g.write(char_ord)
-                self.g.state.cursor_right(1)
-            while self.g.state.scroll!=0:
-                #print("Scroll at {0:005x}".format(self.current_sequence_position))
-                self.g.scroll_buffer()
-        self.g.state.text_mode_off()
-        
-
     cdef cmd_DECSTBM(self,int top,int bottom):
         self.g.state.set_scroll_region(top,bottom)
 
@@ -734,7 +737,7 @@ cdef class term_parser:
                     ['CSI','?l',[1]   ,'DECRST'          ],
             ]
         if event['type']=='text':
-            print("{2: 6d} {3:3.5f} {4:03d},{5:03d} : text('{0},{1}')".format(
+            print("{2: 6d} {3:3.5f} {4:03d},{5:03d} : text('{0}',{1}')".format(
                 self.ascii_escaped(event['data']),
                 len(event['data']),
                 index, 
@@ -767,7 +770,8 @@ cdef class term_parser:
                                             event['timestamp'],
                                             index,
                                             self.g.state.cursor_x,
-                                            self.g.state.cursor_y) )
+                                            self.g.state.cursor_y,
+                                            ) )
                                             
 
 

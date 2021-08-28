@@ -50,6 +50,11 @@ cdef class display_state:
     cdef hide_cursor(self):
         self.display_cursor=None
 
+  
+  
+  
+  
+  
     cdef check_bounds(self):
         if self.pending_wrap:
             if self.cursor_x!=self.width-1 or self.cursor_y!=self.height-1 or self.autowrap!=True:
@@ -90,11 +95,11 @@ cdef class display_state:
             #print ("PENDING YO",self.cursor_x,self.cursor_y)
         else:
             self.cursor_x+=distance
-            #if self.text_mode:
-            #    if self.cursor_x>=self.width:
-            #        #print "DOWN!",self.cursor_x,self.cursor_y,self.pending_wrap,self.autowrap 
-            #        self.cursor_x=0
-            #        self.cursor_down(1)
+            if self.autowrap:
+                while self.cursor_x>=self.width:
+                    #print "DOWN!",self.cursor_x,self.cursor_y,self.pending_wrap,self.autowrap 
+                    self.cursor_x=self.width-self.cursor_x
+                    self.cursor_down(1)
             #else:
             self.check_bounds()
 

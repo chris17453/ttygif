@@ -18,6 +18,7 @@ cdef class terminal_emulator:
     cdef public object theme_name
     cdef public int    last_event
     cdef public object show_state
+    cdef public object no_autowrap
         
 
 
