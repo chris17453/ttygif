@@ -74,8 +74,8 @@ cdef class term_parser:
                     self.g.state.cursor_right(1)
                 elif char_ord==LF:
                     self.g.state.cursor_down(1)
-                    #if self.g.state.mode=="linux":
-                    #    self.g.state.cursor_absolute_x(0)
+                    if self.g.state.mode=="linux":
+                        self.g.state.cursor_absolute_x(0)
 
                 elif char_ord==CR:
                     print("Wee 0 {0}.{1}".format(self.g.state.cursor_x,self.g.state.cursor_y))
