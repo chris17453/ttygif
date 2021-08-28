@@ -121,7 +121,7 @@ pika-dark:
 	
 
 dodd:
-	@ttygif -i ../demo.cast -o ../ttygif-assets/encode/dodd.gif  --debug  --show-state --no-autowrap  --underlay ../ttygif-assets/src_gifs/green.gif
+	@ttygif -i ../demo.cast -o ../ttygif-assets/encode/dodd.gif  --debug  --show-state --no-autowrap  --underlay ../ttygif-assets/src_gifs/giphy.gif  --theme game
 
 c: build install  dodd
 	@ttygif -i ../demo.cast -o bob.gif  --debug  --show-state  --columns 122 | grep -v -i COL
