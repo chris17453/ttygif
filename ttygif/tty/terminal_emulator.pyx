@@ -54,10 +54,11 @@ cdef class terminal_emulator:
         # graphics pointer is inside of the parser.... maybe seperate...
         self.parser.render_to_buffer(time)
         self.terminal_graphics.render()
-        print("{0}\n".format((event['timestamp']*10)%10))
         print ("BLINK {0} {1}".format(int(time*10)%10,time))
         if (int(time*10))%10>5:
-            self.terminal_graphics.draw_character(c[0],c[1],[7,0,95]);
+            self.terminal_graphics.draw_character(
+                self.terminal_graphics.state.cursor_x,
+                self.terminal_graphics.state.cursor_y,[7,0,95]);
 
     cdef last_frame(self):
         self.parser.last_frame()
