@@ -258,7 +258,7 @@ cdef class cast2gif:
             old_percent=percent
             percent=int(((i+1)*100)/frames)
         
-            sys.stdout.write("  {0} of {1} Seconds {2}% Frame: {3} {4} FPS       \r".format(round(curent_time,2),round(seconds,2),round(self.percent,2),i,self.frame_rate))
+            sys.stdout.write("  {0} of {1} Seconds {2}% Frame: {3} {4} FPS       \r".format(round(curent_time,2),round(seconds,2),round(percent,2),i,self.frame_rate))
             sys.stdout.flush()  
 
         if self.debug:
