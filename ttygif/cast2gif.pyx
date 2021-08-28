@@ -238,8 +238,8 @@ cdef class cast2gif:
                 v.last_frame()
 
 
-
-            delay=int(1000/self.frame_rate)
+            #millasecnds 1000 per second
+            delay=int(100/self.frame_rate)
             
             frame+=1
             
