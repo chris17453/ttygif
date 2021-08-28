@@ -32,10 +32,9 @@ cdef class layer:
 
     cdef load_file(self,path,array.array palette):
         cdef uint8_t[1] clear_1=[0]
-        print(path)
         
         # try the image given, otherwise tryin the layers folder in the module
-        if os.path.exists(path)!=True:
+        if os.path.exists(path)!=True and os.path.isdir(path)==True:
             path=os.path.join(path,'layers',self.file) 
             if os.path.exists(path)==False:
 
@@ -43,7 +42,6 @@ cdef class layer:
                 raise Exception(err)
 
         cdef image temp_image
-        print(path)
         underlay_image=decode(path)
         gif_raw=underlay_image.get()
         for frame in gif_raw['frames']:
