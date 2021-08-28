@@ -99,7 +99,7 @@ examples:
 
 
 raytrace:
-	@python -m ttygif.cli --input ../ttygif-assets/cast/174524.cast --output ../ttygif-assets/encode/174524.gif --fps 12
+	@python -m ttygif.cli --input ../ttygif-assets/cast/174524.cast --output ../ttygif-assets/encode/174524.gif --fps 12 --debug
 	
 tetris:
 	@python -m ttygif.cli --input ../ttygif-assets/cast/232377.cast --output ../ttygif-assets/encode/232377.gif --fps 12 --theme game
@@ -114,7 +114,7 @@ pika:
 	@python -m ttygif.cli --input ../ttygif-assets/cast/236096.cast --output ../ttygif-assets/encode/236096.gif --fps 12
 	
 htop:
-	@python -m ttygif.cli --input ../ttygif-assets/cast/test.cast --output ../ttygif-assets/encode/test.gif --fps 0
+	@python -m ttygif.cli --input ../ttygif-assets/cast/test.cast --output ../ttygif-assets/encode/test.gif --fps 32
 
 pika-dark:
 	@python -m ttygif.cli --input ../ttygif-assets/cast/236096.cast --output ../ttygif-assets/encode/236096.gif --fps 12 --theme game

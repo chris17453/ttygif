@@ -54,10 +54,11 @@ cdef class terminal_emulator:
         # graphics pointer is inside of the parser.... maybe seperate...
         self.parser.render_to_buffer(time)
         self.terminal_graphics.render()
-        if (int(time*10))%10>5:
-            self.terminal_graphics.draw_character(
-                self.terminal_graphics.state.cursor_x,
-                self.terminal_graphics.state.cursor_y,[7,0,95]);
+        if self.terminal_graphics.state.show_cursor:
+            if (int(time*10))%10>5:
+                self.terminal_graphics.draw_character(
+                    self.terminal_graphics.state.cursor_x,
+                    self.terminal_graphics.state.cursor_y,[7,0,95]);
 
     cdef last_frame(self):
         self.parser.last_frame()
