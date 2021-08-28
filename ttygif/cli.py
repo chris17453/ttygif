@@ -106,9 +106,6 @@ def main():
         if frame_rate>100:
            frame_rate=100
             
-        natural=None
-        if args.fps==0:
-            natural=True
         debug=args.debug
         try:
             
@@ -123,7 +120,6 @@ def main():
                     debug=debug,
                     dilation=args.dilation,
                     frame_rate=frame_rate,
-                    natural=natural,
                     height=args.rows,
                     width=args.columns,
                     underlay=None,

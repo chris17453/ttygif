@@ -39,6 +39,8 @@ cdef class cast2gif:
     cdef object theme_name
     cdef object show_state
     cdef object debug_gif
+    cdef object trailer
+    
     
     
     
@@ -94,21 +96,7 @@ cdef class cast2gif:
         cdef int bound_width =max_x-min_x+1
         return {'min_x':min_x,'min_y':min_y,'max_x':max_x,'max_y':max_y,'width':bound_width,'height':bound_height}
 
-    def get_delay(self,event_index):
-        delay=0
-        if event_index==len(self.stream['events'])-1:
-            #print loop_delay,1
-            if self.loop_delay==None:
-                self.loop_delay=100
-            delay=self.loop_delay 
-            new_frame=True
-        else:
-            if self.frame_rate==0:
-                #print self.stream['events'][event_index+1][0],self.stream['events'][event_index][0]
-                delay=int((self.stream['events'][event_index+1][0]-self.stream['events'][event_index][0])*100)
-            else:
-                delay=0
-        return delay
+
 
     def show_percent(self,index):
         self.old_percent=self.percent
@@ -127,8 +115,10 @@ cdef class cast2gif:
     def __init__(self,cast_file,gif_file,last_event=0,trailer=None,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,
                  debug=None,width=None,height=None,underlay=None,font_name=None,theme_name=None,
                  debug_gif=None,
-                 show_state=None):
+                 show_state=None,
+                 trailer=None):
         self.dilation=dilation
+        self.trailer=trailer
         self.cast_file= cast_file
         self.gif_file= gif_file
         self.loop_count= loop_count
@@ -215,6 +205,11 @@ cdef class cast2gif:
         print("Frames: {0}".format(frames))
         print("Seconds: {0}".format(seconds))
         
+        if self.trailer:
+            self.stream['events'].append([seconds+.100,'o',"End of Loop"])
+            seconds+=1
+
+
         # add attribute of status to event array
         for event in self.stream['events']:
             event.append(0)
