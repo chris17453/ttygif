@@ -229,9 +229,11 @@ cdef class cast2gif:
             for event in self.stream['events']:
                 # skip rendered rows .. ok for static backgrounds
                 if event[3]==1:
+                    print("Skiping event");
                     continue;
                 event[3]=1
                 # skip events that havnt happened
+                print("Time: {0} Event: {1}".format(curent_time,event[0]))
                 if event[0]<curent_time:
                     print("Adding an event")
                     v.add_event(event)
