@@ -210,10 +210,16 @@ cdef class cast2gif:
         if self.trailer:
             print("Trailer Set")
             trailer_length=3
-            message="ttygif. End of recording"
+            scroll=""
+            scroll2=""
+            for i in range(self.height):
+                scroll=scroll+"\r\n"
+            for i in range(self.height,2):
+                scroll2=scroll2+"\r\n"
+
+            message="{0}ttygif. End of recording{2}".format(scroll,scroll2)
             delay=trailer_length/len(message)
             seconds+=seconds+delay
-            self.stream['events'].append([seconds,'o','\u001b[2J'])
             seconds+=seconds+delay
             for character in message:
                 print ("CHAR - {0} {1}".format(character,delay))
