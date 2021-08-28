@@ -20,6 +20,7 @@ cdef class terminal_emulator:
     cdef public object show_state
     cdef public object no_autowrap
     cdef public object underlay
+    cdef public int    frame
         
 
 
