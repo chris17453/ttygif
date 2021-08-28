@@ -222,7 +222,7 @@ cdef class terminal_graphics:
         #if self.state.default_background==self.theme.transparent:
          #   self.viewport.clear(0);
         ##lse:
-        cdef uint8_t[1] clear_pixel=[0]
+        cdef uint8_t[1] clear_pixel=[1]
         cdef uint8_t[3] element=[0,0,0]
         
         self.viewport.clear(clear_pixel)
