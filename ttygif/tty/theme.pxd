@@ -20,7 +20,7 @@ cdef class layer:
 
     cdef image       image
     cdef debug    (self)
-    cdef load_file(array.array)
+    cdef load_file (self,array.array)
 
     
 
