@@ -37,7 +37,7 @@ def main():
     parser.add_argument('--fps'         ,         help='encode at (n) frames per second (0-100) 0=speed of cast file, min 3ms', default=10,metavar='FPS', type=int)
     
     #terminal options
-    parser.add_argument('--no-autowrap' ,  '-f'  ,help='turn off line wrap in the terminal', action='store_true',default=None)
+    parser.add_argument('--no-autowrap' ,        ,help='turn off line wrap in the terminal', action='store_true',default=None)
     parser.add_argument('--font'        ,  '-f'  ,help='which internal font to use', metavar='NAME')
     parser.add_argument('--columns'     ,  '-c'  ,help='change character width of gif, default is 80 or what is in the cast file',metavar='WIDTH', type=int)
     parser.add_argument('--rows'        ,  '-r'  ,help='change character height of gif, default is 25 or what is in the cast file',metavar='HEIGHT', type=int)
