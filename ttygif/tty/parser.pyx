@@ -7,7 +7,36 @@ import re
 from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
 import time
 
-
+  # cdef int NULL=0   #   Null character
+    # cdef int SOH=1    #   Start of Header
+    # cdef int STX=2    #   Start of Text
+    # cdef int ETX=3    #   End of Text
+    # cdef int EOT=4    #   End of Trans
+    # cdef int ENQ=5    #   Enquiry
+    # cdef int ACK=6    #   Acknowledgement
+    # cdef int BEL=7    #   Bell
+    # cdef int HT=9     #   Horizontal Tab
+    # cdef int VT=11     #   Vertical Tab
+    # cdef int FF=12     #   Form feed
+    # cdef int SO=14     #   Shift Out
+    # cdef int SI=15     #   Shift In
+    # cdef int DLE=16    #   Data link escape
+    # cdef int DC1=17    #   Device control 1
+    # cdef int DC2=18    #   Device control 2
+    # cdef int DC3=19    #   Device control 3
+    # cdef int DC4=20    #   Device control 4
+    # cdef int NAK=21    #   Negative acknowl.
+    # cdef int SYN=22    #   Synchronous idle
+    # cdef int ETB=23    #   End of trans. block
+    # cdef int CAN=24    #   Cancel
+    # cdef int EM=25     #   End of medium
+    # cdef int SUB=26    #   Substitute
+    # cdef int ESC=27    #   Escape
+    # cdef int FS=28     #   File separator
+    # cdef int GS=29     #   Group separator
+    # cdef int RS=30     #   Record separator
+    # cdef int US=31     #   Unit separator                    
+    
 # Reference
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
@@ -369,36 +398,7 @@ cdef class term_parser:
                 # print(cmd)
                 self.cmd_set_mode(cmd)
 
-    # cdef int NULL=0   #   Null character
-    # cdef int SOH=1    #   Start of Header
-    # cdef int STX=2    #   Start of Text
-    # cdef int ETX=3    #   End of Text
-    # cdef int EOT=4    #   End of Trans
-    # cdef int ENQ=5    #   Enquiry
-    # cdef int ACK=6    #   Acknowledgement
-    # cdef int BEL=7    #   Bell
-    # cdef int HT=9     #   Horizontal Tab
-    # cdef int VT=11     #   Vertical Tab
-    # cdef int FF=12     #   Form feed
-    # cdef int SO=14     #   Shift Out
-    # cdef int SI=15     #   Shift In
-    # cdef int DLE=16    #   Data link escape
-    # cdef int DC1=17    #   Device control 1
-    # cdef int DC2=18    #   Device control 2
-    # cdef int DC3=19    #   Device control 3
-    # cdef int DC4=20    #   Device control 4
-    # cdef int NAK=21    #   Negative acknowl.
-    # cdef int SYN=22    #   Synchronous idle
-    # cdef int ETB=23    #   End of trans. block
-    # cdef int CAN=24    #   Cancel
-    # cdef int EM=25     #   End of medium
-    # cdef int SUB=26    #   Substitute
-    # cdef int ESC=27    #   Escape
-    # cdef int FS=28     #   File separator
-    # cdef int GS=29     #   Group separator
-    # cdef int RS=30     #   Record separator
-    # cdef int US=31     #   Unit separator                    
-    
+  
     
     cdef cmd_render_text(self,event):
         #print event['data']
@@ -571,7 +571,7 @@ cdef class term_parser:
             params=None
             esc_type=None
             groups=match.groups()
-            print ( groups )
+            #print ( groups )
                 
             if groups[0]:
                 esc_type='SINGLE'
@@ -742,12 +742,12 @@ cdef class term_parser:
                 self.g.state.cursor_x,
                 self.g.state.cursor_y) )
             return
-
+        param=""
+        for i in event['params']:
+            param=param+"{0}, ".format(i)
+        
         for cmd in commands:
             if cmd[1]==event['command'] and event['esc_type']==cmd[0]:
-                param=""
-                for i in event['params']:
-                    param=param+"{0}, ".format(i)
               
 
                 print("{2: 6d} {3:3.5f} {4:03d},{5:03d} : {0}({1})".format(
@@ -761,7 +761,7 @@ cdef class term_parser:
 
         print("{5:05d} {6:03d}x{7:03d} CMD:  '{0}', Name:'{3}', Command:{1}, Params:{2}  Timestamp:{4}".format(event['esc_type'],
                                             event['command'],
-                                            event['params'],
+                                            param,
                                             event['name'],
                                             event['timestamp'],
                                             index,
