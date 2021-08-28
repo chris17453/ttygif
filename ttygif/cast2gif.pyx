@@ -278,7 +278,7 @@ cdef class cast2gif:
                                 palette=None,
                                 image_data=frame_snip)
 
-                self.aggregate_timestamp+=partial_delay
+                self.aggregate_timestamp+=delay
 
             #self.timestamp=cur_timestamp
             #self.show_percent(index)
