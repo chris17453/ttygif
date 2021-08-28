@@ -80,9 +80,15 @@ cdef class term_parser:
                 elif char_ord==CR:
                     self.g.state.cursor_absolute_x(0)
             else:
-                if self.g.state.pending_wrap:
+                if self.g.state.pending_wrap==True:
                     self.g.state.cursor_right(1)
+
+                tb=self.g.state.background
+                if self.g.state.pending_wrap==True:
+                    self.g.state.background=7
                 self.g.write(char_ord)
+                if self.g.state.pending_wrap==True:
+                    self.g.state.background==tb
                 self.g.state.cursor_right(1)
             while self.g.state.scroll!=0:
                 #print("Scroll at {0:005x}".format(self.current_sequence_position))
