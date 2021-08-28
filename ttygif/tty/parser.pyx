@@ -166,10 +166,10 @@ cdef class term_parser:
             elif esc_type=='G1'       : self.process_G1(groups[7])
             elif esc_type=='CSI'      : self.process_CSI(command,params)
 
-            #print("{0}\n".format((event['timestamp']*10)%10))
-            print ("BLIK {0} {1}".format(int(time*10)%10,time))
-            if (int(time*10))%10>5:
-                self.g.write(95)
+        #print("{0}\n".format((event['timestamp']*10)%10))
+        print ("BLINK {0} {1}".format(int(time*10)%10,time))
+        if (int(time*10))%10>5:
+            self.g.write(95)
 
         self.sequence_pos=new_sequence_pos
 
