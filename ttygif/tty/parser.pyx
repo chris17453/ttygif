@@ -86,8 +86,12 @@ cdef class term_parser:
                 tb=self.g.state.background
                 if self.g.state.pending_wrap==True:
                     self.g.state.background=7
+                else:
+                    self.g.state.background=6
                 self.g.write(char_ord)
                 if self.g.state.pending_wrap==True:
+                    self.g.state.background==tb
+                else:
                     self.g.state.background==tb
                 self.g.state.cursor_right(1)
             while self.g.state.scroll!=0:
