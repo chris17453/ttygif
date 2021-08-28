@@ -64,13 +64,11 @@ cdef class terminal_graphics:
         
         # underlay items
         self.underlay=underlay
-        print ("underlay!!! {0}".format(underlay))
         if underlay!=None:
             self.underlay_layer=layer()
             self.underlay_layer.file=self.underlay
             self.underlay_layer.load_file(self.theme.palette)
             self.theme.update_layer(self.underlay_layer)
-            print  ("underlay loaded")
 
 
     cdef alternate_screen_on(self):
@@ -208,7 +206,6 @@ cdef class terminal_graphics:
         if temp==None:
             return
         elif temp.mode=="scale":
-            print("SCALE\n");
             temp.image.copy_scale(self.viewport,temp.bounds,temp.dst ,temp.transparent)
         elif temp.mode=="9slice":
             temp.image.copy_9slice(self.viewport,temp.outer,temp.inner,temp.dst,temp.transparent,temp.copy_mode)
