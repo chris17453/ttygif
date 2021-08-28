@@ -213,7 +213,8 @@ cdef class cast2gif:
             message="ttygif. End of recording"
             delay=trailer_length/len(message)
             seconds+=seconds+delay
-            self.stream['events'].append([seconds,'o','\033[2J'])
+            self.stream['events'].append([seconds,'o','\u001b[2J'])
+            seconds+=seconds+delay
             for character in message:
                 print ("CHAR - {0} {1}".format(character,delay))
                 self.stream['events'].append([seconds,'o',character])
