@@ -239,7 +239,7 @@ cdef class cast2gif:
 
 
 
-            delay=curent_time
+            delay=int(1000/self.frame_rate)
             
             frame+=1
             
