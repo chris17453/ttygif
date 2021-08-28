@@ -186,11 +186,14 @@ cdef class image:
         cdef int index
         cdef int pixel_pos=0
         cdef int pixel_stride=self.dimentions.bytes_per_pixel
-        print( "CLEARING {0}".format(len(pixel)))
-        for index in xrange(0,len(self.data),pixel_stride):
-            for pixel_pos in xrange(0, len(pixel) ):
-                self.data[index+pixel_pos]=pixel[pixel_pos]
-            
+        if len(pixel)==0:
+            for index in xrange(0,len(self.data)):
+                 self.data[index+pixel_pos]=0
+        else:
+            for index in xrange(0,len(self.data),pixel_stride):
+                for pixel_pos in xrange(0, len(pixel) ):
+                    self.data[index+pixel_pos]=pixel[pixel_pos]
+                
     cdef remap_image(self,array.array palette,uint8_t transparent):
         cdef rect src=self.get_rect()
         cdef point dst=src.point1()
