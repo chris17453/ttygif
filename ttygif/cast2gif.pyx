@@ -112,7 +112,7 @@ cdef class cast2gif:
         for i in xrange(0,len(self.stream['events'])):
             self.stream['events'][i][0]=float(self.stream['events'][i][0])*self.dilation
 
-    def __init__(self,cast_file,gif_file,last_event=0,trailer=None,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,
+    def __init__(self,cast_file,gif_file,last_event=0,events=None,dilation=1,loop_count=0xFFFF,frame_rate=100,loop_delay=1000,natural=None,
                  debug=None,width=None,height=None,underlay=None,font_name=None,theme_name=None,
                  debug_gif=None,
                  show_state=None,
