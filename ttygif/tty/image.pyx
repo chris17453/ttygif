@@ -286,6 +286,7 @@ cdef class image:
                 pixel=self.get_pixel_1byte(x3,y3)
                 if transparent==1 and pixel==self.transparent:
                     continue
+                print ("{0},{1},{2}".format(x+dst.left,y+dst.top,pixel))
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
 
     # tile src to dest
