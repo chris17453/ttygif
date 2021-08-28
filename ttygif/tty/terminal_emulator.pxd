@@ -22,7 +22,7 @@ cdef class terminal_emulator:
         
 
 
-    cdef init(self,width,heigh,char_width,char_height,debug,last_event,show_state,no_autowrap)
+    cdef init(self,width,heigh,char_width,char_height,debug,last_event,show_state)
     cdef add_event(self,event)
     cdef render(self,time)
     cdef get(self)
