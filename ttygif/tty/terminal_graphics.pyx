@@ -224,6 +224,7 @@ cdef class terminal_graphics:
         ##lse:
         cdef uint8_t[1] clear_pixel=[self.state.background]
         cdef uint8_t[3] element=[0,0,0]
+        
         self.viewport.clear(clear_pixel)
 
         
