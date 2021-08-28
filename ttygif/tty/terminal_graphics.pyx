@@ -225,7 +225,7 @@ cdef class terminal_graphics:
         cdef uint8_t[1] clear_pixel=[self.state.background]
         cdef uint8_t[3] element=[0,0,0]
         
-        self.viewport.clear(1)
+        self.viewport.clear([1])
 
         
         #self.copy(self.underlay_layer)
