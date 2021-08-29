@@ -97,10 +97,11 @@ Theming is based on the idea of branding your work for display in project reposi
 - user directory. custom themes can be placed in the user directory under '~/.ttygif'
 - layers above and below the terminal image
 - transparency in layers
-- layers can be 1:1, 9slice (scale and tiled)
+- layers modes are copy, scale, tile, 3slice, 9slice (scale and tiled)
 - layers support cropping and positioning
 - palettes are defined by themes
-- all layers are mapped to this palette
+- all layers are mapped to the theme palette
+- title rendering from cli argument, positioned by theme elements with font scaling
 
 ### shipped themes
 
@@ -139,19 +140,19 @@ ttygif --input  232377.cast --output ls_pipe.gif --fps=33
 ## pipe to gif
 
 ```bash
-ls -lhatsR | ttygif --output ls_pipe.gif --fps=0
+ls -lhatsR | ttygif 
 ```
 
 ## slow down gif
 
 ```bash
-ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate 10
+ls -lhatsR | ttygif --output ls_pipe.gif  --speed 10
 ```
 
 ## speed up gif
 
 ```bash
-ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
+ls -lhatsR | ttygif --output ls_pipe.gif  --speed .5
 ```
 
 ## Supported fonts
