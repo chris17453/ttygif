@@ -354,15 +354,15 @@ cdef class image:
         cdef rect   src_8=rect(inner.left+1  ,inner.bottom  ,inner.right-1  ,outer.bottom)
         cdef rect   src_9=rect(inner.right   ,inner.bottom  ,outer.right    ,outer.bottom)
 
-        src1.debug();
-        src2.debug();
-        src3.debug();
-        src4.debug();
-        src5.debug();
-        src6.debug();
-        src7.debug();
-        src8.debug();
-        src9.debug();
+        src_1.debug();
+        src_2.debug();
+        src_3.debug();
+        src_4.debug();
+        src_5.debug();
+        src_6.debug();
+        src_7.debug();
+        src_8.debug();
+        src_9.debug();
         cdef rect   dst_outer=dst
         cdef rect   dst_inner=rect(dst.left+src_1.width-1,dst.top+src_1.height-1,dst.right-src_9.width+1,dst.bottom-src_9.height+1)
 
