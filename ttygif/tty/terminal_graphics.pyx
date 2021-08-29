@@ -180,7 +180,7 @@ cdef class terminal_graphics:
         x2=0
         for i in data:
             element[2]=ord(i)
-            self.draw_character_absolute(x+x2*self.font.width,y,element,size)
+            self.draw_character_absolute(x+int(x2*self.font.width*scale),y,element,size)
             x2+=1
 
     cdef draw_character_absolute(self,int x,int y,uint8_t[3] element,float size):
@@ -195,13 +195,11 @@ cdef class terminal_graphics:
         cdef int th=int(self.font.height*size)
         cdef int char_x
         cdef int char_y
-        print ("tw:{0} th:{1} w:{2} h:{3}".format(tw,th,self.font.width,self.font.height))
 
         for fy in xrange(0,th):
             for fx in xrange(0,tw):
                 char_y=int((fy/th)*self.font.height)
                 char_x=int((fx/tw)*self.font.width)
-                print ("{0},{1}".format(char_x,char_y))
                 pixel=self.font.graphic[char_pos+char_x+char_y*self.font.width]
                 if pixel==1:
                     screen_pos=fx+x+(y+fy)*self.viewport.dimentions.width
