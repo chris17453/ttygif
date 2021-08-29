@@ -183,7 +183,7 @@ cdef class terminal_graphics:
             self.draw_character_absolute(x+x2*self.font.width,y,element,size)
             x2+=1
 
-    cdef draw_character_absolute(self,int x,int y,uint8_t[3] element):
+    cdef draw_character_absolute(self,int x,int y,uint8_t[3] element,float size):
         cdef int screen_pos    
         cdef int char_pos  =self.font.offset[element[2]]
         cdef uint8_t  pixel
