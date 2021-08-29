@@ -191,7 +191,7 @@ cdef class terminal_graphics:
         cdef int screen_base2=0
         
                 
-        cdef int tw=(self.font.width*size)
+        cdef int tw=int(self.font.width*size)
         cdef int th=int(self.font.height*size)
         cdef int char_x
         cdef int char_y
