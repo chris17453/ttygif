@@ -3,6 +3,8 @@
 # cython: language_level=2
 from cpython cimport array
 from image cimport rect,image,point
+from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
+
 
 cdef class layer:
     cdef uint16_t    z_index
