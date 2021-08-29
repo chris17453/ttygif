@@ -51,8 +51,8 @@ cdef class layer:
         
         
         
-        gif_width=underlay_image.header.ScreenWidth
-        gif_height=underlay_image.header.ScreenHeight
+        gif_width=gif_raw.header.ScreenWidth
+        gif_height=gif_raw.header.ScreenHeight
         
 
         for frame in gif_raw['frames']:
