@@ -231,6 +231,7 @@ cdef class theme:
                     value='-1'
 
             else:
+                section=key
                 if section=='layer':
                     if self.layer1==None:
                         theme_layer.name="layer1"
@@ -255,7 +256,6 @@ cdef class theme:
                         print("NEW LAYER 5")
         
                     #theme_layer=None
-                section=key
                 print ("in layer-> {0}".format(section))
 
 
