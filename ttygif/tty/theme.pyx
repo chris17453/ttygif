@@ -48,14 +48,21 @@ cdef class layer:
         underlay_image=decode(path)
         print(underlay_image)
         gif_raw=underlay_image.get()
+        
+        
+        
+        gif_width=underlay_image['header']['ScreenWidth']
+        gif_height=underlay_image['header']['ScreenHeight']
+        
+
         for frame in gif_raw['frames']:
             if frame['image']:
                 attribs=frame['descriptor']
                 # if not set auto set...
                 if self.outer.width==0 and self.outer.height==0 and self.outer.top==0 and self.outer.left==0 and self.outer.right==0 and self.outer.bottom==0:
-                    self.outer =rect(0,0,attribs.Width-1,attribs.Height-1)
+                    self.outer =rect(0,0,gif_width-1,gif_height-1)
                 if self.bounds.width==0 and self.bounds.height==0 and self.bounds.top==0 and self.bounds.left==0 and self.bounds.right==0 and self.bounds.bottom==0:
-                    self.bounds =rect(0,0,attribs.Width-1,attribs.Height-1)
+                    self.bounds =rect(0,0,gif_width-1,gif_height-1)
         
                 self.image=image(1,attribs.Width,attribs.Height,array.array('B',gif_raw['global_color_table'].colors),clear_1)
                 self.image.data=frame['image'].data
