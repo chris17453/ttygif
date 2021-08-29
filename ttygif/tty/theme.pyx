@@ -58,8 +58,9 @@ cdef class layer:
             if frame['image']:
                 print("IN IMAGE")
                 attribs=frame['descriptor']
-                for an in attribs:
-                    print(an)
+                attribs.debug()
+                    
+
                 # if not set auto set...
                 if self.outer.width==0 and self.outer.height==0 and self.outer.top==0 and self.outer.left==0 and self.outer.right==0 and self.outer.bottom==0:
                     self.outer =rect(0,0,gif_width-1,gif_height-1)
