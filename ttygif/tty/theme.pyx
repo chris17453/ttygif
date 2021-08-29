@@ -220,6 +220,7 @@ cdef class theme:
   
         for line in theme_data:
             res=self.get_anyvar(line)
+            print(res)
             if res ==None:
                 continue
             key=res['key']
