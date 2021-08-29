@@ -129,6 +129,9 @@ cdef class terminal_graphics:
         #memset(&src_image.data.data.as_uchars[row_pos],init_value,src_image.dimentions.length)        
 
     # write a character to the text buffer with the curent text attributes
+
+
+
     cdef write(self,uint8_t character):
         cdef int x=self.state.cursor_x
         cdef int y=self.state.cursor_y
@@ -170,6 +173,36 @@ cdef class terminal_graphics:
                     if element[1]!=self.theme.transparent:
                         self.viewport.data[screen_pos]=element[1]
                 char_pos+=1
+
+
+    cdef draw_string_absolute(self,x,y,data):
+        cdef uint8_t[3] element= [0,15,0]
+        for i in data:
+            element[2]=ord(i)
+            self.draw_character_absolute(x,y,element)
+            x+=1
+
+    cdef draw_character_absolute(self,int x,int y,uint8_t[3] element):
+        cdef int screen_pos    
+        cdef int char_pos  =self.font.offset[element[2]]
+        cdef uint8_t  pixel
+        cdef int screen_base=x+(y)*self.viewport.dimentions.width
+        cdef int screen_base2=0
+        #screen_pos=self.theme.padding.left+x*self.font.width+fx+(self.theme.padding.top+fy+self.font.height*y)*self.viewport.dimentions.width
+                
+        for fy in xrange(0,self.font.height):
+            screen_base2=screen_base+fy*self.viewport.dimentions.width
+            for fx in xrange(0,self.font.width):
+                screen_pos=screen_base2+fx
+                pixel=self.font.graphic[char_pos]
+                if pixel==1:
+                    self.viewport.data[screen_pos]=element[0]
+                else:
+                    if element[1]!=self.theme.transparent:
+                        self.viewport.data[screen_pos]=element[1]
+                char_pos+=1
+
+
 
 
     cdef get_text(self):
@@ -233,7 +266,7 @@ cdef class terminal_graphics:
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
         
-        self.draw_string(self.theme.title_x,self.theme.title_y,self.title)
+        self.draw_string_absolute(self.theme.title_x,self.theme.title_y,self.title)
         cdef uint16_t x  =0
         cdef uint16_t y  =0
         try:
