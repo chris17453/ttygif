@@ -163,114 +163,8 @@ ls -lhatsR | ttygif --output ls_pipe.gif  --speed .5
 - All fonts are copyright of their perspective owners, not me.
 - default font=Verite_9x16
 
-- AMI_BIOS
-- ![AMI_BIOS](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/AMI_BIOS.gif)
-- AmstradPC1512
-- ![AmstradPC1512](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/AmstradPC1512.gif)
-- ATI_8x14
-- ![ATI_8x14](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/ATI_8x14.gif)
-- ATI_8x16
-- ![ATI_8x16](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/ATI_8x16.gif)
-- ATI_8x8
-- ![ATI_8x8](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/ATI_8x8.gif)
-- ATI_9x14
-- ![ATI_9x14](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/ATI_9x14.gif)
-- ATI_9x16
-- ![ATI_9x16](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/ATI_9x16.gif)
-- ATI_SmallW_6x8
-- ![ATI_SmallW_6x8](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/ATI_SmallW_6x8.gif)
-- ATT_PC6300
-- ![ATT_PC6300](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/ATT_PC6300.gif)
-- CompaqThin_8x14
-- ![CompaqThin_8x14](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/CompaqThin_8x14.gif)
-- CompaqThin_8x16
-- ![CompaqThin_8x16](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/CompaqThin_8x16.gif)
-- CompaqThin_8x8
-- ![CompaqThin_8x8](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/CompaqThin_8x8.gif)
-- DTK_BIOS
-- ![DTK_BIOS](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/DTK_BIOS.gif)
-- IBM_3270pc
-- ![IBM_3270pc](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_3270pc.gif)
-- IBM_BIOS
-- ![IBM_BIOS](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_BIOS.gif)
-- IBM_CGA
-- ![IBM_CGA](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_CGA.gif)
-- IBM_CGAthin
-- ![IBM_CGAthin](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_CGAthin.gif)
-- IBM_Conv
-- ![IBM_Conv](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_Conv.gif)
-- IBM_EGA8
-- ![IBM_EGA8](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_EGA8.gif)
-- IBM_EGA9
-- ![IBM_EGA9](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_EGA9.gif)
-- IBM_ISO8
-- ![IBM_ISO8](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_ISO8.gif)
-- IBM_ISO9
-- ![IBM_ISO9](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_ISO9.gif)
-- IBM_MDA
-- ![IBM_MDA](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_MDA.gif)
-- IBM_PGC
-- ![IBM_PGC](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_PGC.gif)
-- IBM_PS2thin1
-- ![IBM_PS2thin1](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_PS2thin1.gif)
-- IBM_PS2thin2
-- ![IBM_PS2thin2](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_PS2thin2.gif)
-- IBM_PS2thin3
-- ![IBM_PS2thin3](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_PS2thin3.gif)
-- IBM_PS2thin4
-- ![IBM_PS2thin4](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_PS2thin4.gif)
-- IBM_VGA8
-- ![IBM_VGA8](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_VGA8.gif)
-- IBM_VGA9
-- ![IBM_VGA9](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/IBM_VGA9.gif)
-- ITT_BIOS
-- ![ITT_BIOS](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/ITT_BIOS.gif)
-- Kaypro2K
-- ![Kaypro2K](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/Kaypro2K.gif)
-- Phoenix_BIOS
-- ![Phoenix_BIOS](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/Phoenix_BIOS.gif)
-- PhoenixEGA_8x14
-- ![PhoenixEGA_8x14](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/PhoenixEGA_8x14.gif)
-- PhoenixEGA_8x16
-- ![PhoenixEGA_8x16](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/PhoenixEGA_8x16.gif)
-- PhoenixEGA_8x8
-- ![PhoenixEGA_8x8](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/PhoenixEGA_8x8.gif)
-- PhoenixEGA_9x14
-- ![PhoenixEGA_9x14](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/PhoenixEGA_9x14.gif)
-- TandyNew_225
-- ![TandyNew_225](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/TandyNew_225.gif)
-- TandyNew_Mono
-- ![TandyNew_Mono](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/TandyNew_Mono.gif)
-- TandyNew_TV
-- ![TandyNew_TV](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/TandyNew_TV.gif)
-- TandyOld_225
-- ![TandyOld_225](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/TandyOld_225.gif)
-- TandyOld_TV
-- ![TandyOld_TV](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/TandyOld_TV.gif)
-- ToshibaLCD_8x16
-- ![ToshibaLCD_8x16](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/ToshibaLCD_8x16.gif)
-- ToshibaLCD_8x8
-- ![ToshibaLCD_8x8](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/ToshibaLCD_8x8.gif)
-- Verite_8x14
-- ![Verite_8x14](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/Verite_8x14.gif)
-- Verite_8x16
-- ![Verite_8x16](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/Verite_8x16.gif)
-- Verite_8x8
-- ![Verite_8x8](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/Verite_8x8.gif)
-- Verite_9x14
-- ![Verite_9x14](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/Verite_9x14.gif)
-- Verite_9x16
-- ![Verite_9x16](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/Verite_9x16.gif)
-- VGA_SquarePx
-- ![VGA_SquarePx](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/VGA_SquarePx.gif)
-- VTech_BIOS
-- ![VTech_BIOS](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/VTech_BIOS.gif)
-- Wyse700a-2y
-- ![Wyse700a-2y](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/Wyse700a-2y.gif)
-- Wyse700a
-- ![Wyse700a](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/Wyse700a.gif)
-- Wyse700b-2y
-- ![Wyse700b-2y](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/fonts/preview/Wyse700b-2y.gif)
+Check them all out here -> [fonts.md](https://raw.githubusercontent.com/chris17453/ttygif/master/docs/fonts)
+
 
 
 ### ESCAPE CODE SUPPORT
@@ -326,7 +220,7 @@ These are ideas that just pop in my head, or are gathered via discussion.
 ## The benchmark for speed
 
 - A medium density 60 second screen recording can be rendered to gif in less than 5-8 seconds,
-- tested on a 2012'ish 4 ghz 8 core amd running 1866 memory with ssd's and Fedora 29
+- tested on a 2021'ish 3.8 ghz 24 core Ryzen on Fedora 34
 
 ## ttygif-assets
 
@@ -365,20 +259,3 @@ asciicast may split data between events, causing escape codes not to be recognis
 ttygif moves all trailing unformed escape codes to the next event.
 the gif techincal minimum for internal delays is 1ms. I default to 3ms. Testing
 shows various applications randnomly do not obey values from 1ms to  10ms.
-
-
-## Compatability issues...  Maybe I'm wrong.
-
-When your cursor is on the last position of the screen, any printed character causes
-a wrap, which initiates a scroll up, unless auto wrap mode is on (DECAWM).
-
-I've noticed that asciicast deems to always operate in autowrap mode. If the cursor is on 
-the bottom right most position, and you write a character to that position, the cursor does 
-not autowrap and cause scroll. It should unless DECAWM is on. 
-
-So far its a harmess hack, but we will see.
-
-I"ll keep testing, and If I find this a asciicast issue, I'll put in an override mode 
-for those files only.
-
-
