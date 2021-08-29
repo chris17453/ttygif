@@ -7,7 +7,7 @@ from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
 
 
 cdef class layer:
-    cdef uint16_t    z_index
+    cdef int16_t     z_index
     cdef str         file
     cdef str         path
     cdef str         mode  
@@ -18,7 +18,7 @@ cdef class layer:
     cdef rect        dst
     cdef str         center
     cdef str         copy_mode
-    cdef uint16_t    transparent
+    cdef int16_t    transparent
 
 
     cdef image       image
@@ -29,22 +29,22 @@ cdef class layer:
 
 cdef class theme:    
     cdef str         name
-    cdef uint16_t    title_x
-    cdef uint16_t    title_y
-    cdef uint16_t    title_foreground
-    cdef uint16_t    title_background
-    cdef uint16_t    title_font
+    cdef int16_t    title_x
+    cdef int16_t    title_y
+    cdef int16_t    title_foreground
+    cdef int16_t    title_background
+    cdef int16_t    title_font
     cdef float       title_font_size
     cdef str         path
     cdef str         font
-    cdef uint16_t    width
-    cdef uint16_t    height
-    cdef uint16_t    background
-    cdef uint16_t    foreground
-    cdef uint16_t    default_background
-    cdef uint16_t    default_foreground
-    cdef uint16_t    transparent
-    cdef uint16_t    colors
+    cdef int16_t    width
+    cdef int16_t    height
+    cdef int16_t    background
+    cdef int16_t    foreground
+    cdef int16_t    default_background
+    cdef int16_t    default_foreground
+    cdef int16_t    transparent
+    cdef int16_t    colors
     cdef array.array palette
     cdef rect        padding
     cdef layer       layer1
