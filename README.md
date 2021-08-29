@@ -163,7 +163,7 @@ ls -lhatsR | ttygif --output ls_pipe.gif  --speed .5
 - All fonts are copyright of their perspective owners, not me.
 - default font=Verite_9x16
 
-Check them all out here -> [fonts.md]/docs/fonts.md)
+Check them all out here -> [fonts.md](/docs/fonts.md)
 
 
 
