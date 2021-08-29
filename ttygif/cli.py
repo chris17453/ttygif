@@ -125,7 +125,8 @@ def main():
         if frame_rate>100:
            frame_rate=100
             
-        debug=args.debug
+        #debug=args.debug
+        
         try:
             
             cast2gif(args.input,args.output,
