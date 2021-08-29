@@ -267,7 +267,7 @@ cdef class terminal_graphics:
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
         t=self.theme.transparent
-        // temp hack
+        # temp hack
         self.theme.transparent=0
         self.draw_string_absolute(self.theme.title_x,self.theme.title_y,self.title)
         
