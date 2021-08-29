@@ -5,44 +5,32 @@ A full featured text to gif conversion utility, that just works. It's in beta, s
 ## example
 ![htop](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/encode/htop.gif)
 
-## Why use ttygif?
-- its fast, and easy to install
-- can be used with a pipe
-- it can be scripted
-- it can read asciicast files
-- it runs headless
+## Whats the hell is this?
+- It's sparkling fantastic colorfull terminal output AUTOMATION!
+
+## how do i get it!?
+```bash
+## requirements gcc, python development libs, cython
+pip3 install ttygif --user
+```
+
+## What are the benifits 
+- pipe random stuff into beautifuly themed gifs
+- asciicast to gif.. E Z A F
 - perfect fit for CI/CD
+- it runs headless
+- it can be scripted
 - works with python 2 and 3
 - works on linux, mac, raspberry PI
-- it has a few neat themes
-- you can easily make your own theme
+- its fast, and easy to install, no bullshit
+- it has themes
+- you can make your own bulshittery styled theme!
 - you can add background images from the CLI
 
 
-## easy install
-
-```bash
-## requirements gcc and python development libs
-pip install ttygif --user
-```
-
-## dev install 
-This will pull the project and submodule assets from github.
-```
-git clone https://github.com/chris17453/ttygif.git
-cd ttygif
-make pull-assets
-```
-
-## dev build
-```bash
-pipenv shell
-make build
-```
-
 ## It's portable
 
-ttygif is self contained with no dependencys other than python. GIF encoding 
+ttygif is self contained with no dependencys other than python/cython. GIF encoding 
 and termal emulation are both implimented with internal cython code. No system 
 fonts are required.  All you need to get ttygif to work is a c compiler,
 python and its development libs. ttygif is a cython project.
@@ -88,7 +76,6 @@ Term:
   --rows HEIGHT, -r HEIGHT   change character height of gif, default is 25 or what is in the cast file
 
 [nd@radical-edward ttygif]$ 
-
 
 ```
 
