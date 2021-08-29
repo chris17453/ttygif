@@ -154,7 +154,7 @@ cdef class terminal_graphics:
             self.draw_character(x,y,element)
             x+=1
 
-    cdef or(self,int x,int y,uint8_t[3] element):
+    cdef draw_character(self,int x,int y,uint8_t[3] element):
         cdef int screen_pos    
         cdef int char_pos  =self.font.offset[element[2]]
         cdef uint8_t  pixel
