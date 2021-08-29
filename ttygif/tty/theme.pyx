@@ -234,9 +234,9 @@ cdef class theme:
                 section=key
 
                 if value==None and section=='layer':
-                    if theme_layer==None:
-                        theme_layer=layer()
-                        theme_layer.path=self.path           
+                    
+                    theme_layer=layer()
+                    theme_layer.path=self.path           
 
                     if self.layer1==None:
                         theme_layer.name="layer1"
