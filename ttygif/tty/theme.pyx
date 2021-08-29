@@ -97,8 +97,8 @@ cdef class theme:
         self.palette=array.array('B')
         self.padding=rect(0,0,0,0)
         self.transparent=-1
-        self.title_x=40
-        self.title_y=10
+        self.title_x=45
+        self.title_y=13
         self.init()
     
     cdef update_layer(self, layer temp):

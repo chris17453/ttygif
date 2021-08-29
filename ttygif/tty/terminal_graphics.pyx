@@ -266,8 +266,12 @@ cdef class terminal_graphics:
         #self.copy(self.underlay_layer)
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
-        
+        t=self.theme.transparent
+        // temp hack
+        self.theme.transparent=0
         self.draw_string_absolute(self.theme.title_x,self.theme.title_y,self.title)
+        
+        self.theme.transparent=t
         cdef uint16_t x  =0
         cdef uint16_t y  =0
         try:
