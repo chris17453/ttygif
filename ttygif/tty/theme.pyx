@@ -323,10 +323,7 @@ cdef class theme:
                 elif key=='copy-mode':
                     theme_layer.copy_mode=value
                 elif key=='transparent':
-                    if value=='1':
-                        theme_layer.transparent=1
-                    if value=='0':
-                        theme_layer.transparent=-1
+                    theme_layer.transparent=int(value)
            
 
             elif section=='palette':
