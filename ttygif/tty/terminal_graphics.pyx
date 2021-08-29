@@ -274,11 +274,13 @@ cdef class terminal_graphics:
         
         self.viewport.clear(clear_pixel)
 
-        
-        #self.copy(self.underlay_layer)
-        self.copy(self.theme.layer1)
-        self.copy(self.theme.layer2)
-        t=self.theme.transparent
+        try:
+            self.copy(self.underlay_layer)
+            self.copy(self.theme.layer1)
+            self.copy(self.theme.layer2)
+        except Exception as ex:
+            print ex
+
         # temp hack
         if self.title!=None and len(self.title)>0:
             self.draw_string_absolute(self.theme.title_x,self.theme.title_y,self.title,self.theme.title_foreground,self.theme.title_background,self.theme.title_font_size)
@@ -293,10 +295,13 @@ cdef class terminal_graphics:
                     self.draw_character(x,y,element)
         except Exception as ex:
             print ex
-
-        self.copy(self.theme.layer3)
-        self.copy(self.theme.layer4)
-        self.copy(self.theme.layer5)
+        
+        try:
+            self.copy(self.theme.layer3)
+            self.copy(self.theme.layer4)
+            self.copy(self.theme.layer5)
+        except Exception as ex:
+            print ex
         
   
     # convert the text stream to a text formated grid
