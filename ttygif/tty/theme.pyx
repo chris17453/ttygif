@@ -54,6 +54,9 @@ cdef class layer:
         for item in gif_raw:
             print(item)
 
+        gif_height=10
+        gif_width=10
+        
         for frame in gif_raw['frames']:
             if frame['image']:
                 attribs=frame['descriptor']
