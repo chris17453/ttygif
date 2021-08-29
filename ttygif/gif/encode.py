@@ -76,8 +76,15 @@ class encode_gif:
         self.stream=DataStream(filename,mode='w')
         
         self.add_header(width=width,height=height,palette=palette,default_palette=default_palette)
-        self.application_extension=application_extension(self.stream)
-        self.application_extension.new_netscape_block(loop_count=self.loop_count)
+
+        # no extension means 1 loop
+        # 0 = loop forever
+        # any other number is loop + 1
+        if self.loop_count!=1:
+          self.application_extension=application_extension(self.stream)
+          if self.loop_count!=0:
+            self.loop_count-=1
+          self.application_extension.new_netscape_block(loop_count=self.loop_count)
         
         if self.auto:
           self.application_extension.write()
