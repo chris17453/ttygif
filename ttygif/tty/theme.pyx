@@ -360,8 +360,6 @@ cdef class theme:
                     index+=3
     
 
-        self.auto()
-
         if len(self.palette)==0:
             array.resize(self.palette,256*3)
 
@@ -413,7 +411,9 @@ cdef class theme:
                 198,198,198 , 208,208,208 , 218,218,218 , 228,228,228 , 238,238,238 ]
             for i in range(256*3):
              self.palette[i]=color_table[i]
-             
+
+        self.auto()
+
         if 1==0:
             print("name:                {0}".format(self.name))
             print("background:          {0}".format(self.background))
