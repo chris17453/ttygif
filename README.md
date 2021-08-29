@@ -163,7 +163,7 @@ ls -lhatsR | ttygif --output ls_pipe.gif  --speed .5
 - All fonts are copyright of their perspective owners, not me.
 - default font=Verite_9x16
 
-Check them all out here -> [fonts.md](https://raw.githubusercontent.com/chris17453/ttygif/master/docs/fonts)
+Check them all out here -> [fonts.md]/docs/fonts.md)
 
 
 
@@ -171,6 +171,7 @@ Check them all out here -> [fonts.md](https://raw.githubusercontent.com/chris174
 
 - the letters n and m in the middle of the escape sequence are numeric substitutions
 - ignore whitespace
+- 
 
 | Type |          | Code     | Name                            |
 |------|----------|----------|---------------------------------|
