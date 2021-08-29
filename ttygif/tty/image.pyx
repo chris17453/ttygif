@@ -232,7 +232,7 @@ cdef class image:
 
 
     # plain copy 1-1
-    cdef copy(self,image dst_image,rect src,rect dst,uint8_t transparent):
+    cdef copy(self,image dst_image,rect src,rect dst,uint16_t transparent):
         cdef uint16_t x
         cdef uint16_t y
         cdef uint8_t r
@@ -254,7 +254,7 @@ cdef class image:
                     continue
                 dst_image.put_pixel_1byte(dst.left+x,dst.top+y,pixel)
 
-    cdef copy_remap(self,image dst_image,rect src,point dst,uint8_t transparent):
+    cdef copy_remap(self,image dst_image,rect src,point dst,uint16_t transparent):
         
         cdef uint16_t x
         cdef uint16_t y
@@ -270,7 +270,7 @@ cdef class image:
                 
 
     # strech src to fir dest
-    cdef copy_scale(self,image dst_image,rect src,rect dst,uint8_t transparent):
+    cdef copy_scale(self,image dst_image,rect src,rect dst,uint16_t transparent):
         cdef uint16_t x
         cdef uint16_t y 
         cdef uint16_t x3
@@ -296,7 +296,7 @@ cdef class image:
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
 
     # tile src to dest
-    cdef copy_tile(self,image dst_image,rect src,rect dst,uint8_t transparent):
+    cdef copy_tile(self,image dst_image,rect src,rect dst,uint16_t transparent):
         cdef uint16_t x
         cdef uint16_t y 
         cdef uint16_t x3=0
@@ -343,7 +343,7 @@ cdef class image:
     # COPY 1,3,7,9 
     # tile 2,4,6,8
     # stretch 5 or omit...
-    cdef copy_9slice(self,image dst_image,rect outer,rect inner,rect dst,uint8_t transparent,str mode):
+    cdef copy_9slice(self,image dst_image,rect outer,rect inner,rect dst,uint16_t transparent,str mode):
         cdef rect   src_1=rect(outer.left    ,outer.top     ,inner.left     ,inner.top)
         cdef rect   src_2=rect(inner.left+1  ,outer.top     ,inner.right-1  ,inner.top)
         cdef rect   src_3=rect(inner.right   ,outer.top     ,outer.right    ,inner.top)
@@ -384,7 +384,7 @@ cdef class image:
             self.copy_tile(dst_image,src_5, dst_5,transparent)
 
 
-    cdef copy_3slice(self,image dst_image,rect outer,rect inner,rect dst,uint8_t transparent,str mode):
+    cdef copy_3slice(self,image dst_image,rect outer,rect inner,rect dst,uint16_t transparent,str mode):
         cdef rect   src_1=rect(outer.left    ,outer.top     ,inner.left     ,outer.bottom)
         cdef rect   src_2=rect(inner.left+1  ,outer.top     ,inner.right-1  ,outer.bottom)
         cdef rect   src_3=rect(inner.right   ,outer.top     ,outer.right    ,outer.bottom)
