@@ -194,7 +194,7 @@ cdef class image:
                 for pixel_pos in xrange(0, len(pixel) ):
                     self.data[index+pixel_pos]=pixel[pixel_pos]
                 
-    cdef remap_image(self,array.array palette,uint8_t transparent):
+    cdef remap_image(self,array.array palette,uint16_t transparent):
         cdef rect src=self.get_rect()
         cdef point dst=src.point1()
         cdef uint8_t[1] clear_1=[0]
