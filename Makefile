@@ -87,7 +87,7 @@ examples: raytrace tetris caca compile pika htop pika-dark dodd
 
 
 raytrace:
-	@python -m ttygif.cli --input ../ttygif-assets/cast/174524.cast --output ../ttygif-assets/encode/174524.gif --fps 12 --debug
+	@python -m ttygif.cli --input ../ttygif-assets/cast/174524.cast --output ../ttygif-assets/encode/174524.gif --fps 12 --theme windows7 --title "Raytrace - 174524.cast" --debug
 	
 tetris: 
 	@python -m ttygif.cli --input ../ttygif-assets/cast/232377.cast --output ../ttygif-assets/encode/232377.gif --fps 12 --title "Tetris -232377.cast" --theme game
