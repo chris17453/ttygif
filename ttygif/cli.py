@@ -36,9 +36,9 @@ def main():
     group1 = parser.add_argument_group('Gif', 'Effects')
 
     #gif options
-    group1.add_argument('--theme'       , '-t'  , help='load custom theme: game,windows7,mac,fwdm,opensource,scripted,bar',default='default')
-    group1.add_argument('--loop'        , '-l'  , help='number of loops to play, 0=unlimited', default=0,metavar='COUNT')
-    group1.add_argument('--delay'       , '-d'  , help='delay before restarting gif in milliseconds ', default=100,metavar='MS')
+    group1.add_argument('--theme'       , '-t'  , help='load theme: game,windows7,mac,fwdm,opensource,scripted,bar. User themes can be loaded by file or ~./ttygif.  .theme is added to any user input ',default='default')
+    group1.add_argument('--loop'        , '-l'  , help='number of loops to play, 0=unlimited', default=0,metavar='COUNT', type=int)
+    group1.add_argument('--delay'       , '-d'  , help='delay before restarting gif in milliseconds ', default=100,metavar='MS', type=int)
     group1.add_argument('--trailer'     ,         help='Add end a end trailer sequence to loop',action='store_true',default=None)
     group1.add_argument('--speed'       ,         help='process events at a faster or slower rate of time. Pipes are sped up 10,000 automatically', default=1,metavar='RATE', type=float)
     group1.add_argument('--fps'         ,         help='encode at (n) frames per second (0-100) 0=speed of cast file, min 3ms', default=10,metavar='FPS', type=int)
@@ -126,9 +126,15 @@ def main():
            frame_rate=100
             
         #debug=args.debug
-        
+
         try:
-            
+
+        # just for me...
+                    #show_state   =args.show_state,
+                    #debug        =debug,
+                    #debug_gif    =args.debug_gif,
+                    #last_event   =args.last_event,
+
             cast2gif(args.input,args.output,
                     title        =args.title,
                     no_autowrap  =args.no_autowrap,
