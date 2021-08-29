@@ -50,7 +50,7 @@ cdef class layer:
         
         
         
-        print(gif_raw.header)
+        print(gif_raw['header'])
 
         for item in gif_raw:
             print(item)
