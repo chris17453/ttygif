@@ -293,9 +293,7 @@ cdef class theme:
             elif section=='layer':
                 if   key=='layer':
                     theme_layer=layer()
-                    theme_layer.path=self.path
-
-                    
+                    theme_layer.path=self.path           
                 elif key=='depth':
                     theme_layer.z_index=int(value)
                 elif key=='file':
@@ -361,6 +359,7 @@ cdef class theme:
     
 
         if len(self.palette)==0:
+            print("palette size ".format(len(self.palette)))
             array.resize(self.palette,256*3)
 
             color_table=[  # 16 System Colors
@@ -410,7 +409,7 @@ cdef class theme:
                 138,138,138 , 148,148,148 , 158,158,158 , 168,168,168 , 178,178,178 , 188,188,188,
                 198,198,198 , 208,208,208 , 218,218,218 , 228,228,228 , 238,238,238 ]
             for i in range(256*3):
-             self.palette[i]=color_table[i]
+                self.palette[i]=color_table[i]
 
         self.auto()
 
