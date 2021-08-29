@@ -233,7 +233,7 @@ cdef class theme:
             else:
                 section=key
 
-                if section=='layer':
+                if value==None and section=='layer':
                     if theme_layer==None:
                         theme_layer=layer()
                         theme_layer.path=self.path           
