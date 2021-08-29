@@ -353,10 +353,6 @@ cdef class image:
         cdef rect   src_7=rect(outer.left    ,inner.bottom  ,inner.left     ,outer.bottom)
         cdef rect   src_8=rect(inner.left+1  ,inner.bottom  ,inner.right-1  ,outer.bottom)
         cdef rect   src_9=rect(inner.right   ,inner.bottom  ,outer.right    ,outer.bottom)
-        print ("Outer")
-        outer.debug();
-        print ("Inner")
-        inner.debug();
         cdef rect   dst_outer=dst
         cdef rect   dst_inner=rect(dst.left+src_1.width-1,dst.top+src_1.height-1,dst.right-src_9.width+1,dst.bottom-src_9.height+1)
 

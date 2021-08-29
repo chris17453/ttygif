@@ -50,7 +50,9 @@ cdef class layer:
         for frame in gif_raw['frames']:
             if frame['image']:
                 attribs=frame['descriptor']
-                self.outer =rect(0,0,attribs.Width-1,attribs.Height-1)
+                # if not set auto set...
+                if self.outer.width==0 and self.outer.height==0 and self.outer.top==0 and self.outer.left==0 and self.outer.right==0 and self.outer.bottom=0:
+                    self.outer =rect(0,0,attribs.Width-1,attribs.Height-1)
         
                 self.image=image(1,attribs.Width,attribs.Height,array.array('B',gif_raw['global_color_table'].colors),clear_1)
                 self.image.data=frame['image'].data
