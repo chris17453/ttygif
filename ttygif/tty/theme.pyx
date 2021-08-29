@@ -196,17 +196,20 @@ cdef class theme:
         cdef int a,b,c,index
         index=0
 
+
         script_path = os.path.dirname(os.path.abspath( __file__ ))
         self.path=script_path
         path=os.path.join(script_path,'themes',self.name+".theme")
         if os.path.exists(path)==False:
-        
-            home = os.path.join(expanduser("~"),'.ttygif')
-            path=os.path.join(home,'themes',self.name+".theme")
-            self.path=home
-        
+            path=os.path.join(self.name+".theme")
             if os.path.exists(path)==False:
-                raise Exception("Invalid theme file")
+            
+                home = os.path.join(expanduser("~"),'.ttygif')
+                path=os.path.join(home,'themes',self.name+".theme")
+                self.path=home
+            
+                if os.path.exists(path)==False:
+                    raise Exception("Invalid theme file")
   
         print(" - Theme: {0}".format(self.name))
         theme_file=open(path) 
