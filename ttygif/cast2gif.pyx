@@ -102,7 +102,7 @@ cdef class cast2gif:
 
         self.underlay=underlay
             
-        print(" - dilation: {0}".format(self.dilation))
+        print(" - speed: {0}".format(self.dilation))
         if None==events:
             print (" - input: {0}".format(cast_file))
         else:
