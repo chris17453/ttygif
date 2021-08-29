@@ -178,7 +178,6 @@ cdef class theme:
     cdef auto(self):
         if self.layer1:
             self.update_layer(self.layer1)
-#            self.layer1.image.transparent=-1
 
         if self.layer2:
             self.update_layer(self.layer2)
@@ -359,7 +358,7 @@ cdef class theme:
     
 
         if len(self.palette)==0:
-            print("palette size ".format(len(self.palette)))
+            print("palette size {0}".format(len(self.palette)))
             array.resize(self.palette,256*3)
 
             color_table=[  # 16 System Colors
@@ -413,7 +412,7 @@ cdef class theme:
 
         self.auto()
 
-        if 1==0:
+        if self.debug==True:
             print("name:                {0}".format(self.name))
             print("background:          {0}".format(self.background))
             print("foreground:          {0}".format(self.foreground))
