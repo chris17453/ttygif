@@ -246,7 +246,7 @@ cdef class theme:
                     elif self.layer5==None:
                         theme_layer.name="layer5"
                         self.layer5=theme_layer
-                    theme_layer=None
+                    #theme_layer=None
 
                 section=key
 
