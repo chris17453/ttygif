@@ -255,8 +255,8 @@ cdef class theme:
                         print("NEW LAYER 5")
         
                     #theme_layer=None
-                print ("in layer-> {0}".format(section))
                 section=key
+                print ("in layer-> {0}".format(section))
 
 
             if section=='':
