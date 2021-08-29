@@ -4,7 +4,8 @@ background         4
 foreground         15
 default_background 4
 default_foreground 15
-transparent        0
+#important
+transparent        4
 title_x          40          
 title_y          15
 
