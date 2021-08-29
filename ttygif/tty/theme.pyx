@@ -99,6 +99,8 @@ cdef class theme:
         self.transparent=-1
         self.title_x=45
         self.title_y=13
+        self.title_background=self.background
+        self.title_foreground=self.foreground
         self.title_font_size=1
         self.init()
     

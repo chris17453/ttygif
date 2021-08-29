@@ -250,7 +250,7 @@ cdef class image:
         for y in xrange(0,src.height):
             for x in xrange(0,src.width):
                 pixel=self.get_pixel_1byte(x+src.left,y+src.top)
-                if transparent==1 and pixel==self.transparent:
+                if transparent== pixel:
                     continue
                 dst_image.put_pixel_1byte(dst.left+x,dst.top+y,pixel)
 
@@ -290,7 +290,7 @@ cdef class image:
                 x3=src.get_x_percent(fx)
                 y3=src.get_y_percent(fy)
                 pixel=self.get_pixel_1byte(x3,y3)
-                if transparent==1 and pixel==self.transparent:
+                if transparent== pixel:
                     continue
                 #print ("{0},{1},{2}".format(x+dst.left,y+dst.top,pixel))
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
@@ -312,7 +312,7 @@ cdef class image:
                 else: 
                     x3+=1 
 
-                if transparent==1 and pixel==self.transparent:
+                if transparent== pixel:
                     continue
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
             y3+=1 
