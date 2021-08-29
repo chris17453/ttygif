@@ -177,10 +177,11 @@ cdef class terminal_graphics:
 
     cdef draw_string_absolute(self,x,y,data):
         cdef uint8_t[3] element= [0,15,0]
+        x2=0
         for i in data:
             element[2]=ord(i)
-            self.draw_character_absolute(x,y,element)
-            x+=1
+            self.draw_character_absolute(x+x2*self.font.width,y,element)
+            x2+=1
 
     cdef draw_character_absolute(self,int x,int y,uint8_t[3] element):
         cdef int screen_pos    
