@@ -98,7 +98,7 @@ cdef class cast2gif:
         self.last_event             = last_event
         self.debug_gif              = debug_gif
         self.no_autowrap            = no_autowrap
-        selt.title                  = title
+        self.title                  = title
 
         self.underlay=underlay
             
