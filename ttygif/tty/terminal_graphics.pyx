@@ -269,7 +269,8 @@ cdef class terminal_graphics:
         t=self.theme.transparent
         # temp hack
         self.theme.transparent=0
-        self.draw_string_absolute(self.theme.title_x,self.theme.title_y,self.title)
+        if self.title!=None and len(self.title)>0:
+            self.draw_string_absolute(self.theme.title_x,self.theme.title_y,self.title)
         
         self.theme.transparent=t
         cdef uint16_t x  =0
