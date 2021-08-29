@@ -8,7 +8,7 @@ default_foreground 15
 transparent        4
 
 title
-foreground       25
+foreground       26
 background       0
 x                50          
 y                9
