@@ -108,6 +108,6 @@ pika-dark:
 	@python -m ttygif.cli --input ../ttygif-assets/cast/236096.cast --output ../ttygif-assets/encode/236096.gif --fps 12 --theme game
 	
 dodd:
-	@ttygif -i ../ttygif-assets/cast/dodd2.cast  -o ../ttygif-assets/encode/dodd.gif   --underlay ttygif/tty/layers/opensource.gif --debug-gif
+	@ttygif -i ../ttygif-assets/cast/dodd2.cast  -o ../ttygif-assets/encode/dodd.gif     --title "hi" --theme game
 
 c: build install  dodd

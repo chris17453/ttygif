@@ -71,7 +71,7 @@ cdef class terminal_graphics:
             self.underlay_layer.load_file(self.theme.palette)
             self.theme.update_layer(self.underlay_layer)
             #self.underlay_layer.debug()
-            print("Underlay loaded")
+            print(" - Underlay loaded")
 
 
     cdef alternate_screen_on(self):
@@ -275,7 +275,7 @@ cdef class terminal_graphics:
         self.viewport.clear(clear_pixel)
 
         
-        self.copy(self.underlay_layer)
+        #self.copy(self.underlay_layer)
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
         t=self.theme.transparent
