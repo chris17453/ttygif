@@ -24,7 +24,9 @@ bottom      25
 
 layer
 depth           -2
-file             game.gif             
+file             game.gif   
+title_x          40          
+title_y          15
 mode             9slice
 transparent      0
 outer-left       0

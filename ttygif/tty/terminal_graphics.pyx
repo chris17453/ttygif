@@ -170,7 +170,7 @@ cdef class terminal_graphics:
                 if pixel==1:
                     self.viewport.data[screen_pos]=element[0]
                 else:
-                    #if element[1]!=self.theme.transparent:
+                    if element[1]!=self.theme.transparent:
                         self.viewport.data[screen_pos]=element[1]
                 char_pos+=1
 
@@ -257,7 +257,7 @@ cdef class terminal_graphics:
         #if self.state.default_background==self.theme.transparent:
          #   self.viewport.clear(0);
         ##lse:
-        cdef uint8_t[1] clear_pixel=[self.state.default_background]
+        cdef uint8_t[1] clear_pixel=[self.state.background]
         cdef uint8_t[3] element=[0,0,0]
         
         self.viewport.clear(clear_pixel)
