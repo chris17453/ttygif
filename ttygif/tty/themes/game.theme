@@ -8,11 +8,11 @@ default_foreground 15
 transparent        4
 
 title
-foreground       17
+foreground       24
 background       0
 x                40          
-y                5
-font_size        1.5
+y                6
+font_size        1
 
 
 # moves the screen by an offset, usefull for overlays
