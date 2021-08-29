@@ -4,7 +4,8 @@ background         15
 foreground         0
 default_background 15
 default_foreground 0
-
+title_x          50 
+title_y          15
 transparent   0
 
 # moves the screen by an offset, usefull for overlays
@@ -50,7 +51,7 @@ bottom      11
 
 layer
 depth           -2
-file             fwdm.gif             
+file             fwdm.gif   
 mode             9slice
 outer-left       0
 outer-top        0

@@ -246,6 +246,11 @@ cdef class theme:
                     self.transparent=int(value)
                 elif key=='font':
                     self.font=value
+                elif key=='title_x':
+                    self.title_x=value
+                elif key=='title_y':
+                    self.title_y=value
+
             elif section=='padding':
                 if   key=='left':
                     self.padding.left=int(value)
@@ -304,10 +309,6 @@ cdef class theme:
                     theme_layer.center=value
                 elif key=='copy-mode':
                     theme_layer.copy_mode=value
-                elif key=='title_x':
-                    theme_layer.title_x=value
-                elif key=='title_y':
-                    theme_layer.title_y=value
                 elif key=='transparent':
                     if value=='1':
                         theme_layer.transparent=1

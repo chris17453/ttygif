@@ -5,6 +5,8 @@ foreground         15
 default_background 4
 default_foreground 15
 transparent        0
+title_x          40          
+title_y          15
 
 # moves the screen by an offset, usefull for overlays
 # padding     begins the padding section
@@ -25,8 +27,6 @@ bottom      25
 layer
 depth           -2
 file             game.gif   
-title_x          40          
-title_y          15
 mode             9slice
 transparent      0
 outer-left       0
