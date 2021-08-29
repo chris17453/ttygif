@@ -25,7 +25,7 @@ cdef class terminal_emulator:
                     show_state  = False,
                     no_autowrap = None,
                     underlay    = None,
-                    title       = title):
+                    title       = None):
     
         self.debug_mode      = debug
         self.show_state      = show_state
