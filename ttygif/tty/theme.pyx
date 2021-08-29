@@ -50,17 +50,14 @@ cdef class layer:
         
         
         
-        print(gif_raw['header'].ScreenWidth)
+        gif_width =gif_raw['header'].ScreenWidth
+        gif_height=gif_raw['header'].ScreenHeight
 
-        #for item in gif_raw:
-        #    print(item)
-
-        gif_height=10
-        gif_width=10
-
+        
         for frame in gif_raw['frames']:
             if frame['image']:
                 attribs=frame['descriptor']
+                print(attribs)
                 # if not set auto set...
                 if self.outer.width==0 and self.outer.height==0 and self.outer.top==0 and self.outer.left==0 and self.outer.right==0 and self.outer.bottom==0:
                     self.outer =rect(0,0,gif_width-1,gif_height-1)
