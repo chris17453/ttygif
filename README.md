@@ -2,6 +2,9 @@
 
 A full featured text to gif conversion utility, that just works. It's in beta, so expect rough edges.
 
+## example
+![htop](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/encode/htop.gif)
+
 ## Why use ttygif?
 - its fast, and easy to install
 - can be used with a pipe
@@ -231,9 +234,6 @@ The following resources are located in the [ttygif-assets](https://github.com/ch
 ### Examples
 some random pics from the asciinema.org website, and my computer
 
-## htop
-- with windows7 theme
-![htop](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/encode/test.gif)
 
 ## pipe
 ![htop](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/encode/pipe.gif)
