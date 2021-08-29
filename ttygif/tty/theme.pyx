@@ -246,10 +246,16 @@ cdef class theme:
                     self.transparent=int(value)
                 elif key=='font':
                     self.font=value
-                elif key=='title_x':
+
+            if section=='title':
+                elif key=='x':
                     self.title_x=int(value)
-                elif key=='title_y':
+                elif key=='y':
                     self.title_y=int(value)
+                elif key=='foreground':
+                    self.title_foreground=int(value)
+                elif key=='background':
+                    self.title_background=int(value)
 
             elif section=='padding':
                 if   key=='left':

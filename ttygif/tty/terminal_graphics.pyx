@@ -175,8 +175,8 @@ cdef class terminal_graphics:
                 char_pos+=1
 
 
-    cdef draw_string_absolute(self,x,y,data):
-        cdef uint8_t[3] element= [0,15,0]
+    cdef draw_string_absolute(self,x,y,data,uint8_t foreground,uint8_t background):
+        cdef uint8_t[3] element= [foreground,background,0]
         x2=0
         for i in data:
             element[2]=ord(i)
@@ -270,7 +270,7 @@ cdef class terminal_graphics:
         # temp hack
         self.theme.transparent=0
         if self.title!=None and len(self.title)>0:
-            self.draw_string_absolute(self.theme.title_x,self.theme.title_y,self.title)
+            self.draw_string_absolute(self.theme.title_x,self.theme.title_y,self.title,self.theme.title_foreground,self.theme.title_background)
         
         self.theme.transparent=t
         cdef uint16_t x  =0
