@@ -298,20 +298,13 @@ ls -lhatsR | ttygif --output ls_pipe.gif --fps=0 --dilate .5
 These are ideas that just pop in my head, or are gathered via discussion.
 
 - documentation
-- draw string template for theme, title, overlay
 - font /codepage mapping for utf 8,16,13 characters to base 256 map
 - embed event stream in gif as control header data
 - time period ( capture partial recording based on time stamps x-y)
 - add progress bar to top/bottom of gif with n of y H:M:I:S
-- asciicast v1 support
-- cursor emulation
-- cliping
-- origin x,y
 - logging with ansi stripping
 - split gif every n seconds or size
 - export as frames, png
-- frames/borders, windows 95, x11, mac, fedora, gnome, cinnamon
-- lead in and outtro frames, with delays
 - output as webm/mp4
 
 ## The benchmark for speed
