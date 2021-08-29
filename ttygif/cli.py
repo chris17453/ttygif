@@ -44,7 +44,7 @@ def main():
     group1.add_argument('--fps'         ,         help='encode at (n) frames per second (0-100) 0=speed of cast file, min 3ms', default=10,metavar='FPS', type=int)
     group1.add_argument('--title'       ,         help='If using a theme, you can add a title text', default=None, type=str)
     
-    #parser.add_argument('--underlay'    ,         help='Add an image as a background, (Internal)', metavar='FILE', default=None)
+    parser.add_argument('--underlay'    ,         help='Add an image as a background, (Internal)', metavar='FILE', default=None)
     
 
     group2 = parser.add_argument_group('Term', 'Default settings')
@@ -141,7 +141,7 @@ def main():
                     frame_rate   =frame_rate,
                     height       =args.rows,
                     width        =args.columns,
-                    underlay     =None,
+                    underlay     =args.underlay,
                     #overlay=args.overlay,
                     font_name   =args.font,
                     theme_name  =args.theme)

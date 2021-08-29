@@ -102,7 +102,7 @@ pika:
 	@python -m ttygif.cli --input ../ttygif-assets/cast/236096.cast --output ../ttygif-assets/encode/236096.gif --trailer --title "Pika - 236096.cast" --theme mac --fps 12
 	
 htop:
-	@python -m ttygif.cli --input ../ttygif-assets/cast/test.cast --output ../ttygif-assets/encode/test.gif --theme fdwm --title "htop... testing alternate screen buffer" --fps 24
+	@python -m ttygif.cli --input ../ttygif-assets/cast/htop2.cast --output ../ttygif-assets/encode/htop.gif --theme mac --title "htop... testing alternate screen buffer" --fps 24
 
 pika-dark:
 	@python -m ttygif.cli --input ../ttygif-assets/cast/236096.cast --output ../ttygif-assets/encode/236096.gif --fps 12 --theme game
