@@ -50,10 +50,10 @@ cdef class layer:
         
         
         
-        print(gif_raw['header'])
+        print(gif_raw['header'].ScreenWidth)
 
-        for item in gif_raw:
-            print(item)
+        #for item in gif_raw:
+        #    print(item)
 
         gif_height=10
         gif_width=10
