@@ -55,7 +55,12 @@ cdef class layer:
 
         
         for frame in gif_raw['frames']:
+            print("IN FRAME")
+                
+            for p in frame:
+                print(p)
             if frame['image']:
+                print("IN IMAGE")
                 attribs=frame['descriptor']
                 print(attribs)
                 # if not set auto set...
