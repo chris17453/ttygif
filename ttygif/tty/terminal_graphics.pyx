@@ -180,7 +180,7 @@ cdef class terminal_graphics:
         x2=0
         for i in data:
             element[2]=ord(i)
-            self.draw_character_absolute(x+x2*self.font.width,y,element,float size)
+            self.draw_character_absolute(x+x2*self.font.width,y,element,size)
             x2+=1
 
     cdef draw_character_absolute(self,int x,int y,uint8_t[3] element):
