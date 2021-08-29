@@ -146,7 +146,7 @@ dst-top          0
 dst-right        auto
 dst-bottom       auto
 
-# alerxt icon
+# x icon
 layer
 depth            1
 file             x.gif   

@@ -230,24 +230,8 @@ cdef class theme:
                     value='-1'
 
             else:
-                if section=='layer':
-                    if self.layer1==None:
-                        theme_layer.name="layer1"
-                        self.layer1=theme_layer
-                    elif self.layer2==None:
-                        theme_layer.name="layer2"
-                        self.layer2=theme_layer
-                    elif self.layer3==None:
-                        theme_layer.name="layer3"
-                        self.layer3=theme_layer
-                    elif self.layer4==None:
-                        theme_layer.name="layer4"
-                        self.layer4=theme_layer
-                    elif self.layer5==None:
-                        theme_layer.name="layer5"
-                        self.layer5=theme_layer
                     #theme_layer=None
-
+                print ("in layer-> {0}".format(section))
                 section=key
 
 
@@ -355,6 +339,23 @@ cdef class theme:
                     self.palette[index+1]=b
                     self.palette[index+2]=c
                     index+=3
+            
+            elif section=='layer':
+                if self.layer1==None:
+                    theme_layer.name="layer1"
+                    self.layer1=theme_layer
+                elif self.layer2==None:
+                    theme_layer.name="layer2"
+                    self.layer2=theme_layer
+                elif self.layer3==None:
+                    theme_layer.name="layer3"
+                    self.layer3=theme_layer
+                elif self.layer4==None:
+                    theme_layer.name="layer4"
+                    self.layer4=theme_layer
+                elif self.layer5==None:
+                    theme_layer.name="layer5"
+                    self.layer5=theme_layer
     
 
         if len(self.palette)==0:
