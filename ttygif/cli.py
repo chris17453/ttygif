@@ -40,7 +40,7 @@ def main():
     group1.add_argument('--loop'        , '-l'  , help='number of loops to play, 0=unlimited', default=0,metavar='COUNT')
     group1.add_argument('--delay'       , '-d'  , help='delay before restarting gif in milliseconds ', default=100,metavar='MS')
     group1.add_argument('--trailer'     ,         help='Add end a end trailer sequence to loop',action='store_true',default=None)
-    group1.add_argument('--speed'       ,         help='process events at a faster or slower rate of time', default=1,metavar='RATE', type=float)
+    group1.add_argument('--speed'       ,         help='process events at a faster or slower rate of time. Pipes are sped up 10,000 automatically', default=1,metavar='RATE', type=float)
     group1.add_argument('--fps'         ,         help='encode at (n) frames per second (0-100) 0=speed of cast file, min 3ms', default=10,metavar='FPS', type=int)
     group1.add_argument('--title'       ,         help='If using a theme, you can add a title text', default=None, type=str)
     
@@ -108,6 +108,8 @@ def main():
         events=None
         if has_stdin():
             events=read_stdin()
+            if args.speed==1:
+                args.speed=10000
             if args.record:
                 ar=asciicast_reader()
                 ar.write(args.record,events)
