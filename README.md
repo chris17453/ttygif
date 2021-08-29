@@ -11,6 +11,10 @@ A full featured text to gif conversion utility, that just works. It's in beta, s
 - perfect fit for CI/CD
 - works with python 2 and 3
 - works on linux, mac, raspberry PI
+- it has a few neat themes
+- you can easily make your own theme
+- you can add background images from the CLI
+
 
 ## easy install
 
@@ -44,33 +48,44 @@ python and its development libs. ttygif is a cython project.
 ## usage
 
 ```
-ttygif version [1.2.175]
+[nd@radical-edward ttygif]$ ttygif 
+ttygif version [1.2.630]
 
  - Compiled against Python: 3.9.6 (default, Jul 16 2021, 00:00:00)  [GCC 11.1.1 20210531 (Red Hat 11.1.1-3)]
-usage: ttygif [-h] [--input FILE] [--output FILE] [--loop COUNT] [--delay MS] [--record FILE] [--font NAME] [--theme THEME]
-              [--dilation RATE] [--fps FPS] [--columns WIDTH] [--rows HEIGHT] [--debug]
+usage: ttygif [-h] [--input FILE] [--output FILE] [--record FILE] [--theme THEME] [--loop COUNT] [--delay MS] [--trailer] [--speed RATE] [--fps FPS]
+              [--title TITLE] [--underlay FILE] [--no-autowrap] [--font NAME] [--columns WIDTH] [--rows HEIGHT]
 
 tty output to gif
 
 optional arguments:
-  -h, --help            show this help message and exit
-  --input FILE, -i FILE
-                        asciinema .cast file (default: None)
-  --output FILE, -o FILE
-                        gif output file. will default to ttygif-xx (default: None)
-  --loop COUNT, -l COUNT
-                        number of loops to play, 0=unlimited (default: 0)
-  --delay MS, -d MS     delay before restarting gif in milliseconds (default: 100)
-  --font NAME, -f NAME  which internal font to use (default: None)
-  --theme THEME, -t THEME
-                        load custom theme: game,windows7,mac,fwdm (default: default)
-  --dilation RATE       process events at a faster or slower rate of time (default: 1)
-  --fps FPS             encode at (n) frames per second (0-25) 0=speed of cast file, min 3ms (default: 0)
-  --columns WIDTH, -c WIDTH
-                        change character width of gif, default is 80 or what is in the cast file (default: None)
-  --rows HEIGHT, -r HEIGHT
-                        change character height of gif, default is 25 or what is in the cast file (default: None)
-  --debug               show debuging statistics (default: None)
+  -h, --help                 show this help message and exit
+  --input FILE, -i FILE      asciinema .cast file
+  --output FILE, -o FILE     gif output file. will default to ttygif-xx
+  --record FILE              output generated cast data to file
+  --underlay FILE            Add an image as a background, (Internal)
+
+Gif:
+  Effects
+
+  --theme THEME, -t THEME    load theme: game,windows7,mac,fwdm,opensource,scripted,bar. User themes can be loaded by file or ~./ttygif. .theme is added to any
+                             user input
+  --loop COUNT, -l COUNT     number of loops to play, 0=unlimited
+  --delay MS, -d MS          delay before restarting gif in milliseconds
+  --trailer                  Append an ending to the gif
+  --speed RATE               process events at a faster or slower rate of time. Pipes are sped up 10,000 automatically
+  --fps FPS                  encode at (n) frames per second (0-100) 0=speed of cast file, min 3ms
+  --title TITLE              If using a theme, you can add a title text
+
+Term:
+  Default settings
+
+  --no-autowrap              turn off line wrap in the terminal
+  --font NAME, -f NAME       which internal font to use
+  --columns WIDTH, -c WIDTH  change character width of gif, default is 80 or what is in the cast file
+  --rows HEIGHT, -r HEIGHT   change character height of gif, default is 25 or what is in the cast file
+
+[nd@radical-edward ttygif]$ 
+
 
 ```
 
