@@ -22,7 +22,8 @@ def main():
     parser = argparse.ArgumentParser(
         prog='ttygif',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-        description="""tty output to gif""")
+        description="""tty output to gif""",
+        max_help_position=32)
     #file options
     parser.add_argument('--input'       , '-i'  , help='asciinema .cast file', default= None,metavar='FILE')
     parser.add_argument('--output'      , '-o'  , help='gif output file. will default to ttygif-xx', default= None,metavar='FILE')
