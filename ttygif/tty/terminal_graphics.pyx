@@ -193,12 +193,13 @@ cdef class terminal_graphics:
                 
         cdef int tw=(self.font.width*size)
         cdef int th=int(self.font.height*size)
-        
+        cdef int char_x
+        cdef int char_y
 
         for fy in xrange(0,th):
             for fx in xrange(0,tw):
-                cdef int char_y=int((th/fy)*self.font.height*100)
-                cdef int char_x=int((tw/fw)*self.font.width*100)
+                char_y=int((th/fy)*self.font.height*100)
+                char_x=int((tw/fw)*self.font.width*100)
                 pixel=self.font.graphic[char_x+char_y*self.font.width]
                 if pixel==1:
                     screen_pos=fx+x+(y+fy)*self.viewport.dimentions.width
