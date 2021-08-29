@@ -7,10 +7,10 @@ default_foreground 15
 transparent   0
 
 title
-foreground       15
+foreground       16
 background       0
-x                40          
-y                15
+x                70          
+y                5
 
 
 # moves the screen by an offset, usefull for overlays

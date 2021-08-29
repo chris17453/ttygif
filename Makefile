@@ -83,25 +83,13 @@ install:
 uninstall:
 	pip uninstall ttygif -y
 
-examples:
-	# tetris
-	@python -m ttygif.cli --input ../ttygif-assets/cast/232377.cast --output ../ttygif-assets/encode/232377.gif --fps 12
-    # term raytracing
-	@python -m ttygif.cli --input ../ttygif-assets/cast/174524.cast --output ../ttygif-assets/encode/174524.gif --fps 12
-	# Pikachu
-	@python -m ttygif.cli --input ../ttygif-assets/cast/236096.cast --output ../ttygif-assets/encode/236096.gif --fps 12
-	# compile very long
-	@python -m ttygif.cli --input ../ttygif-assets/cast/234628.cast --output ../ttygif-assets/encode/234628.gif --fps 12
-	# ncurses animaiton
-	@python -m ttygif.cli --input ../ttygif-assets/cast/687.cast --output ../ttygif-assets/encode/687.gif --fps 12
-	# htop animaiton
-	@python -m ttygif.cli --input ../ttygif-assets/cast/test.cast --output ../ttygif-assets/encode/test.gif --fps 0
+examples: raytrace tetris caca compile pika htop pika-dark dodd
 
 
 raytrace:
 	@python -m ttygif.cli --input ../ttygif-assets/cast/174524.cast --output ../ttygif-assets/encode/174524.gif --fps 12 --debug
 	
-tetris:
+tetris: 
 	@python -m ttygif.cli --input ../ttygif-assets/cast/232377.cast --output ../ttygif-assets/encode/232377.gif --fps 12 --title "Tetris -232377.cast" --theme game
 
 caca:
@@ -111,15 +99,14 @@ compile:
 	@python -m ttygif.cli --input ../ttygif-assets/cast/234628.cast --output ../ttygif-assets/encode/234628.gif --fps 12
 
 pika:
-	@python -m ttygif.cli --input ../ttygif-assets/cast/236096.cast --output ../ttygif-assets/encode/236096.gif --fps 12
+	@python -m ttygif.cli --input ../ttygif-assets/cast/236096.cast --output ../ttygif-assets/encode/236096.gif --trailer --title "Pika - 236096.cast" --theme mac --fps 12
 	
 htop:
-	@python -m ttygif.cli --input ../ttygif-assets/cast/test.cast --output ../ttygif-assets/encode/test.gif --fps 32
+	@python -m ttygif.cli --input ../ttygif-assets/cast/test.cast --output ../ttygif-assets/encode/test.gif --theme fdwm --title "htop... testing alternate screen buffer" --fps 24
 
 pika-dark:
 	@python -m ttygif.cli --input ../ttygif-assets/cast/236096.cast --output ../ttygif-assets/encode/236096.gif --fps 12 --theme game
 	
-
 dodd:
 	@ttygif -i ../ttygif-assets/cast/dodd2.cast  -o ../ttygif-assets/encode/dodd.gif  --debug  --show-state  --theme game
 

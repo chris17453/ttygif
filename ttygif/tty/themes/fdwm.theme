@@ -7,10 +7,10 @@ default_foreground 0
 transparent   0
 
 title
-foreground       15
+foreground       14
 background       0
 x                40          
-y                15
+y                13
 
 # moves the screen by an offset, usefull for overlays
 # padding     begins the padding section
