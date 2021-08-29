@@ -70,7 +70,8 @@ cdef class terminal_graphics:
             self.underlay_layer.file=self.underlay
             self.underlay_layer.load_file(self.theme.palette)
             self.theme.update_layer(self.underlay_layer)
-            self.underlay_layer.debug()
+            #self.underlay_layer.debug()
+            print("Underlay loaded")
 
 
     cdef alternate_screen_on(self):
