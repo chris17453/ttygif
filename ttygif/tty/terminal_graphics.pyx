@@ -198,9 +198,9 @@ cdef class terminal_graphics:
                 pixel=self.font.graphic[char_pos]
                 if pixel==1:
                     self.viewport.data[screen_pos]=element[0]
-                else:
-                    if element[1]!=self.theme.transparent:
-                        self.viewport.data[screen_pos]=element[1]
+                #else:
+                #    if element[1]!=self.theme.transparent:
+                #        self.viewport.data[screen_pos]=element[1]
                 char_pos+=1
 
 
