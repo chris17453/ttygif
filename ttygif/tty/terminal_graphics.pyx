@@ -267,7 +267,7 @@ cdef class terminal_graphics:
         self.viewport.clear(clear_pixel)
 
         
-        #self.copy(self.underlay_layer)
+        self.copy(self.underlay_layer)
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
         t=self.theme.transparent
