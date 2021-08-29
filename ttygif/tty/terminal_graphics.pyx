@@ -243,12 +243,7 @@ cdef class terminal_graphics:
         self.state.background=color
     
     cdef copy(self,layer temp):
-        print ("OUTER")
-        temp.outer.debug();
-        print ("bounds")
-        temp.bounds.debug();
-        print ("debug")
-        temp.dst.debug();
+       
         
         if temp==None:
             return
