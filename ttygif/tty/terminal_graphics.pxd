@@ -31,7 +31,7 @@ cdef class terminal_graphics:
     cdef draw_string(self,x,y,data)
     cdef scroll_buffer(self)
     cdef draw_string_absolute(self,x,y,data)
-    cdef draw_character_absoloute(self,int x,int y,uint8_t[3] element)
+    cdef draw_character_absolute(self,int x,int y,uint8_t[3] element)
     cdef draw_character(self,int x,int y,uint8_t[3] element)
     cdef get_text(self)
     cdef foreground_from_rgb(self,r,g,b)
