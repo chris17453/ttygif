@@ -87,6 +87,7 @@ dst-right        auto
 dst-bottom       auto
 
 
+
 palette
 colors 256
 # colors 1-16 (0-15)

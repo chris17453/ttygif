@@ -1,8 +1,8 @@
 # default theme
 name               game
-background         4
+background         0
 foreground         15
-default_background 4
+default_background 0
 default_foreground 15
 #important
 transparent        0
