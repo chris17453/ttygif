@@ -35,6 +35,7 @@ def main():
     parser.add_argument('--trailer'     ,         help='Add end a end trailer sequence to loop',action='store_true',default=None)
     parser.add_argument('--dilation'    ,         help='process events at a faster or slower rate of time', default=1,metavar='RATE', type=float)
     parser.add_argument('--fps'         ,         help='encode at (n) frames per second (0-100) 0=speed of cast file, min 3ms', default=10,metavar='FPS', type=int)
+    parser.add_argument('--title'       ,         help='IF using a theme, you can add a title text', default=None, type=str)
     
     #parser.add_argument('--underlay'    ,         help='Add an image as a background, (Internal)', metavar='FILE', default=None)
     
@@ -116,23 +117,24 @@ def main():
         try:
             
             cast2gif(args.input,args.output,
-                    no_autowrap=args.no_autowrap,
-                    debug_gif=args.debug_gif,
-                    show_state=args.show_state,
-                    last_event=args.last_event,
-                    trailer=args.trailer,
-                    events=events,
-                    loop_count=args.loop,
-                    loop_delay=args.delay,
-                    debug=debug,
-                    dilation=args.dilation,
-                    frame_rate=frame_rate,
-                    height=args.rows,
-                    width=args.columns,
-                    underlay=None,
+                    title        =args.title,
+                    no_autowrap  =args.no_autowrap,
+                    debug_gif    =args.debug_gif,
+                    show_state   =args.show_state,
+                    last_event   =args.last_event,
+                    trailer      =args.trailer,
+                    events       =events,
+                    loop_count   =args.loop,
+                    loop_delay   =args.delay,
+                    debug        =debug,
+                    dilation     =args.dilation,
+                    frame_rate   =frame_rate,
+                    height       =args.rows,
+                    width        =args.columns,
+                    underlay     =None,
                     #overlay=args.overlay,
-                    font_name=args.font,
-                    theme_name=args.theme)
+                    font_name   =args.font,
+                    theme_name  =args.theme)
         except KeyboardInterrupt:
             print("\nProcessing Aborted...")
             sys.exit()

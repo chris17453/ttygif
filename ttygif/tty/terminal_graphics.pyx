@@ -19,7 +19,7 @@ cdef class terminal_graphics:
 
 
     def __cinit__(self,int character_width=-1,int character_height=-1,theme_name=None,
-                       int viewport_width=-1,int viewport_height=-1 ,font image_font=None,underlay=None):
+                       int viewport_width=-1,int viewport_height=-1 ,font image_font=None,underlay=None,title=None):
         self.font               = image_font
 
         # ??? no assignments
@@ -27,6 +27,7 @@ cdef class terminal_graphics:
         cdef int px_height
         cdef int char_width
         cdef int char_height
+        self.title=title
 
 
         
@@ -232,7 +233,7 @@ cdef class terminal_graphics:
         self.copy(self.theme.layer1)
         self.copy(self.theme.layer2)
         
-        
+        self.draw_string(self.theme.title_x,self.theme.title_y,self.title)
         cdef uint16_t x  =0
         cdef uint16_t y  =0
         try:

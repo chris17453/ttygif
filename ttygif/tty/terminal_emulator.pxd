@@ -21,6 +21,7 @@ cdef class terminal_emulator:
     cdef public object no_autowrap
     cdef public object underlay
     cdef public int    frame
+    cdef public str    title
         
 
 

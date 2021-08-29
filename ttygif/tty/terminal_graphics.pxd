@@ -22,6 +22,7 @@ cdef class terminal_graphics:
     cdef theme          theme
     cdef layer          underlay_layer
     cdef object         underlay
+    cdef str            title
         
 
     cdef alternate_screen_on(self)

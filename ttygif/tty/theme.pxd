@@ -27,6 +27,8 @@ cdef class layer:
 
 cdef class theme:    
     cdef str         name
+    cdef int         title_x
+    cdef int         title_y
     cdef str         path
     cdef str         font
     cdef int         width

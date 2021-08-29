@@ -24,19 +24,21 @@ cdef class terminal_emulator:
                     last_event  = 0,
                     show_state  = False,
                     no_autowrap = None,
-                    underlay    = None):
+                    underlay    = None,
+                    title       = title):
     
-        self.debug_mode      =debug
-        self.show_state      =show_state
-        self.underlay_flag   =None
-        self.default_font    ='Verite_9x16'
+        self.debug_mode      = debug
+        self.show_state      = show_state
+        self.underlay_flag   = None
+        self.default_font    = 'Verite_9x16'
         if font_name==None:
            font_name=self.default_font
-        self.font_name       =font_name
-        self.theme_name      =theme_name
-        self.last_event      =last_event
-        self.no_autowrap     =no_autowrap
-        self.underlay        =underlay
+        self.font_name       = font_name
+        self.theme_name      = theme_name
+        self.last_event      = last_event
+        self.no_autowrap     = no_autowrap
+        self.underlay        = underlay
+        self.title           = title
         self.init(width,height,char_width,char_height,debug,last_event,show_state)
     
     cdef init(self,width,height,char_width,char_height,debug,last_event,show_state):
@@ -55,7 +57,8 @@ cdef class terminal_emulator:
                                                  viewport_height  = height,
                                                  image_font       = internal_font,
                                                  theme_name       = self.theme_name,
-                                                 underlay         = self.underlay)
+                                                 underlay         = self.underlay,
+                                                 title            = self.title)
 
         self.parser          = term_parser(debug_mode=debug,terminal_graphics=self.terminal_graphics,last_event=last_event,show_state=show_state,no_autowrap=self.no_autowrap)
         
