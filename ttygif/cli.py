@@ -61,11 +61,11 @@ def main():
     # bounds x,y x x2,y2
     
     #debug stuff
-    group3 = parser.add_argument_group('Debug', 'Various debugging chores')
-    group3.add_argument('--last-event' ,         help='Debug . Trim events to this index. (found from --debug)', metavar='FILE', default=0,type=int)
-    group3.add_argument('--show-state' ,         help='Debug . show display state', action='store_true',default=None);
-    group3.add_argument('--debug'      ,         help='show debuging statistics', action='store_true',default=None)
-    group3.add_argument('--debug-gif'  ,         help='show gif debuging statistics', action='store_true',default=None)
+    #group3 = parser.add_argument_group('Debug', 'Various debugging chores')
+    #group3.add_argument('--last-event' ,         help='Debug . Trim events to this index. (found from --debug)', metavar='FILE', default=0,type=int)
+    #group3.add_argument('--show-state' ,         help='Debug . show display state', action='store_true',default=None);
+    #group3.add_argument('--debug'      ,         help='show debuging statistics', action='store_true',default=None)
+    #group3.add_argument('--debug-gif'  ,         help='show gif debuging statistics', action='store_true',default=None)
     #debug.add_argument('-c', '--show-commands', help='dump interpreted cast data ', action='store_true')
     
     # dev options
@@ -131,14 +131,10 @@ def main():
             cast2gif(args.input,args.output,
                     title        =args.title,
                     no_autowrap  =args.no_autowrap,
-                    debug_gif    =args.debug_gif,
-                    show_state   =args.show_state,
-                    last_event   =args.last_event,
                     trailer      =args.trailer,
                     events       =events,
                     loop_count   =args.loop,
                     loop_delay   =args.delay,
-                    debug        =debug,
                     dilation     =args.speed,
                     frame_rate   =frame_rate,
                     height       =args.rows,
