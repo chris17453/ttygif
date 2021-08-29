@@ -64,6 +64,7 @@ bottom      25
 #     layers 3,4,5 are above or ontop of the terminal rendering
 # all images when loaded are REMAPPED to the local theme color palette!
 # mode            -> how to transform the image. 
+#                    copy -> will place one copy at the dst cooridinates
 #                    scale -> will stretch the image to the cooridinates. no aspect ratio is maintained. it will stretch
 #                    tile  -> the image is just placed from left to right and toip to bottom until the image is covered
 #                    9slice -> this method takes 2 rectangles, nested and uses the cooridinates to auto scale an image
@@ -102,23 +103,34 @@ bottom      25
 #                                |  1  |i1  2 i2|  3  |
 #                                +03---+--------+---04+     
 #  transparent     ->  -1 if you dont want transparency, otherwise the index of the theme color palette to be ignored/now written
-#  outer-left      -> outer bounds of the source image left  , typicaly  0 for full width
+#  can be omitted if bounds are image limits, automatic
+#  outer-left      -> outer bounds of the source image left  , typicaly  0 for full width   
 #  outer-top       -> outer bounds of the source image top   , typicaly  0 for full height
 #  outer-right     -> outer bounds of the source image right , typicaly auto for full width
 #  outer-bottom    -> outer bounds of the source image bottom, typicaly auto for full height
+#  can be omitted if bounds are 33/66% respectivly. automatic
 #  inner-left      -> 
 #  inner-top       ->
 #  inner-right     ->
 #  inner-bottom    ->
+#  can be omitted if bounds are image limits, automatic
 #  dst-left        -> viewport render destination left
 #  dst-top         -> viewport render destination top
 #  dst-right       -> viewport render destination right
 #  dst-bottom      -> viewport render destination bottom
 
 
+#background
 layer
 depth           -2
 file             /home/nd/repos/ttygif-assets/src_gifs/blood_dragon.gif
+mode             scale
+transparent      0
+
+# game borders
+layer
+depth           -1
+file             game.gif   
 mode             9slice
 transparent      0
 outer-left       0
@@ -134,6 +146,14 @@ dst-top          0
 dst-right        auto
 dst-bottom       auto
 
+# alert icon
+layer
+depth            1
+file             x.gif   
+mode             copy
+transparent      15
+dst-left         50
+dst-top          50
 
 # RGB Indexed color palette
 # each row is a color, 0-255
