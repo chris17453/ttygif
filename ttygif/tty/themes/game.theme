@@ -12,6 +12,8 @@ foreground       15
 background       0
 x                40          
 y                15
+size             2
+
 
 # moves the screen by an offset, usefull for overlays
 # padding     begins the padding section

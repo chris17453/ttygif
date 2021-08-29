@@ -99,6 +99,7 @@ cdef class theme:
         self.transparent=-1
         self.title_x=45
         self.title_y=13
+        self.font_size=1
         self.init()
     
     cdef update_layer(self, layer temp):
