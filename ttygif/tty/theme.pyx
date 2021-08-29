@@ -232,7 +232,12 @@ cdef class theme:
 
             else:
                 section=key
+
                 if section=='layer':
+                    if theme_layer==None:
+                        theme_layer=layer()
+                        theme_layer.path=self.path           
+
                     if self.layer1==None:
                         theme_layer.name="layer1"
                         self.layer1=theme_layer
@@ -254,8 +259,9 @@ cdef class theme:
                         theme_layer.name="layer5"
                         self.layer5=theme_layer
                         print("NEW LAYER 5")
-        
-                    #theme_layer=None
+                else:
+                    theme_layer=None        
+                    
                 print ("in layer-> {0}".format(section))
 
 
@@ -298,11 +304,7 @@ cdef class theme:
                     self.padding.bottom=int(value)
 
             elif section=='layer':
-                if  key=='layer':
-                    print("NEW LAYER")
-                    theme_layer=layer()
-                    theme_layer.path=self.path           
-                elif key=='depth':
+                if   key=='depth':
                     theme_layer.z_index=int(value)
                 elif key=='file':
                     theme_layer.file=value
