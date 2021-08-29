@@ -154,7 +154,7 @@ cdef class terminal_graphics:
             self.draw_character(x,y,element)
             x+=1
 
-    cdef draw_character(self,int x,int y,uint8_t[3] element):
+    cdef or(self,int x,int y,uint8_t[3] element):
         cdef int screen_pos    
         cdef int char_pos  =self.font.offset[element[2]]
         cdef uint8_t  pixel
@@ -170,7 +170,7 @@ cdef class terminal_graphics:
                 if pixel==1:
                     self.viewport.data[screen_pos]=element[0]
                 else:
-                    if element[1]!=self.theme.transparent:
+                    #if element[1]!=self.theme.transparent:
                         self.viewport.data[screen_pos]=element[1]
                 char_pos+=1
 

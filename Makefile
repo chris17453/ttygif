@@ -102,7 +102,7 @@ raytrace:
 	@python -m ttygif.cli --input ../ttygif-assets/cast/174524.cast --output ../ttygif-assets/encode/174524.gif --fps 12 --debug
 	
 tetris:
-	@python -m ttygif.cli --input ../ttygif-assets/cast/232377.cast --output ../ttygif-assets/encode/232377.gif --fps 12 --theme game
+	@python -m ttygif.cli --input ../ttygif-assets/cast/232377.cast --output ../ttygif-assets/encode/232377.gif --fps 12 --theme windows7
 
 caca:
 	@python -m ttygif.cli --input ../ttygif-assets/cast/687.cast --output ../ttygif-assets/encode/687.gif --fps 12
