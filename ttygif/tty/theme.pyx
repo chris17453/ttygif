@@ -412,7 +412,7 @@ cdef class theme:
 
         self.auto()
 
-        if self.debug==True:
+        if 1==1:
             print("name:                {0}".format(self.name))
             print("background:          {0}".format(self.background))
             print("foreground:          {0}".format(self.foreground))
