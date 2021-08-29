@@ -199,7 +199,7 @@ cdef class terminal_graphics:
         for fy in xrange(0,th):
             for fx in xrange(0,tw):
                 char_y=int((th/fy)*self.font.height*100)
-                char_x=int((tw/fw)*self.font.width*100)
+                char_x=int((tw/fx)*self.font.width*100)
                 pixel=self.font.graphic[char_x+char_y*self.font.width]
                 if pixel==1:
                     screen_pos=fx+x+(y+fy)*self.viewport.dimentions.width
