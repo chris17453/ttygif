@@ -31,6 +31,8 @@ cdef class theme:
     cdef int         title_y
     cdef int         title_foreground
     cdef int         title_background
+    cdef int         title_font
+    cdef float       title_font_size
     cdef str         path
     cdef str         font
     cdef int         width

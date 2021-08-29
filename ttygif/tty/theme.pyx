@@ -256,6 +256,10 @@ cdef class theme:
                     self.title_foreground=int(value)
                 elif key=='background':
                     self.title_background=int(value)
+                elif key=='font':
+                    self.title_font=value
+                elif key=='font_size':
+                    self.title_font_size=float(value)
 
             elif section=='padding':
                 if   key=='left':

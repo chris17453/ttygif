@@ -175,12 +175,12 @@ cdef class terminal_graphics:
                 char_pos+=1
 
 
-    cdef draw_string_absolute(self,x,y,data,uint8_t foreground,uint8_t background):
+    cdef draw_string_absolute(self,x,y,data,uint8_t foreground,uint8_t background,float size):
         cdef uint8_t[3] element= [foreground,background,0]
         x2=0
         for i in data:
             element[2]=ord(i)
-            self.draw_character_absolute(x+x2*self.font.width,y,element)
+            self.draw_character_absolute(x+x2*self.font.width,y,element,float size)
             x2+=1
 
     cdef draw_character_absolute(self,int x,int y,uint8_t[3] element):
@@ -189,19 +189,22 @@ cdef class terminal_graphics:
         cdef uint8_t  pixel
         cdef int screen_base=x+(y)*self.viewport.dimentions.width
         cdef int screen_base2=0
-        #screen_pos=self.theme.padding.left+x*self.font.width+fx+(self.theme.padding.top+fy+self.font.height*y)*self.viewport.dimentions.width
+        
                 
-        for fy in xrange(0,self.font.height):
-            screen_base2=screen_base+fy*self.viewport.dimentions.width
-            for fx in xrange(0,self.font.width):
-                screen_pos=screen_base2+fx
-                pixel=self.font.graphic[char_pos]
+        cdef int tw=(self.font.width*size)
+        cdef int th=int(self.font.height*size)
+        
+
+        for fy in xrange(0,th):
+            for fx in xrange(0,tw):
+                char_y=int((th/fy)*self.font.height*100)
+                char_x=int((tw/fw)*self.font.width*100)
+                pixel=self.font.graphic[charx+char_y*self.font.width]
                 if pixel==1:
+                    screen_pos=fx+x+(y+fy)*self.viewport.dimentions.width
                     self.viewport.data[screen_pos]=element[0]
-                #else:
-                #    if element[1]!=self.theme.transparent:
-                #        self.viewport.data[screen_pos]=element[1]
-                char_pos+=1
+
+                
 
 
 
