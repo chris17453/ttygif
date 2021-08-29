@@ -102,6 +102,7 @@ Theming is based on the idea of branding your work for display in project reposi
 - palettes are defined by themes
 - all layers are mapped to the theme palette
 - title rendering from cli argument, positioned by theme elements with font scaling
+- custom theme template -> [test.theme](docs/test.theme)
 
 ### shipped themes
 

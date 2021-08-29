@@ -108,6 +108,7 @@ pika-dark:
 	@python -m ttygif.cli --input ../ttygif-assets/cast/236096.cast --output ../ttygif-assets/encode/236096.gif --fps 12 --theme game
 	
 dodd:
-	@ttygif -i ../ttygif-assets/cast/dodd2.cast  -o ../ttygif-assets/encode/dodd.gif   --underlay ../ttygif-assets/src_gifs/blood_dragon.gif   --theme game --title "Lookin good Bro"
+	@ttygif -i ../ttygif-assets/cast/dodd2.cast  -o ../ttygif-assets/encode/dodd.gif   --underlay ../ttygif-assets/src_gifs/blood_dragon.gif   --theme game --title "Lookin good Bro" --font Wyse700b-2y
+
 
 c: build install  dodd
