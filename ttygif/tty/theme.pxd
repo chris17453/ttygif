@@ -5,7 +5,7 @@ from cpython cimport array
 from image cimport rect,image,point
 
 cdef class layer:
-    cdef int         z_index
+    cdef uint16_t    z_index
     cdef str         file
     cdef str         path
     cdef str         mode  
@@ -16,7 +16,7 @@ cdef class layer:
     cdef rect        dst
     cdef str         center
     cdef str         copy_mode
-    cdef int         transparent
+    cdef uint16_t    transparent
 
 
     cdef image       image
@@ -27,22 +27,22 @@ cdef class layer:
 
 cdef class theme:    
     cdef str         name
-    cdef int         title_x
-    cdef int         title_y
-    cdef int         title_foreground
-    cdef int         title_background
-    cdef int         title_font
+    cdef uint16_t    title_x
+    cdef uint16_t    title_y
+    cdef uint16_t    title_foreground
+    cdef uint16_t    title_background
+    cdef uint16_t    title_font
     cdef float       title_font_size
     cdef str         path
     cdef str         font
-    cdef int         width
-    cdef int         height
-    cdef int         background
-    cdef int         foreground
-    cdef int         default_background
-    cdef int         default_foreground
-    cdef int         transparent
-    cdef int         colors
+    cdef uint16_t    width
+    cdef uint16_t    height
+    cdef uint16_t    background
+    cdef uint16_t    foreground
+    cdef uint16_t    default_background
+    cdef uint16_t    default_foreground
+    cdef uint16_t    transparent
+    cdef uint16_t    colors
     cdef array.array palette
     cdef rect        padding
     cdef layer       layer1
