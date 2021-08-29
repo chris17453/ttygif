@@ -343,6 +343,7 @@ cdef class image:
     # tile 2,4,6,8
     # stretch 5 or omit...
     cdef copy_9slice(self,image dst_image,rect outer,rect inner,rect dst,int16_t transparent,str mode):
+
         cdef rect   src_1=rect(outer.left    ,outer.top     ,inner.left     ,inner.top)
         cdef rect   src_2=rect(inner.left+1  ,outer.top     ,inner.right-1  ,inner.top)
         cdef rect   src_3=rect(inner.right   ,outer.top     ,outer.right    ,inner.top)
@@ -353,6 +354,15 @@ cdef class image:
         cdef rect   src_8=rect(inner.left+1  ,inner.bottom  ,inner.right-1  ,outer.bottom)
         cdef rect   src_9=rect(inner.right   ,inner.bottom  ,outer.right    ,outer.bottom)
 
+        src1.debug();
+        src2.debug();
+        src3.debug();
+        src4.debug();
+        src5.debug();
+        src6.debug();
+        src7.debug();
+        src8.debug();
+        src9.debug();
         cdef rect   dst_outer=dst
         cdef rect   dst_inner=rect(dst.left+src_1.width-1,dst.top+src_1.height-1,dst.right-src_9.width+1,dst.bottom-src_9.height+1)
 
