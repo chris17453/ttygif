@@ -230,6 +230,29 @@ cdef class theme:
                     value='-1'
 
             else:
+                if section=='layer':
+                    if self.layer1==None:
+                        theme_layer.name="layer1"
+                        self.layer1=theme_layer
+                        print("NEW LAYER 1")
+
+                    elif self.layer2==None:
+                        theme_layer.name="layer2"
+                        self.layer2=theme_layer
+                        print("NEW LAYER 2")
+                    elif self.layer3==None:
+                        theme_layer.name="layer3"
+                        self.layer3=theme_layer
+                        print("NEW LAYER 3")
+                    elif self.layer4==None:
+                        theme_layer.name="layer4"
+                        self.layer4=theme_layer
+                        print("NEW LAYER 4")
+                    elif self.layer5==None:
+                        theme_layer.name="layer5"
+                        self.layer5=theme_layer
+                        print("NEW LAYER 5")
+        
                     #theme_layer=None
                 print ("in layer-> {0}".format(section))
                 section=key
@@ -274,7 +297,8 @@ cdef class theme:
                     self.padding.bottom=int(value)
 
             elif section=='layer':
-                if   key=='layer':
+                if  key=='layer':
+                    print("NEW LAYER")
                     theme_layer=layer()
                     theme_layer.path=self.path           
                 elif key=='depth':
@@ -340,23 +364,7 @@ cdef class theme:
                     self.palette[index+2]=c
                     index+=3
             
-            elif section=='layer':
-                if self.layer1==None:
-                    theme_layer.name="layer1"
-                    self.layer1=theme_layer
-                elif self.layer2==None:
-                    theme_layer.name="layer2"
-                    self.layer2=theme_layer
-                elif self.layer3==None:
-                    theme_layer.name="layer3"
-                    self.layer3=theme_layer
-                elif self.layer4==None:
-                    theme_layer.name="layer4"
-                    self.layer4=theme_layer
-                elif self.layer5==None:
-                    theme_layer.name="layer5"
-                    self.layer5=theme_layer
-    
+            
 
         if len(self.palette)==0:
             print("palette size {0}".format(len(self.palette)))
