@@ -156,7 +156,6 @@ cdef class cast2gif:
         g.create(width=dim.width,height=dim.height,filename=self.gif_file,palette=v.terminal_graphics.theme.palette)
 
         
-        print("\n");
 
 
         index=0
@@ -197,9 +196,9 @@ cdef class cast2gif:
 
         frames=int(seconds*self.frame_rate)
 
-        print("Frames Rate: {0}".format(self.frame_rate))
-        print("Frames: {0}".format(frames))
-        print("Seconds: {0}".format(seconds))
+        print(" - frames tate: {0}".format(self.frame_rate))
+        print(" - frames: {0}".format(frames))
+        print(" - seconds: {0}".format(seconds))
 
 
         # add attribute of status to event array
