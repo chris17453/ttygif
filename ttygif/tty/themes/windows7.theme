@@ -54,12 +54,12 @@ file             windows7-dialog.gif
 mode             9slice
 outer-left       0
 outer-top        1
-outer-right      630
+outer-right      634
 outer-bottom     302
 inner-left       7
 inner-top        31   
-inner-right      620
-inner-bottom     290
+inner-right      628
+inner-bottom     295
 dst-left         0
 dst-top          0
 dst-right        auto
