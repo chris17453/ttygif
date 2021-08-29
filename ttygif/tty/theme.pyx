@@ -51,9 +51,8 @@ cdef class layer:
         
         
         
-        gif_width=gif_raw['header']['ScreenWidth']
-        gif_height=gif_raw['header']['ScreenHeight']
-        
+        for item in gif_raw:
+            print(item)
 
         for frame in gif_raw['frames']:
             if frame['image']:
