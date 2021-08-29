@@ -46,17 +46,18 @@ cdef class layer:
 
         cdef image temp_image
         underlay_image=decode(path)
-        print(underlay_image)
         gif_raw=underlay_image.get()
         
         
         
+        print(gif_raw.header)
+
         for item in gif_raw:
             print(item)
 
         gif_height=10
         gif_width=10
-        
+
         for frame in gif_raw['frames']:
             if frame['image']:
                 attribs=frame['descriptor']
