@@ -56,15 +56,12 @@ cdef class layer:
         
         for frame in gif_raw['frames']:
             if frame['image']:
-                print("IN IMAGE")
                 attribs=frame['descriptor']
-                attribs.debug()
-                    
-
+                
                 # if not set auto set...
-                if self.outer.width==0 and self.outer.height==0 and self.outer.top==0 and self.outer.left==0 and self.outer.right==0 and self.outer.bottom==0:
+                if self.outer.top==0 and self.outer.left==0 and self.outer.right==0 and self.outer.bottom==0:
                     self.outer =rect(0,0,gif_width-1,gif_height-1)
-                if self.bounds.width==0 and self.bounds.height==0 and self.bounds.top==0 and self.bounds.left==0 and self.bounds.right==0 and self.bounds.bottom==0:
+                if self.bounds.top==0 and self.bounds.left==0 and self.bounds.right==0 and self.bounds.bottom==0:
                     self.bounds =rect(0,0,gif_width-1,gif_height-1)
         
                 self.image=image(1,attribs.Width,attribs.Height,array.array('B',gif_raw['global_color_table'].colors),clear_1)
