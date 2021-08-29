@@ -248,7 +248,7 @@ cdef class theme:
                     self.font=value
 
             if section=='title':
-                elif key=='x':
+                if   key=='x':
                     self.title_x=int(value)
                 elif key=='y':
                     self.title_y=int(value)
