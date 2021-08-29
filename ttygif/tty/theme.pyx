@@ -210,7 +210,7 @@ cdef class theme:
                 if os.path.exists(path)==False:
                     raise Exception("Invalid theme file")
   
-        print(" - Theme: {0}".format(self.name))
+        print(" - theme: {0}".format(self.name))
         theme_file=open(path) 
         theme_data=theme_file.readlines()
 
@@ -362,7 +362,6 @@ cdef class theme:
             
 
         if len(self.palette)==0:
-            print("palette size {0}".format(len(self.palette)))
             array.resize(self.palette,256*3)
 
             color_table=[  # 16 System Colors
