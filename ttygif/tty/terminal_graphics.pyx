@@ -195,6 +195,7 @@ cdef class terminal_graphics:
         cdef int th=int(self.font.height*size)
         cdef int char_x
         cdef int char_y
+        print ("tw:{0} th:{1} w:{2} h:{3}".format(tw,th,self.font.width,self.font.height)
 
         for fy in xrange(0,th):
             for fx in xrange(0,tw):
