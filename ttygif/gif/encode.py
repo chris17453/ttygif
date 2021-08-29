@@ -19,10 +19,11 @@ from .color_table import gif_color_table
 
 class encode_gif:
     def __init__(self,loop_count=0xFFFF,debug=None,auto=True):
-        self.stream  =None
-        self.header =None
-        self.global_color_table=None
-        self.loop_count=loop_count
+        self.stream                 =None
+        self.header                 =None
+        self.global_color_table     =None
+        self.loop_count             =loop_count
+        self.application_extension  =None
         self.frames  =[]
         self.debug   =debug
         self.auto    =auto
@@ -87,8 +88,9 @@ class encode_gif:
           self.application_extension.new_netscape_block(loop_count=self.loop_count)
         
         if self.auto:
-          self.application_extension.write()
-          if self.debug: self.application_extension.debug()
+          if self.application_extension!=None:
+            self.application_extension.write()
+            if self.debug: self.application_extension.debug()
         
         self.frames=[]
         
