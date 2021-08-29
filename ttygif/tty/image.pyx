@@ -312,7 +312,6 @@ cdef class image:
                 else: 
                     x3+=1 
 
-                print("{0},{1}".format(transparent,pixel))
                 if transparent== pixel:
                     continue
                 dst_image.put_pixel_1byte(x+dst.left,y+dst.top,pixel)
