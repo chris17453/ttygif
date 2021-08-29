@@ -3,7 +3,7 @@
 # cython: language_level=2
 
 from cpython cimport array
-from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
+from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t,int16_t
 
 
 # sets bounding paramaters for image transformations
