@@ -7,6 +7,14 @@ default_foreground 0
 
 transparent   0
 
+
+title
+foreground       16
+background       0
+x                70          
+y                5
+font_size        2
+
 # moves the screen by an offset, usefull for overlays
 # padding     begins the padding section
 # left        auto will pad based on 9 slice inner, otherwise 0
