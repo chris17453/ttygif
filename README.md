@@ -15,16 +15,16 @@ pip3 install ttygif --user
 ```
 
 ## What are the benifits 
-- pipe random stuff into beautifuly themed gifs
-- asciicast to gif.. E Z A F
+- pipe output into beautifuly themed gifs
+- asciicast to gif
 - perfect fit for CI/CD
 - it runs headless
 - it can be scripted
 - works with python 2 and 3
 - works on linux, mac, raspberry PI
-- its fast, and easy to install, no bullshit
+- its fast, and easy to install
 - it has themes
-- you can make your own bulshittery styled theme!
+- you can make custom themes!
 - you can add background images from the CLI
 
 
@@ -69,7 +69,7 @@ some random pics from the asciinema.org website, and my computer
 
 
 ## pipe
-![htop](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/encode/pipe.gif)
+![pipe](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/encode/pipe.gif)
 
 ## [Terminal ray tracing](https://asciinema.org/a/174524)
 ![asciicast-174524](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/encode/174524.gif)
