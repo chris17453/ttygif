@@ -51,7 +51,7 @@ padding
 left        10
 top         0
 right       10
-bottom      50
+bottom      55
 
 
 
@@ -131,9 +131,11 @@ outer-left       0
 outer-top        0
 outer-right      auto
 outer-bottom     auto
+inner-top        0
+inner-bottom     auto
 inner-left       170
 inner-right      -10
-copy-mode        tile
+copy-mode        scale
 
 
 dst-left         0
