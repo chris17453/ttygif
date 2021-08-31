@@ -126,27 +126,32 @@ cdef class theme:
         cdef int total_height=self.height-1+self.padding.top +self.padding.bottom
 
         # the source  rectangle's
-        if temp.outer.left   ==-1: temp.outer.left    =temp.image.dimentions.width  -1
-        if temp.outer.top    ==-1: temp.outer.top     =temp.image.dimentions.height -1
-        if temp.outer.right  ==-1: temp.outer.right   =temp.image.dimentions.width  -1
-        if temp.outer.bottom ==-1: temp.outer.bottom  =temp.image.dimentions.height -1
+        if temp.outer.left   <0: temp.outer.left    +=temp.image.dimentions.width 
+        if temp.outer.top    <0: temp.outer.top     +=temp.image.dimentions.height
+        if temp.outer.right  <0: temp.outer.right   +=temp.image.dimentions.width 
+        if temp.outer.bottom <0: temp.outer.bottom  +=temp.image.dimentions.height
 
-        if temp.inner.left   ==-1: temp.inner.left    =temp.outer.get_x_percent(33)
-        if temp.inner.top    ==-1: temp.inner.top     =temp.outer.get_y_percent(33)
-        if temp.inner.right  ==-1: temp.inner.right   =temp.outer.get_x_percent(66)
-        if temp.inner.bottom ==-1: temp.inner.bottom  =temp.outer.get_y_percent(33)
+        if temp.inner.left   <0: temp.inner.left    =temp.image.dimentions.width 
+        if temp.inner.top    <0: temp.inner.top     =temp.image.dimentions.height
+        if temp.inner.right  <0: temp.inner.right   =temp.image.dimentions.width 
+        if temp.inner.bottom <0: temp.inner.bottom  =temp.image.dimentions.height
 
         # the source  rectangle for COPY
-        if temp.bounds.left  ==-1: temp.bounds.left   +=temp.image.dimentions.width  -1
-        if temp.bounds.top   ==-1: temp.bounds.top    +=temp.image.dimentions.height -1
-        if temp.bounds.right ==-1: temp.bounds.right  +=temp.image.dimentions.width  -1
-        if temp.bounds.bottom==-1: temp.bounds.bottom +=temp.image.dimentions.height -1
+        if temp.bounds.left  <0: temp.bounds.left   +=temp.image.dimentions.width 
+        if temp.bounds.top   <0: temp.bounds.top    +=temp.image.dimentions.height
+        if temp.bounds.right <0: temp.bounds.right  +=temp.image.dimentions.width 
+        if temp.bounds.bottom<0: temp.bounds.bottom +=temp.image.dimentions.height
 
         # the destination rectangle
         if temp.dst.right     <0 : temp.dst.right     +=total_width
         if temp.dst.bottom    <0 : temp.dst.bottom    +=total_height
         if temp.dst.left      <0 : temp.dst.left      +=total_width
         if temp.dst.top       <0 : temp.dst.top       +=total_height
+
+#temp.outer.get_x_percent(33)
+#temp.outer.get_y_percent(33)
+#temp.outer.get_x_percent(66)
+#temp.outer.get_y_percent(33)
 
 
 #     |--------------|
