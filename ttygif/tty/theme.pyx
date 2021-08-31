@@ -131,10 +131,10 @@ cdef class theme:
         if temp.outer.right  <0: temp.outer.right   +=temp.image.dimentions.width 
         if temp.outer.bottom <0: temp.outer.bottom  +=temp.image.dimentions.height
 
-        if temp.inner.left   <0: temp.inner.left    =temp.image.dimentions.width 
-        if temp.inner.top    <0: temp.inner.top     =temp.image.dimentions.height
-        if temp.inner.right  <0: temp.inner.right   =temp.image.dimentions.width 
-        if temp.inner.bottom <0: temp.inner.bottom  =temp.image.dimentions.height
+        if temp.inner.left   <0: temp.inner.left    +=temp.image.dimentions.width 
+        if temp.inner.top    <0: temp.inner.top     +=temp.image.dimentions.height
+        if temp.inner.right  <0: temp.inner.right   +=temp.image.dimentions.width 
+        if temp.inner.bottom <0: temp.inner.bottom  +=temp.image.dimentions.height
 
         # the source  rectangle for COPY
         if temp.bounds.left  <0: temp.bounds.left   +=temp.image.dimentions.width 
