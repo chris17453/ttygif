@@ -139,7 +139,7 @@ copy-mode        tile
 
 
 dst-left         0
-dst-top          -50
+dst-top          -47
 dst-right        auto
 dst-bottom       auto
 

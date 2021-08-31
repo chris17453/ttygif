@@ -396,21 +396,7 @@ cdef class image:
         cdef rect   dst_3=rect(dst_inner.right   ,dst_outer.top     ,dst_outer.right    ,dst_outer.bottom)
 
         
-        
-        print ("src1")
-        src_1.debug()
-        print ("src2")
-        src_2.debug()
-        print ("src3")
-        src_3.debug()
-        
-
-        print ("dst1")
-        dst_1.debug()
-        print ("dst2")
-        dst_2.debug()
-        print ("dst3")
-        dst_3.debug()
+       
         self.copy     (dst_image,src_1, dst_1,transparent)
         self.copy     (dst_image,src_3, dst_3,transparent)
 
