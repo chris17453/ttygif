@@ -7,36 +7,37 @@ import re
 from libc.stdint cimport uint32_t, int64_t,uint16_t,uint8_t,int32_t
 import time
 
-  # cdef int NULL=0   #   Null character
-    # cdef int SOH=1    #   Start of Header
-    # cdef int STX=2    #   Start of Text
-    # cdef int ETX=3    #   End of Text
-    # cdef int EOT=4    #   End of Trans
-    # cdef int ENQ=5    #   Enquiry
-    # cdef int ACK=6    #   Acknowledgement
-    # cdef int BEL=7    #   Bell
-    # cdef int HT=9     #   Horizontal Tab
-    # cdef int VT=11     #   Vertical Tab
-    # cdef int FF=12     #   Form feed
-    # cdef int SO=14     #   Shift Out
-    # cdef int SI=15     #   Shift In
-    # cdef int DLE=16    #   Data link escape
-    # cdef int DC1=17    #   Device control 1
-    # cdef int DC2=18    #   Device control 2
-    # cdef int DC3=19    #   Device control 3
-    # cdef int DC4=20    #   Device control 4
-    # cdef int NAK=21    #   Negative acknowl.
-    # cdef int SYN=22    #   Synchronous idle
-    # cdef int ETB=23    #   End of trans. block
-    # cdef int CAN=24    #   Cancel
-    # cdef int EM=25     #   End of medium
-    # cdef int SUB=26    #   Substitute
-    # cdef int ESC=27    #   Escape
-    # cdef int FS=28     #   File separator
-    # cdef int GS=29     #   Group separator
-    # cdef int RS=30     #   Record separator
-    # cdef int US=31     #   Unit separator                    
-    
+# cdef int NULL=0   #   Null character
+# cdef int SOH=1    #   Start of Header
+# cdef int STX=2    #   Start of Text
+# cdef int ETX=3    #   End of Text
+# cdef int EOT=4    #   End of Trans
+# cdef int ENQ=5    #   Enquiry
+# cdef int ACK=6     #   Acknowledgement
+# cdef int BEL=7     #   Bell
+# cdef int HT=9      #   Horizontal Tab
+# cdef int VT=11     #   Vertical Tab
+# cdef int FF=12     #   Form feed
+# cdef int SO=14     #   Shift Out
+# cdef int SI=15     #   Shift In
+# cdef int DLE=16    #   Data link escape
+# cdef int DC1=17    #   Device control 1
+# cdef int DC2=18    #   Device control 2
+# cdef int DC3=19    #   Device control 3
+# cdef int DC4=20    #   Device control 4
+# cdef int NAK=21    #   Negative acknowl.
+# cdef int SYN=22    #   Synchronous idle
+# cdef int ETB=23    #   End of trans. block
+# cdef int CAN=24    #   Cancel
+# cdef int EM=25     #   End of medium
+# cdef int SUB=26    #   Substitute
+# cdef int ESC=27    #   Escape
+# cdef int FS=28     #   File separator
+# cdef int GS=29     #   Group separator
+# cdef int RS=30     #   Record separator
+# cdef int US=31     #   Unit separator
+
+
 # Reference
 # http://man7.org/linux/man-pages/man4/console_codes.4.html
 
