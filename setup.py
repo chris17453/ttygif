@@ -113,7 +113,6 @@ setup(
         'setuptools>=18.0',
         'wheel',
         'Cython',
-        'python-devel',
         'future',
     ],    
 
