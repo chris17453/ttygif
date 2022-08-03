@@ -12,6 +12,7 @@ It's a DIY terminal emulator that reads from STDIN or asciicast file to render t
 ## how do i get it!?
 ```bash
 ## requirements gcc, python development libs, cython
+yum install python-devel gcc
 pip3 install ttygif --user
 ```
 
