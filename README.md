@@ -1,6 +1,7 @@
 # ttygif
 
-A full featured text to gif conversion utility, that just works. It's in beta, so expect rough edges.
+A full featured text to gif conversion utility, that just works. It's in beta, so expect rough edges. 
+It's a DIY terminal emulator that reads from STDIN or asciicast file to render themed gif's with layers. Great for documentation and power point presentations.
 
 ## ttygif in action
 ![htop](https://raw.githubusercontent.com/chris17453/ttygif-assets/master/encode/htop.gif)
