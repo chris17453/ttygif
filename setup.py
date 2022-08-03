@@ -112,6 +112,7 @@ setup(
         # Setuptools 18.0 properly handles Cython extensions.
         'setuptools>=18.0',
         'cython',
+        'python-devel',
         'future',
     ],    
 
