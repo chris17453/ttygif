@@ -111,6 +111,7 @@ setup(
     install_requires=[
         # Setuptools 18.0 properly handles Cython extensions.
         'setuptools>=18.0',
+        'wheel',
         'cython',
         'python-devel',
         'future',
