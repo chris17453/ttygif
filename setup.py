@@ -93,8 +93,8 @@ setup(
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-    author='Charles Watkins',
-    author_email='chris17453@gmail.com',
+    author='Chris Watkins',
+    author_email='chris@watkinslabs.com',
     description='A asciicast to gif utility',
     ext_modules=extensions,
     classifiers=[
@@ -112,7 +112,7 @@ setup(
         # Setuptools 18.0 properly handles Cython extensions.
         'setuptools>=18.0',
         'wheel',
-        'cython',
+        'Cython',
         'python-devel',
         'future',
     ],    
