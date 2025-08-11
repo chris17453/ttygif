@@ -98,7 +98,6 @@ setup(
     description='A asciicast to gif utility',
     ext_modules=extensions,
     classifiers=[
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.7',
         "Development Status :: 3 - Alpha",
         "Operating System :: OS Independent",

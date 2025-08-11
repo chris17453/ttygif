@@ -78,7 +78,7 @@ upload:
 	@pipenv run twine upload  builds/pypi/*.gz
 
 install:
-	pip install . --user
+	pip install . 
 
 uninstall:
 	pip uninstall ttygif -y
