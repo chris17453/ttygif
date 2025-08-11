@@ -5,12 +5,8 @@ verify_ssl = true
 
 [packages]
 cython = "*"
-unittest2 = "*"
-builtins = "*"
-future = "*"
-
+setuptools = "*"
 
 [requires]
-
 
 [dev-packages]
