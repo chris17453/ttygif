@@ -1,2 +1,2 @@
 [build-system]
-requires = ["wheel", "Cython",'setuptools>=18.0','cython', 'future']
+requires = ["wheel", "Cython",'setuptools>=83.0.0','cython', 'future']
